@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useMemo, useRef, useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function Portfolio() {
@@ -8,7 +8,7 @@ export default function Portfolio() {
   const LOCATION = "Los Angeles, CA";
   const TAGLINE = "B.S./M.S. candidate in Mechanical Engineering — systems, data, and design";
 
-  const sections = [
+  const tabs = [
     { id: "experience", label: "Experience" },
     { id: "projects", label: "Projects" },
     { id: "extracurriculars", label: "Extracurriculars" },
@@ -50,35 +50,8 @@ export default function Portfolio() {
     { org: "NASA Volunteer at UC Davis", detail: "Generator teardown and efficiency comparisons." },
   ];
 
-  const [active, setActive] = useState("extracurriculars");
+  const [active, setActive] = useState("experience");
   const containerRef = useRef(null);
-
-  useEffect(() => {
-    const ids = sections.map(s => s.id);
-    const fromHash = typeof window !== "undefined" && window.location.hash.replace("#","");
-    if (ids.includes(fromHash)) setActive(fromHash);
-    const onHash = () => {
-      const h = window.location.hash.replace("#","");
-      if (ids.includes(h)) setActive(h);
-    };
-    window.addEventListener("hashchange", onHash);
-    const onKey = (e) => {
-      const i = ids.indexOf(active);
-      if (e.key === "ArrowRight") setActive(ids[(i + 1) % ids.length]);
-      if (e.key === "ArrowLeft") setActive(ids[(i - 1 + ids.length) % ids.length]);
-      if (["1","2","3","4"].includes(e.key)) setActive(ids[Number(e.key)-1]);
-    };
-    window.addEventListener("keydown", onKey);
-    return () => { window.removeEventListener("hashchange", onHash); window.removeEventListener("keydown", onKey); };
-  }, [active]);
-
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const current = window.location.hash.replace("#","");
-      if (current !== active) window.history.replaceState(null, "", `#${active}`);
-    }
-    document.getElementById(`${active}-heading`)?.focus();
-  }, [active]);
 
   useEffect(() => {
     const onMove = (e) => {
@@ -92,6 +65,18 @@ export default function Portfolio() {
     return () => el?.removeEventListener("mousemove", onMove);
   }, []);
 
+  useEffect(() => {
+    const ids = tabs.map(t => t.id);
+    const onKey = (e) => {
+      const i = ids.indexOf(active);
+      if (e.key === "ArrowRight") setActive(ids[(i + 1) % ids.length]);
+      if (e.key === "ArrowLeft") setActive(ids[(i - 1 + ids.length) % ids.length]);
+      if (["1","2","3","4"].includes(e.key)) setActive(ids[Number(e.key)-1]);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [active]);
+
   const counts = useMemo(() => ({
     experience: experience.length,
     projects: projects.length,
@@ -101,10 +86,88 @@ export default function Portfolio() {
 
   const variants = { initial: { opacity: 0, y: 8 }, animate: { opacity: 1, y: 0, transition: { duration: 0.25 } }, exit: { opacity: 0, y: -8, transition: { duration: 0.2 } } };
 
+  const Tilt = ({ children }) => (
+    <motion.div whileHover={{ y: -2, scale: 1.01 }} transition={{ type: "spring", stiffness: 320, damping: 24 }} className="relative rounded-2xl p-5 bg-white/5 ring-1 ring-white/10 overflow-hidden">
+      {children}
+    </motion.div>
+  );
+
+  const Section = () => {
+    switch (active) {
+      case "experience":
+        return (
+          <>
+            <h2 className="text-xl font-semibold mb-6">Experience</h2>
+            <ol className="relative border-s border-white/10 pl-6">
+              {experience.map((job, i) => (
+                <li key={i} className="mb-10 ms-4 group">
+                  <div className="absolute -start-1.5 mt-2.5 h-3 w-3 rounded-full bg-white shadow-[0_0_0_4px_rgba(255,255,255,0.08)]" />
+                  <div className="flex flex-wrap items-baseline gap-x-2">
+                    <h3 className="font-semibold group-hover:underline underline-offset-4 decoration-white/40">{job.role}</h3>
+                    <span className="text-neutral-400">• {job.company}</span>
+                  </div>
+                  <p className="text-sm text-neutral-400 mt-1">{job.period} • {job.location}</p>
+                  <ul className="mt-3 space-y-2 text-sm text-neutral-300 list-disc ps-5">
+                    {job.bullets.map((b, j) => (<li key={j}>{b}</li>))}
+                  </ul>
+                </li>
+              ))}
+            </ol>
+          </>
+        );
+      case "projects":
+        return (
+          <>
+            <h2 className="text-xl font-semibold mb-6">Projects</h2>
+            <div className="grid gap-6 md:grid-cols-3">
+              {projects.map((p, i) => (
+                <Tilt key={i}>
+                  <h3 className="font-semibold">{p.title}</h3>
+                  <p className="mt-2 text-sm text-neutral-300">{p.headline}</p>
+                  <div className="mt-3 flex flex-wrap gap-2 text-xs text-neutral-400">
+                    {p.meta.map((m, k) => (<span key={k} className="rounded-full px-2 py-1 bg-white/5 ring-1 ring-white/10">{m}</span>))}
+                  </div>
+                </Tilt>
+              ))}
+            </div>
+          </>
+        );
+      case "bio":
+        return (
+          <>
+            <h2 className="text-xl font-semibold mb-3">Biography</h2>
+            <div className="rounded-2xl p-6 ring-1 ring-white/10 bg-white/[0.02]">
+              <p className="text-neutral-300 leading-relaxed">
+                I am a Mechanical Engineering B.S./M.S. candidate at the University of California, Santa Barbara. My work spans systems design,
+                data-driven analysis, and hands-on prototyping — from EV racecar steering reliability to R&D testing and requirements dashboards.
+              </p>
+              <p className="text-neutral-300 leading-relaxed mt-4">
+                Outside of class and internships, I mentor younger students in STEAM and volunteer on engineering projects that advance practical problem-solving skills.
+              </p>
+            </div>
+          </>
+        );
+      default:
+        return (
+          <>
+            <h2 className="text-xl font-semibold mb-6">Extracurricular activities</h2>
+            <div className="grid gap-4 md:grid-cols-2">
+              {extracurriculars.map((x, i) => (
+                <Tilt key={i}>
+                  <h3 className="font-semibold">{x.org}</h3>
+                  <p className="mt-2 text-sm text-neutral-300">{x.detail}</p>
+                </Tilt>
+              ))}
+            </div>
+          </>
+        );
+    }
+  };
+
   return (
     <main
       ref={containerRef}
-      className="min-h-screen selection:bg-white selection:text-black relative"
+      className="min-h-screen selection:bg-white selection:text-black relative bg-blob"
       style={{
         backgroundColor: "#0a0a0a",
         color: "#fafafa",
@@ -114,24 +177,24 @@ export default function Portfolio() {
     >
       <header className="sticky top-0 z-40 backdrop-blur supports-[backdrop-filter]:bg-neutral-950/70 border-b border-white/10">
         <div className="mx-auto max-w-6xl px-4 py-3 flex items-center justify-between">
-          <a href="#" className="font-semibold tracking-tight">Antonius Chevillotte</a>
+          <a href="#" className="font-semibold tracking-tight focus-ring">{NAME}</a>
           <nav aria-label="Primary" role="tablist">
             <ul className="flex gap-2 text-sm rounded-xl p-1 ring-1 ring-white/10 bg-white/5">
-              {sections.map((s) => (
-                <li key={s.id}>
+              {tabs.map((t) => (
+                <li key={t.id}>
                   <button
+                    type="button"
                     role="tab"
-                    aria-selected={active === s.id}
-                    onClick={() => setActive(s.id)}
-                    className={`relative rounded-lg px-3 py-1.5 focus:outline-none ${active === s.id ? "text-black" : "text-neutral-200 hover:text-white"}`}
+                    aria-selected={active === t.id}
+                    onClick={() => setActive(t.id)}
+                    className={`relative rounded-lg px-3 py-1.5 focus-ring ${active === t.id ? "text-black" : "text-neutral-200 hover:text-white"}`}
                   >
-                    {active === s.id && (
-                      <motion.span layoutId="tab-bg" className="absolute inset-0 rounded-lg bg-white" transition={{ type: "spring", stiffness: 380, damping: 30 }} />
+                    {active === t.id && (
+                      <motion.span layoutId="tab-pill" className="absolute inset-0 rounded-lg bg-white" transition={{ type: "spring", stiffness: 380, damping: 30 }} />
                     )}
-                    <span className="relative z-10">
-                      {s.label}
-                      <span className={`ml-2 text-[10px] inline-flex items-center justify-center min-w-5 h-5 px-1 rounded-full ${active === s.id ? "bg-black/10" : "bg-white/10"}`}>
-                        {counts[s.id]}
+                    <span className="relative z-10">{t.label}
+                      <span className={`ml-2 text-[10px] inline-flex items-center justify-center min-w-5 h-5 px-1 rounded-full ${active === t.id ? "bg-black/10" : "bg-white/10"}`}>
+                        {counts[t.id]}
                       </span>
                     </span>
                   </button>
@@ -143,7 +206,7 @@ export default function Portfolio() {
       </header>
 
       <section className="mx-auto max-w-6xl px-4 pt-10 pb-4">
-        <h1 className="text-3xl md:text-5xl font-bold tracking-tight">Antonius Chevillotte</h1>
+        <h1 className="text-3xl md:text-5xl font-bold tracking-tight">{NAME}</h1>
         <p className="mt-3 text-neutral-300 max-w-2xl">{TAGLINE}</p>
         <div className="mt-6 flex flex-wrap items-center gap-3 text-sm">
           <a href={`mailto:${EMAIL}`} className="rounded-2xl bg-white text-black px-4 py-2 font-medium shadow-[0_10px_30px_-10px_rgba(0,0,0,0.4)]">Contact</a>
@@ -154,75 +217,9 @@ export default function Portfolio() {
 
       <section className="mx-auto max-w-6xl px-4 py-8">
         <AnimatePresence mode="wait">
-          {["experience","projects","extracurriculars","bio"].map((id) => (
-            active === id && (
-              <motion.div key={id} variants={variants} initial="initial" animate="animate" exit="exit">
-                {id === "experience" && (
-                  <>
-                    <h2 id="experience-heading" tabIndex={-1} className="text-xl font-semibold mb-6 outline-none">Experience</h2>
-                    <ol className="relative border-s border-white/10 pl-6">
-                      {experience.map((job, i) => (
-                        <li key={i} className="mb-10 ms-4 group">
-                          <div className="absolute -start-1.5 mt-2.5 h-3 w-3 rounded-full bg-white shadow-[0_0_0_4px_rgba(255,255,255,0.08)]" />
-                          <div className="flex flex-wrap items-baseline gap-x-2">
-                            <h3 className="font-semibold group-hover:underline underline-offset-4 decoration-white/40">{job.role}</h3>
-                            <span className="text-neutral-400">• {job.company}</span>
-                          </div>
-                          <p className="text-sm text-neutral-400 mt-1">{job.period} • {job.location}</p>
-                          <ul className="mt-3 space-y-2 text-sm text-neutral-300 list-disc ps-5">
-                            {job.bullets.map((b, j) => (<li key={j}>{b}</li>))}
-                          </ul>
-                        </li>
-                      ))}
-                    </ol>
-                  </>
-                )}
-                {id === "projects" && (
-                  <>
-                    <h2 id="projects-heading" tabIndex={-1} className="text-xl font-semibold mb-6 outline-none">Projects</h2>
-                    <div className="grid gap-6 md:grid-cols-3">
-                      {projects.map((p, i) => (
-                        <motion.article key={i} whileHover={{ y: -2 }} className="relative rounded-2xl p-5 bg-white/5 ring-1 ring-white/10 overflow-hidden">
-                          <h3 className="font-semibold">{p.title}</h3>
-                          <p className="mt-2 text-sm text-neutral-300">{p.headline}</p>
-                          <div className="mt-3 flex flex-wrap gap-2 text-xs text-neutral-400">
-                            {p.meta.map((m, k) => (<span key={k} className="rounded-full px-2 py-1 bg-white/5 ring-1 ring-white/10">{m}</span>))}
-                          </div>
-                        </motion.article>
-                      ))}
-                    </div>
-                  </>
-                )}
-                {id === "extracurriculars" && (
-                  <>
-                    <h2 id="extracurriculars-heading" tabIndex={-1} className="text-xl font-semibold mb-6 outline-none">Extracurricular activities</h2>
-                    <div className="grid gap-4 md:grid-cols-2">
-                      {extracurriculars.map((x, i) => (
-                        <motion.div key={i} whileHover={{ scale: 1.01 }} className="rounded-2xl p-5 bg-gradient-to-br from-white/5 to-white/[0.02] ring-1 ring-white/10">
-                          <h3 className="font-semibold">{x.org}</h3>
-                          <p className="mt-2 text-sm text-neutral-300">{x.detail}</p>
-                        </motion.div>
-                      ))}
-                    </div>
-                  </>
-                )}
-                {id === "bio" && (
-                  <>
-                    <h2 id="bio-heading" tabIndex={-1} className="text-xl font-semibold mb-3 outline-none">Biography</h2>
-                    <div className="rounded-2xl p-6 ring-1 ring-white/10 bg-white/[0.02]">
-                      <p className="text-neutral-300 leading-relaxed">
-                        I am a Mechanical Engineering B.S./M.S. candidate at the University of California, Santa Barbara. My work spans systems design,
-                        data-driven analysis, and hands-on prototyping — from EV racecar steering reliability to R&D testing and requirements dashboards.
-                      </p>
-                      <p className="text-neutral-300 leading-relaxed mt-4">
-                        Outside of class and internships, I mentor younger students in STEAM and volunteer on engineering projects that advance practical problem-solving skills.
-                      </p>
-                    </div>
-                  </>
-                )}
-              </motion.div>
-            )
-          ))}
+          <motion.div key={active} variants={variants} initial="initial" animate="animate" exit="exit">
+            <Section />
+          </motion.div>
         </AnimatePresence>
       </section>
 
@@ -230,7 +227,7 @@ export default function Portfolio() {
         <div className="mx-auto max-w-6xl px-4 py-10">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <div className="space-y-0.5">
-              <div className="font-semibold">Antonius Chevillotte</div>
+              <div className="font-semibold">{NAME}</div>
               <div className="text-sm text-neutral-400">{LOCATION} • <a className="underline" href={`mailto:${EMAIL}`}>{EMAIL}</a></div>
             </div>
             <div className="flex gap-4 text-sm">
@@ -239,7 +236,7 @@ export default function Portfolio() {
               <a className="underline opacity-80 hover:opacity-100" href="#">Google Scholar</a>
             </div>
           </div>
-          <p className="text-xs text-neutral-500 mt-6">© {new Date().getFullYear()} Antonius Chevillotte</p>
+          <p className="text-xs text-neutral-500 mt-6">© {new Date().getFullYear()} {NAME}</p>
         </div>
       </footer>
     </main>
