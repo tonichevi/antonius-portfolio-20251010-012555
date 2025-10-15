@@ -15,6 +15,18 @@ export default function Portfolio(){
   const LINKEDIN="https://www.linkedin.com/in/antoniuschevillotte/";
   const HEADLINE="Honors BS/MS @ UCSB | R&D Intern @ SaniSure | Research @ Dressaire Lab";
 
+  const [alias,setAlias]=useState(NAME);
+  const [clicks,setClicks]=useState(0);
+  const clickTimer=useRef(null);
+  const handleNameClick=()=>{ if(clickTimer.current) clearTimeout(clickTimer.current);
+    setClicks(c=>{
+      const n=c+1;
+      if(n>=3){ setAlias(a=>a==="67"?NAME:"67"); return 0; }
+      clickTimer.current=setTimeout(()=>setClicks(0),800);
+      return n;
+    });
+  };
+
   const tabs=[{id:"experience",label:"Experience"},{id:"projects",label:"Projects"},{id:"extracurriculars",label:"Extracurriculars"},{id:"bio",label:"Biography"}];
 
   const experience=[
@@ -67,24 +79,12 @@ export default function Portfolio(){
   ];
 
   const languages=["English — Native/Bilingual","German — Native/Bilingual","French — Elementary"];
-
-  const awards=[
-    { title:"6× Dean’s Honors List", issuer:"UC Davis & UCSB", date:"Dec 2024" },
-    { title:"AP Capstone Diploma", issuer:"College Board", date:"Jun 2021" },
-    { title:"Glendora Kiwanis Community Service Award", issuer:"Kiwanis International", date:"Jun 2021" },
-    { title:"Tartan Achievement Award", issuer:"Glendora High School", date:"Jun 2021" },
-  ];
-
-  const certs=[
-    { title:"Entrepreneurship Specialization", org:"The Wharton School", date:"Sep 2022" },
-    { title:"Oil & Gas Industry Operations and Markets", org:"Duke University", date:"Sep 2022" },
-    { title:"Statistics & R Specialization", org:"HarvardX (edX)", date:"Aug 2020" },
-  ];
+  const awards=[{title:"6× Dean’s Honors List",issuer:"UC Davis & UCSB",date:"Dec 2024"},{title:"AP Capstone Diploma",issuer:"College Board",date:"Jun 2021"},{title:"Glendora Kiwanis Community Service Award",issuer:"Kiwanis International",date:"Jun 2021"},{title:"Tartan Achievement Award",issuer:"Glendora High School",date:"Jun 2021"}];
+  const certs=[{title:"Entrepreneurship Specialization",org:"The Wharton School",date:"Sep 2022"},{title:"Oil & Gas Industry Operations and Markets",org:"Duke University",date:"Sep 2022"},{title:"Statistics & R Specialization",org:"HarvardX (edX)",date:"Aug 2020"}];
 
   const [active,setActive]=useState("experience");
   const counts=useMemo(()=>({experience:experience.length,projects:projects.length,extracurriculars:extracurriculars.length,bio:1}),[]);
   const variants={initial:{opacity:0,y:14},animate:{opacity:1,y:0,transition:{duration:.38,ease:"easeOut"}},exit:{opacity:0,y:-10,transition:{duration:.22}}};
-
   const Tilt=({children})=>(<motion.div whileHover={{y:-4,scale:1.02}} transition={{type:"spring",stiffness:360,damping:26}} className="gcard p-5 overflow-hidden">{children}</motion.div>);
 
   const Section=()=>{switch(active){
@@ -112,7 +112,7 @@ export default function Portfolio(){
     <main className="relative min-h-screen">
       <header className="sticky top-0 z-40 backdrop-blur supports-[backdrop-filter]:bg-[rgba(11,15,26,.6)] border-b border-white/20">
         <div className="mx-auto max-w-6xl px-4 py-3 flex items-center justify-between">
-          <a href={LINKEDIN} target="_blank" rel="noreferrer" className="font-semibold tracking-tight grad-text">Antonius Chevillotte</a>
+          <button type="button" onClick={handleNameClick} title="Triple-click for a surprise" className="font-semibold tracking-tight grad-text focus:outline-none">{alias}</button>
           <nav aria-label="Primary" role="tablist">
             <ul className="flex gap-2 text-sm rounded-xl p-1 ring-1 ring-white/20 bg-white/15">
               {tabs.map(t=>(
@@ -128,7 +128,7 @@ export default function Portfolio(){
       </header>
 
       <section className="mx-auto max-w-6xl px-4 pt-14 pb-8">
-        <h1 className="text-[clamp(30px,6vw,58px)] font-bold tracking-tight grad-text">Antonius (Toni) Chevillotte</h1>
+        <h1 onClick={handleNameClick} title="Triple-click for a surprise" className="text-[clamp(30px,6vw,58px)] font-bold tracking-tight grad-text cursor-pointer select-none">{alias}</h1>
         <p className="mt-3 text-white/95 max-w-2xl">{HEADLINE}</p>
         <div className="mt-6 flex flex-wrap items-center gap-3 text-sm">
           <a href={`mailto:${EMAIL}`} className="btn-grad rounded-2xl px-4 py-2 font-medium"><Magnetic>Contact</Magnetic></a>
