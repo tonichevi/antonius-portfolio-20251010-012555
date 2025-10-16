@@ -75,10 +75,10 @@ const LANGS=[
 
 function PillTabs({tab,setTab}){
   const items=[
-    {id:"experience",label:"Experience"},
+    {id:"bio",label:"Biography"},
     {id:"projects",label:"Projects"},
     {id:"extracurriculars",label:"Extracurriculars"},
-    {id:"bio",label:"Biography"},
+    {id:"experience",label:"Experience"},
   ];
   return (
     <ul className="flex gap-2 text-sm rounded-xl p-1 ring-1 ring-white/20 bg-white/10">
@@ -136,7 +136,8 @@ export default function Page(){
     return { top:sorted.slice(0,3), bottom:sorted.slice(3,6) };
   },[]);
 
-  const [tab,setTab]=useState("experience");
+  // Open on Biography and show reordered tabs
+  const [tab,setTab]=useState("bio");
   const [selected,setSelected]=useState(null);
   const details = EXPERIENCE.find(e=>e.id===selected);
 
@@ -179,63 +180,6 @@ export default function Page(){
         </section>
 
         <section className="max-w-6xl mx-auto px-4 py-6">
-          {tab==="experience" && (
-            <>
-              <h2 className="text-xl font-semibold mb-6">Experience</h2>
-              <div className="space-y-8">
-                <Row items={exp.top}    selected={selected} onSelect={setSelected}/>
-                <Row items={exp.bottom} selected={selected} onSelect={setSelected}/>
-              </div>
-              <AnimatePresence>
-                {details && (
-                  <motion.div key={details.id} initial={{opacity:0,y:10}} animate={{opacity:1,y:0}} exit={{opacity:0,y:-10}} transition={{duration:.25}} className="mt-10 border border-white/20 rounded-2xl p-6 bg-white/10">
-                    <div className="flex flex-wrap items-center justify-between gap-3">
-                      <div>
-                        <div className="font-semibold">{details.role} • {details.company}</div>
-                        <div className="text-sm opacity-90">{details.period} • {details.location}</div>
-                      </div>
-                      <button onClick={()=>setSelected(null)} className="text-sm px-3 py-1.5 rounded-lg ring-1 ring-white/25 bg-white/10 hover:bg-white/15">Close</button>
-                    </div>
-                    <ul className="mt-4 space-y-2 text-sm text-neutral-100 list-disc ps-5">
-                      {details.bullets.map((b,i)=>(<li key={i}>{b}</li>))}
-                    </ul>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </>
-          )}
-
-          {tab==="projects" && (
-            <>
-              <h2 className="text-xl font-semibold mb-6">Projects</h2>
-              <div className="grid gap-6 md:grid-cols-3">
-                {projects.map((p,i)=>(
-                  <div key={i} className="border border-white/20 rounded-2xl p-5 bg-white/10">
-                    <h3 className="font-semibold">{p.t}</h3>
-                    <p className="mt-2 text-sm text-neutral-100">{p.h}</p>
-                    <div className="mt-3 flex flex-wrap gap-2 text-xs">
-                      {p.m.map((m,k)=><span key={k} className="rounded-full px-2 py-1 bg-white/15 ring-1 ring-white/25">{m}</span>)}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </>
-          )}
-
-          {tab==="extracurriculars" && (
-            <>
-              <h2 className="text-xl font-semibold mb-6">Extracurricular activities</h2>
-              <div className="grid gap-4 md:grid-cols-2">
-                {extras.map((x,i)=>(
-                  <div key={i} className="border border-white/20 rounded-2xl p-5 bg-white/10">
-                    <h3 className="font-semibold">{x.o}</h3>
-                    <p className="mt-2 text-sm text-neutral-100">{x.d}</p>
-                  </div>
-                ))}
-              </div>
-            </>
-          )}
-
           {tab==="bio" && (
             <>
               <h2 className="text-xl font-semibold mb-6">Biography</h2>
@@ -289,9 +233,73 @@ export default function Page(){
               </div>
             </>
           )}
+
+          {tab==="projects" && (
+            <>
+              <h2 className="text-xl font-semibold mb-6">Projects</h2>
+              <div className="grid gap-6 md:grid-cols-3">
+                {[
+                  {t:"FSAE Steering Reliability (URCA)",h:"Reliability-first steering study for EV racecar; improved robustness & serviceability.",m:["UCSB Formula SAE","Spring 2025"]},
+                  {t:"Design-to-Failure + Redesign",h:"Structured teardown testing and defect taxonomy to inform R&D decisions.",m:["SaniSure","2025"]},
+                  {t:"Requirements KPIs & Dashboards",h:"Power BI metrics pipeline increasing visibility and accountability.",m:["AUDI AG","2024"]},
+                ].map((p,i)=>(
+                  <div key={i} className="border border-white/20 rounded-2xl p-5 bg-white/10">
+                    <h3 className="font-semibold">{p.t}</h3>
+                    <p className="mt-2 text-sm text-neutral-100">{p.h}</p>
+                    <div className="mt-3 flex flex-wrap gap-2 text-xs">
+                      {p.m.map((m,k)=><span key={k} className="rounded-full px-2 py-1 bg-white/15 ring-1 ring-white/25">{m}</span>)}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </>
+          )}
+
+          {tab==="extracurriculars" && (
+            <>
+              <h2 className="text-xl font-semibold mb-6">Extracurricular activities</h2>
+              <div className="grid gap-4 md:grid-cols-2">
+                {[
+                  {o:"UCSB Formula SAE",d:"EV racecar design & build; extensive CAD; steering project focus."},
+                  {o:"Elementary School STEAM Volunteer",d:"Hands-on science and engineering sessions for 6th-grade students."},
+                  {o:"NASA Volunteer at UC Davis",d:"Generator teardown and efficiency comparisons."},
+                ].map((x,i)=>(
+                  <div key={i} className="border border-white/20 rounded-2xl p-5 bg-white/10">
+                    <h3 className="font-semibold">{x.o}</h3>
+                    <p className="mt-2 text-sm text-neutral-100">{x.d}</p>
+                  </div>
+                ))}
+              </div>
+            </>
+          )}
+
+          {tab==="experience" && (
+            <>
+              <h2 className="text-xl font-semibold mb-6">Experience</h2>
+              <div className="space-y-8">
+                <Row items={exp.top}    selected={selected} onSelect={setSelected}/>
+                <Row items={exp.bottom} selected={selected} onSelect={setSelected}/>
+              </div>
+              <AnimatePresence>
+                {details && (
+                  <motion.div key={details.id} initial={{opacity:0,y:10}} animate={{opacity:1,y:0}} exit={{opacity:0,y:-10}} transition={{duration:.25}} className="mt-10 border border-white/20 rounded-2xl p-6 bg-white/10">
+                    <div className="flex flex-wrap items-center justify-between gap-3">
+                      <div>
+                        <div className="font-semibold">{details.role} • {details.company}</div>
+                        <div className="text-sm opacity-90">{details.period} • {details.location}</div>
+                      </div>
+                      <button onClick={()=>setSelected(null)} className="text-sm px-3 py-1.5 rounded-lg ring-1 ring-white/25 bg-white/10 hover:bg-white/15">Close</button>
+                    </div>
+                    <ul className="mt-4 space-y-2 text-sm text-neutral-100 list-disc ps-5">
+                      {details.bullets.map((b,i)=>(<li key={i}>{b}</li>))}
+                    </ul>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </>
+          )}
         </section>
-      <script src="/glow.js"></script>
-</main>
+      </main>
 
       <style jsx global>{`
         :root { color-scheme: dark; }
