@@ -2,24 +2,13 @@
 import { useMemo, useRef, useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-function Starfield(){
-  const c=useRef(null);
-  useEffect(()=>{
-    const el=c.current; if(!el) return;
-    const ctx=el.getContext("2d",{alpha:false});
-    let w=el.width=window.innerWidth, h=el.height=window.innerHeight;
-    const dpr=Math.min(2,window.devicePixelRatio||1);
-    el.width=w*dpr; el.height=h*dpr; ctx.scale(dpr,dpr);
-    const N=Math.min(260,Math.floor(w*h/10000));
-    const stars=Array.from({length:N},()=>({x:Math.random()*w,y:Math.random()*h,vx:(Math.random()-.5)*.12,vy:(Math.random()-.5)*.12,r:.7+Math.random()*1.3,a:.5+.5*Math.random()}));
-    let raf; const loop=()=>{ctx.fillStyle="#0b0f1a";ctx.fillRect(0,0,w,h);for(const s of stars){s.x+=s.vx;s.y+=s.vy;if(s.x<-2)s.x=w+2;if(s.x>w+2)s.x=-2;if(s.y<-2)s.y=h+2;if(s.y>h+2)s.y=-2;ctx.beginPath();ctx.fillStyle=`rgba(124,249,255,${s.a})`;ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fill()}raf=requestAnimationFrame(loop)};raf=requestAnimationFrame(loop);
-    const onR=()=>{w=window.innerWidth;h=window.innerHeight;el.width=w*dpr;el.height=h*dpr;ctx.scale(dpr,dpr)};window.addEventListener("resize",onR);
-    return()=>{cancelAnimationFrame(raf);window.removeEventListener("resize",onR)}
-  },[]);
-  return <canvas ref={c} className="fixed inset-0 -z-10"/>;
+/* ---------- Blueprint background (no mouse effects) ---------- */
+function BlueprintBG() {
+  return <div className="fixed inset-0 -z-10 blueprint" />;
 }
 
-const EXPERIENCE=[
+/* ---------- Data ---------- */
+const EXPERIENCE = [
   { id:"dressaire", role:"Fluid Dynamics Researcher", company:"Dressaire Lab", period:"Oct 2025 – Present", start:"2025-10-01", location:"UCSB · Hybrid", bullets:[
     "Studying effects and applications of capillary bridges in soft gels.",
     "Designing and building an instrumented fixture to quantify wetting (contact angle, hysteresis) and capillary adhesion (pull-off force, force–separation curves)."
@@ -35,7 +24,7 @@ const EXPERIENCE=[
     "Collaborated on specifications for planned automotive vehicles with a ~30-engineer cross-functional team."
   ]},
   { id:"ucd-research", role:"Research Assistant", company:"UC Davis — College of Engineering", period:"Jan 2023 – Jun 2023", start:"2023-01-01", location:"Davis, CA · On-site", bullets:[
-    "Under guidance of Dr. Richard Scalettar and a Distinguished Professor.",
+    "Worked with Dr. Richard Scalettar’s group.",
     "C programs to simulate projectile motion; parameter sweeps and validation."
   ]},
   { id:"ucd-tutor", role:"Calculus Tutor", company:"UC Davis", period:"Sep 2022 – Jun 2023", start:"2022-09-01", location:"Davis, CA · On-site", bullets:[
@@ -44,48 +33,60 @@ const EXPERIENCE=[
   ]},
   { id:"fruitfully", role:"Vice President", company:"Fruitfully Yours", period:"Jun 2018 – Jun 2021", start:"2018-06-01", location:"Glendora, CA · On-site", bullets:[
     "Co-founded nonprofit reducing food waste via fruit rescue.",
-    "County of Los Angeles Humanitarian Award; 80k+ lbs fruit, 70k+ people helped."
+    "LA County Humanitarian Award; 80k+ lbs fruit, 70k+ people helped."
   ]},
 ];
 
-const EDUCATION=[
+const EDUCATION = [
   { school:"UC Santa Barbara", line:"BS/MS Mechanical Engineering", time:"Jun 2023 – Jun 2027", extras:["Honors College","Tau Beta Pi","Formula SAE Racing Club"], gpa:"3.82" },
   { school:"University of California, Davis", line:"B.S. Mechanical Engineering", time:"Sep 2021 – Jun 2023", extras:["Tau Beta Pi Engineering Honor Society","Student Alumni Association","CAAA Leadership Scholar"], gpa:"3.82/4.00" },
-  { school:"Glendora High School", line:"High School Diploma", time:"Aug 2017 – Jun 2021", extras:["National Honors Society","Fruitfully Yours (FLY)","LEO Club","Varsity Tennis — 4-Time Student of the Semester"], gpa:"4.69/4.00 (Top 2%)" },
+  { school:"Glendora High School", line:"High School Diploma", time:"Aug 2017 – Jun 2021", extras:["National Honors Society","Fruitfully Yours (FLY)","LEO Club","Varsity Tennis — 4× Student of the Semester"], gpa:"4.69/4.00 (Top 2%)" },
 ];
 
-const HONORS=[
+const HONORS = [
   "6× Dean’s Honors List (UC Davis & UCSB, Dec 2024).",
   "AP Capstone Diploma (Jun 2021).",
   "Glendora Kiwanis Community Service Award (Jun 2021).",
   "Tartan Achievement Award (Jun 2021).",
 ];
 
-const CERTS=[
+const CERTS = [
   "Entrepreneurship Specialization — The Wharton School (Sep 2022).",
   "Oil & Gas Industry Operations and Markets — Duke University (Sep 2022).",
   "Statistics & R Specialization — HarvardX (Aug 2020).",
 ];
 
-const LANGS=[
+const LANGS = [
   "English — Native or bilingual proficiency",
   "German — Native or bilingual proficiency",
   "French — Elementary proficiency",
 ];
 
-function PillTabs({tab,setTab}){
-  const items=[
-    {id:"bio",label:"Biography"},
-    {id:"projects",label:"Projects"},
-    {id:"extracurriculars",label:"Extracurriculars"},
-    {id:"experience",label:"Experience"},
+/* ---------- UI bits ---------- */
+function TabChips({ tab, setTab }) {
+  const items = [
+    { id:"bio", label:"Biography" },
+    { id:"projects", label:"Projects" },
+    { id:"extracurriculars", label:"Extracurriculars" },
+    { id:"experience", label:"Experience" },
   ];
   return (
-    <ul className="flex gap-2 text-sm rounded-xl p-1 ring-1 ring-white/20 bg-white/10">
+    <ul className="flex gap-2 rounded-xl p-1 ring-1 ring-white/15 bg-white/5">
       {items.map(it=>(
         <li key={it.id}>
-          <button onClick={()=>setTab(it.id)} className={`relative rounded-lg px-3 py-1.5 ${tab===it.id?"text-[#0b0f1a]":"text-white/90 hover:text-white"}`}>
-            {tab===it.id && <motion.span layoutId="pill" className="absolute inset-0 rounded-lg bg-gradient-to-r from-[#7cf9ff] to-[#9e7bff]" />}
+          <button
+            onClick={()=>setTab(it.id)}
+            className={`relative rounded-lg px-3 py-1.5 text-sm transition-colors ${
+              tab===it.id ? "chip-active" : "text-white/85 hover:text-white"
+            }`}
+          >
+            {tab===it.id && (
+              <motion.span
+                layoutId="chip"
+                className="absolute inset-0 rounded-lg"
+                style={{background:"linear-gradient(90deg,#7cf9ff,#9e7bff)"}}
+              />
+            )}
             <span className="relative">{it.label}</span>
           </button>
         </li>
@@ -94,40 +95,61 @@ function PillTabs({tab,setTab}){
   );
 }
 
-function Porthole({item,selected,onSelect}){
+function Panel({ className="", children }) {
+  return (
+    <div className={`panel relative rounded-2xl p-6 ${className}`}>
+      <div className="pointer-events-none absolute inset-0 rounded-2xl ring-1 ring-white/10" />
+      {children}
+    </div>
+  );
+}
+
+function Porthole({ item, selected, onSelect }) {
   return (
     <div className="relative flex flex-col items-center w-[168px] md:w-[200px]">
-      <div className="relative size-[168px] md:size-[200px] rounded-full overflow-hidden ring-2 ring-white/30 bg-[radial-gradient(120%_120%_at_30%_20%,rgba(255,255,255,.25),rgba(20,30,45,.75)_60%,rgba(0,0,0,.9))] flex items-center justify-center text-center px-3">
+      <div className="relative size-[168px] md:size-[200px] rounded-full overflow-hidden ring-2 ring-cyan-200/30 bg-[radial-gradient(120%_120%_at_30%_20%,rgba(255,255,255,.22),rgba(16,24,40,.78)_60%,rgba(0,0,0,.9))] flex items-center justify-center text-center px-3 shadow-[0_8px_24px_rgba(0,0,0,0.35)]">
         <div>
           <div className="text-[12px] md:text-sm font-semibold leading-tight">{item.role}</div>
           <div className="text-[11px] md:text-xs opacity-90 mt-0.5">{item.location}</div>
           <div className="mt-1 text-[10px] md:text-[11px] opacity-80">{item.period}</div>
         </div>
       </div>
-      <button onClick={()=>onSelect(selected?null:item.id)} aria-pressed={selected} className="mt-3 relative h-5 w-5 rounded-full ring-2 ring-white/35 bg-white/10 hover:ring-white/60 focus:outline-none focus:ring-white/80">
-        <motion.span className="absolute inset-[3px] rounded-full bg-gradient-to-r from-[#7cf9ff] to-[#9e7bff]" animate={{scale:selected?1:0, opacity:selected?1:0}} transition={{type:"spring", stiffness:500, damping:30}}/>
-        <span className="sr-only">{selected?"Deselect":"Select"} {item.role}</span>
+      <button
+        onClick={()=>onSelect(selected?null:item.id)}
+        aria-pressed={selected}
+        className="mt-3 relative h-5 w-5 rounded-full ring-2 ring-white/30 bg-white/10 hover:ring-white/60 focus:outline-none"
+        title={selected ? "Hide details" : "Show details"}
+      >
+        <motion.span
+          className="absolute inset-[3px] rounded-full"
+          style={{background:"linear-gradient(90deg,#7cf9ff,#9e7bff)"}}
+          animate={{scale:selected?1:0, opacity:selected?1:0}}
+          transition={{type:"spring", stiffness:500, damping:30}}
+        />
       </button>
       <div className="mt-2 text-xs opacity-85">{item.company}</div>
     </div>
   );
 }
 
-function Row({items,selected,onSelect}){
+function Row({ items, selected, onSelect }) {
   return (
-    <div className="flex items-center gap-4 md:gap-6 w-full">
+    <div className="flex items-center gap-5 md:gap-8 w-full">
       {items.map((it,i)=>(
-        <div key={it.id} className="flex items-center gap-4 md:gap-6 flex-1">
+        <div key={it.id} className="flex items-center gap-5 md:gap-8 flex-1">
           <Porthole item={it} selected={selected===it.id} onSelect={onSelect}/>
-          {i!==items.length-1 && <div className="h-[2px] md:h-[3px] flex-1 rounded-full bg-[linear-gradient(90deg,rgba(124,249,255,.0),rgba(124,249,255,.7),rgba(124,249,255,.0))]"/>}
+          {i!==items.length-1 && (
+            <div className="h-[2px] md:h-[3px] flex-1 rounded-full bg-[linear-gradient(90deg,rgba(124,249,255,0),rgba(124,249,255,.7),rgba(124,249,255,0))]" />
+          )}
         </div>
       ))}
     </div>
   );
 }
 
-export default function Page(){
-  const NAME="Antonius (Toni) Chevillotte";
+/* ---------- Page ---------- */
+export default function Page() {
+  const NAME = "Antonius (Toni) Chevillotte";
   const [alias,setAlias]=useState(NAME), [clicks,setClicks]=useState(0); const tRef=useRef(null);
   const onName=()=>{ if(tRef.current) clearTimeout(tRef.current); setClicks(c=>{const n=c+1; if(n>=3){setAlias(a=>a==="67"?NAME:"67"); return 0;} tRef.current=setTimeout(()=>setClicks(0),800); return n;}); };
 
@@ -136,7 +158,6 @@ export default function Page(){
     return { top:sorted.slice(0,3), bottom:sorted.slice(3,6) };
   },[]);
 
-  // Open on Biography and show reordered tabs
   const [tab,setTab]=useState("bio");
   const [selected,setSelected]=useState(null);
   const details = EXPERIENCE.find(e=>e.id===selected);
@@ -148,13 +169,13 @@ export default function Page(){
   ];
   const extras=[
     {o:"UCSB Formula SAE",d:"EV racecar design & build; extensive CAD; steering project focus."},
-    {o:"Elementary School STEAM Volunteer",d:"Hands-on science and engineering sessions for 6th-grade students."},
+    {o:"Elementary School STEAM Volunteer",d:"Hands-on science & engineering sessions for 6th-grade students."},
     {o:"NASA Volunteer at UC Davis",d:"Generator teardown and efficiency comparisons."},
   ];
 
   const bioPic="/headshot.jpg";
   const BioAvatar=()=>(
-    <div className="relative size-28 md:size-32 rounded-full ring-2 ring-white/30 overflow-hidden bg-white/10 flex items-center justify-center">
+    <div className="relative size-28 md:size-32 rounded-full overflow-hidden ring-2 ring-white/20 bg-white/10 grid place-items-center">
       <img src={bioPic} alt="Antonius Chevillotte headshot" className="h-full w-full object-cover" onError={(e)=>{e.currentTarget.style.display="none";}}/>
       <span className="absolute inset-0 grid place-items-center text-3xl font-semibold bg-white/5">AC</span>
     </div>
@@ -162,137 +183,141 @@ export default function Page(){
 
   return (
     <>
-      <Starfield/>
+      <BlueprintBG />
       <main className="relative min-h-screen text-white">
-        <header className="sticky top-0 z-40 backdrop-blur border-b border-white/20 bg-black/30">
-          <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
-            <button onClick={onName} className="font-semibold tracking-tight bg-gradient-to-r from-[#7cf9ff] to-[#9e7bff] bg-clip-text text-transparent">{alias}</button>
-            <PillTabs tab={tab} setTab={setTab}/>
+        {/* Top bar */}
+        <header className="sticky top-0 z-40 border-b border-white/10 bg-black/40 backdrop-blur">
+          <div className="max-w-6xl mx-auto px-4 py-3 flex items-center gap-3 justify-between">
+            <div className="flex items-center gap-3">
+              <div className="size-7 rounded-md bg-white/10 ring-1 ring-white/10 grid place-items-center">
+                {/* tiny “cog” icon */}
+                <svg width="16" height="16" viewBox="0 0 24 24" className="opacity-80"><path fill="currentColor" d="M12 8a4 4 0 1 1 0 8a4 4 0 0 1 0-8m9.4 4a7.5 7.5 0 0 0-.3-1.7l2-1.6l-2-3.4l-2.4 1a7.6 7.6 0 0 0-1.5-.9l-.4-2.6H8.2l-.4 2.6a7.6 7.6 0 0 0-1.5.9L3.9 3.3L2 6.7l2 1.6a7.5 7.5 0 0 0-.3 1.7c0 .6.1 1.2.3 1.7L2 13.7l2 3.4l2.4-1c.5.4 1 .7 1.5.9l.4 2.6h7.2l.4-2.6c.5-.2 1-.5 1.5-.9l2.4 1l2-3.4l-2.1-1.7c.2-.5.3-1.1.3-1.7Z"/></svg>
+              </div>
+              <button onClick={onName} className="font-semibold tracking-tight bg-gradient-to-r from-[#7cf9ff] to-[#9e7bff] bg-clip-text text-transparent">{alias}</button>
+            </div>
+            <TabChips tab={tab} setTab={setTab}/>
           </div>
         </header>
 
-        <section className="max-w-6xl mx-auto px-4 pt-12 pb-6">
-          <h1 onClick={onName} className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-[#7cf9ff] to-[#9e7bff] bg-clip-text text-transparent cursor-pointer select-none">
-            {alias}
+        {/* Lead section */}
+        <section className="max-w-6xl mx-auto px-4 pt-12 pb-4">
+          <h1 className="text-4xl md:text-5xl font-bold tracking-tight">
+            <span className="bg-gradient-to-r from-[#7cf9ff] to-[#9e7bff] bg-clip-text text-transparent">
+              {tab==="bio"?"Biography":tab==="projects"?"Projects":tab==="extracurriculars"?"Extracurriculars":"Experience"}
+            </span>
           </h1>
-          <p className="mt-3 text-white/95 max-w-2xl">Honors BS/MS @ UCSB • R&D Intern @ SaniSure • Research @ Dressaire Lab</p>
-          <div className="mt-2 text-sm text-white/80">Los Angeles, CA</div>
+          <p className="mt-2 text-white/80 max-w-2xl">Mechanical engineering • systems, data, and design.</p>
         </section>
 
-        <section className="max-w-6xl mx-auto px-4 py-6">
+        {/* Content */}
+        <section className="max-w-6xl mx-auto px-4 py-6 space-y-10">
           {tab==="bio" && (
             <>
-              <h2 className="text-xl font-semibold mb-6">Biography</h2>
               <div className="grid gap-6 md:grid-cols-3">
-                <div className="md:col-span-1 border border-white/20 rounded-2xl p-6 bg-white/10 flex flex-col items-center text-center">
+                <Panel className="md:col-span-1 text-center">
                   <BioAvatar/>
                   <div className="mt-4 font-semibold">{NAME}</div>
-                  <div className="text-sm text-white/90">Honors BS/MS · Mechanical Engineering, UCSB</div>
-                  <div className="mt-1 text-xs text-white/75">Los Angeles, CA</div>
-                </div>
+                  <div className="text-sm text-white/85">Honors BS/MS · Mechanical Engineering, UCSB</div>
+                  <div className="mt-1 text-xs text-white/70">Los Angeles, CA</div>
+                </Panel>
 
-                <div className="md:col-span-2 border border-white/20 rounded-2xl p-6 bg-white/10">
+                <Panel className="md:col-span-2">
                   <p className="text-sm leading-6 text-neutral-100">
-                    I am an aspiring mechanical engineer focused on systems, data, and design. I study in the BS/MS
-                    program at UC Santa Barbara while working at the intersection of experimental methods, modeling,
-                    and practical product development. Recent work spans fluid dynamics of soft materials at Dressaire Lab,
-                    R&D and reliability at SaniSure, and KPI/requirements analytics at AUDI AG.
+                    I’m an aspiring mechanical engineer focused on practical systems,
+                    experimental methods, and data-driven design. Recent work spans fluid
+                    dynamics of soft materials (Dressaire Lab), reliability & R&D at SaniSure,
+                    and KPI/requirements analytics at AUDI AG.
                   </p>
                   <div className="mt-4 flex flex-wrap gap-2 text-xs">
-                    <span className="rounded-full px-2 py-1 bg-white/15 ring-1 ring-white/25">Fluid Dynamics</span>
-                    <span className="rounded-full px-2 py-1 bg-white/15 ring-1 ring-white/25">R&D</span>
-                    <span className="rounded-full px-2 py-1 bg-white/15 ring-1 ring-white/25">Data & KPIs</span>
-                    <span className="rounded-full px-2 py-1 bg-white/15 ring-1 ring-white/25">Reliability</span>
+                    {["Fluid Dynamics","Reliability","R&D","Data & KPIs","Prototyping"].map(t=>(
+                      <span key={t} className="rounded-full px-2 py-1 bg-white/10 ring-1 ring-white/15">{t}</span>
+                    ))}
                   </div>
-                </div>
+                </Panel>
               </div>
 
-              <div className="mt-6 grid gap-6 md:grid-cols-2">
-                <div className="border border-white/20 rounded-2xl p-6 bg-white/10">
+              <div className="grid gap-6 md:grid-cols-2">
+                <Panel>
                   <h3 className="font-semibold">Education</h3>
                   <ul className="mt-3 space-y-3 text-sm">
                     {EDUCATION.map((e,i)=>(
                       <li key={i}>
                         <div className="font-medium">{e.school}</div>
                         <div className="text-white/90">{e.line}</div>
-                        <div className="text-white/75 text-xs">{e.time}{e.gpa?` · GPA: ${e.gpa}`:""}</div>
-                        <div className="mt-1 text-xs text-white/80">{e.extras.join(" • ")}</div>
+                        <div className="text-white/70 text-xs">{e.time}{e.gpa?` · GPA: ${e.gpa}`:""}</div>
+                        <div className="mt-1 text-xs text-white/75">{e.extras.join(" • ")}</div>
                       </li>
                     ))}
                   </ul>
-                </div>
+                </Panel>
 
-                <div className="border border-white/20 rounded-2xl p-6 bg-white/10">
+                <Panel>
                   <h3 className="font-semibold">Languages</h3>
                   <ul className="mt-3 list-disc ps-5 text-sm text-neutral-100">{LANGS.map((l,i)=><li key={i}>{l}</li>)}</ul>
                   <h3 className="font-semibold mt-6">Honors & Awards</h3>
                   <ul className="mt-3 list-disc ps-5 text-sm text-neutral-100">{HONORS.map((h,i)=><li key={i}>{h}</li>)}</ul>
                   <h3 className="font-semibold mt-6">Licenses & Certifications</h3>
                   <ul className="mt-3 list-disc ps-5 text-sm text-neutral-100">{CERTS.map((c,i)=><li key={i}>{c}</li>)}</ul>
-                </div>
+                </Panel>
               </div>
             </>
           )}
 
           {tab==="projects" && (
             <>
-              <h2 className="text-xl font-semibold mb-6">Projects</h2>
               <div className="grid gap-6 md:grid-cols-3">
-                {[
-                  {t:"FSAE Steering Reliability (URCA)",h:"Reliability-first steering study for EV racecar; improved robustness & serviceability.",m:["UCSB Formula SAE","Spring 2025"]},
-                  {t:"Design-to-Failure + Redesign",h:"Structured teardown testing and defect taxonomy to inform R&D decisions.",m:["SaniSure","2025"]},
-                  {t:"Requirements KPIs & Dashboards",h:"Power BI metrics pipeline increasing visibility and accountability.",m:["AUDI AG","2024"]},
-                ].map((p,i)=>(
-                  <div key={i} className="border border-white/20 rounded-2xl p-5 bg-white/10">
+                {projects.map((p,i)=>(
+                  <Panel key={i}>
                     <h3 className="font-semibold">{p.t}</h3>
                     <p className="mt-2 text-sm text-neutral-100">{p.h}</p>
                     <div className="mt-3 flex flex-wrap gap-2 text-xs">
-                      {p.m.map((m,k)=><span key={k} className="rounded-full px-2 py-1 bg-white/15 ring-1 ring-white/25">{m}</span>)}
+                      {p.m.map((m,k)=><span key={k} className="rounded-full px-2 py-1 bg-white/10 ring-1 ring-white/15">{m}</span>)}
                     </div>
-                  </div>
+                  </Panel>
                 ))}
               </div>
             </>
           )}
 
           {tab==="extracurriculars" && (
-            <>
-              <h2 className="text-xl font-semibold mb-6">Extracurricular activities</h2>
-              <div className="grid gap-4 md:grid-cols-2">
-                {[
-                  {o:"UCSB Formula SAE",d:"EV racecar design & build; extensive CAD; steering project focus."},
-                  {o:"Elementary School STEAM Volunteer",d:"Hands-on science and engineering sessions for 6th-grade students."},
-                  {o:"NASA Volunteer at UC Davis",d:"Generator teardown and efficiency comparisons."},
-                ].map((x,i)=>(
-                  <div key={i} className="border border-white/20 rounded-2xl p-5 bg-white/10">
-                    <h3 className="font-semibold">{x.o}</h3>
-                    <p className="mt-2 text-sm text-neutral-100">{x.d}</p>
-                  </div>
-                ))}
-              </div>
-            </>
+            <div className="grid gap-6 md:grid-cols-2">
+              {extras.map((x,i)=>(
+                <Panel key={i}>
+                  <h3 className="font-semibold">{x.o}</h3>
+                  <p className="mt-2 text-sm text-neutral-100">{x.d}</p>
+                </Panel>
+              ))}
+            </div>
           )}
 
           {tab==="experience" && (
             <>
-              <h2 className="text-xl font-semibold mb-6">Experience</h2>
               <div className="space-y-8">
                 <Row items={exp.top}    selected={selected} onSelect={setSelected}/>
                 <Row items={exp.bottom} selected={selected} onSelect={setSelected}/>
               </div>
+
               <AnimatePresence>
                 {details && (
-                  <motion.div key={details.id} initial={{opacity:0,y:10}} animate={{opacity:1,y:0}} exit={{opacity:0,y:-10}} transition={{duration:.25}} className="mt-10 border border-white/20 rounded-2xl p-6 bg-white/10">
-                    <div className="flex flex-wrap items-center justify-between gap-3">
-                      <div>
-                        <div className="font-semibold">{details.role} • {details.company}</div>
-                        <div className="text-sm opacity-90">{details.period} • {details.location}</div>
+                  <motion.div
+                    key={details.id}
+                    initial={{opacity:0,y:10}}
+                    animate={{opacity:1,y:0}}
+                    exit={{opacity:0,y:-10}}
+                    transition={{duration:.25}}
+                  >
+                    <Panel className="mt-6">
+                      <div className="flex flex-wrap items-center justify-between gap-3">
+                        <div>
+                          <div className="font-semibold">{details.role} • {details.company}</div>
+                          <div className="text-sm opacity-90">{details.period} • {details.location}</div>
+                        </div>
+                        <button onClick={()=>setSelected(null)} className="text-sm px-3 py-1.5 rounded-lg ring-1 ring-white/20 bg-white/10 hover:bg-white/15">Close</button>
                       </div>
-                      <button onClick={()=>setSelected(null)} className="text-sm px-3 py-1.5 rounded-lg ring-1 ring-white/25 bg-white/10 hover:bg-white/15">Close</button>
-                    </div>
-                    <ul className="mt-4 space-y-2 text-sm text-neutral-100 list-disc ps-5">
-                      {details.bullets.map((b,i)=>(<li key={i}>{b}</li>))}
-                    </ul>
+                      <ul className="mt-4 space-y-2 text-sm text-neutral-100 list-disc ps-5">
+                        {details.bullets.map((b,i)=>(<li key={i}>{b}</li>))}
+                      </ul>
+                    </Panel>
                   </motion.div>
                 )}
               </AnimatePresence>
@@ -301,9 +326,25 @@ export default function Page(){
         </section>
       </main>
 
+      {/* Minimal global styling for engineering look */}
       <style jsx global>{`
         :root { color-scheme: dark; }
-        body { background:#0b0f1a; }
+        body { background:#0a0f18; }
+        .blueprint{
+          background:
+            radial-gradient(1200px 800px at 10% 10%, rgba(0,200,255,.10), transparent 60%),
+            radial-gradient(1000px 600px at 90% 20%, rgba(158,123,255,.10), transparent 60%),
+            repeating-linear-gradient(0deg, rgba(255,255,255,.05) 0 1px, transparent 1px 72px),
+            repeating-linear-gradient(90deg, rgba(255,255,255,.05) 0 1px, transparent 1px 72px);
+          background-color:#0a0f18;
+        }
+        .panel{
+          background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
+          border: 1px solid rgba(255,255,255,.14);
+          box-shadow: 0 10px 35px rgba(0,0,0,.35), inset 0 0 0 1px rgba(255,255,255,.06);
+          backdrop-filter: blur(6px);
+        }
+        .chip-active{ color:#0b0f1a; }
       `}</style>
     </>
   );
