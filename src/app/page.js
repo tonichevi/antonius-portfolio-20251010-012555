@@ -2,14 +2,16 @@
 import { useMemo, useRef, useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-/* ---------- FX (cursor, magnetic, background) ---------- */
+/* ---------------- FX ---------------- */
 function CursorTrail(){const r=useRef(null);useEffect(()=>{const e=r.current;if(!e||!window.matchMedia("(pointer:fine)").matches)return;const t=Array.from({length:12},()=>{const n=document.createElement("span");return e.appendChild(n),{el:n,x:0,y:0}});let o=0,a=0;const i=n=>{o=n.clientX,a=n.clientY};window.addEventListener("mousemove",i);let s=0;const l=()=>{let n=o,c=a;t.forEach((d,u)=>{d.x+=(n-d.x)*.18,d.y+=(c-d.y)*.18,d.el.style.transform=`translate(${d.x-4.5}px, ${d.y-4.5}px) scale(${1-.07*u})`,d.el.style.opacity=String(1-.08*u),n=d.x,c=d.y}),s=requestAnimationFrame(l)};return s=requestAnimationFrame(l),()=>{cancelAnimationFrame(s),window.removeEventListener("mousemove",i),e.innerHTML=""}},[]);return <div className="trail" ref={r}/>}
+
 function Magnetic({strength=18,children}){const r=useRef(null);useEffect(()=>{const e=r.current;if(!e)return;const t=n=>{const c=e.getBoundingClientRect(),d=n.clientX-(c.left+c.width/2),u=n.clientY-(c.top+c.height/2);e.style.transform=`translate(${d/c.width*strength}px, ${u/c.height*strength}px)`},o=()=>{e.style.transform="translate(0,0)"};e.parentElement.addEventListener("mousemove",t),e.parentElement.addEventListener("mouseleave",o);return()=>{e.parentElement.removeEventListener("mousemove",t),e.parentElement.removeEventListener("mouseleave",o)}},[strength]);return <span style={{display:"inline-block"}}><span ref={r} style={{display:"inline-block",transition:"transform .12s ease-out"}}>{children}</span></span>}
+
 function Starfield(){const r=useRef(null);useEffect(()=>{const e=r.current;if(!e)return;const t=e.getContext("2d",{alpha:!1});let o=e.width=window.innerWidth,a=e.height=window.innerHeight;const i=Math.min(window.devicePixelRatio||1,2);e.width=o*i,e.height=a*i,t.scale(i,i);const s=Math.min(260,Math.floor(o*a/11000));const l=Array.from({length:s},()=>({x:Math.random()*o,y:Math.random()*a,z:Math.random()*.9+.2,vx:(Math.random()-.5)*.18,vy:(Math.random()-.5)*.18,hue:190+140*Math.random(),tw:.005+.02*Math.random(),t:Math.random()*Math.PI*2}));let n=0,c=performance.now();const d=u=>{const p=Math.min(32,u-c);c=u,t.fillStyle="rgba(11,15,26,1)",t.fillRect(0,0,o,a);for(const f of l){f.x+=f.vx*p*(.35+f.z),f.y+=f.vy*p*(.35+f.z),f.x<-6&&(f.x=o+6),f.x>o+6&&(f.x=-6),f.y<-6&&(f.y=a+6),f.y>a+6&&(f.y=-6),f.t+=f.tw*p*.06;const g=.7*(.6+.4*Math.sin(f.t));t.beginPath(),t.fillStyle=`hsla(${f.hue}, 90%, 70%, ${g})`,t.arc(f.x,f.y,.9+1.2*f.z,0,Math.PI*2),t.fill()}n=requestAnimationFrame(d)};n=requestAnimationFrame(d);const u=()=>{o=window.innerWidth,a=window.innerHeight,e.width=o*i,e.height=a*i,t.scale(i,i)};return window.addEventListener("resize",u),()=>{cancelAnimationFrame(n),window.removeEventListener("resize",u)}},[]);return <canvas className="starfield" ref={r}/>}
 
 function Marquee({items}){return(<div className="marquee rounded-full ring-1 ring-white/20 bg-white/10"><div className="marquee__inner">{[...items,...items].map((it,i)=>(<span key={i} className="text-xs md:text-sm px-4">{it}</span>))}</div></div>)}
 
-/* ---------- Data ---------- */
+/* ---------------- Data ---------------- */
 const RAW_EXPERIENCE=[
   { id:"dressaire", company:"Dressaire Lab", role:"Fluid Dynamics Researcher", period:"Oct 2025 – Present", start:"2025-10-01", location:"UCSB · Hybrid", bullets:[
     "Studying effects/applications of capillary bridges in soft gels",
@@ -34,7 +36,7 @@ const RAW_EXPERIENCE=[
     "County of Los Angeles Humanitarian Award; 80k+ lbs fruit, 70k+ people helped"]},
 ];
 
-/* ---------- “Airplane Window” Experience UI ---------- */
+/* -------- Airplane Window UI -------- */
 function Window({item,activeId,onOpen}) {
   const open = activeId === item.id;
   return (
@@ -49,14 +51,26 @@ function Window({item,activeId,onOpen}) {
       >
         <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_50%_20%,rgba(255,255,255,.5),transparent_30%)] opacity-70" />
         <div className="absolute left-1/2 -translate-x-1/2 top-3 w-24 h-3 rounded-full bg-white/25 blur-[2px]" />
-        <motion.div initial={false} animate={{opacity: open ? 0 : 1, y: open ? -4 : 0, filter: open ? "blur(1px)" : "none"}} transition={{duration:.28}} className="relative z-20 h-full w-full flex items-center justify-center text-center px-4" aria-hidden={open}><div>
+
+        {/* Title block that fades out when open */}
+        <motion.div
+          initial={false}
+          animate={{opacity: open ? 0 : 1, y: open ? -4 : 0, filter: open ? "blur(1px)" : "none"}}
+          transition={{duration:.28}}
+          className="relative z-20 h-full w-full flex items-center justify-center text-center px-4"
+          aria-hidden={open}
+        >
+          <div>
             <div className="text-[12px] md:text-sm font-semibold leading-tight">{item.role}</div>
             <div className="text-[11px] md:text-xs opacity-90">{item.location}</div>
             <div className="mt-1 text-[10px] md:text-[11px] opacity-80">{item.period}</div>
           </div>
         </motion.div>
+
+        {/* Shutter */}
         <motion.div
-          className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,14,24,.88),rgba(10,14,24,.2))]" style={{zIndex:30}}
+          className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,14,24,.88),rgba(10,14,24,.2))]"
+          style={{zIndex:30}}
           initial={{y:0}}
           animate={{y:open?"-100%":"0%"}}
           transition={{duration:.45,ease:[.22,.9,.24,1]}}
@@ -90,7 +104,7 @@ function WindowRow({items,activeId,onOpen}) {
   );
 }
 
-/* ---------- Page ---------- */
+/* ---------------- Page ---------------- */
 export default function Portfolio(){
   const NAME="Antonius (Toni) Chevillotte";
   const EMAIL="achevillotte@ucsb.edu";
@@ -112,14 +126,12 @@ export default function Portfolio(){
 
   const tabs=[{id:"experience",label:"Experience"},{id:"projects",label:"Projects"},{id:"extracurriculars",label:"Extracurriculars"},{id:"bio",label:"Biography"}];
 
+  // New ordering: newest → oldest left-to-right on each row.
   const experience = useMemo(()=>{
     const withDates = RAW_EXPERIENCE.map(e=>({...e, ts: new Date(e.start).getTime()}));
-    const sortedDesc = [...withDates].sort((a,b)=>b.ts-a.ts);         // newest → oldest
-    const top3 = sortedDesc.slice(0,3);                               // keep desc for left→right
-    const bottom3 = sortedDesc.slice(3,6);                             // keep desc for left→right (oldest ends bottom-right)
-    return {top3,bottom3,all:withDates};
-  },[]);  // ascending within row
-    const bottom3 = [...sortedDesc.slice(3,6)].sort((a,b)=>a.ts-b.ts);
+    const sortedDesc = [...withDates].sort((a,b)=>b.ts-a.ts); // newest → oldest
+    const top3 = sortedDesc.slice(0,3);                       // left→right newest first
+    const bottom3 = sortedDesc.slice(3,6);                    // left→right continuing to oldest (last is oldest)
     return {top3,bottom3,all:withDates};
   },[]);
 
@@ -151,7 +163,7 @@ export default function Portfolio(){
   const Tilt=({children})=>(<motion.div whileHover={{y:-4,scale:1.02}} transition={{type:"spring",stiffness:360,damping:26}} className="gcard p-5 overflow-hidden">{children}</motion.div>);
 
   const [openId,setOpenId]=useState(null);
-  const openItem = useMemo(()=>experience.all.find(e=>e.id===openId),[openId,experience]);
+  const openItem = useMemo(()=>RAW_EXPERIENCE.find(e=>e.id===openId),[openId]);
 
   function Section(){
     switch(active){
@@ -252,7 +264,7 @@ export default function Portfolio(){
         <footer className="border-t border-white/20">
           <div className="mx-auto max-w-6xl px-4 py-10">
             <div className="flex flex-wrap items-center justify-between gap-3">
-              <div className="space-y-0.5"><div className="font-semibold">Antonius Chevillotte</div><div className="text-sm text-white/90">{LOCATION} • <a className="underline" href={`mailto:${EMAIL}`}>{EMAIL}</a></div></div>
+              <div className="space-y-0.5"><div className="font-semibold">Antonius Chevillotte</div><div className="text-sm text-white/90">Los Angeles, CA • <a className="underline" href="mailto:achevillotte@ucsb.edu">achevillotte@ucsb.edu</a></div></div>
               <div className="flex gap-4 text-sm"><a className="underline opacity-90 hover:opacity-100" href={LINKEDIN} target="_blank" rel="noreferrer"><Magnetic strength={6}>LinkedIn</Magnetic></a></div>
             </div>
             <p className="text-xs text-white/80 mt-6">© {new Date().getFullYear()} Antonius Chevillotte</p>
