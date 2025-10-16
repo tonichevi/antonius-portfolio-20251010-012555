@@ -49,15 +49,14 @@ function Window({item,activeId,onOpen}) {
       >
         <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_50%_20%,rgba(255,255,255,.5),transparent_30%)] opacity-70" />
         <div className="absolute left-1/2 -translate-x-1/2 top-3 w-24 h-3 rounded-full bg-white/25 blur-[2px]" />
-        <div className="relative z-10 h-full w-full flex items-center justify-center text-center px-4">
-          <div>
+        <motion.div initial={false} animate={{opacity: open ? 0 : 1, y: open ? -4 : 0, filter: open ? "blur(1px)" : "none"}} transition={{duration:.28}} className="relative z-20 h-full w-full flex items-center justify-center text-center px-4" aria-hidden={open}><div>
             <div className="text-[12px] md:text-sm font-semibold leading-tight">{item.role}</div>
             <div className="text-[11px] md:text-xs opacity-90">{item.location}</div>
             <div className="mt-1 text-[10px] md:text-[11px] opacity-80">{item.period}</div>
           </div>
-        </div>
+        </motion.div>
         <motion.div
-          className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,14,24,.88),rgba(10,14,24,.2))]"
+          className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,14,24,.88),rgba(10,14,24,.2))]" style={{zIndex:30}}
           initial={{y:0}}
           animate={{y:open?"-100%":"0%"}}
           transition={{duration:.45,ease:[.22,.9,.24,1]}}
@@ -116,7 +115,10 @@ export default function Portfolio(){
   const experience = useMemo(()=>{
     const withDates = RAW_EXPERIENCE.map(e=>({...e, ts: new Date(e.start).getTime()}));
     const sortedDesc = [...withDates].sort((a,b)=>b.ts-a.ts);         // newest → oldest
-    const top3 = [...sortedDesc.slice(0,3)].sort((a,b)=>a.ts-b.ts);  // ascending within row
+    const top3 = sortedDesc.slice(0,3);                               // keep desc for left→right
+    const bottom3 = sortedDesc.slice(3,6);                             // keep desc for left→right (oldest ends bottom-right)
+    return {top3,bottom3,all:withDates};
+  },[]);  // ascending within row
     const bottom3 = [...sortedDesc.slice(3,6)].sort((a,b)=>a.ts-b.ts);
     return {top3,bottom3,all:withDates};
   },[]);
