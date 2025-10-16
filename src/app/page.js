@@ -290,7 +290,8 @@ export default function Page(){
             </>
           )}
         </section>
-      </main>
+      <script src="/glow.js"></script>
+</main>
 
       <style jsx global>{`
         :root { color-scheme: dark; }

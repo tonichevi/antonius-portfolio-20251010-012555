@@ -49,3 +49,13 @@ body{background:var(--bg);color:var(--text)}
 /* cursor trail brighter */
 .trail{position:fixed;left:0;top:0;pointer-events:none;z-index:50;mix-blend:screen}
 .trail span{position:absolute;width:9px;height:9px;border-radius:9999px;background:radial-gradient(circle at 30% 30%, #fff, #9af6ff);filter:blur(.4px)}
+/* === Cursor Glow (liquid groove) ======================================= */
+:root{--mx:50vw;--my:50vh;--glow-size:42vmin;--glow-strength:0.18}
+body::after{
+  content:'';
+  position:fixed; inset:-20vh -20vw; pointer-events:none; z-index:40;
+  background:radial-gradient(var(--glow-size) var(--glow-size) at var(--mx) var(--my),
+             rgba(255,255,255,var(--glow-strength)), rgba(255,255,255,0) 60%);
+  filter:blur(28px); mix-blend-mode:overlay; transition:background 80ms linear;
+}
+/* ======================================================================= */
