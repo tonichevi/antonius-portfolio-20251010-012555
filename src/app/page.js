@@ -39,28 +39,9 @@ const EXPERIENCE = [
 ];
 
 const EDUCATION = [
-  { school: "UC Santa Barbara", line: "BS/MS Mechanical Engineering", time: "Jun 2023 – Jun 2027", extras: ["Honors College", "Tau Beta Pi", "Formula SAE Racing Club"], gpa: "3.8+" },
-  { school: "University of California, Davis", line: "B.S. Mechanical Engineering", time: "Sep 2021 – Jun 2023", extras: ["Tau Beta Pi Engineering Honor Society", "Student Alumni Association", "CAAA Leadership Scholar"], gpa: "3.8+" },
+  { school: "UC Santa Barbara", line: "BS/MS Mechanical Engineering", time: "Jun 2023 – Jun 2027", extras: ["Honors College", "Tau Beta Pi", "Formula SAE Racing Club"], gpa: "3.82" },
+  { school: "University of California, Davis", line: "B.S. Mechanical Engineering", time: "Sep 2021 – Jun 2023", extras: ["Tau Beta Pi Engineering Honor Society", "Student Alumni Association", "CAAA Leadership Scholar"], gpa: "3.82/4.00" },
   { school: "Glendora High School", line: "High School Diploma", time: "Aug 2017 – Jun 2021", extras: ["National Honors Society", "Fruitfully Yours (FLY)", "LEO Club", "Varsity Tennis — 4× Student of the Semester"], gpa: "4.69/4.00 (Top 2%)" },
-];
-
-const HONORS = [
-  "6× Dean’s Honors List (UC Davis & UCSB, Dec 2024).",
-  "AP Capstone Diploma (Jun 2021).",
-  "Glendora Kiwanis Community Service Award (Jun 2021).",
-  "Tartan Achievement Award (Jun 2021).",
-];
-
-const CERTS = [
-  "Entrepreneurship Specialization — The Wharton School (Sep 2022).",
-  "Oil & Gas Industry Operations and Markets — Duke University (Sep 2022).",
-  "Statistics & R Specialization — HarvardX (Aug 2020).",
-];
-
-const LANGS = [
-  "English — Native or bilingual proficiency",
-  "German — Native or bilingual proficiency",
-  "French — Elementary proficiency",
 ];
 
 /* ---------- UI bits ---------- */
@@ -179,12 +160,32 @@ export default function Page() {
     { t: "Current: Star Rider III - Cause and Effect Vehicle for Disabled Children", h: "Developed an adaptive vehicle to enhance mobility for disabled children, focusing on cause-and-effect interaction.", m: ["UCSB", "2025"], img: "/images/StarRiderII.jpg" },
     { t: "URCA Steering System: An Analysis of Bearing Performance", h: "Conducted a detailed analysis of bearing performance to optimize steering system reliability.", m: ["URCA", "2025"], img: "/images/SteeringUrca.jpg" },
     { t: "Frog Jumper Project", h: "Designed a spring-loaded mechanism to simulate a frog's jumping motion for educational purposes.", m: ["UCSB", "2024"], img: "/images/Jumper.jpg" },
+    { t: "SOLIDWORKS Projects", h: "A collection of designs including a 4-Beam TV holder and a FSAE steering wheel project, showcasing advanced CAD skills.", m: ["UCSB", "2024-2025"], imgs: ["/images/TVSketch.jpg", "/images/TV.jpg.png", "/images/SteeringWheel.jpg"] },
+    { t: "Thermal Analysis Tool Development", h: "Created a custom tool for analyzing thermal performance in mechanical systems, integrating MATLAB for simulations.", m: ["UCSB", "2025"], img: "/images/ThermalTool.jpg" },
   ];
   const extras = [
     { o: "UCSB Formula SAE", d: "EV racecar design & build; extensive CAD; steering project focus." },
     { o: "Elementary School STEAM Volunteer", d: "Hands-on science & engineering sessions for 6th-grade students." },
     { o: "NASA Volunteer at UC Davis", d: "Generator teardown and efficiency comparisons." },
   ];
+  const HONORS = [
+  "6× Dean’s Honors List (UC Davis & UCSB, Dec 2024).",
+  "AP Capstone Diploma (Jun 2021).",
+  "Glendora Kiwanis Community Service Award (Jun 2021).",
+  "Tartan Achievement Award (Jun 2021).",
+];
+
+const CERTS = [
+  "Entrepreneurship Specialization — The Wharton School (Sep 2022).",
+  "Oil & Gas Industry Operations and Markets — Duke University (Sep 2022).",
+  "Statistics & R Specialization — HarvardX (Aug 2020).",
+];
+
+const LANGS = [
+  "English — Native or bilingual proficiency",
+  "German — Native or bilingual proficiency",
+  "French — Elementary proficiency",
+];
 
   const bioPic = "/images/biography.jpg";
   const BioAvatar = () => (
@@ -299,6 +300,13 @@ export default function Page() {
                     {p.img && (
                       <div className="mt-4 flex-shrink-0">
                         <img src={p.img} alt={`${p.t} image`} className="max-w-full h-auto object-contain rounded-lg" onError={(e) => { e.currentTarget.style.display = "none"; }} />
+                      </div>
+                    )}
+                    {p.imgs && (
+                      <div className="mt-4 flex-shrink-0 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        {p.imgs.map((img, idx) => (
+                          <img key={idx} src={img} alt={`${p.t} image ${idx + 1}`} className="max-w-full h-auto object-contain rounded-lg" onError={(e) => { e.currentTarget.style.display = "none"; }} />
+                        ))}
                       </div>
                     )}
                     <p className="mt-6 text-sm leading-6 text-neutral-100 flex-grow">{p.h}</p>
