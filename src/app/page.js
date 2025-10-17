@@ -39,8 +39,8 @@ const EXPERIENCE = [
 ];
 
 const EDUCATION = [
-  { school: "UC Santa Barbara", line: "BS/MS Mechanical Engineering", time: "Jun 2023 – Jun 2027", extras: ["Honors College", "Tau Beta Pi", "Formula SAE Racing Club"], gpa: "3.82" },
-  { school: "University of California, Davis", line: "B.S. Mechanical Engineering", time: "Sep 2021 – Jun 2023", extras: ["Tau Beta Pi Engineering Honor Society", "Student Alumni Association", "CAAA Leadership Scholar"], gpa: "3.82/4.00" },
+  { school: "UC Santa Barbara", line: "BS/MS Mechanical Engineering", time: "Jun 2023 – Jun 2027", extras: ["Honors College", "Tau Beta Pi", "Formula SAE Racing Club"], gpa: "3.8+" },
+  { school: "University of California, Davis", line: "B.S. Mechanical Engineering", time: "Sep 2021 – Jun 2023", extras: ["Tau Beta Pi Engineering Honor Society", "Student Alumni Association", "CAAA Leadership Scholar"], gpa: "3.8+" },
   { school: "Glendora High School", line: "High School Diploma", time: "Aug 2017 – Jun 2021", extras: ["National Honors Society", "Fruitfully Yours (FLY)", "LEO Club", "Varsity Tennis — 4× Student of the Semester"], gpa: "4.69/4.00 (Top 2%)" },
 ];
 
@@ -176,9 +176,6 @@ export default function Page() {
   const details = EXPERIENCE.find(e => e.id === selected);
 
   const projects = [
-    { t: "FSAE Steering Reliability (URCA)", h: "Reliability-first steering study for EV racecar; improved robustness & serviceability.", m: ["UCSB Formula SAE", "Spring 2025"], img: "/images/SteeringUrca.jpg" },
-    { t: "Design-to-Failure + Redesign", h: "Structured teardown testing and defect taxonomy to inform R&D decisions.", m: ["SaniSure", "2025"] },
-    { t: "Requirements KPIs & Dashboards", h: "Power BI metrics pipeline increasing visibility and accountability.", m: ["AUDI AG", "2024"] },
     { t: "Current: Star Rider III - Cause and Effect Vehicle for Disabled Children", h: "Developed an adaptive vehicle to enhance mobility for disabled children, focusing on cause-and-effect interaction.", m: ["UCSB", "2025"], img: "/images/StarRiderII.jpg" },
     { t: "URCA Steering System: An Analysis of Bearing Performance", h: "Conducted a detailed analysis of bearing performance to optimize steering system reliability.", m: ["URCA", "2025"], img: "/images/SteeringUrca.jpg" },
     { t: "Frog Jumper Project", h: "Designed a spring-loaded mechanism to simulate a frog's jumping motion for educational purposes.", m: ["UCSB", "2024"], img: "/images/Jumper.jpg" },
