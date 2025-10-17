@@ -125,6 +125,38 @@ function Row({ items, selected, onSelect }) {
   );
 }
 
+function ImageModal({ selectedImage, onClose }) {
+  return (
+    <AnimatePresence>
+      {selectedImage && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          className="fixed inset-0 bg-black/80 flex items-center justify-center z-50"
+          onClick={onClose}
+        >
+          <motion.img
+            src={selectedImage}
+            alt="Enlarged project image"
+            className="max-w-[80%] max-h-[80vh] object-contain"
+            initial={{ scale: 0.5 }}
+            animate={{ scale: 1 }}
+            exit={{ scale: 0.5 }}
+            onClick={(e) => e.stopPropagation()} // Prevent closing when clicking the image
+          />
+          <button
+            onClick={onClose}
+            className="absolute top-4 right-4 text-white text-2xl font-bold bg-black/50 rounded-full w-10 h-10 flex items-center justify-center hover:bg-black/70"
+          >
+            &times;
+          </button>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+}
+
 /* ---------- Page ---------- */
 export default function Page() {
   const NAME = "Antonius (Toni) Chevillotte";
@@ -151,6 +183,7 @@ export default function Page() {
   const [tab, setTab] = useState("bio");
   const [selected, setSelected] = useState(null);
   const details = EXPERIENCE.find(e => e.id === selected);
+  const [selectedImage, setSelectedImage] = useState(null);
 
   const projects = [
     { t: "Current: Star Rider III - Cause and Effect Vehicle for Disabled Children", h: "Developed an adaptive vehicle to enhance mobility for disabled children, focusing on cause-and-effect interaction.", m: ["UCSB", "2025"], img: "/images/StarRiderII.jpg" },
@@ -163,25 +196,25 @@ export default function Page() {
     { o: "UCSB Formula SAE", d: "EV racecar design & build; extensive CAD; steering project focus." },
     { o: "Elementary School STEAM Volunteer", d: "Hands-on science & engineering sessions for 6th-grade students." },
     { o: "NASA Volunteer at UC Davis", d: "Generator teardown and efficiency comparisons." },
-    {o: "Fruitfully Yours Vice President", d: "Co-founded nonprofit reducing food waste via fruit rescue. The impact left by this organization has attained the LA County Humanitarian Award, having saved 80k+lbs of fruit and helping 70k+ food insecure individuals."},
+    { o: "Fruitfully Yours Vice President", d: "Co-founded nonprofit reducing food waste via fruit rescue. The impact left by this organization has attained the LA County Humanitarian Award, having saved 80k+lbs of fruit and helping 70k+ food insecure individuals." },
   ];
   const HONORS = [
-  "6× Dean’s Honors List (UC Davis & UCSB, Dec 2024).",
-  "AP Capstone Diploma (Jun 2021).",
-  "Glendora Kiwanis Community Service Award (Jun 2021).",
-  "Tartan Achievement Award (Jun 2021).",
-];
-const CERTS = [
-  "Entrepreneurship Specialization — The Wharton School (Sep 2022).",
-  "Oil & Gas Industry Operations and Markets — Duke University (Sep 2022).",
-  "Statistics & R Specialization — HarvardX (Aug 2020).",
-];
+    "6× Dean’s Honors List (UC Davis & UCSB, Dec 2024).",
+    "AP Capstone Diploma (Jun 2021).",
+    "Glendora Kiwanis Community Service Award (Jun 2021).",
+    "Tartan Achievement Award (Jun 2021).",
+  ];
+  const CERTS = [
+    "Entrepreneurship Specialization — The Wharton School (Sep 2022).",
+    "Oil & Gas Industry Operations and Markets — Duke University (Sep 2022).",
+    "Statistics & R Specialization — HarvardX (Aug 2020).",
+  ];
 
-const LANGS = [
-  "English — Native or bilingual proficiency",
-  "German — Native or bilingual proficiency",
-  "French — Elementary proficiency",
-];
+  const LANGS = [
+    "English — Native or bilingual proficiency",
+    "German — Native or bilingual proficiency",
+    "French — Elementary proficiency",
+  ];
 
   const bioPic = "/images/biography.jpg";
   const BioAvatar = () => (
@@ -295,13 +328,13 @@ const LANGS = [
                     <h3 className="font-semibold">{p.t}</h3>
                     {p.img && (
                       <div className="mt-4 flex-shrink-0">
-                        <img src={p.img} alt={`${p.t} image`} className="max-w-full h-auto object-contain rounded-lg" onError={(e) => { e.currentTarget.style.display = "none"; }} />
+                        <img src={p.img} alt={`${p.t} image`} className="max-w-full h-auto object-contain rounded-lg cursor-pointer" onClick={() => setSelectedImage(p.img)} onError={(e) => { e.currentTarget.style.display = "none"; }} />
                       </div>
                     )}
                     {p.imgs && (
                       <div className="mt-4 flex-shrink-0 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                         {p.imgs.map((img, idx) => (
-                          <img key={idx} src={img} alt={`${p.t} image ${idx + 1}`} className="max-w-full h-auto object-contain rounded-lg" onError={(e) => { e.currentTarget.style.display = "none"; }} />
+                          <img key={idx} src={img} alt={`${p.t} image ${idx + 1}`} className="max-w-full h-auto object-contain rounded-lg cursor-pointer" onClick={() => setSelectedImage(img)} onError={(e) => { e.currentTarget.style.display = "none"; }} />
                         ))}
                       </div>
                     )}
@@ -360,6 +393,7 @@ const LANGS = [
             </>
           )}
         </section>
+        <ImageModal selectedImage={selectedImage} onClose={() => setSelectedImage(null)} />
       </main>
     </>
   );
