@@ -1,5 +1,5 @@
 "use client";
-import { useMemo, useRef, useState } from "react";
+import { useMemo, useRef, useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import "./globals.css"; // Import the global CSS file
 
@@ -176,9 +176,12 @@ export default function Page() {
   const details = EXPERIENCE.find(e => e.id === selected);
 
   const projects = [
-    { t: "FSAE Steering Reliability (URCA)", h: "Reliability-first steering study for EV racecar; improved robustness & serviceability.", m: ["UCSB Formula SAE", "Spring 2025"] },
+    { t: "FSAE Steering Reliability (URCA)", h: "Reliability-first steering study for EV racecar; improved robustness & serviceability.", m: ["UCSB Formula SAE", "Spring 2025"], img: "/images/SteeringUrca.jpg" },
     { t: "Design-to-Failure + Redesign", h: "Structured teardown testing and defect taxonomy to inform R&D decisions.", m: ["SaniSure", "2025"] },
     { t: "Requirements KPIs & Dashboards", h: "Power BI metrics pipeline increasing visibility and accountability.", m: ["AUDI AG", "2024"] },
+    { t: "Current: Star Rider III - Cause and Effect Vehicle for Disabled Children", h: "Developed an adaptive vehicle to enhance mobility for disabled children, focusing on cause-and-effect interaction.", m: ["UCSB", "2025"], img: "/images/StarRiderII.jpg" },
+    { t: "URCA Steering System: An Analysis of Bearing Performance", h: "Conducted a detailed analysis of bearing performance to optimize steering system reliability.", m: ["URCA", "2025"], img: "/images/SteeringUrca.jpg" },
+    { t: "Frog Jumper Project", h: "Designed a spring-loaded mechanism to simulate a frog's jumping motion for educational purposes.", m: ["UCSB", "2024"], img: "/images/Jumper.jpg" },
   ];
   const extras = [
     { o: "UCSB Formula SAE", d: "EV racecar design & build; extensive CAD; steering project focus." },
@@ -190,14 +193,28 @@ export default function Page() {
   const BioAvatar = () => (
     <div className="relative size-28 md:size-32 rounded-full overflow-hidden ring-2 ring-white/20 bg-white/10 grid place-items-center">
       <img src={bioPic} alt="Antonius Chevillotte headshot" className="h-full w-full object-cover" onError={(e) => { e.currentTarget.style.display = "none"; }} />
-      <span className="absolute inset-0 grid place-items-center text-3xl font-semibold bg-white/5"></span>
+      <span className="absolute inset-0 grid place-items-center text-3xl font-semibold bg-white/5">AC</span>
     </div>
   );
 
   return (
     <>
       <BlueprintBG />
-      <main className="relative min-h-screen text-white">
+      <main
+        className="relative min-h-screen text-white"
+        onMouseMove={(e) => {
+          const { clientX, clientY } = e;
+          const { innerWidth, innerHeight } = window;
+          const moveX = (clientX / innerWidth - 0.5) * 10; // Subtle horizontal shift
+          const moveY = (clientY / innerHeight - 0.5) * 10; // Subtle vertical shift
+          e.currentTarget.style.filter = `blur(${Math.abs(moveX * 0.1)}px)`;
+          e.currentTarget.style.transform = `translate(${moveX}px, ${moveY}px)`;
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.filter = "blur(0px)";
+          e.currentTarget.style.transform = "translate(0px, 0px)";
+        }}
+      >
         {/* Top bar */}
         <header className="sticky top-0 z-40 border-b border-white/10 bg-black/40 backdrop-blur">
           <div className="max-w-6xl mx-auto px-4 py-3 flex items-center gap-3 justify-between">
@@ -282,6 +299,11 @@ export default function Page() {
                 {projects.map((p, i) => (
                   <Panel key={i}>
                     <h3 className="font-semibold">{p.t}</h3>
+                    {p.img && (
+                      <div className="mt-2">
+                        <img src={p.img} alt={`${p.t} image`} className="w-full h-48 object-cover rounded-lg" onError={(e) => { e.currentTarget.style.display = "none"; }} />
+                      </div>
+                    )}
                     <p className="mt-2 text-sm text-neutral-100">{p.h}</p>
                     <div className="mt-3 flex flex-wrap gap-2 text-xs">
                       {p.m.map((m, k) => <span key={k} className="rounded-full px-2 py-1 bg-white/10 ring-1 ring-white/15">{m}</span>)}
