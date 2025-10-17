@@ -227,21 +227,7 @@ export default function Page() {
   return (
     <>
       <BlueprintBG />
-      <main
-        className="relative min-h-screen text-white"
-        onMouseMove={(e) => {
-          const { clientX, clientY } = e;
-          const { innerWidth, innerHeight } = window;
-          const moveX = (clientX / innerWidth - 0.5) * 10; // Subtle horizontal shift
-          const moveY = (clientY / innerHeight - 0.5) * 10; // Subtle vertical shift
-          e.currentTarget.style.filter = `blur(${Math.abs(moveX * 0.1)}px)`;
-          e.currentTarget.style.transform = `translate(${moveX}px, ${moveY}px)`;
-        }}
-        onMouseLeave={(e) => {
-          e.currentTarget.style.filter = "blur(0px)";
-          e.currentTarget.style.transform = "translate(0px, 0px)";
-        }}
-      >
+      <main className="relative min-h-screen text-white">
         {/* Top bar */}
         <header className="sticky top-0 z-40 border-b border-white/10 bg-black/40 backdrop-blur">
           <div className="max-w-6xl mx-auto px-4 py-3 flex items-center gap-3 justify-between">
@@ -360,37 +346,80 @@ export default function Page() {
           )}
 
           {tab === "experience" && (
-            <>
-              <div className="space-y-8">
-                <Row items={exp.top} selected={selected} onSelect={setSelected} />
-                <Row items={exp.bottom} selected={selected} onSelect={setSelected} />
-              </div>
-
-              <AnimatePresence>
-                {details && (
-                  <motion.div
-                    key={details.id}
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -10 }}
-                    transition={{ duration: 0.25 }}
-                  >
-                    <Panel className="mt-6">
-                      <div className="flex flex-wrap items-center justify-between gap-3">
-                        <div>
-                          <div className="font-semibold">{details.role} • {details.company}</div>
-                          <div className="text-sm opacity-90">{details.period} • {details.location}</div>
-                        </div>
-                        <button onClick={() => setSelected(null)} className="text-sm px-3 py-1.5 rounded-lg ring-1 ring-white/20 bg-white/10 hover:bg-white/15">Close</button>
-                      </div>
-                      <ul className="mt-4 space-y-2 text-sm text-neutral-100 list-disc ps-5">
-                        {details.bullets.map((b, i) => (<li key={i}>{b}</li>))}
-                      </ul>
-                    </Panel>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </>
+            <div className="relative">
+              {exp.top.map((exp, index) => (
+                <div key={exp.id} className="mb-8 flex items-start gap-6">
+                  <div className="relative">
+                    <div className="w-2 h-2 bg-cyan-400 rounded-full mt-2"></div>
+                    {index < exp.top.length - 1 && (
+                      <div className="absolute top-2 bottom-0 left-1 w-0.5 bg-cyan-400/50"></div>
+                    )}
+                  </div>
+                  <div className="flex-1 p-4 bg-white/5 rounded-lg hover:bg-white/10 transition-colors duration-200">
+                    <h3 className="text-lg font-semibold">{exp.role} - {exp.company}</h3>
+                    <p className="text-sm text-white/70">{exp.period} | {exp.location}</p>
+                    <button
+                      onClick={() => setSelected(exp.id)}
+                      className="mt-2 px-4 py-1 bg-cyan-500/20 text-cyan-200 rounded hover:bg-cyan-500/30 transition-colors"
+                    >
+                      View Details
+                    </button>
+                    <AnimatePresence>
+                      {selected === exp.id && (
+                        <motion.div
+                          initial={{ opacity: 0, height: 0 }}
+                          animate={{ opacity: 1, height: "auto" }}
+                          exit={{ opacity: 0, height: 0 }}
+                          className="mt-4 space-y-2 text-sm text-neutral-100"
+                        >
+                          <ul className="list-disc pl-5">
+                            {exp.bullets.map((bullet, i) => (
+                              <li key={i}>{bullet}</li>
+                            ))}
+                          </ul>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                </div>
+              ))}
+              {exp.bottom.map((exp, index) => (
+                <div key={exp.id} className="mb-8 flex items-start gap-6">
+                  <div className="relative">
+                    <div className="w-2 h-2 bg-cyan-400 rounded-full mt-2"></div>
+                    {index < exp.bottom.length - 1 && (
+                      <div className="absolute top-2 bottom-0 left-1 w-0.5 bg-cyan-400/50"></div>
+                    )}
+                  </div>
+                  <div className="flex-1 p-4 bg-white/5 rounded-lg hover:bg-white/10 transition-colors duration-200">
+                    <h3 className="text-lg font-semibold">{exp.role} - {exp.company}</h3>
+                    <p className="text-sm text-white/70">{exp.period} | {exp.location}</p>
+                    <button
+                      onClick={() => setSelected(exp.id)}
+                      className="mt-2 px-4 py-1 bg-cyan-500/20 text-cyan-200 rounded hover:bg-cyan-500/30 transition-colors"
+                    >
+                      View Details
+                    </button>
+                    <AnimatePresence>
+                      {selected === exp.id && (
+                        <motion.div
+                          initial={{ opacity: 0, height: 0 }}
+                          animate={{ opacity: 1, height: "auto" }}
+                          exit={{ opacity: 0, height: 0 }}
+                          className="mt-4 space-y-2 text-sm text-neutral-100"
+                        >
+                          <ul className="list-disc pl-5">
+                            {exp.bullets.map((bullet, i) => (
+                              <li key={i}>{bullet}</li>
+                            ))}
+                          </ul>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                </div>
+              ))}
+            </div>
           )}
         </section>
         <ImageModal selectedImage={selectedImage} onClose={() => setSelectedImage(null)} />
