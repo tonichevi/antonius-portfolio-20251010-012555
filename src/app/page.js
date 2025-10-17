@@ -8,29 +8,95 @@ function BlueprintBG() {
   return <div className="fixed inset-0 -z-10 blueprint" />;
 }
 
-/* ---------- Splash Screen ---------- */
+/* ---------- Splash Screen with Fog Effect ---------- */
 function SplashScreen({ onComplete }) {
+  const canvasRef = useRef(null);
+  const [cleared, setCleared] = useState(false);
+  const [mousePos, setMousePos] = useState({ x: -100, y: -100 });
+
   useEffect(() => {
-    const timer = setTimeout(() => onComplete(), 2000); // Display for 2 seconds
-    return () => clearTimeout(timer);
-  }, [onComplete]);
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext("2d");
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+
+    canvas.width = width;
+    canvas.height = height;
+
+    // Draw fog background
+    ctx.fillStyle = "rgba(0, 0, 0, 0.8)";
+    ctx.fillRect(0, 0, width, height);
+
+    // Draw text
+    ctx.font = "bold 5xl md:text-7xl sans-serif";
+    ctx.textAlign = "center";
+    ctx.fillStyle = "white";
+    ctx.fillText("Think Different", width / 2, height / 2);
+
+    // Draw fog overlay
+    const gradient = ctx.createRadialGradient(width / 2, height / 2, 0, width / 2, height / 2, Math.max(width, height) / 2);
+    gradient.addColorStop(0, "rgba(255, 255, 255, 0.1)");
+    gradient.addColorStop(1, "rgba(0, 0, 0, 0.9)");
+    ctx.fillStyle = gradient;
+    ctx.fillRect(0, 0, width, height);
+
+    // Clear circle on mouse move
+    const clearCircle = (x, y, radius) => {
+      ctx.globalCompositeOperation = "destination-out";
+      ctx.beginPath();
+      ctx.arc(x, y, radius, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.globalCompositeOperation = "source-over";
+    };
+
+    const handleMove = (e) => {
+      const rect = canvas.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      setMousePos({ x, y });
+      clearCircle(x, y, 100); // 100px radius clear area
+
+      // Check if a significant portion is cleared
+      const imageData = ctx.getImageData(0, 0, width, height);
+      const data = imageData.data;
+      let clearPixels = 0;
+      for (let i = 0; i < data.length; i += 4) {
+        if (data[i + 3] < 128) clearPixels++; // Count semi-transparent pixels
+      }
+      if (clearPixels / (width * height) > 0.3) { // 30% cleared
+        setCleared(true);
+      }
+    };
+
+    canvas.addEventListener("mousemove", handleMove);
+    canvas.addEventListener("touchmove", (e) => {
+      e.preventDefault();
+      const touch = e.touches[0];
+      handleMove(touch);
+    });
+
+    return () => {
+      canvas.removeEventListener("mousemove", handleMove);
+      canvas.removeEventListener("touchmove", handleMove);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (cleared) {
+      const timer = setTimeout(() => onComplete(), 1000); // Smooth fade out after clearing
+      return () => clearTimeout(timer);
+    }
+  }, [cleared, onComplete]);
 
   return (
     <motion.div
       className="fixed inset-0 bg-black flex items-center justify-center z-50"
       initial={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
+      animate={cleared ? { opacity: 0 } : { opacity: 1 }}
       transition={{ duration: 1, ease: "easeOut" }}
+      exit={{ opacity: 0 }}
     >
-      <motion.h1
-        className="text-5xl md:text-7xl font-bold text-white"
-        initial={{ scale: 0.8, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        exit={{ scale: 1.2, opacity: 0 }}
-        transition={{ duration: 1, ease: "easeOut" }}
-      >
-        Think Different
-      </motion.h1>
+      <canvas ref={canvasRef} className="absolute inset-0" />
     </motion.div>
   );
 }
@@ -262,7 +328,7 @@ export default function Page() {
         className="relative min-h-screen text-white"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 2, duration: 1, ease: "easeOut" }}
+        transition={{ delay: 1, duration: 1, ease: "easeOut" }} // Adjusted delay to account for fog clearing
       >
         {/* Top bar */}
         <header className="sticky top-0 z-40 border-b border-white/10 bg-black/40 backdrop-blur">
