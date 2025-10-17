@@ -295,17 +295,17 @@ export default function Page() {
 
           {tab === "projects" && (
             <>
-              <div className="grid gap-6 md:grid-cols-3">
+              <div className="grid gap-8 md:grid-cols-3">
                 {projects.map((p, i) => (
-                  <Panel key={i}>
+                  <Panel key={i} className="flex flex-col h-full">
                     <h3 className="font-semibold">{p.t}</h3>
                     {p.img && (
-                      <div className="mt-2">
-                        <img src={p.img} alt={`${p.t} image`} className="w-full h-48 object-cover rounded-lg" onError={(e) => { e.currentTarget.style.display = "none"; }} />
+                      <div className="mt-4 flex-shrink-0">
+                        <img src={p.img} alt={`${p.t} image`} className="max-w-full h-auto object-contain rounded-lg" onError={(e) => { e.currentTarget.style.display = "none"; }} />
                       </div>
                     )}
-                    <p className="mt-2 text-sm text-neutral-100">{p.h}</p>
-                    <div className="mt-3 flex flex-wrap gap-2 text-xs">
+                    <p className="mt-6 text-sm leading-6 text-neutral-100 flex-grow">{p.h}</p>
+                    <div className="mt-6 flex flex-wrap gap-2 text-xs">
                       {p.m.map((m, k) => <span key={k} className="rounded-full px-2 py-1 bg-white/10 ring-1 ring-white/15">{m}</span>)}
                     </div>
                   </Panel>
