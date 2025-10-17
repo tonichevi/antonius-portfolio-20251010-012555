@@ -8,6 +8,33 @@ function BlueprintBG() {
   return <div className="fixed inset-0 -z-10 blueprint" />;
 }
 
+/* ---------- Splash Screen ---------- */
+function SplashScreen({ onComplete }) {
+  useEffect(() => {
+    const timer = setTimeout(() => onComplete(), 2000); // Display for 2 seconds
+    return () => clearTimeout(timer);
+  }, [onComplete]);
+
+  return (
+    <motion.div
+      className="fixed inset-0 bg-black flex items-center justify-center z-50"
+      initial={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 1, ease: "easeOut" }}
+    >
+      <motion.h1
+        className="text-5xl md:text-7xl font-bold text-white"
+        initial={{ scale: 0.8, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        exit={{ scale: 1.2, opacity: 0 }}
+        transition={{ duration: 1, ease: "easeOut" }}
+      >
+        Think Different
+      </motion.h1>
+    </motion.div>
+  );
+}
+
 /* ---------- Data ---------- */
 const EXPERIENCE = [
   { id: "dressaire", role: "Fluid Dynamics Researcher", company: "Dressaire Lab", period: "Oct 2025 – Present", start: "2025-10-01", location: "UCSB", bullets: [
@@ -184,6 +211,7 @@ export default function Page() {
   const [selected, setSelected] = useState(null);
   const details = EXPERIENCE.find(e => e.id === selected);
   const [selectedImage, setSelectedImage] = useState(null);
+  const [showSplash, setShowSplash] = useState(true);
 
   const projects = [
     { t: "Current: Star Rider III - Cause and Effect Vehicle for Disabled Children", h: "Developed an adaptive vehicle to enhance mobility for disabled children, focusing on cause-and-effect interaction.", m: ["UCSB", "2025"], img: "/images/StarRiderII.jpg" },
@@ -220,14 +248,22 @@ export default function Page() {
   const BioAvatar = () => (
     <div className="relative size-28 md:size-32 rounded-full overflow-hidden ring-2 ring-white/20 bg-white/10 grid place-items-center">
       <img src={bioPic} alt="Antonius Chevillotte headshot" className="h-full w-full object-cover" onError={(e) => { e.currentTarget.style.display = "none"; }} />
-      <span className="absolute inset-0 grid place-items-center text-3xl font-semibold bg-white/5"></span>
+      <span className="absolute inset-0 grid place-items-center text-3xl font-semibold bg-white/5">AC</span>
     </div>
   );
 
   return (
     <>
       <BlueprintBG />
-      <main className="relative min-h-screen text-white">
+      <AnimatePresence>
+        {showSplash && <SplashScreen onComplete={() => setShowSplash(false)} />}
+      </AnimatePresence>
+      <main
+        className="relative min-h-screen text-white"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 2, duration: 1, ease: "easeOut" }}
+      >
         {/* Top bar */}
         <header className="sticky top-0 z-40 border-b border-white/10 bg-black/40 backdrop-blur">
           <div className="max-w-6xl mx-auto px-4 py-3 flex items-center gap-3 justify-between">
