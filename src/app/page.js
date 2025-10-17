@@ -177,7 +177,7 @@ export default function Page() {
 
   const exp = useMemo(() => {
     const sorted = [...EXPERIENCE].sort((a, b) => new Date(b.start) - new Date(a.start));
-    return { top: sorted.slice(0, 3), bottom: sorted.slice(3) };
+    return sorted; // Return a single sorted array for simplicity
   }, []);
 
   const [tab, setTab] = useState("bio");
@@ -234,4 +234,160 @@ export default function Page() {
             <div className="flex items-center gap-3">
               <div className="size-7 rounded-md bg-white/10 ring-1 ring-white/10 grid place-items-center">
                 {/* tiny "cog" icon */}
-                <svg width="16" height="16" viewBox="0 0 24 24" className="opacity-80"><path fill="currentColor" d="M12 8a4 4 0 1 1 0 8a4 4 0 0 1 0-8m9.4 4a7.5 7.5 0 0 0-.3-1.7l2-1.6l-2-3.4l-2.4 1a
+                <svg width="16" height="16" viewBox="0 0 24 24" className="opacity-80"><path fill="currentColor" d="M12 8a4 4 0 1 1 0 8a4 4 0 0 1 0-8m9.4 4a7.5 7.5 0 0 0-.3-1.7l2-1.6l-2-3.4l-2.4 1a7.6 7.6 0 0 0-1.5-.9l-.4-2.6H8.2l-.4 2.6a7.6 7.6 0 0 0-1.5.9L3.9 3.3L2 6.7l2 1.6a7.5 7.5 0 0 0-.3 1.7c0 .6.1 1.2.3 1.7L2 13.7l2 3.4l2.4-1c.5.4 1 .7 1.5.9l.4 2.6h7.2l.4-2.6c.5-.2 1-.5 1.5-.9l2.4 1l2-3.4l-2.1-1.7c.2-.5.3-1.1.3-1.7Z" /></svg>
+              </div>
+              <button onClick={onName} className="font-semibold tracking-tight bg-gradient-to-r from-[#7cf9ff] to-[#9e7bff] bg-clip-text text-transparent">{alias}</button>
+            </div>
+            <TabChips tab={tab} setTab={setTab} />
+          </div>
+        </header>
+
+        {/* Lead section */}
+        <section className="max-w-6xl mx-auto px-4 pt-12 pb-4">
+          <h1 className="text-4xl md:text-5xl font-bold tracking-tight">
+            <span className="bg-gradient-to-r from-[#7cf9ff] to-[#9e7bff] bg-clip-text text-transparent">
+              {tab === "bio" ? "Biography" : tab === "projects" ? "Projects" : tab === "extracurriculars" ? "Extracurriculars" : "Experience"}
+            </span>
+          </h1>
+          <p className="mt-2 text-white/80 max-w-2xl">Mechanical engineering • systems, data, and design.</p>
+        </section>
+
+        {/* Content */}
+        <section className="max-w-6xl mx-auto px-4 py-6 space-y-10">
+          {tab === "bio" && (
+            <>
+              <div className="grid gap-6 md:grid-cols-3">
+                <Panel className="md:col-span-1 text-center">
+                  <BioAvatar />
+                  <div className="mt-4 font-semibold">{NAME}</div>
+                  <div className="text-sm text-white/85">Honors BS/MS · Mechanical Engineering, UCSB</div>
+                  <div className="mt-1 text-xs text-white/70">Los Angeles, CA</div>
+                </Panel>
+
+                <Panel className="md:col-span-2">
+                  <p className="text-sm leading-6 text-neutral-100">
+                    I’m an aspiring mechanical engineer focused on practical systems,
+                    experimental methods, and data-driven design. Recent work spans fluid
+                    dynamics of soft materials (Dressaire Lab), reliability & R&D at SaniSure,
+                    and KPI/requirements analytics at AUDI AG.
+                  </p>
+                  <div className="mt-4 flex flex-wrap gap-2 text-xs">
+                    {["Fluid Dynamics", "Reliability", "R&D", "Data & KPIs", "Prototyping"].map(t => (
+                      <span key={t} className="rounded-full px-2 py-1 bg-white/10 ring-1 ring-white/15">{t}</span>
+                    ))}
+                  </div>
+                </Panel>
+              </div>
+
+              <div className="grid gap-6 md:grid-cols-2">
+                <Panel>
+                  <h3 className="font-semibold">Education</h3>
+                  <ul className="mt-3 space-y-3 text-sm">
+                    {EDUCATION.map((e, i) => (
+                      <li key={i}>
+                        <div className="font-medium">{e.school}</div>
+                        <div className="text-white/90">{e.line}</div>
+                        <div className="text-white/70 text-xs">{e.time}{e.gpa ? ` · GPA: ${e.gpa}` : ""}</div>
+                        <div className="mt-1 text-xs text-white/75">{e.extras.join(" • ")}</div>
+                      </li>
+                    ))}
+                  </ul>
+                </Panel>
+
+                <Panel>
+                  <h3 className="font-semibold">Languages</h3>
+                  <ul className="mt-3 list-disc ps-5 text-sm text-neutral-100">{LANGS.map((l, i) => <li key={i}>{l}</li>)}</ul>
+                  <h3 className="font-semibold mt-6">Honors & Awards</h3>
+                  <ul className="mt-3 list-disc ps-5 text-sm text-neutral-100">{HONORS.map((h, i) => <li key={i}>{h}</li>)}</ul>
+                  <h3 className="font-semibold mt-6">Licenses & Certifications</h3>
+                  <ul className="mt-3 list-disc ps-5 text-sm text-neutral-100">{CERTS.map((c, i) => <li key={i}>{c}</li>)}</ul>
+                </Panel>
+              </div>
+            </>
+          )}
+
+          {tab === "projects" && (
+            <>
+              <div className="grid gap-8 md:grid-cols-3">
+                {projects.map((p, i) => (
+                  <Panel key={i} className="flex flex-col h-full">
+                    <h3 className="font-semibold">{p.t}</h3>
+                    {p.img && (
+                      <div className="mt-4 flex-shrink-0">
+                        <img src={p.img} alt={`${p.t} image`} className="max-w-full h-auto object-contain rounded-lg cursor-pointer" onClick={() => setSelectedImage(p.img)} onError={(e) => { e.currentTarget.style.display = "none"; }} />
+                      </div>
+                    )}
+                    {p.imgs && (
+                      <div className="mt-4 flex-shrink-0 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        {p.imgs.map((img, idx) => (
+                          <img key={idx} src={img} alt={`${p.t} image ${idx + 1}`} className="max-w-full h-auto object-contain rounded-lg cursor-pointer" onClick={() => setSelectedImage(img)} onError={(e) => { e.currentTarget.style.display = "none"; }} />
+                        ))}
+                      </div>
+                    )}
+                    <p className="mt-6 text-sm leading-6 text-neutral-100 flex-grow">{p.h}</p>
+                    <div className="mt-6 flex flex-wrap gap-2 text-xs">
+                      {p.m.map((m, k) => <span key={k} className="rounded-full px-2 py-1 bg-white/10 ring-1 ring-white/15">{m}</span>)}
+                    </div>
+                  </Panel>
+                ))}
+              </div>
+            </>
+          )}
+
+          {tab === "extracurriculars" && (
+            <div className="grid gap-6 md:grid-cols-2">
+              {extras.map((x, i) => (
+                <Panel key={i}>
+                  <h3 className="font-semibold">{x.o}</h3>
+                  <p className="mt-2 text-sm text-neutral-100">{x.d}</p>
+                </Panel>
+              ))}
+            </div>
+          )}
+
+          {tab === "experience" && (
+            <div className="relative">
+              {exp.map((exp, index) => (
+                <div key={exp.id} className="mb-8 flex items-start gap-6">
+                  <div className="relative">
+                    <div className="w-2 h-2 bg-cyan-400 rounded-full mt-2"></div>
+                    {index < exp.length - 1 && (
+                      <div className="absolute top-2 bottom-0 left-1 w-0.5 bg-cyan-400/50"></div>
+                    )}
+                  </div>
+                  <div className="flex-1 p-4 bg-white/5 rounded-lg hover:bg-white/10 transition-colors duration-200">
+                    <h3 className="text-lg font-semibold">{exp.role} - {exp.company}</h3>
+                    <p className="text-sm text-white/70">{exp.period} | {exp.location}</p>
+                    <button
+                      onClick={() => setSelected(exp.id === selected ? null : exp.id)}
+                      className="mt-2 px-4 py-1 bg-cyan-500/20 text-cyan-200 rounded hover:bg-cyan-500/30 transition-colors"
+                    >
+                      {selected === exp.id ? "Hide Details" : "View Details"}
+                    </button>
+                    <AnimatePresence>
+                      {selected === exp.id && (
+                        <motion.div
+                          initial={{ opacity: 0, height: 0 }}
+                          animate={{ opacity: 1, height: "auto" }}
+                          exit={{ opacity: 0, height: 0 }}
+                          className="mt-4 space-y-2 text-sm text-neutral-100"
+                        >
+                          <ul className="list-disc pl-5">
+                            {exp.bullets.map((bullet, i) => (
+                              <li key={i}>{bullet}</li>
+                            ))}
+                          </ul>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </section>
+        <ImageModal selectedImage={selectedImage} onClose={() => setSelectedImage(null)} />
+      </main>
+    </>
+  );
+}
