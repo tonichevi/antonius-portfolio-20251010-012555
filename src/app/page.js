@@ -10,7 +10,7 @@ function BlueprintBG() {
 
 /* ---------- Data ---------- */
 const EXPERIENCE = [
-  { id: "dressaire", role: "Fluid Dynamics Researcher", company: "Dressaire Lab", period: "Oct 2025 – Present", start: "2025-10-01", location: "UCSB · Hybrid", bullets: [
+  { id: "dressaire", role: "Fluid Dynamics Researcher", company: "Dressaire Lab", period: "Oct 2025 – Present", start: "2025-10-01", location: "UCSB", bullets: [
     "Studying effects and applications of capillary bridges in soft gels.",
     "Designing and building an instrumented fixture to quantify wetting (contact angle, hysteresis) and capillary adhesion (pull-off force, force–separation curves)."
   ]},
@@ -31,10 +31,6 @@ const EXPERIENCE = [
   { id: "ucd-tutor", role: "Calculus Tutor", company: "UC Davis", period: "Sep 2022 – Jun 2023", start: "2022-09-01", location: "Davis, CA · On-site", bullets: [
     "One-on-one and small-group tutoring (up to 10 students).",
     "5–10 hrs/week supporting success in core calculus coursework."
-  ]},
-  { id: "fruitfully", role: "Vice President", company: "Fruitfully Yours", period: "Jun 2018 – Jun 2021", start: "2018-06-01", location: "Glendora, CA · On-site", bullets: [
-    "Co-founded nonprofit reducing food waste via fruit rescue.",
-    "LA County Humanitarian Award; 80k+ lbs fruit, 70k+ people helped."
   ]},
 ];
 
@@ -167,6 +163,7 @@ export default function Page() {
     { o: "UCSB Formula SAE", d: "EV racecar design & build; extensive CAD; steering project focus." },
     { o: "Elementary School STEAM Volunteer", d: "Hands-on science & engineering sessions for 6th-grade students." },
     { o: "NASA Volunteer at UC Davis", d: "Generator teardown and efficiency comparisons." },
+    {o: "Fruitfully Yours Vice President", d: "Co-founded nonprofit reducing food waste via fruit rescue. The impact left by this organization has attained the LA County Humanitarian Award, having saved 80k+lbs of fruit and helping 70k+ food insecure individuals."},
   ];
   const HONORS = [
   "6× Dean’s Honors List (UC Davis & UCSB, Dec 2024).",
@@ -174,7 +171,6 @@ export default function Page() {
   "Glendora Kiwanis Community Service Award (Jun 2021).",
   "Tartan Achievement Award (Jun 2021).",
 ];
-
 const CERTS = [
   "Entrepreneurship Specialization — The Wharton School (Sep 2022).",
   "Oil & Gas Industry Operations and Markets — Duke University (Sep 2022).",
