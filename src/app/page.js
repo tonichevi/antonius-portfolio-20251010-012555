@@ -246,7 +246,7 @@ export default function Page() {
     "French — Elementary proficiency",
   ];
 
-  const bioPic = "/images/biography.jpg";
+  const bioPic = "/images/biography2.jpg";
   const BioAvatar = () => (
     <motion.div
       className="relative size-56 md:size-64 rounded-full overflow-hidden ring-2 ring-white/20 bg-white/10 grid place-items-center"
@@ -304,7 +304,7 @@ export default function Page() {
                 </Panel>
                 <Panel className="flex flex-col justify-between">
                   <motion.div
-                    className="text-2xl md:text-3xl leading-10 text-neutral-75"
+                    className="text-xl md:text-3xl leading-10 text-neutral-75"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.4 }}
