@@ -215,9 +215,9 @@ export default function Page() {
   const [showSplash, setShowSplash] = useState(true);
 
   const projects = [
-    { t: "Current: Star Rider III - Cause and Effect Vehicle for Disabled Children", h: "Developed an adaptive vehicle to enhance mobility for disabled children, focusing on cause-and-effect interaction.", m: ["UCSB", "2025-2026"], img: "/images/StarRiderII.jpg" },
+    { t: "Current: Star Rider III - Cause and Effect Vehicle for Disabled Children", h: "Developed an adaptive vehicle to enhance mobility for disabled children, focusing on cause-and-effect interaction.", m: ["UCSB", "2025"], img: "/images/StarRiderII.jpg" },
     { t: "URCA Steering System: An Analysis of Bearing Performance", h: "Conducted a detailed analysis of bearing performance to optimize steering system reliability.", m: ["URCA", "2025"], img: "/images/SteeringUrca.jpg" },
-    { t: "Frog Jumper Project", h: "Designed a spring-loaded mechanism to simulate a frog's jumping motion for educational purposes.", m: ["UCSB", "2025"], img: "/images/Jumper.jpg" },
+    { t: "Frog Jumper Project", h: "Designed a spring-loaded mechanism to simulate a frog's jumping motion for educational purposes.", m: ["UCSB", "2024"], img: "/images/Jumper.jpg" },
     { t: "SOLIDWORKS Projects", h: "A collection of designs including a 4-Beam TV holder and a FSAE steering wheel project, showcasing advanced CAD skills.", m: ["UCSB", "2024-2025"], imgs: ["/images/TVSketch.jpg", "/images/TV.jpg.png", "/images/SteeringWheel.jpg"] },
     { t: "Power BI Projects", h: "Two 'Dashboards' developed for use by the biotech company SaniSure (see 'Working It' Page for further detail). Dashboard #1 shows a 'Chemical Compatibility' Overview, highlighting which chemical and resins are compatible for bioprocessing use. Dashboard #2 shows an 'Engagement Overview', highlighting the pressure test results of various tube + connector + fitting engagements commonly used by SaniSure.", m: ["SaniSure", "2025-"], imgs: ["/images/ChemicalFilters.jpg", "/images/Material Engagement Check.jpg"] },
   ];
@@ -378,38 +378,24 @@ export default function Page() {
           {tab === "helpinghand" && (
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
               <Panel className="bg-gradient-to-br from-cyan-900/50 to-indigo-900/50 hover:shadow-lg hover:shadow-cyan-500/20 transition-all duration-300">
-                <h3 className="font-semibold text-lg text-cyan-200">Community Involvement</h3>
-                <ul className="mt-4 space-y-2 text-sm text-neutral-100">
-                  {extras.map((extra, i) => (
-                    <motion.li
-                      key={i}
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: i * 0.1 }}
-                      className="flex items-center gap-2"
-                    >
-                      <span className="w-2 h-2 bg-cyan-400 rounded-full"></span>
-                      {extra.o}
-                    </motion.li>
-                  ))}
-                </ul>
+                <h3 className="font-semibold text-lg text-cyan-200">UCSB Formula SAE</h3>
+                <p className="mt-4 text-sm text-neutral-100">EV racecar design & build; extensive CAD; steering project focus.</p>
               </Panel>
               <Panel className="bg-gradient-to-br from-indigo-900/50 to-purple-900/50 hover:shadow-lg hover:shadow-purple-500/20 transition-all duration-300">
-                <h3 className="font-semibold text-lg text-purple-200">Impact Details</h3>
-                <ul className="mt-4 space-y-2 text-sm text-neutral-100">
-                  {extras.map((extra, i) => (
-                    <motion.li
-                      key={i}
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: i * 0.1 }}
-                      className="flex items-center gap-2"
-                    >
-                      <span className="w-2 h-2 bg-purple-400 rounded-full"></span>
-                      {extra.d}
-                    </motion.li>
-                  ))}
-                </ul>
+                <h3 className="font-semibold text-lg text-purple-200">Elementary School STEAM Volunteer</h3>
+                <p className="mt-4 text-sm text-neutral-100">Hands-on science & engineering sessions for 6th-grade students.</p>
+              </Panel>
+              <Panel className="bg-gradient-to-br from-cyan-900/50 to-indigo-900/50 hover:shadow-lg hover:shadow-cyan-500/20 transition-all duration-300">
+                <h3 className="font-semibold text-lg text-cyan-200">NASA Volunteer at UC Davis</h3>
+                <p className="mt-4 text-sm text-neutral-100">Generator teardown and efficiency comparisons.</p>
+              </Panel>
+              <Panel className="bg-gradient-to-br from-indigo-900/50 to-purple-900/50 hover:shadow-lg hover:shadow-purple-500/20 transition-all duration-300">
+                <h3 className="font-semibold text-lg text-purple-200">Fruitfully Yours Vice President</h3>
+                <p className="mt-4 text-sm text-neutral-100">Co-founded nonprofit reducing food waste via fruit rescue. The impact left by this organization has attained the LA County Humanitarian Award, having saved 80k+lbs of fruit and helping 70k+ food insecure individuals.</p>
+              </Panel>
+              <Panel className="bg-gradient-to-br from-cyan-900/50 to-indigo-900/50 hover:shadow-lg hover:shadow-cyan-500/20 transition-all duration-300">
+                <h3 className="font-semibold text-lg text-cyan-200">Assistive Technology Club</h3>
+                <p className="mt-4 text-sm text-neutral-100">Co-founded the assistive technology club at UCSB, striving to develop technological solutions to biological problems. The current project is developing a VR headset to determine early-onset of Alzheimer's as part of a regular medical checkup.</p>
               </Panel>
             </div>
           )}
