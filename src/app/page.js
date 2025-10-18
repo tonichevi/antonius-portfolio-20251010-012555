@@ -215,9 +215,9 @@ export default function Page() {
   const [showSplash, setShowSplash] = useState(true);
 
   const projects = [
-    { t: "Current: Star Rider III - Cause and Effect Vehicle for Disabled Children", h: "Developed an adaptive vehicle to enhance mobility for disabled children, focusing on cause-and-effect interaction.", m: ["UCSB", "2025"], img: "/images/StarRiderII.jpg" },
+    { t: "Current: Star Rider III - Cause and Effect Vehicle for Disabled Children", h: "Developed an adaptive vehicle to enhance mobility for disabled children, focusing on cause-and-effect interaction.", m: ["UCSB", "2025-2026"], img: "/images/StarRiderII.jpg" },
     { t: "URCA Steering System: An Analysis of Bearing Performance", h: "Conducted a detailed analysis of bearing performance to optimize steering system reliability.", m: ["URCA", "2025"], img: "/images/SteeringUrca.jpg" },
-    { t: "Frog Jumper Project", h: "Designed a spring-loaded mechanism to simulate a frog's jumping motion for educational purposes.", m: ["UCSB", "2024"], img: "/images/Jumper.jpg" },
+    { t: "Frog Jumper Project", h: "Designed a spring-loaded mechanism to simulate a frog's jumping motion for educational purposes.", m: ["UCSB", "2025"], img: "/images/Jumper.jpg" },
     { t: "SOLIDWORKS Projects", h: "A collection of designs including a 4-Beam TV holder and a FSAE steering wheel project, showcasing advanced CAD skills.", m: ["UCSB", "2024-2025"], imgs: ["/images/TVSketch.jpg", "/images/TV.jpg.png", "/images/SteeringWheel.jpg"] },
     { t: "Power BI Projects", h: "Two 'Dashboards' developed for use by the biotech company SaniSure (see 'Working It' Page for further detail). Dashboard #1 shows a 'Chemical Compatibility' Overview, highlighting which chemical and resins are compatible for bioprocessing use. Dashboard #2 shows an 'Engagement Overview', highlighting the pressure test results of various tube + connector + fitting engagements commonly used by SaniSure.", m: ["SaniSure", "2025-"], imgs: ["/images/ChemicalFilters.jpg", "/images/Material Engagement Check.jpg"] },
   ];
@@ -283,16 +283,6 @@ export default function Page() {
           </div>
         </header>
 
-        {/* Lead section */}
-        <section className="max-w-6xl mx-auto px-4 pt-12 pb-4">
-          <h1 className="text-4xl md:text-5xl font-bold tracking-tight">
-            <span className="bg-gradient-to-r from-[#7cf9ff] to-[#9e7bff] bg-clip-text text-transparent">
-              {tab === "intro" ? "The Intro" : tab === "projects" ? "Projects" : tab === "helpinghand" ? "A Helping Hand" : tab === "workingit" ? "Working It" : tab === "deets" ? "The Deets" : ""}
-            </span>
-          </h1>
-          <p className="mt-2 text-white/80 max-w-2xl">Mechanical engineering • systems, data, and design.</p>
-        </section>
-
         {/* Content */}
         <section className="max-w-6xl mx-auto px-4 py-6 space-y-10">
           {tab === "intro" && (
@@ -313,24 +303,13 @@ export default function Page() {
                 </Panel>
                 <Panel className="flex flex-col justify-between">
                   <motion.div
-                    className="text-lg md:text-xl leading-7 text-neutral-100"
+                    className="text-2xl md:text-3xl leading-10 text-neutral-100"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.4 }}
                   >
-                    Welcome to my journey! I’m a mechanical engineering enthusiast diving deep into practical systems, experimental methods, and data-driven design. My recent adventures include exploring fluid dynamics with soft materials at Dressaire Lab, boosting reliability and R&D at SaniSure, and crunching KPIs at AUDI AG. Ready to explore more?
+                    Welcome to my journey! I’m a mechanical engineering enthusiast diving deep into practical systems, experimental methods, and data-driven design. My recent adventures include exploring fluid dynamics with soft materials at Dressaire Lab, boosting reliability and R&D at SaniSure, and crunching KPIs at AUDI AG. Ready to explore more? I’m passionate about solving real-world problems with innovative solutions, and my work reflects a blend of creativity and technical expertise. From designing adaptive vehicles to analyzing complex systems, every project pushes me to think differently and grow.
                   </motion.div>
-                  <div className="mt-6 flex flex-wrap gap-3">
-                    {["Fluid Dynamics", "Reliability", "R&D", "Data & KPIs", "Prototyping"].map(t => (
-                      <motion.span
-                        key={t}
-                        className="rounded-full px-3 py-1.5 bg-white/10 ring-1 ring-white/15 text-xs hover:bg-cyan-500/20 transition-colors duration-200"
-                        whileHover={{ scale: 1.1 }}
-                      >
-                        {t}
-                      </motion.span>
-                    ))}
-                  </div>
                 </Panel>
               </div>
               <div className="relative">
@@ -396,13 +375,41 @@ export default function Page() {
           )}
 
           {tab === "helpinghand" && (
-            <div className="grid gap-6 md:grid-cols-2">
-              {extras.map((x, i) => (
-                <Panel key={i}>
-                  <h3 className="font-semibold">{x.o}</h3>
-                  <p className="mt-2 text-sm text-neutral-100">{x.d}</p>
-                </Panel>
-              ))}
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+              <Panel className="bg-gradient-to-br from-cyan-900/50 to-indigo-900/50 hover:shadow-lg hover:shadow-cyan-500/20 transition-all duration-300">
+                <h3 className="font-semibold text-lg text-cyan-200">Community Involvement</h3>
+                <ul className="mt-4 space-y-2 text-sm text-neutral-100">
+                  {extras.map((extra, i) => (
+                    <motion.li
+                      key={i}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: i * 0.1 }}
+                      className="flex items-center gap-2"
+                    >
+                      <span className="w-2 h-2 bg-cyan-400 rounded-full"></span>
+                      {extra.o}
+                    </motion.li>
+                  ))}
+                </ul>
+              </Panel>
+              <Panel className="bg-gradient-to-br from-indigo-900/50 to-purple-900/50 hover:shadow-lg hover:shadow-purple-500/20 transition-all duration-300">
+                <h3 className="font-semibold text-lg text-purple-200">Impact Details</h3>
+                <ul className="mt-4 space-y-2 text-sm text-neutral-100">
+                  {extras.map((extra, i) => (
+                    <motion.li
+                      key={i}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: i * 0.1 }}
+                      className="flex items-center gap-2"
+                    >
+                      <span className="w-2 h-2 bg-purple-400 rounded-full"></span>
+                      {extra.d}
+                    </motion.li>
+                  ))}
+                </ul>
+              </Panel>
             </div>
           )}
 
