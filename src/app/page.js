@@ -247,7 +247,7 @@ export default function Page() {
 
   const bioPic = "/images/biography.jpg";
   const BioAvatar = () => (
-    <div className="relative size-28 md:size-32 rounded-full overflow-hidden ring-2 ring-white/20 bg-white/10 grid place-items-center">
+    <div className="relative size-40 md:size-32 rounded-full overflow-hidden ring-2 ring-white/20 bg-white/10 grid place-items-center">
       <img src={bioPic} alt="Antonius Chevillotte headshot" className="h-full w-full object-cover" onError={(e) => { e.currentTarget.style.display = "none"; }} />
       <span className="absolute inset-0 grid place-items-center text-3xl font-semibold bg-white/5"></span>
     </div>
