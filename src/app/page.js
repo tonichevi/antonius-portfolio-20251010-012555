@@ -226,6 +226,7 @@ export default function Page() {
     { o: "Elementary School STEAM Volunteer", d: "Hands-on science & engineering sessions for 6th-grade students." },
     { o: "NASA Volunteer at UC Davis", d: "Generator teardown and efficiency comparisons." },
     { o: "Fruitfully Yours Vice President", d: "Co-founded nonprofit reducing food waste via fruit rescue. The impact left by this organization has attained the LA County Humanitarian Award, having saved 80k+lbs of fruit and helping 70k+ food insecure individuals." },
+    { o: "Assistive Technology Club", d: "Co-founded the assistive technology club at UCSB, striving to develop technological solutions to biological problems. The current project is developing a VR headset to determine early-onset of Alzheimer's as part of a regular medical checkup." },
   ];
   const HONORS = [
     "6× Dean's Honors List (UC Davis & UCSB, Dec 2024).",
