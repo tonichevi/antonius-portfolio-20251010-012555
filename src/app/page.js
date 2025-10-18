@@ -309,7 +309,7 @@ export default function Page() {
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.4 }}
                   >
-                    Welcome to my journey! I’m a mechanical engineering enthusiast diving deep into practical systems, experimental methods, and data-driven design. My recent adventures include exploring fluid dynamics with soft materials at Dressaire Lab, boosting reliability and R&D at SaniSure, and crunching KPIs at AUDI AG. Ready to explore more? I’m passionate about solving real-world problems with innovative solutions, and my work reflects a blend of creativity and technical expertise. From designing adaptive vehicles to analyzing complex systems, every project pushes me to think differently and grow.
+                    Hey 👋 My name is Toni and I am a mechanical engineering BS/MS candidate at UCSB. My recent adventures include exploring fluid dynamics with soft materials at Dressaire Lab, working on design improvements of single-use bioprocessing solutions at SaniSure, and crunching KPIs using Power BI at AUDI AG. I’m super passionate about developing the bio-engineering field with innovative solutions and try my best to follow the Occam’s Razor compliant words of Chris Williamson "The only thing that is doing the thing is doing the thing." In addition, I also enjoy playing tennis, running half-marathons, and exploring new places. 
                   </motion.div>
                 </Panel>
               </div>
