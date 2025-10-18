@@ -304,7 +304,7 @@ export default function Page() {
                 </Panel>
                 <Panel className="flex flex-col justify-between">
                   <motion.div
-                    className="text-2xl md:text-3xl leading-10 text-neutral-100"
+                    className="text-2xl md:text-3xl leading-10 text-neutral-75"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.4 }}
