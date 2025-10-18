@@ -213,7 +213,6 @@ export default function Page() {
   const details = EXPERIENCE.find(e => e.id === selected);
   const [selectedImage, setSelectedImage] = useState(null);
   const [showSplash, setShowSplash] = useState(true);
-  const [currentExp, setCurrentExp] = useState(0);
 
   const projects = [
     { t: "Current: Star Rider III - Cause and Effect Vehicle for Disabled Children", h: "Developed an adaptive vehicle to enhance mobility for disabled children, focusing on cause-and-effect interaction.", m: ["UCSB", "2025"], img: "/images/StarRiderII.jpg" },
@@ -358,6 +357,13 @@ export default function Page() {
                   </div>
                 </Panel>
               </div>
+              <Panel className="mt-6">
+                <h3 className="font-semibold text-xl text-cyan-200">Get in Touch</h3>
+                <div className="mt-4 space-y-2 text-sm text-neutral-100">
+                  <p>Email: <a href="mailto:achevillotte@ucsb.edu" className="text-cyan-400 hover:underline">achevillotte@ucsb.edu</a></p>
+                  <p>Phone: <span className="text-cyan-400">+1 (914) 649-9132</span></p>
+                </div>
+              </Panel>
             </>
           )}
 
@@ -402,63 +408,37 @@ export default function Page() {
 
           {tab === "workingit" && (
             <div className="relative">
-              <Panel className="overflow-hidden">
-                <h3 className="font-semibold text-2xl text-cyan-200 mb-4">My Work Journey</h3>
-                <div className="relative">
-                  <motion.div
-                    className="flex gap-6"
-                    animate={{ x: `-${currentExp * 100}%` }}
-                    transition={{ type: "spring", stiffness: 100 }}
-                  >
-                    {exp.map((exp, i) => (
-                      <motion.div
-                        key={exp.id}
-                        className="min-w-full p-6 bg-white/5 rounded-lg hover:bg-white/10 transition-colors duration-200"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
+              <Panel>
+                <h3 className="font-semibold text-2xl text-cyan-200 mb-6">My Work Journey</h3>
+                <div className="space-y-4">
+                  {exp.map((exp) => (
+                    <div key={exp.id} className="border-l-2 border-cyan-400 pl-4">
+                      <h4 className="text-lg font-semibold">{exp.role} - {exp.company}</h4>
+                      <p className="text-sm text-white/70 mt-1">{exp.period} | {exp.location}</p>
+                      <button
+                        onClick={() => setSelected(exp.id === selected ? null : exp.id)}
+                        className="mt-2 px-4 py-1 bg-cyan-500/20 text-cyan-200 rounded hover:bg-cyan-500/30 transition-colors"
                       >
-                        <h3 className="text-lg font-semibold">{exp.role} - {exp.company}</h3>
-                        <p className="text-sm text-white/70 mt-2">{exp.period} | {exp.location}</p>
-                        <AnimatePresence>
-                          {selected === exp.id && (
-                            <motion.div
-                              initial={{ opacity: 0, height: 0 }}
-                              animate={{ opacity: 1, height: "auto" }}
-                              exit={{ opacity: 0, height: 0 }}
-                              className="mt-4 space-y-2 text-sm text-neutral-100"
-                            >
-                              <ul className="list-disc pl-5">
-                                {exp.bullets.map((bullet, j) => (
-                                  <li key={j}>{bullet}</li>
-                                ))}
-                              </ul>
-                            </motion.div>
-                          )}
-                        </AnimatePresence>
-                        <button
-                          onClick={() => setSelected(exp.id === selected ? null : exp.id)}
-                          className="mt-4 px-4 py-2 bg-cyan-500/20 text-cyan-200 rounded hover:bg-cyan-500/30 transition-colors"
-                        >
-                          {selected === exp.id ? "Hide Details" : "View Details"}
-                        </button>
-                      </motion.div>
-                    ))}
-                  </motion.div>
-                  <div className="mt-4 flex justify-center gap-4">
-                    <button
-                      onClick={() => setCurrentExp((currentExp - 1 + exp.length) % exp.length)}
-                      className="px-4 py-2 bg-white/10 rounded hover:bg-white/20 transition-colors"
-                    >
-                      ←
-                    </button>
-                    <button
-                      onClick={() => setCurrentExp((currentExp + 1) % exp.length)}
-                      className="px-4 py-2 bg-white/10 rounded hover:bg-white/20 transition-colors"
-                    >
-                      →
-                    </button>
-                  </div>
+                        {selected === exp.id ? "Hide Details" : "View Details"}
+                      </button>
+                      <AnimatePresence>
+                        {selected === exp.id && (
+                          <motion.div
+                            initial={{ opacity: 0, height: 0 }}
+                            animate={{ opacity: 1, height: "auto" }}
+                            exit={{ opacity: 0, height: 0 }}
+                            className="mt-2 space-y-2 text-sm text-neutral-100"
+                          >
+                            <ul className="list-disc pl-5">
+                              {exp.bullets.map((bullet, i) => (
+                                <li key={i}>{bullet}</li>
+                              ))}
+                            </ul>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
+                  ))}
                 </div>
               </Panel>
             </div>
