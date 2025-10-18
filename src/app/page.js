@@ -70,10 +70,10 @@ const EDUCATION = [
 /* ---------- UI bits ---------- */
 function TabChips({ tab, setTab }) {
   const items = [
-    { id: "bio", label: "Biography" },
+    { id: "intro", label: "The Intro" },
     { id: "projects", label: "Projects" },
-    { id: "extracurriculars", label: "Extracurriculars" },
-    { id: "experience", label: "Experience" },
+    { id: "helpinghand", label: "A Helping Hand" },
+    { id: "workingit", label: "Working It" },
     { id: "deets", label: "The Deets" },
   ];
   return (
@@ -208,18 +208,19 @@ export default function Page() {
     return sorted; // Return a single sorted array for simplicity
   }, []);
 
-  const [tab, setTab] = useState("bio");
+  const [tab, setTab] = useState("intro");
   const [selected, setSelected] = useState(null);
   const details = EXPERIENCE.find(e => e.id === selected);
   const [selectedImage, setSelectedImage] = useState(null);
   const [showSplash, setShowSplash] = useState(true);
+  const [currentExp, setCurrentExp] = useState(0);
 
   const projects = [
     { t: "Current: Star Rider III - Cause and Effect Vehicle for Disabled Children", h: "Developed an adaptive vehicle to enhance mobility for disabled children, focusing on cause-and-effect interaction.", m: ["UCSB", "2025"], img: "/images/StarRiderII.jpg" },
     { t: "URCA Steering System: An Analysis of Bearing Performance", h: "Conducted a detailed analysis of bearing performance to optimize steering system reliability.", m: ["URCA", "2025"], img: "/images/SteeringUrca.jpg" },
     { t: "Frog Jumper Project", h: "Designed a spring-loaded mechanism to simulate a frog's jumping motion for educational purposes.", m: ["UCSB", "2024"], img: "/images/Jumper.jpg" },
     { t: "SOLIDWORKS Projects", h: "A collection of designs including a 4-Beam TV holder and a FSAE steering wheel project, showcasing advanced CAD skills.", m: ["UCSB", "2024-2025"], imgs: ["/images/TVSketch.jpg", "/images/TV.jpg.png", "/images/SteeringWheel.jpg"] },
-    { t: "Power BI Projects", h: "Two 'Dashboards' developed for use by the biotech company SaniSure (see 'Experience' Page for further detail). Dashboard #1 shows a 'Chemical Compatibility' Overview, highlighting which chemical and resins are compatible for bioprocessing use. Dashboard #2 shows an 'Engagement Overview', highlighting the pressure test results of various tube + connector + fitting engagements commonly used by SaniSure.", m: ["SaniSure", "2025-"], imgs: ["/images/ChemicalFilters.jpg", "/images/Material Engagement Check.jpg"] },
+    { t: "Power BI Projects", h: "Two 'Dashboards' developed for use by the biotech company SaniSure (see 'Working It' Page for further detail). Dashboard #1 shows a 'Chemical Compatibility' Overview, highlighting which chemical and resins are compatible for bioprocessing use. Dashboard #2 shows an 'Engagement Overview', highlighting the pressure test results of various tube + connector + fitting engagements commonly used by SaniSure.", m: ["SaniSure", "2025-"], imgs: ["/images/ChemicalFilters.jpg", "/images/Material Engagement Check.jpg"] },
   ];
   const extras = [
     { o: "UCSB Formula SAE", d: "EV racecar design & build; extensive CAD; steering project focus." },
@@ -247,10 +248,14 @@ export default function Page() {
 
   const bioPic = "/images/biography.jpg";
   const BioAvatar = () => (
-    <div className="relative size-56 md:size-64 rounded-full overflow-hidden ring-2 ring-white/20 bg-white/10 grid place-items-center">
+    <motion.div
+      className="relative size-56 md:size-64 rounded-full overflow-hidden ring-2 ring-white/20 bg-white/10 grid place-items-center"
+      whileHover={{ scale: 1.05, rotate: 5 }}
+      transition={{ type: "spring", stiffness: 300 }}
+    >
       <img src={bioPic} alt="Antonius Chevillotte headshot" className="h-full w-full object-cover" onError={(e) => { e.currentTarget.style.display = "none"; }} />
       <span className="absolute inset-0 grid place-items-center text-4xl font-semibold bg-white/5"></span>
-    </div>
+    </motion.div>
   );
 
   return (
@@ -283,7 +288,7 @@ export default function Page() {
         <section className="max-w-6xl mx-auto px-4 pt-12 pb-4">
           <h1 className="text-4xl md:text-5xl font-bold tracking-tight">
             <span className="bg-gradient-to-r from-[#7cf9ff] to-[#9e7bff] bg-clip-text text-transparent">
-              {tab === "bio" ? "Biography" : tab === "projects" ? "Projects" : tab === "extracurriculars" ? "Extracurriculars" : tab === "deets" ? "The Deets" : "Experience"}
+              {tab === "intro" ? "The Intro" : tab === "projects" ? "Projects" : tab === "helpinghand" ? "A Helping Hand" : tab === "workingit" ? "Working It" : tab === "deets" ? "The Deets" : ""}
             </span>
           </h1>
           <p className="mt-2 text-white/80 max-w-2xl">Mechanical engineering • systems, data, and design.</p>
@@ -291,44 +296,66 @@ export default function Page() {
 
         {/* Content */}
         <section className="max-w-6xl mx-auto px-4 py-6 space-y-10">
-          {tab === "bio" && (
+          {tab === "intro" && (
             <>
-              <div className="grid gap-6 md:grid-cols-3">
-                <Panel className="md:col-span-1 text-center">
+              <div className="grid gap-6 md:grid-cols-[1fr_2fr]">
+                <Panel className="text-center flex flex-col items-center">
                   <BioAvatar />
-                  <div className="mt-4 font-semibold">{NAME}</div>
-                  <div className="text-sm text-white/85">Honors BS/MS · Mechanical Engineering, UCSB</div>
+                  <motion.div
+                    className="mt-6 text-2xl md:text-3xl font-semibold bg-gradient-to-r from-[#7cf9ff] to-[#9e7bff] bg-clip-text text-transparent"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.2 }}
+                  >
+                    {NAME}
+                  </motion.div>
+                  <div className="text-sm text-white/85 mt-2">Honors BS/MS · Mechanical Engineering, UCSB</div>
                   <div className="mt-1 text-xs text-white/70">Los Angeles, CA</div>
                 </Panel>
-
-                <Panel className="md:col-span-2">
-                  <p className="text-sm leading-6 text-neutral-100">
-                    I’m an aspiring mechanical engineer focused on practical systems,
-                    experimental methods, and data-driven design. Recent work spans fluid
-                    dynamics of soft materials (Dressaire Lab), reliability & R&D at SaniSure,
-                    and KPI/requirements analytics at AUDI AG.
-                  </p>
-                  <div className="mt-4 flex flex-wrap gap-2 text-xs">
+                <Panel className="flex flex-col justify-between">
+                  <motion.div
+                    className="text-lg md:text-xl leading-7 text-neutral-100"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.4 }}
+                  >
+                    Welcome to my journey! I’m a mechanical engineering enthusiast diving deep into practical systems, experimental methods, and data-driven design. My recent adventures include exploring fluid dynamics with soft materials at Dressaire Lab, boosting reliability and R&D at SaniSure, and crunching KPIs at AUDI AG. Ready to explore more?
+                  </motion.div>
+                  <div className="mt-6 flex flex-wrap gap-3">
                     {["Fluid Dynamics", "Reliability", "R&D", "Data & KPIs", "Prototyping"].map(t => (
-                      <span key={t} className="rounded-full px-2 py-1 bg-white/10 ring-1 ring-white/15">{t}</span>
+                      <motion.span
+                        key={t}
+                        className="rounded-full px-3 py-1.5 bg-white/10 ring-1 ring-white/15 text-xs hover:bg-cyan-500/20 transition-colors duration-200"
+                        whileHover={{ scale: 1.1 }}
+                      >
+                        {t}
+                      </motion.span>
                     ))}
                   </div>
                 </Panel>
               </div>
-
-              <div className="grid gap-6 md:grid-cols-2">
+              <div className="relative">
                 <Panel>
-                  <h3 className="font-semibold">Education</h3>
-                  <ul className="mt-3 space-y-3 text-sm">
-                    {EDUCATION.map((e, i) => (
-                      <li key={i}>
-                        <div className="font-medium">{e.school}</div>
-                        <div className="text-white/90">{e.line}</div>
-                        <div className="text-white/70 text-xs">{e.time}{e.gpa ? ` · GPA: ${e.gpa}` : ""}</div>
-                        <div className="mt-1 text-xs text-white/75">{e.extras.join(" • ")}</div>
-                      </li>
+                  <h3 className="font-semibold text-2xl text-cyan-200">Educational Journey</h3>
+                  <div className="mt-6 space-y-6">
+                    {EDUCATION.map((edu, i) => (
+                      <motion.div
+                        key={i}
+                        className="flex items-start gap-4"
+                        initial={{ opacity: 0, x: -50 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: i * 0.2 }}
+                      >
+                        <div className="w-3 h-3 bg-cyan-400 rounded-full mt-2 flex-shrink-0"></div>
+                        <div>
+                          <div className="font-medium text-lg">{edu.school}</div>
+                          <div className="text-white/90">{edu.line}</div>
+                          <div className="text-white/70 text-sm">{edu.time} {edu.gpa ? `· GPA: ${edu.gpa}` : ""}</div>
+                          <div className="mt-1 text-sm text-white/75">{edu.extras.join(" • ")}</div>
+                        </div>
+                      </motion.div>
                     ))}
-                  </ul>
+                  </div>
                 </Panel>
               </div>
             </>
@@ -362,7 +389,7 @@ export default function Page() {
             </>
           )}
 
-          {tab === "extracurriculars" && (
+          {tab === "helpinghand" && (
             <div className="grid gap-6 md:grid-cols-2">
               {extras.map((x, i) => (
                 <Panel key={i}>
@@ -373,44 +400,67 @@ export default function Page() {
             </div>
           )}
 
-          {tab === "experience" && (
+          {tab === "workingit" && (
             <div className="relative">
-              {exp.map((exp, index) => (
-                <div key={exp.id} className="mb-8 flex items-start gap-6">
-                  <div className="relative">
-                    <div className="w-2 h-2 bg-cyan-400 rounded-full mt-2"></div>
-                    {index < exp.length - 1 && (
-                      <div className="absolute top-2 bottom-0 left-1 w-0.5 bg-cyan-400/50"></div>
-                    )}
-                  </div>
-                  <div className="flex-1 p-4 bg-white/5 rounded-lg hover:bg-white/10 transition-colors duration-200">
-                    <h3 className="text-lg font-semibold">{exp.role} - {exp.company}</h3>
-                    <p className="text-sm text-white/70">{exp.period} | {exp.location}</p>
-                    <button
-                      onClick={() => setSelected(exp.id === selected ? null : exp.id)}
-                      className="mt-2 px-4 py-1 bg-cyan-500/20 text-cyan-200 rounded hover:bg-cyan-500/30 transition-colors"
-                    >
-                      {selected === exp.id ? "Hide Details" : "View Details"}
-                    </button>
-                    <AnimatePresence>
-                      {selected === exp.id && (
-                        <motion.div
-                          initial={{ opacity: 0, height: 0 }}
-                          animate={{ opacity: 1, height: "auto" }}
-                          exit={{ opacity: 0, height: 0 }}
-                          className="mt-4 space-y-2 text-sm text-neutral-100"
+              <Panel className="overflow-hidden">
+                <h3 className="font-semibold text-2xl text-cyan-200 mb-4">My Work Journey</h3>
+                <div className="relative">
+                  <motion.div
+                    className="flex gap-6"
+                    animate={{ x: `-${currentExp * 100}%` }}
+                    transition={{ type: "spring", stiffness: 100 }}
+                  >
+                    {exp.map((exp, i) => (
+                      <motion.div
+                        key={exp.id}
+                        className="min-w-full p-6 bg-white/5 rounded-lg hover:bg-white/10 transition-colors duration-200"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                      >
+                        <h3 className="text-lg font-semibold">{exp.role} - {exp.company}</h3>
+                        <p className="text-sm text-white/70 mt-2">{exp.period} | {exp.location}</p>
+                        <AnimatePresence>
+                          {selected === exp.id && (
+                            <motion.div
+                              initial={{ opacity: 0, height: 0 }}
+                              animate={{ opacity: 1, height: "auto" }}
+                              exit={{ opacity: 0, height: 0 }}
+                              className="mt-4 space-y-2 text-sm text-neutral-100"
+                            >
+                              <ul className="list-disc pl-5">
+                                {exp.bullets.map((bullet, j) => (
+                                  <li key={j}>{bullet}</li>
+                                ))}
+                              </ul>
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+                        <button
+                          onClick={() => setSelected(exp.id === selected ? null : exp.id)}
+                          className="mt-4 px-4 py-2 bg-cyan-500/20 text-cyan-200 rounded hover:bg-cyan-500/30 transition-colors"
                         >
-                          <ul className="list-disc pl-5">
-                            {exp.bullets.map((bullet, i) => (
-                              <li key={i}>{bullet}</li>
-                            ))}
-                          </ul>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
+                          {selected === exp.id ? "Hide Details" : "View Details"}
+                        </button>
+                      </motion.div>
+                    ))}
+                  </motion.div>
+                  <div className="mt-4 flex justify-center gap-4">
+                    <button
+                      onClick={() => setCurrentExp((currentExp - 1 + exp.length) % exp.length)}
+                      className="px-4 py-2 bg-white/10 rounded hover:bg-white/20 transition-colors"
+                    >
+                      ←
+                    </button>
+                    <button
+                      onClick={() => setCurrentExp((currentExp + 1) % exp.length)}
+                      className="px-4 py-2 bg-white/10 rounded hover:bg-white/20 transition-colors"
+                    >
+                      →
+                    </button>
                   </div>
                 </div>
-              ))}
+              </Panel>
             </div>
           )}
 
