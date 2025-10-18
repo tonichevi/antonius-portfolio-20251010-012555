@@ -309,7 +309,7 @@ export default function Page() {
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.4 }}
                   >
-                    Hey 👋 My name is Toni and I am a mechanical engineering BS/MS candidate at UCSB. My recent adventures include exploring fluid dynamics with soft materials at Dressaire Lab, working on design improvements of single-use bioprocessing solutions at SaniSure, and crunching KPIs using Power BI at AUDI AG. I’m super passionate about developing the bio-engineering field with innovative solutions and try my best to follow the Occam’s Razor compliant words of Chris Williamson "The only thing that is doing the thing is doing the thing." In addition, I also enjoy playing tennis, running half-marathons, and exploring new places. 
+                    Hey 👋 My name is Toni and I am a mechanical engineering BS/MS candidate at UCSB. My recent adventures include exploring fluid dynamics with soft materials at Dressaire Lab, working on design improvements of single-use bioprocessing solutions at SaniSure, and crunching KPIs using Power BI at AUDI AG. I’m super passionate about developing the bio-engineering field with innovative solutions and try my best to follow the Occam’s Razor compliant words of Chris Williamson "The only thing that is doing the thing is doing the thing." In addition, I also enjoy playing tennis, running half-marathons, and scuba-diving. 
                   </motion.div>
                 </Panel>
               </div>
