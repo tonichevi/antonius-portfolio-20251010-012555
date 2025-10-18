@@ -218,7 +218,7 @@ export default function Page() {
     { t: "URCA Steering System: An Analysis of Bearing Performance", h: "Conducted a detailed analysis of bearing performance to optimize steering system reliability.", m: ["URCA", "2025"], img: "/images/SteeringUrca.jpg" },
     { t: "Frog Jumper Project", h: "Designed a spring-loaded mechanism to simulate a frog's jumping motion for educational purposes.", m: ["UCSB", "2024"], img: "/images/Jumper.jpg" },
     { t: "SOLIDWORKS Projects", h: "A collection of designs including a 4-Beam TV holder and a FSAE steering wheel project, showcasing advanced CAD skills.", m: ["UCSB", "2024-2025"], imgs: ["/images/TVSketch.jpg", "/images/TV.jpg.png", "/images/SteeringWheel.jpg"] },
-    {t: "Power BI Projects", h: "Two 'Dashboards' developed for use by the biotech company SaniSure (see 'Experience' Page for further detail). Dashboard #1 shows a 'Chemical Compatibility' Overview, highlighting which chemical and resins are compatible for bioprocessing use. Dashboard #2 shows an 'Engagement Overview', highlighting the pressure test results of various tube + connector + fitting engagements commonly used by SaniSure., m: 
+    {t: "Power BI Projects", h: "Two 'Dashboards' developed for use by the biotech company SaniSure (see 'Experience' Page for further detail). Dashboard #1 shows a 'Chemical Compatibility' Overview, highlighting which chemical and resins are compatible for bioprocessing use. Dashboard #2 shows an 'Engagement Overview', highlighting the pressure test results of various tube + connector + fitting engagements commonly used by SaniSure.", m: 
       ["SaniSure", "2025-"], imgs:["/images/ChemicalFilters.jpg","/images/Material Engagement Check"]},
   ];
   const extras = [
