@@ -63,7 +63,7 @@ const EXPERIENCE = [
 
 const EDUCATION = [
   { school: "UC Santa Barbara", line: "BS/MS Mechanical Engineering", time: "Jun 2023 – Jun 2027", extras: ["Honors College", "Tau Beta Pi", "Formula SAE Racing Club"], gpa: "3.82" },
-  { school: "University of California, Davis", line: "B.S. Mechanical Engineering", time: "Sep 2021 – Jun 2023", extras: [ "Student Alumni Association", "CAAA Leadership Scholar"], gpa: "3.82/4.00" },
+  { school: "University of California, Davis", line: "B.S. Mechanical Engineering", time: "Sep 2021 – Jun 2023", extras: ["Student Alumni Association", "CAAA Leadership Scholar"], gpa: "3.82/4.00" },
   { school: "Glendora High School", line: "High School Diploma", time: "Aug 2017 – Jun 2021", extras: ["National Honors Society (NHS)", "Varsity Tennis"], gpa: "4.69/4.00 (Top 2%)" },
 ];
 
@@ -74,6 +74,7 @@ function TabChips({ tab, setTab }) {
     { id: "projects", label: "Projects" },
     { id: "extracurriculars", label: "Extracurriculars" },
     { id: "experience", label: "Experience" },
+    { id: "deets", label: "The Deets" },
   ];
   return (
     <ul className="flex gap-2 rounded-xl p-1 ring-1 ring-white/15 bg-white/5">
@@ -218,8 +219,7 @@ export default function Page() {
     { t: "URCA Steering System: An Analysis of Bearing Performance", h: "Conducted a detailed analysis of bearing performance to optimize steering system reliability.", m: ["URCA", "2025"], img: "/images/SteeringUrca.jpg" },
     { t: "Frog Jumper Project", h: "Designed a spring-loaded mechanism to simulate a frog's jumping motion for educational purposes.", m: ["UCSB", "2024"], img: "/images/Jumper.jpg" },
     { t: "SOLIDWORKS Projects", h: "A collection of designs including a 4-Beam TV holder and a FSAE steering wheel project, showcasing advanced CAD skills.", m: ["UCSB", "2024-2025"], imgs: ["/images/TVSketch.jpg", "/images/TV.jpg.png", "/images/SteeringWheel.jpg"] },
-    {t: "Power BI Projects", h: "Two 'Dashboards' developed for use by the biotech company SaniSure (see 'Experience' Page for further detail). Dashboard #1 shows a 'Chemical Compatibility' Overview, highlighting which chemical and resins are compatible for bioprocessing use. Dashboard #2 shows an 'Engagement Overview', highlighting the pressure test results of various tube + connector + fitting engagements commonly used by SaniSure.", m: 
-      ["SaniSure", "2025-"], imgs:["/images/ChemicalFilters.jpg","/images/Material Engagement Check.jpg"]},
+    { t: "Power BI Projects", h: "Two 'Dashboards' developed for use by the biotech company SaniSure (see 'Experience' Page for further detail). Dashboard #1 shows a 'Chemical Compatibility' Overview, highlighting which chemical and resins are compatible for bioprocessing use. Dashboard #2 shows an 'Engagement Overview', highlighting the pressure test results of various tube + connector + fitting engagements commonly used by SaniSure.", m: ["SaniSure", "2025-"], imgs: ["/images/ChemicalFilters.jpg", "/images/Material Engagement Check.jpg"] },
   ];
   const extras = [
     { o: "UCSB Formula SAE", d: "EV racecar design & build; extensive CAD; steering project focus." },
@@ -247,9 +247,9 @@ export default function Page() {
 
   const bioPic = "/images/biography.jpg";
   const BioAvatar = () => (
-    <div className="relative size-40 md:size-32 rounded-full overflow-hidden ring-2 ring-white/20 bg-white/10 grid place-items-center">
+    <div className="relative size-56 md:size-64 rounded-full overflow-hidden ring-2 ring-white/20 bg-white/10 grid place-items-center">
       <img src={bioPic} alt="Antonius Chevillotte headshot" className="h-full w-full object-cover" onError={(e) => { e.currentTarget.style.display = "none"; }} />
-      <span className="absolute inset-0 grid place-items-center text-3xl font-semibold bg-white/5"></span>
+      <span className="absolute inset-0 grid place-items-center text-4xl font-semibold bg-white/5"></span>
     </div>
   );
 
@@ -283,7 +283,7 @@ export default function Page() {
         <section className="max-w-6xl mx-auto px-4 pt-12 pb-4">
           <h1 className="text-4xl md:text-5xl font-bold tracking-tight">
             <span className="bg-gradient-to-r from-[#7cf9ff] to-[#9e7bff] bg-clip-text text-transparent">
-              {tab === "bio" ? "Biography" : tab === "projects" ? "Projects" : tab === "extracurriculars" ? "Extracurriculars" : "Experience"}
+              {tab === "bio" ? "Biography" : tab === "projects" ? "Projects" : tab === "extracurriculars" ? "Extracurriculars" : tab === "deets" ? "The Deets" : "Experience"}
             </span>
           </h1>
           <p className="mt-2 text-white/80 max-w-2xl">Mechanical engineering • systems, data, and design.</p>
@@ -329,15 +329,6 @@ export default function Page() {
                       </li>
                     ))}
                   </ul>
-                </Panel>
-
-                <Panel>
-                  <h3 className="font-semibold">Languages</h3>
-                  <ul className="mt-3 list-disc ps-5 text-sm text-neutral-100">{LANGS.map((l, i) => <li key={i}>{l}</li>)}</ul>
-                  <h3 className="font-semibold mt-6">Honors & Awards</h3>
-                  <ul className="mt-3 list-disc ps-5 text-sm text-neutral-100">{HONORS.map((h, i) => <li key={i}>{h}</li>)}</ul>
-                  <h3 className="font-semibold mt-6">Licenses & Certifications</h3>
-                  <ul className="mt-3 list-disc ps-5 text-sm text-neutral-100">{CERTS.map((c, i) => <li key={i}>{c}</li>)}</ul>
                 </Panel>
               </div>
             </>
@@ -420,6 +411,62 @@ export default function Page() {
                   </div>
                 </div>
               ))}
+            </div>
+          )}
+
+          {tab === "deets" && (
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+              <Panel className="bg-gradient-to-br from-cyan-900/50 to-indigo-900/50 hover:shadow-lg hover:shadow-cyan-500/20 transition-all duration-300">
+                <h3 className="font-semibold text-lg text-cyan-200">Languages</h3>
+                <ul className="mt-4 space-y-2 text-sm text-neutral-100">
+                  {LANGS.map((lang, i) => (
+                    <motion.li
+                      key={i}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: i * 0.1 }}
+                      className="flex items-center gap-2"
+                    >
+                      <span className="w-2 h-2 bg-cyan-400 rounded-full"></span>
+                      {lang}
+                    </motion.li>
+                  ))}
+                </ul>
+              </Panel>
+              <Panel className="bg-gradient-to-br from-indigo-900/50 to-purple-900/50 hover:shadow-lg hover:shadow-purple-500/20 transition-all duration-300">
+                <h3 className="font-semibold text-lg text-purple-200">Honors & Awards</h3>
+                <ul className="mt-4 space-y-2 text-sm text-neutral-100">
+                  {HONORS.map((honor, i) => (
+                    <motion.li
+                      key={i}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: i * 0.1 }}
+                      className="flex items-center gap-2"
+                    >
+                      <span className="w-2 h-2 bg-purple-400 rounded-full"></span>
+                      {honor}
+                    </motion.li>
+                  ))}
+                </ul>
+              </Panel>
+              <Panel className="bg-gradient-to-br from-purple-900/50 to-pink-900/50 hover:shadow-lg hover:shadow-pink-500/20 transition-all duration-300">
+                <h3 className="font-semibold text-lg text-pink-200">Licenses & Certifications</h3>
+                <ul className="mt-4 space-y-2 text-sm text-neutral-100">
+                  {CERTS.map((cert, i) => (
+                    <motion.li
+                      key={i}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: i * 0.1 }}
+                      className="flex items-center gap-2"
+                    >
+                      <span className="w-2 h-2 bg-pink-400 rounded-full"></span>
+                      {cert}
+                    </motion.li>
+                  ))}
+                </ul>
+              </Panel>
             </div>
           )}
         </section>
