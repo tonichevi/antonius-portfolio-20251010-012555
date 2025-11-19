@@ -215,7 +215,7 @@ export default function Page() {
   const [showSplash, setShowSplash] = useState(true);
 
   const projects = [
-    { t: "Current: Star Rider III - Cause and Effect Vehicle for Disabled Children", h: "Developed an adaptive vehicle to enhance mobility for disabled children, focusing on cause-and-effect interaction. Credit: https://capstone.engineering.ucsb.edu/projects/starrider", m: ["UCSB", "2025"], img: "/images/StarRiderII.jpg" },
+    { t: "Current: Star Rider II - Cause and Effect Vehicle for Disabled Children", h: "Developing an adaptive vehicle to enhance mobility for disabled children, focusing on cause-and-effect interaction. Credit: https://capstone.engineering.ucsb.edu/projects/starrider", m: ["UCSB", "2025"], img: "/images/StarRiderII.jpg" },
     { t: "URCA Steering System: An Analysis of Bearing Performance", h: "Conducted a detailed analysis of bearing performance to optimize steering system reliability.", m: ["URCA", "2025"], img: "/images/SteeringUrca.jpg" },
     { t: "Frog Jumper Project", h: "Designed a spring-loaded mechanism to simulate a frog's jumping motion for educational purposes.", m: ["UCSB", "2025"], img: "/images/Jumper.jpg" },
     { t: "SOLIDWORKS Projects", h: "A collection of designs including a 4-Beam TV holder and a FSAE steering wheel project, showcasing advanced SOLIDWORKS skills.", m: ["UCSB", "2024-2025"], imgs: ["/images/TVSketch.jpg", "/images/TV.jpg.png", "/images/SteeringWheel.jpg"] },
