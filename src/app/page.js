@@ -87,7 +87,7 @@ const PROJECTS = [
     description:
       "Designed and validated single-use fluid paths used in cell-therapy manufacturing, including tubing–connector–fitting assemblies, mixing systems, and pressure-decay test rigs. Focused on leak integrity, cleanroom manufacturability, and how mechanical decisions ripple into process risk.",
     meta: ["SaniSure", "2025–", "Bioprocess Hardware"],
-    imgs: ["/images/IMG_7857.HEIC", "/images/IMG_7995.HEIC"],
+    imgs: ["/images/IMG_7857.jpg", "/images/IMG_7995.jpg"],
   },
   {
     id: "urca-steering",
@@ -437,7 +437,7 @@ export default function Page() {
             <Card className="max-w-xs mx-auto text-center">
               <div className="size-40 mx-auto rounded-full overflow-hidden border border-[#D0D4CB]">
                 <img
-                  src="/images/biography2.jpg"
+                  src="/images/biographyVF.jpeg"
                   alt="Antonius Chevillotte"
                   className="h-full w-full object-cover"
                 />
