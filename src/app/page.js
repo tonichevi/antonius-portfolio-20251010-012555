@@ -419,7 +419,7 @@ export default function Page() {
               <Card className="max-w-xs mx-auto text-center">
                 <div className="size-40 mx-auto rounded-full overflow-hidden border border-[#D0D4CB]">
                   <img
-                    src="/images/biographyVF.jpeg"
+                    src="/images/biographyVF.jpg"
                     alt="Antonius Chevillotte"
                     className="h-full w-full object-cover"
                   />
