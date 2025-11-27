@@ -4,13 +4,13 @@ import { useEffect, useState, useRef, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import "./globals.css";
 
-/* ---------- Blueprint background (kept, no mouse effects) ---------- */
+/* ---------- Blueprint background (no mouse effects) ---------- */
 function BlueprintBG() {
   return <div className="fixed inset-0 -z-10 blueprint" />;
 }
 
 /* ---------- Splash Screen (optional, kept but simplified) ---------- */
-function SplashScreen({ onComplete }: { onComplete: () => void }) {
+function SplashScreen({ onComplete }) {
   useEffect(() => {
     const timer = setTimeout(() => onComplete(), 2000);
     return () => clearTimeout(timer);
@@ -223,15 +223,7 @@ const EXTRAS = [
 
 /* ---------- Shared UI primitives ---------- */
 
-function SectionShell({
-  id,
-  label,
-  children,
-}: {
-  id: string;
-  label: string;
-  children: React.ReactNode;
-}) {
+function SectionShell({ id, label, children }) {
   return (
     <section
       id={id}
@@ -248,13 +240,7 @@ function SectionShell({
   );
 }
 
-function Panel({
-  children,
-  className = "",
-}: {
-  children: React.ReactNode;
-  className?: string;
-}) {
+function Panel({ children, className = "" }) {
   return (
     <div
       className={`relative rounded-3xl border border-white/8 bg-white/5/10 bg-gradient-to-br from-white/5 via-white/0 to-white/0 backdrop-blur-xl p-6 md:p-8 shadow-[0_18px_45px_rgba(0,0,0,0.55)] ${className}`}
@@ -267,13 +253,7 @@ function Panel({
 
 /* ---------- Image Modal ---------- */
 
-function ImageModal({
-  selectedImage,
-  onClose,
-}: {
-  selectedImage: string | null;
-  onClose: () => void;
-}) {
+function ImageModal({ selectedImage, onClose }) {
   return (
     <AnimatePresence>
       {selectedImage && (
@@ -313,7 +293,7 @@ export default function Page() {
   // fun alias toggle on clicking the name
   const [alias, setAlias] = useState(NAME);
   const [clicks, setClicks] = useState(0);
-  const clickTimerRef = useRef<NodeJS.Timeout | null>(null);
+  const clickTimerRef = useRef(null);
 
   const handleNameClick = () => {
     if (clickTimerRef.current) clearTimeout(clickTimerRef.current);
@@ -323,7 +303,7 @@ export default function Page() {
         setAlias((prev) => (prev === "67" ? NAME : "67"));
         return 0;
       }
-      clickTimerRef.current = setTimeout(() => setClicks(0), 800) as any;
+      clickTimerRef.current = setTimeout(() => setClicks(0), 800);
       return next;
     });
   };
@@ -336,12 +316,14 @@ export default function Page() {
     []
   );
 
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [selectedImage, setSelectedImage] = useState(null);
 
   return (
     <>
       <BlueprintBG />
-      <AnimatePresence>{showSplash && <SplashScreen onComplete={() => setShowSplash(false)} />}</AnimatePresence>
+      <AnimatePresence>
+        {showSplash && <SplashScreen onComplete={() => setShowSplash(false)} />}
+      </AnimatePresence>
 
       <motion.main
         className="relative min-h-screen text-white"
@@ -464,8 +446,7 @@ export default function Page() {
                     alt="Antonius Chevillotte"
                     className="h-full w-full object-cover"
                     onError={(e) => {
-                      (e.currentTarget as HTMLImageElement).style.display =
-                        "none";
+                      e.currentTarget.style.display = "none";
                     }}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
@@ -546,8 +527,12 @@ export default function Page() {
                       <motion.div
                         className="cursor-pointer"
                         whileHover={{ y: -4 }}
-                        transition={{ type: "spring", stiffness: 260, damping: 22 }}
-                        onClick={() => setSelectedImage(project.img!)}
+                        transition={{
+                          type: "spring",
+                          stiffness: 260,
+                          damping: 22,
+                        }}
+                        onClick={() => setSelectedImage(project.img)}
                       >
                         <Panel className="p-3">
                           <div className="aspect-[4/3] w-full overflow-hidden rounded-2xl border border-white/10 bg-black/40">
@@ -556,8 +541,7 @@ export default function Page() {
                               alt={project.title}
                               className="h-full w-full object-cover"
                               onError={(e) => {
-                                (e.currentTarget as HTMLImageElement).style.display =
-                                  "none";
+                                e.currentTarget.style.display = "none";
                               }}
                             />
                           </div>
@@ -592,9 +576,7 @@ export default function Page() {
                                     alt={`${project.title} view ${i + 1}`}
                                     className="h-full w-full object-cover"
                                     onError={(e) => {
-                                      (
-                                        e.currentTarget as HTMLImageElement
-                                      ).style.display = "none";
+                                      e.currentTarget.style.display = "none";
                                     }}
                                   />
                                 </div>
@@ -797,3 +779,4 @@ export default function Page() {
     </>
   );
 }
+
