@@ -4,12 +4,32 @@ import { useEffect, useState, useRef, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import "./globals.css";
 
-/* ---------- Blueprint background (no mouse effects) ---------- */
+/* ---------- Backgrounds ---------- */
+
 function BlueprintBG() {
-  return <div className="fixed inset-0 -z-10 blueprint" />;
+  return <div className="fixed inset-0 -z-30 blueprint" />;
 }
 
-/* ---------- Splash Screen (optional, kept but simplified) ---------- */
+// extra biotech-y glow layers on top of blueprint
+function BiotechGlow() {
+  return (
+    <div className="pointer-events-none fixed inset-0 -z-20 overflow-hidden">
+      {/* left cyan cell */}
+      <div className="absolute -left-24 top-10 h-72 w-72 rounded-full bg-[radial-gradient(circle_at_center,rgba(125,249,255,0.22),transparent_65%)] blur-3xl" />
+      {/* right magenta cell */}
+      <div className="absolute -right-32 top-40 h-80 w-80 rounded-full bg-[radial-gradient(circle_at_center,rgba(244,114,182,0.22),transparent_65%)] blur-3xl" />
+      {/* bottom bio gradient */}
+      <div className="absolute inset-x-0 bottom-[-18rem] h-[24rem] bg-[radial-gradient(ellipse_at_bottom,rgba(56,189,248,0.33),transparent_65%)] blur-3xl" />
+      {/* orbital rings */}
+      <div className="absolute left-1/2 top-1/2 h-[34rem] w-[34rem] -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/5" />
+      <div className="absolute left-1/2 top-1/2 h-[24rem] w-[24rem] -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/5" />
+      <div className="absolute left-1/2 top-1/2 h-[14rem] w-[14rem] -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/5" />
+    </div>
+  );
+}
+
+/* ---------- Splash Screen ---------- */
+
 function SplashScreen({ onComplete }) {
   useEffect(() => {
     const timer = setTimeout(() => onComplete(), 2000);
@@ -23,15 +43,20 @@ function SplashScreen({ onComplete }) {
       exit={{ opacity: 0 }}
       transition={{ duration: 0.8, ease: "easeOut" }}
     >
-      <motion.h1
-        className="text-4xl md:text-6xl font-semibold text-white tracking-tight"
-        initial={{ scale: 0.9, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        exit={{ scale: 1.05, opacity: 0 }}
+      <motion.div
+        initial={{ scale: 0.9, opacity: 0, y: 10 }}
+        animate={{ scale: 1, opacity: 1, y: 0 }}
+        exit={{ scale: 1.05, opacity: 0, y: -10 }}
         transition={{ duration: 0.9, ease: "easeOut" }}
+        className="flex flex-col items-center gap-3"
       >
-        Building Patient-First Systems
-      </motion.h1>
+        <span className="text-xs tracking-[0.3em] uppercase text-cyan-200/80">
+          Mechanics × Materials × Cells
+        </span>
+        <h1 className="text-4xl md:text-6xl font-semibold text-white tracking-tight text-center">
+          Building Patient-First Systems
+        </h1>
+      </motion.div>
     </motion.div>
   );
 }
@@ -290,7 +315,6 @@ function ImageModal({ selectedImage, onClose }) {
 export default function Page() {
   const [showSplash, setShowSplash] = useState(true);
 
-  // fun alias toggle on clicking the name
   const [alias, setAlias] = useState(NAME);
   const [clicks, setClicks] = useState(0);
   const clickTimerRef = useRef(null);
@@ -321,6 +345,7 @@ export default function Page() {
   return (
     <>
       <BlueprintBG />
+      <BiotechGlow />
       <AnimatePresence>
         {showSplash && <SplashScreen onComplete={() => setShowSplash(false)} />}
       </AnimatePresence>
@@ -332,7 +357,7 @@ export default function Page() {
         transition={{ duration: 0.8, ease: "easeOut", delay: showSplash ? 0.2 : 0 }}
       >
         {/* ---------- Sticky top nav ---------- */}
-        <header className="sticky top-0 z-40 border-b border-white/8 bg-black/65 backdrop-blur-xl">
+        <header className="sticky top-0 z-40 border-b border-white/8 bg-black/70 backdrop-blur-xl">
           <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between gap-6">
             <button
               onClick={handleNameClick}
@@ -353,7 +378,7 @@ export default function Page() {
               </div>
               <div className="flex flex-col">
                 <span className="text-xs uppercase tracking-[0.2em] text-white/50">
-                  Portfolio
+                  Mechanics × Biology
                 </span>
                 <span className="font-semibold tracking-tight bg-gradient-to-r from-[#7cf9ff] to-[#9e7bff] bg-clip-text text-transparent">
                   {alias}
@@ -365,7 +390,7 @@ export default function Page() {
               {[
                 { id: "projects", label: "Projects" },
                 { id: "experience", label: "Experience" },
-                { id: "about", label: "About" },
+                { id: "about", label: "Background" },
                 { id: "contact", label: "Contact" },
               ].map((item) => (
                 <a
@@ -411,11 +436,33 @@ export default function Page() {
                 time.
               </motion.p>
 
+              {/* biotech domain chips */}
               <motion.div
-                className="flex flex-wrap gap-3"
+                className="flex flex-wrap gap-2"
+                initial={{ opacity: 0, y: 18 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, ease: "easeOut", delay: 0.09 }}
+              >
+                {[
+                  "Assistive Devices",
+                  "Soft Interfaces",
+                  "Single-Use Bioprocess Hardware",
+                ].map((d) => (
+                  <span
+                    key={d}
+                    className="inline-flex items-center gap-2 rounded-full border border-cyan-300/40 bg-cyan-400/10 px-3 py-1 text-[11px] uppercase tracking-[0.18em] text-cyan-100"
+                  >
+                    <span className="h-1 w-4 rounded-full bg-gradient-to-r from-cyan-300 to-purple-300" />
+                    {d}
+                  </span>
+                ))}
+              </motion.div>
+
+              <motion.div
+                className="flex flex-wrap gap-3 pt-2"
                 initial={{ opacity: 0, y: 24 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7, ease: "easeOut", delay: 0.1 }}
+                transition={{ duration: 0.7, ease: "easeOut", delay: 0.14 }}
               >
                 <a
                   href="#projects"
@@ -430,6 +477,19 @@ export default function Page() {
                 >
                   Work journey
                 </a>
+              </motion.div>
+
+              {/* genome-track like line */}
+              <motion.div
+                className="mt-4 flex items-center gap-2"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.2 }}
+              >
+                <div className="flex-1 h-[2px] bg-[repeating-linear-gradient(90deg,rgba(148,163,184,0.6)_0,rgba(148,163,184,0.6)_12px,transparent_12px,transparent_20px)] opacity-60" />
+                <span className="text-[10px] uppercase tracking-[0.22em] text-white/45">
+                  Mechanics · Data · Cells
+                </span>
               </motion.div>
             </div>
 
@@ -462,6 +522,32 @@ export default function Page() {
                     Los Angeles, CA · Always building something
                   </div>
                 </div>
+                <div className="mt-2 grid grid-cols-3 gap-2 w-full text-center">
+                  <div className="rounded-2xl bg-black/40 border border-cyan-400/40 px-2 py-2">
+                    <div className="text-xs font-semibold text-cyan-200">
+                      3
+                    </div>
+                    <div className="text-[10px] text-white/55">
+                      Assistive devices in progress
+                    </div>
+                  </div>
+                  <div className="rounded-2xl bg-black/40 border border-purple-400/40 px-2 py-2">
+                    <div className="text-xs font-semibold text-purple-200">
+                      2
+                    </div>
+                    <div className="text-[10px] text-white/55">
+                      Labs & bioprocess teams
+                    </div>
+                  </div>
+                  <div className="rounded-2xl bg-black/40 border border-sky-400/40 px-2 py-2">
+                    <div className="text-xs font-semibold text-sky-200">
+                      6×
+                    </div>
+                    <div className="text-[10px] text-white/55">
+                      Dean&apos;s List & awards
+                    </div>
+                  </div>
+                </div>
               </Panel>
             </motion.div>
           </div>
@@ -469,6 +555,27 @@ export default function Page() {
 
         {/* ---------- Projects (main focus) ---------- */}
         <SectionShell id="projects" label="Projects">
+          {/* focus areas strip */}
+          <div className="mb-6 flex flex-wrap gap-3 items-center">
+            <span className="text-[11px] uppercase tracking-[0.22em] text-white/55">
+              Focus areas
+            </span>
+            <div className="flex flex-wrap gap-2">
+              {[
+                "Therapeutic Mobility",
+                "Soft & Fluid Interfaces",
+                "Bioprocess Analytics",
+              ].map((f) => (
+                <span
+                  key={f}
+                  className="rounded-full bg-black/40 border border-white/15 px-3 py-1 text-[11px] text-white/75"
+                >
+                  {f}
+                </span>
+              ))}
+            </div>
+          </div>
+
           <div className="space-y-10 md:space-y-14">
             {PROJECTS.map((project, index) => {
               const isEven = index % 2 === 0;
@@ -489,8 +596,15 @@ export default function Page() {
                   {/* Text side */}
                   <div className={isEven ? "" : "md:order-2"}>
                     <Panel className="h-full">
-                      <div className="text-xs uppercase tracking-[0.2em] text-cyan-200/80 mb-2">
-                        {index + 1 < 10 ? `0${index + 1}` : index + 1} · Project
+                      <div className="flex items-center justify-between gap-3 mb-2">
+                        <div className="text-xs uppercase tracking-[0.2em] text-cyan-200/80">
+                          {index + 1 < 10 ? `0${index + 1}` : index + 1} ·
+                          Project
+                        </div>
+                        <div className="flex gap-1.5">
+                          <span className="h-[3px] w-8 rounded-full bg-gradient-to-r from-cyan-300 to-purple-300" />
+                          <span className="h-[3px] w-8 rounded-full bg-gradient-to-r from-purple-300 to-pink-300" />
+                        </div>
                       </div>
                       <h3 className="text-xl md:text-2xl font-semibold tracking-tight">
                         {project.title}
@@ -752,6 +866,14 @@ export default function Page() {
                 mechanics, bioprocess hardware, or any project where engineering
                 can give someone more independence.
               </p>
+              <div className="mt-3 flex flex-wrap gap-2 text-[11px]">
+                <span className="rounded-full bg-black/40 border border-cyan-400/50 px-3 py-1 text-cyan-100">
+                  Open to research & internships
+                </span>
+                <span className="rounded-full bg-black/40 border border-purple-400/50 px-3 py-1 text-purple-100">
+                  Happy to mentor students
+                </span>
+              </div>
             </div>
             <div className="space-y-2 text-sm">
               <p>
