@@ -625,13 +625,24 @@ function SectionShell({
 
 function Card({ children, className = "" }) {
   return (
-    <div
-      className={`rounded-3xl border border-[#D0D4CB] bg-white/90 shadow-[0_6px_18px_rgba(0,0,0,0.06)] p-6 md:p-8 backdrop-blur ${className}`}
-    >
-      {children}
+    <div className={`relative ${className}`}>
+      {/* Soft halo behind content */}
+      <div
+        className="
+          absolute inset-0 -z-10 
+          bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.75),transparent_70%)]
+          blur-2xl 
+          opacity-70
+        "
+      />
+      {/* Actual content */}
+      <div className="relative z-10">
+        {children}
+      </div>
     </div>
   );
 }
+
 
 function ImageModal({ selectedImage, onClose }) {
   return (
