@@ -19,11 +19,11 @@ function BiotechGlow() {
       {/* right magenta cell */}
       <div className="absolute -right-32 top-40 h-80 w-80 rounded-full bg-[radial-gradient(circle_at_center,rgba(244,114,182,0.22),transparent_65%)] blur-3xl" />
       {/* bottom bio gradient */}
-      <div className="absolute inset-x-0 bottom-[-18rem] h-[24rem] bg-[radial-gradient(ellipse_at_bottom,rgba(56,189,248,0.33),transparent_65%)] blur-3xl" />
+      <div className="absolute inset-x-0 bottom-[-18rem] h-[24rem] bg-[radial-gradient(ellipse_at_bottom,rgba(56,189,248,0.28),transparent_65%)] blur-3xl" />
       {/* orbital rings */}
-      <div className="absolute left-1/2 top-1/2 h-[34rem] w-[34rem] -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/5" />
-      <div className="absolute left-1/2 top-1/2 h-[24rem] w-[24rem] -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/5" />
-      <div className="absolute left-1/2 top-1/2 h-[14rem] w-[14rem] -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/5" />
+      <div className="absolute left-1/2 top-1/2 h-[34rem] w-[34rem] -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/7" />
+      <div className="absolute left-1/2 top-1/2 h-[24rem] w-[24rem] -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/7" />
+      <div className="absolute left-1/2 top-1/2 h-[14rem] w-[14rem] -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/7" />
     </div>
   );
 }
@@ -38,7 +38,7 @@ function SplashScreen({ onComplete }) {
 
   return (
     <motion.div
-      className="fixed inset-0 bg-black flex items-center justify-center z-50"
+      className="fixed inset-0 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800 flex items-center justify-center z-50"
       initial={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.8, ease: "easeOut" }}
@@ -53,7 +53,7 @@ function SplashScreen({ onComplete }) {
         <span className="text-xs tracking-[0.3em] uppercase text-cyan-200/80">
           Mechanics × Materials × Cells
         </span>
-        <h1 className="text-4xl md:text-6xl font-semibold text-white tracking-tight text-center">
+        <h1 className="text-4xl md:text-6xl font-semibold text-slate-50 tracking-tight text-center">
           Building Patient-First Systems
         </h1>
       </motion.div>
@@ -268,9 +268,9 @@ function SectionShell({ id, label, children }) {
 function Panel({ children, className = "" }) {
   return (
     <div
-      className={`relative rounded-3xl border border-white/8 bg-white/5/10 bg-gradient-to-br from-white/5 via-white/0 to-white/0 backdrop-blur-xl p-6 md:p-8 shadow-[0_18px_45px_rgba(0,0,0,0.55)] ${className}`}
+      className={`relative rounded-3xl border border-slate-300/20 bg-gradient-to-br from-slate-900/80 via-slate-900/60 to-slate-800/60 backdrop-blur-xl p-6 md:p-8 shadow-[0_18px_45px_rgba(15,23,42,0.7)] ${className}`}
     >
-      <div className="pointer-events-none absolute inset-0 rounded-3xl border border-white/5" />
+      <div className="pointer-events-none absolute inset-0 rounded-3xl border border-white/10" />
       {children}
     </div>
   );
@@ -283,7 +283,7 @@ function ImageModal({ selectedImage, onClose }) {
     <AnimatePresence>
       {selectedImage && (
         <motion.div
-          className="fixed inset-0 bg-black/80 flex items-center justify-center z-50"
+          className="fixed inset-0 bg-slate-900/85 flex items-center justify-center z-50"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -292,7 +292,7 @@ function ImageModal({ selectedImage, onClose }) {
           <motion.img
             src={selectedImage}
             alt="Project image"
-            className="max-w-[86%] max-h-[80vh] rounded-2xl object-contain"
+            className="max-w-[86%] max-h-[80vh] rounded-2xl object-contain border border-slate-300/30 bg-slate-900/60"
             initial={{ scale: 0.8 }}
             animate={{ scale: 1 }}
             exit={{ scale: 0.8 }}
@@ -300,7 +300,7 @@ function ImageModal({ selectedImage, onClose }) {
           />
           <button
             onClick={onClose}
-            className="absolute top-4 right-4 text-white text-2xl font-bold bg-black/50 rounded-full w-10 h-10 flex items-center justify-center hover:bg-black/70"
+            className="absolute top-4 right-4 text-slate-100 text-2xl font-bold bg-slate-900/70 rounded-full w-10 h-10 flex items-center justify-center hover:bg-slate-800"
           >
             &times;
           </button>
@@ -351,24 +351,24 @@ export default function Page() {
       </AnimatePresence>
 
       <motion.main
-        className="relative min-h-screen text-white"
+        className="relative min-h-screen text-slate-50 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-900"
         initial={{ opacity: 0 }}
         animate={{ opacity: showSplash ? 0 : 1 }}
         transition={{ duration: 0.8, ease: "easeOut", delay: showSplash ? 0.2 : 0 }}
       >
         {/* ---------- Sticky top nav ---------- */}
-        <header className="sticky top-0 z-40 border-b border-white/8 bg-black/70 backdrop-blur-xl">
+        <header className="sticky top-0 z-40 border-b border-slate-500/25 bg-gradient-to-b from-slate-950/85 via-slate-950/75 to-slate-900/70 backdrop-blur-xl">
           <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between gap-6">
             <button
               onClick={handleNameClick}
               className="flex items-center gap-3 group"
             >
-              <div className="h-8 w-8 rounded-xl bg-white/10 border border-white/15 grid place-items-center group-hover:rotate-90 transition-transform">
+              <div className="h-8 w-8 rounded-xl bg-slate-900/80 border border-slate-400/40 grid place-items-center group-hover:rotate-90 transition-transform">
                 <svg
                   width="16"
                   height="16"
                   viewBox="0 0 24 24"
-                  className="opacity-80"
+                  className="opacity-80 text-slate-100"
                 >
                   <path
                     fill="currentColor"
@@ -377,7 +377,7 @@ export default function Page() {
                 </svg>
               </div>
               <div className="flex flex-col">
-                <span className="text-xs uppercase tracking-[0.2em] text-white/50">
+                <span className="text-xs uppercase tracking-[0.2em] text-slate-300/70">
                   Mechanics × Biology
                 </span>
                 <span className="font-semibold tracking-tight bg-gradient-to-r from-[#7cf9ff] to-[#9e7bff] bg-clip-text text-transparent">
@@ -396,9 +396,9 @@ export default function Page() {
                 <a
                   key={item.id}
                   href={`#${item.id}`}
-                  className="relative rounded-full px-3 py-1.5 text-white/80 hover:text-white transition-colors"
+                  className="relative rounded-full px-3 py-1.5 text-slate-200/80 hover:text-slate-50 transition-colors"
                 >
-                  <span className="absolute inset-0 rounded-full bg-white/5 opacity-0 hover:opacity-100 transition-opacity" />
+                  <span className="absolute inset-0 rounded-full bg-slate-700/45 opacity-0 hover:opacity-100 transition-opacity" />
                   <span className="relative">{item.label}</span>
                 </a>
               ))}
@@ -411,7 +411,7 @@ export default function Page() {
           <div className="grid gap-10 md:grid-cols-[minmax(0,1.4fr),minmax(0,1fr)] items-center">
             <div className="space-y-6">
               <motion.h1
-                className="text-3xl md:text-5xl font-semibold tracking-tight leading-tight"
+                className="text-3xl md:text-5xl font-semibold tracking-tight leading-tight text-slate-50"
                 initial={{ opacity: 0, y: 24 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7, ease: "easeOut" }}
@@ -423,7 +423,7 @@ export default function Page() {
                 .
               </motion.h1>
               <motion.p
-                className="text-sm md:text-base text-white/80 max-w-xl leading-relaxed"
+                className="text-sm md:text-base text-slate-200/85 max-w-xl leading-relaxed"
                 initial={{ opacity: 0, y: 24 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7, ease: "easeOut", delay: 0.05 }}
@@ -450,7 +450,7 @@ export default function Page() {
                 ].map((d) => (
                   <span
                     key={d}
-                    className="inline-flex items-center gap-2 rounded-full border border-cyan-300/40 bg-cyan-400/10 px-3 py-1 text-[11px] uppercase tracking-[0.18em] text-cyan-100"
+                    className="inline-flex items-center gap-2 rounded-full border border-cyan-300/40 bg-cyan-300/10 px-3 py-1 text-[11px] uppercase tracking-[0.18em] text-cyan-100"
                   >
                     <span className="h-1 w-4 rounded-full bg-gradient-to-r from-cyan-300 to-purple-300" />
                     {d}
@@ -466,14 +466,14 @@ export default function Page() {
               >
                 <a
                   href="#projects"
-                  className="inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium bg-gradient-to-r from-[#7cf9ff] to-[#9e7bff] text-black hover:brightness-110 transition"
+                  className="inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium bg-gradient-to-r from-[#7cf9ff] to-[#9e7bff] text-slate-950 hover:brightness-110 transition"
                 >
                   View projects
                   <span className="text-xs">↓</span>
                 </a>
                 <a
                   href="#experience"
-                  className="inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium bg-white/5 text-white/90 border border-white/15 hover:bg-white/10 transition"
+                  className="inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium bg-slate-800/80 text-slate-50 border border-slate-400/40 hover:bg-slate-700/80 transition"
                 >
                   Work journey
                 </a>
@@ -486,8 +486,8 @@ export default function Page() {
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.2 }}
               >
-                <div className="flex-1 h-[2px] bg-[repeating-linear-gradient(90deg,rgba(148,163,184,0.6)_0,rgba(148,163,184,0.6)_12px,transparent_12px,transparent_20px)] opacity-60" />
-                <span className="text-[10px] uppercase tracking-[0.22em] text-white/45">
+                <div className="flex-1 h-[2px] bg-[repeating-linear-gradient(90deg,rgba(148,163,184,0.7)_0,rgba(148,163,184,0.7)_12px,transparent_12px,transparent_20px)] opacity-70" />
+                <span className="text-[10px] uppercase tracking-[0.22em] text-slate-300/70">
                   Mechanics · Data · Cells
                 </span>
               </motion.div>
@@ -500,7 +500,7 @@ export default function Page() {
               transition={{ duration: 0.7, ease: "easeOut", delay: 0.15 }}
             >
               <Panel className="w-full max-w-sm flex flex-col items-center gap-4">
-                <div className="relative size-40 md:size-48 rounded-full overflow-hidden border border-white/20 bg-white/5">
+                <div className="relative size-40 md:size-48 rounded-full overflow-hidden border border-slate-200/40 bg-slate-900/80">
                   <img
                     src="/images/biography2.jpg"
                     alt="Antonius Chevillotte"
@@ -509,41 +509,41 @@ export default function Page() {
                       e.currentTarget.style.display = "none";
                     }}
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/70 to-transparent" />
                 </div>
                 <div className="text-center space-y-1">
-                  <div className="text-sm font-medium text-white/90">
+                  <div className="text-sm font-medium text-slate-50">
                     {NAME}
                   </div>
-                  <div className="text-xs text-white/65">
+                  <div className="text-xs text-slate-200/85">
                     Honors BS/MS · Mechanical Engineering, UCSB
                   </div>
-                  <div className="text-[11px] text-white/50">
+                  <div className="text-[11px] text-slate-300/75">
                     Los Angeles, CA · Always building something
                   </div>
                 </div>
                 <div className="mt-2 grid grid-cols-3 gap-2 w-full text-center">
-                  <div className="rounded-2xl bg-black/40 border border-cyan-400/40 px-2 py-2">
+                  <div className="rounded-2xl bg-slate-900/70 border border-cyan-400/50 px-2 py-2">
                     <div className="text-xs font-semibold text-cyan-200">
                       3
                     </div>
-                    <div className="text-[10px] text-white/55">
+                    <div className="text-[10px] text-slate-200/80">
                       Assistive devices in progress
                     </div>
                   </div>
-                  <div className="rounded-2xl bg-black/40 border border-purple-400/40 px-2 py-2">
+                  <div className="rounded-2xl bg-slate-900/70 border border-purple-400/50 px-2 py-2">
                     <div className="text-xs font-semibold text-purple-200">
                       2
                     </div>
-                    <div className="text-[10px] text-white/55">
+                    <div className="text-[10px] text-slate-200/80">
                       Labs & bioprocess teams
                     </div>
                   </div>
-                  <div className="rounded-2xl bg-black/40 border border-sky-400/40 px-2 py-2">
+                  <div className="rounded-2xl bg-slate-900/70 border border-sky-400/50 px-2 py-2">
                     <div className="text-xs font-semibold text-sky-200">
                       6×
                     </div>
-                    <div className="text-[10px] text-white/55">
+                    <div className="text-[10px] text-slate-200/80">
                       Dean&apos;s List & awards
                     </div>
                   </div>
@@ -557,7 +557,7 @@ export default function Page() {
         <SectionShell id="projects" label="Projects">
           {/* focus areas strip */}
           <div className="mb-6 flex flex-wrap gap-3 items-center">
-            <span className="text-[11px] uppercase tracking-[0.22em] text-white/55">
+            <span className="text-[11px] uppercase tracking-[0.22em] text-slate-300/80">
               Focus areas
             </span>
             <div className="flex flex-wrap gap-2">
@@ -568,7 +568,7 @@ export default function Page() {
               ].map((f) => (
                 <span
                   key={f}
-                  className="rounded-full bg-black/40 border border-white/15 px-3 py-1 text-[11px] text-white/75"
+                  className="rounded-full bg-slate-800/80 border border-slate-300/40 px-3 py-1 text-[11px] text-slate-100"
                 >
                   {f}
                 </span>
@@ -606,29 +606,29 @@ export default function Page() {
                           <span className="h-[3px] w-8 rounded-full bg-gradient-to-r from-purple-300 to-pink-300" />
                         </div>
                       </div>
-                      <h3 className="text-xl md:text-2xl font-semibold tracking-tight">
+                      <h3 className="text-xl md:text-2xl font-semibold tracking-tight text-slate-50">
                         {project.title}
                       </h3>
                       {project.subtitle && (
-                        <p className="mt-1 text-sm text-white/70">
+                        <p className="mt-1 text-sm text-slate-200/90">
                           {project.subtitle}
                         </p>
                       )}
-                      <p className="mt-4 text-sm md:text-[15px] leading-relaxed text-white/85">
+                      <p className="mt-4 text-sm md:text-[15px] leading-relaxed text-slate-200/90">
                         {project.description}
                       </p>
                       <div className="mt-5 flex flex-wrap gap-2">
                         {project.meta.map((tag) => (
                           <span
                             key={tag}
-                            className="rounded-full border border-white/15 bg-white/5 px-2.5 py-1 text-[11px] uppercase tracking-[0.18em] text-white/70"
+                            className="rounded-full border border-slate-300/40 bg-slate-800/80 px-2.5 py-1 text-[11px] uppercase tracking-[0.18em] text-slate-100"
                           >
                             {tag}
                           </span>
                         ))}
                       </div>
                       {project.credit && (
-                        <p className="mt-3 text-[11px] text-white/40">
+                        <p className="mt-3 text-[11px] text-slate-300/75">
                           {project.credit}
                         </p>
                       )}
@@ -649,7 +649,7 @@ export default function Page() {
                         onClick={() => setSelectedImage(project.img)}
                       >
                         <Panel className="p-3">
-                          <div className="aspect-[4/3] w-full overflow-hidden rounded-2xl border border-white/10 bg-black/40">
+                          <div className="aspect-[4/3] w-full overflow-hidden rounded-2xl border border-slate-300/40 bg-slate-900/80">
                             <img
                               src={project.img}
                               alt={project.title}
@@ -659,7 +659,7 @@ export default function Page() {
                               }}
                             />
                           </div>
-                          <div className="mt-2 text-[11px] text-white/55 text-right">
+                          <div className="mt-2 text-[11px] text-slate-300/80 text-right">
                             Click to enlarge
                           </div>
                         </Panel>
@@ -684,7 +684,7 @@ export default function Page() {
                               onClick={() => setSelectedImage(img)}
                             >
                               <Panel className="p-2">
-                                <div className="aspect-[4/3] w-full overflow-hidden rounded-2xl border border-white/10 bg-black/40">
+                                <div className="aspect-[4/3] w-full overflow-hidden rounded-2xl border border-slate-300/40 bg-slate-900/80">
                                   <img
                                     src={img}
                                     alt={`${project.title} view ${i + 1}`}
@@ -698,7 +698,7 @@ export default function Page() {
                             </motion.button>
                           ))}
                         </div>
-                        <p className="text-[11px] text-white/55">
+                        <p className="text-[11px] text-slate-300/80">
                           Scroll horizontally · Click any image to enlarge.
                         </p>
                       </div>
@@ -722,23 +722,23 @@ export default function Page() {
                 viewport={{ once: true, amount: 0.2 }}
                 transition={{ duration: 0.4, ease: "easeOut" }}
               >
-                <span className="absolute left-0 top-3 h-3 w-3 rounded-full bg-gradient-to-br from-cyan-300 to-purple-400 shadow-[0_0_0_4px_rgba(56,189,248,0.25)]" />
+                <span className="absolute left-0 top-3 h-3 w-3 rounded-full bg-gradient-to-br from-cyan-300 to-purple-400 shadow-[0_0_0_4px_rgba(56,189,248,0.35)]" />
                 <Panel className="overflow-hidden">
                   <div className="flex flex-wrap justify-between gap-3">
                     <div>
-                      <h3 className="text-sm md:text-base font-semibold">
+                      <h3 className="text-sm md:text-base font-semibold text-slate-50">
                         {exp.role}
                       </h3>
-                      <p className="text-xs md:text-sm text-white/70">
+                      <p className="text-xs md:text-sm text-slate-200/90">
                         {exp.company}
                       </p>
                     </div>
-                    <div className="text-right text-xs text-white/55">
+                    <div className="text-right text-xs text-slate-300/85">
                       <div>{exp.period}</div>
                       <div>{exp.location}</div>
                     </div>
                   </div>
-                  <ul className="mt-3 space-y-1.5 text-xs md:text-[13px] text-white/80">
+                  <ul className="mt-3 space-y-1.5 text-xs md:text-[13px] text-slate-200/90">
                     {exp.bullets.map((b, i) => (
                       <li key={i} className="flex gap-2">
                         <span className="mt-[6px] h-[3px] w-[10px] rounded-full bg-cyan-400/80" />
@@ -765,13 +765,17 @@ export default function Page() {
                   {EDUCATION.map((edu) => (
                     <div key={edu.school} className="relative pl-4">
                       <div className="absolute left-0 top-2 h-2 w-2 rounded-full bg-cyan-300" />
-                      <div className="text-sm font-medium">{edu.school}</div>
-                      <div className="text-xs text-white/80">{edu.line}</div>
-                      <div className="text-[11px] text-white/60 mt-0.5">
+                      <div className="text-sm font-medium text-slate-50">
+                        {edu.school}
+                      </div>
+                      <div className="text-xs text-slate-200/90">
+                        {edu.line}
+                      </div>
+                      <div className="text-[11px] text-slate-300/85 mt-0.5">
                         {edu.time}
                         {edu.gpa ? ` · GPA: ${edu.gpa}` : ""}
                       </div>
-                      <div className="text-[11px] text-white/55 mt-0.5">
+                      <div className="text-[11px] text-slate-300/80 mt-0.5">
                         {edu.extras.join(" • ")}
                       </div>
                     </div>
@@ -783,7 +787,7 @@ export default function Page() {
                 <h3 className="text-sm font-semibold tracking-[0.18em] uppercase text-cyan-200/80 mb-3">
                   What I’m Optimizing For
                 </h3>
-                <p className="text-sm text-white/80 leading-relaxed">
+                <p className="text-sm text-slate-200/90 leading-relaxed">
                   A throughline in my work is turning one-off fixes into
                   scalable, patient-specific systems. Whether it’s capillary
                   bridges in soft gels, single-use cell-encapsulation hardware,
@@ -800,7 +804,7 @@ export default function Page() {
                 <h3 className="text-sm font-semibold tracking-[0.18em] uppercase text-purple-200/80 mb-3">
                   Honors & Certifications
                 </h3>
-                <ul className="space-y-1.5 text-xs text-white/80">
+                <ul className="space-y-1.5 text-xs text-slate-200/90">
                   {HONORS.map((h) => (
                     <li key={h} className="flex gap-2">
                       <span className="mt-[6px] h-[3px] w-[10px] rounded-full bg-purple-400/80" />
@@ -809,7 +813,7 @@ export default function Page() {
                   ))}
                 </ul>
                 <div className="mt-3 h-px w-full bg-gradient-to-r from-purple-400/40 via-transparent to-cyan-400/40" />
-                <ul className="mt-3 space-y-1.5 text-xs text-white/80">
+                <ul className="mt-3 space-y-1.5 text-xs text-slate-200/90">
                   {CERTS.map((c) => (
                     <li key={c} className="flex gap-2">
                       <span className="mt-[6px] h-[3px] w-[10px] rounded-full bg-pink-400/80" />
@@ -823,7 +827,7 @@ export default function Page() {
                 <h3 className="text-sm font-semibold tracking-[0.18em] uppercase text-cyan-200/80 mb-3">
                   Languages
                 </h3>
-                <ul className="space-y-1.5 text-xs text-white/80">
+                <ul className="space-y-1.5 text-xs text-slate-200/90">
                   {LANGS.map((lang) => (
                     <li key={lang} className="flex gap-2">
                       <span className="mt-[6px] h-[3px] w-[10px] rounded-full bg-cyan-400/80" />
@@ -837,13 +841,13 @@ export default function Page() {
                 <h3 className="text-sm font-semibold tracking-[0.18em] uppercase text-cyan-200/80 mb-3">
                   Communities & Side Projects
                 </h3>
-                <ul className="space-y-2 text-xs text-white/80">
+                <ul className="space-y-2 text-xs text-slate-200/90">
                   {EXTRAS.map((ex) => (
                     <li key={ex.title}>
-                      <div className="font-medium text-white/90">
+                      <div className="font-medium text-slate-50">
                         {ex.title}
                       </div>
-                      <div className="text-[11px] text-white/65">
+                      <div className="text-[11px] text-slate-300/85">
                         {ex.text}
                       </div>
                     </li>
@@ -858,19 +862,19 @@ export default function Page() {
         <SectionShell id="contact" label="Contact">
           <Panel className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
             <div>
-              <h3 className="text-lg md:text-xl font-semibold tracking-tight">
+              <h3 className="text-lg md:text-xl font-semibold tracking-tight text-slate-50">
                 Let’s build something useful.
               </h3>
-              <p className="mt-2 text-sm text-white/80 max-w-md">
+              <p className="mt-2 text-sm text-slate-200/90 max-w-md">
                 I’m always excited to chat about assistive devices, soft
                 mechanics, bioprocess hardware, or any project where engineering
                 can give someone more independence.
               </p>
               <div className="mt-3 flex flex-wrap gap-2 text-[11px]">
-                <span className="rounded-full bg-black/40 border border-cyan-400/50 px-3 py-1 text-cyan-100">
+                <span className="rounded-full bg-slate-900/70 border border-cyan-400/60 px-3 py-1 text-cyan-100">
                   Open to research & internships
                 </span>
-                <span className="rounded-full bg-black/40 border border-purple-400/50 px-3 py-1 text-purple-100">
+                <span className="rounded-full bg-slate-900/70 border border-purple-400/60 px-3 py-1 text-purple-100">
                   Happy to mentor students
                 </span>
               </div>
