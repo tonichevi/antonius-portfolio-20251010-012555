@@ -636,22 +636,10 @@ export default function Page() {
               Educational Journey
             </h3>
            <div className="grid gap-6 md:grid-cols-3">
+<div className="space-y-4">
   {EDUCATION.map((edu) => (
-    <div key={edu.school} className="space-y-1">
-      <div className="flex items-center gap-2">
-        <span className="h-2 w-2 rounded-full bg-[#0E6B54]" />
-        <div className="text-sm font-medium text-[#1A1F1A]">{edu.school}</div>
-      </div>
-
-      <div className="text-xs text-[#374139]">{edu.line}</div>
-
-      <div className="text-[11px] text-[#5F6B62]">
-        {edu.time} {edu.gpa ? `· GPA: ${edu.gpa}` : ""}
-      </div>
-
-      <div className="text-[11px] text-[#5F6B62] mt-0.5">
-        {edu.extras.join(" • ")}
-      </div>
+    <div key={edu.school}>
+      ...
     </div>
   ))}
 </div>
