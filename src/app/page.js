@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import "./globals.css";
 
 /* -----------------------------------------------------
-   BACKGROUND COMPONENTS
+   GLOBAL BACKGROUND
 ----------------------------------------------------- */
 
 function LightBG() {
@@ -14,7 +14,7 @@ function LightBG() {
   );
 }
 
-// Subtle pine-glow
+// Subtle base pine-glow behind everything
 function BiotechGlow() {
   return (
     <div className="pointer-events-none fixed inset-0 -z-30 overflow-hidden">
@@ -35,19 +35,19 @@ function BiotechGlow() {
 }
 
 /* -----------------------------------------------------
-   INLINE BACKGROUND ICONS
+   INLINE ICONS (BIO + CIRCUIT + MECH)
 ----------------------------------------------------- */
 
-function ProteinIcon({ className }) {
+function ProteinIcon({ className, color = "#0E6B54" }) {
   return (
     <svg viewBox="0 0 64 64" className={className}>
       <g
         fill="none"
-        stroke="#0E6B54"
+        stroke={color}
         strokeWidth="1.4"
         strokeLinecap="round"
         strokeLinejoin="round"
-        opacity="0.65"
+        opacity="0.7"
       >
         <circle cx="16" cy="18" r="6" />
         <circle cx="32" cy="32" r="6" />
@@ -60,10 +60,10 @@ function ProteinIcon({ className }) {
   );
 }
 
-function RNAIcon({ className }) {
+function RNAIcon({ className, color = "#0E6B54" }) {
   return (
     <svg viewBox="0 0 64 64" className={className}>
-      <g fill="none" stroke="#0E6B54" strokeWidth="1.4" opacity="0.65">
+      <g fill="none" stroke={color} strokeWidth="1.4" opacity="0.7">
         <path
           d="M18 10c4 6 4 10 0 16s-4 10 0 16 4 10 0 16"
           strokeLinecap="round"
@@ -78,16 +78,38 @@ function RNAIcon({ className }) {
   );
 }
 
-function CircuitIcon({ className }) {
+function DNAIcon({ className, color = "#0E6B54" }) {
+  return (
+    <svg viewBox="0 0 64 64" className={className}>
+      <g fill="none" stroke={color} strokeWidth="1.4" opacity="0.7">
+        <path
+          d="M20 10c6 6 18 6 24 0M20 54c6-6 18-6 24 0"
+          strokeLinecap="round"
+        />
+        <path
+          d="M20 10c-2 6-2 12 0 18s2 12 0 18"
+          strokeLinecap="round"
+        />
+        <path
+          d="M44 10c2 6 2 12 0 18s-2 12 0 18"
+          strokeLinecap="round"
+        />
+        <path d="M24 18h8M32 18h8M24 32h8M32 32h8M24 46h8M32 46h8" />
+      </g>
+    </svg>
+  );
+}
+
+function CircuitIcon({ className, color = "#0E6B54" }) {
   return (
     <svg viewBox="0 0 64 64" className={className}>
       <g
         fill="none"
-        stroke="#0E6B54"
+        stroke={color}
         strokeWidth="1.4"
         strokeLinecap="round"
         strokeLinejoin="round"
-        opacity="0.65"
+        opacity="0.7"
       >
         {/* Resistor */}
         <path d="M8 24h8l4-6 4 6 4-6 4 6 4-6 4 6h8" />
@@ -102,10 +124,10 @@ function CircuitIcon({ className }) {
   );
 }
 
-function GearIcon({ className }) {
+function GearIcon({ className, color = "#0E6B54" }) {
   return (
     <svg viewBox="0 0 64 64" className={className}>
-      <g fill="none" stroke="#0E6B54" strokeWidth="1.4" opacity="0.65">
+      <g fill="none" stroke={color} strokeWidth="1.4" opacity="0.7">
         <circle cx="32" cy="32" r="8" />
         <circle cx="32" cy="32" r="2.5" />
         <path d="M32 14v6M32 44v6M18 18l4.2 4.2M41.8 41.8L46 46M14 32h6M44 32h6M18 46l4.2-4.2M41.8 22.2L46 18" />
@@ -114,10 +136,10 @@ function GearIcon({ className }) {
   );
 }
 
-function CellIcon({ className }) {
+function CellIcon({ className, color = "#0E6B54" }) {
   return (
     <svg viewBox="0 0 64 64" className={className}>
-      <g fill="none" stroke="#0E6B54" strokeWidth="1.4" opacity="0.65">
+      <g fill="none" stroke={color} strokeWidth="1.4" opacity="0.7">
         <ellipse cx="32" cy="32" rx="20" ry="14" />
         <ellipse cx="32" cy="32" rx="8" ry="6" />
         <circle cx="35" cy="30" r="2" />
@@ -127,64 +149,194 @@ function CellIcon({ className }) {
   );
 }
 
+function SpringIcon({ className, color = "#0E6B54" }) {
+  return (
+    <svg viewBox="0 0 64 64" className={className}>
+      <g fill="none" stroke={color} strokeWidth="1.4" opacity="0.7">
+        <path
+          d="M18 18c4-4 8-4 12 0s8 4 12 0M18 30c4-4 8-4 12 0s8 4 12 0M18 42c4-4 8-4 12 0s8 4 12 0"
+          strokeLinecap="round"
+        />
+        <path d="M14 18h4M46 18h4M14 42h4M46 42h4" />
+      </g>
+    </svg>
+  );
+}
+
+function BoltIcon({ className, color = "#0E6B54" }) {
+  return (
+    <svg viewBox="0 0 64 64" className={className}>
+      <g fill="none" stroke={color} strokeWidth="1.4" opacity="0.7">
+        <polygon points="28,10 40,10 44,18 40,26 24,26 20,18" />
+        <rect x="26" y="26" width="12" height="18" />
+        <path d="M26 44h12v4H26z" />
+      </g>
+    </svg>
+  );
+}
+
+function PumpIcon({ className, color = "#0E6B54" }) {
+  return (
+    <svg viewBox="0 0 64 64" className={className}>
+      <g fill="none" stroke={color} strokeWidth="1.4" opacity="0.7">
+        <rect x="16" y="20" width="32" height="20" rx="4" />
+        <circle cx="26" cy="30" r="5" />
+        <path d="M36 24h6M36 30h6M36 36h6" />
+        <path d="M16 30H8M48 30h8" strokeLinecap="round" />
+      </g>
+    </svg>
+  );
+}
+
+function WaveIcon({ className, color = "#0E6B54" }) {
+  return (
+    <svg viewBox="0 0 64 64" className={className}>
+      <path
+        d="M6 38c6-8 10-8 16 0s10 8 16 0 10-8 16 0 10 8 16 0"
+        fill="none"
+        stroke={color}
+        strokeWidth="1.4"
+        strokeLinecap="round"
+        opacity="0.7"
+      />
+    </svg>
+  );
+}
+
 /* -----------------------------------------------------
-   SECTION-AWARE FLOATING BACKGROUND ICONS
+   THEME CONFIG (COLORS PER SECTION)
 ----------------------------------------------------- */
 
-function ThemedFloatingIcons({ theme }) {
-  // Choose a palette of icons for each theme
+const THEME_CONFIG = {
+  overview: {
+    iconColor: "#0E6B54",
+    haloClass:
+      "bg-[radial-gradient(circle_at_top,rgba(14,107,84,0.18),transparent_65%)]",
+  },
+  projects: {
+    iconColor: "#078F77",
+    haloClass:
+      "bg-[radial-gradient(circle_at_top,rgba(7,143,119,0.2),transparent_65%)]",
+  },
+  experience: {
+    iconColor: "#3D6B58",
+    haloClass:
+      "bg-[radial-gradient(circle_at_top,rgba(61,107,88,0.2),transparent_65%)]",
+  },
+  education: {
+    iconColor: "#0C6F87",
+    haloClass:
+      "bg-[radial-gradient(circle_at_top,rgba(12,111,135,0.22),transparent_65%)]",
+  },
+  background: {
+    iconColor: "#4C6057",
+    haloClass:
+      "bg-[radial-gradient(circle_at_top,rgba(76,96,87,0.22),transparent_65%)]",
+  },
+  contact: {
+    iconColor: "#B0713D",
+    haloClass:
+      "bg-[radial-gradient(circle_at_top,rgba(176,113,61,0.22),transparent_65%)]",
+  },
+  default: {
+    iconColor: "#0E6B54",
+    haloClass:
+      "bg-[radial-gradient(circle_at_top,rgba(14,107,84,0.16),transparent_65%)]",
+  },
+};
+
+/* -----------------------------------------------------
+   SECTION-AWARE FLOATING ICONS (OPTION D)
+----------------------------------------------------- */
+
+function ThemedFloatingIcons({ theme, scrollDir, scrollSpeed }) {
+  const config = THEME_CONFIG[theme] || THEME_CONFIG.default;
+  const color = config.iconColor;
+
+  // Different icon mixes per theme
   let icons;
   switch (theme) {
     case "projects":
-      icons = [ProteinIcon, RNAIcon, CircuitIcon];
+      icons = [
+        ProteinIcon,
+        RNAIcon,
+        CircuitIcon,
+        DNAIcon,
+        PumpIcon,
+        WaveIcon,
+      ];
       break;
     case "experience":
-      icons = [CircuitIcon, GearIcon, CircuitIcon];
+      icons = [CircuitIcon, GearIcon, SpringIcon, BoltIcon, WaveIcon];
       break;
     case "education":
-      icons = [RNAIcon, ProteinIcon, CellIcon];
+      icons = [RNAIcon, DNAIcon, ProteinIcon, CellIcon, WaveIcon];
       break;
     case "background":
-      icons = [CellIcon, GearIcon, CircuitIcon];
+      icons = [CellIcon, GearIcon, CircuitIcon, SpringIcon, DNAIcon];
       break;
     case "contact":
-      icons = [GearIcon, CircuitIcon];
+      icons = [GearIcon, CircuitIcon, WaveIcon];
       break;
     case "overview":
     default:
-      icons = [CellIcon, GearIcon, ProteinIcon];
+      icons = [CellIcon, GearIcon, ProteinIcon, CircuitIcon, DNAIcon];
       break;
   }
 
-  const positions = [
-    { top: "6%", left: "-4%" },
-    { top: "40%", right: "-6%" },
-    { bottom: "-10%", left: "32%" },
+  // Positions per section (roughly around edges)
+  const basePositions = [
+    { top: "-8%", left: "-6%" },
+    { top: "10%", right: "-8%" },
+    { top: "38%", left: "-10%" },
+    { top: "54%", right: "-10%" },
+    { bottom: "-12%", left: "10%" },
+    { bottom: "-8%", right: "12%" },
   ];
+
+  const dirFactor = scrollDir === -1 ? -1 : 1;
+  const speedFactor = 14 + scrollSpeed * 24; // amplitude
 
   return (
     <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
       {icons.map((Icon, idx) => {
-        const pos = positions[idx] || { top: "20%", left: "70%" };
+        const pos = basePositions[idx % basePositions.length];
+        const axis =
+          theme === "experience" || (theme === "projects" && idx % 3 === 1)
+            ? "x"
+            : "y";
+        const delta =
+          (axis === "y" ? speedFactor : speedFactor * 0.6) *
+          (idx % 2 === 0 ? dirFactor : -dirFactor);
+
+        const duration = 20 + idx * 3;
+
         return (
           <motion.div
-            key={idx}
+            key={`${theme}-${idx}`}
             className="absolute"
             style={pos}
             initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 0.5, y: 0 }}
+            whileInView={{ opacity: 0.4, y: 0 }}
             viewport={{ once: false, amount: 0.4 }}
-            transition={{ duration: 0.8, delay: idx * 0.12 }}
+            transition={{ duration: 0.9, delay: idx * 0.12, ease: "easeOut" }}
           >
             <motion.div
-              animate={{ y: [0, -18, 0] }}
+              animate={
+                axis === "y"
+                  ? { y: [0, -delta, 0] }
+                  : { x: [0, delta, 0] }
+              }
               transition={{
-                duration: 18 + idx * 3,
+                duration,
                 repeat: Infinity,
                 ease: "easeInOut",
               }}
             >
-              <Icon className="h-20 w-20 md:h-24 md:w-24" />
+              <Icon
+                className="h-16 w-16 md:h-20 md:w-20"
+                color={color}
+              />
             </motion.div>
           </motion.div>
         );
@@ -431,14 +583,32 @@ const fadeProps = {
   transition: { duration: 0.6, ease: "easeOut" },
 };
 
-function SectionShell({ id, label, theme, children }) {
+function SectionShell({
+  id,
+  label,
+  theme = "default",
+  scrollDir,
+  scrollSpeed,
+  children,
+}) {
+  const config = THEME_CONFIG[theme] || THEME_CONFIG.default;
+
   return (
     <section
       id={id}
       className="relative max-w-6xl mx-auto px-4 py-20 space-y-10"
     >
-      {/* Section-aware floating icons */}
-      <ThemedFloatingIcons theme={theme} />
+      {/* Local halo / glow for section color shift */}
+      <div className="pointer-events-none absolute inset-x-[-18%] -top-20 h-56 -z-20">
+        <div className={`w-full h-full ${config.haloClass} blur-3xl`} />
+      </div>
+
+      {/* Floating icons for this section */}
+      <ThemedFloatingIcons
+        theme={theme}
+        scrollDir={scrollDir}
+        scrollSpeed={scrollSpeed}
+      />
 
       <div className="relative z-10">
         <div className="flex items-center gap-3">
@@ -497,6 +667,40 @@ export default function Page() {
   const [showSplash, setShowSplash] = useState(true);
   const [selectedImage, setSelectedImage] = useState(null);
 
+  const [scrollDir, setScrollDir] = useState(1); // 1 = down, -1 = up
+  const [scrollSpeed, setScrollSpeed] = useState(0); // 0–1 approx
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    let lastY = window.scrollY;
+    let ticking = false;
+
+    const handleScrollFrame = () => {
+      const y = window.scrollY;
+      const dy = y - lastY;
+
+      if (dy !== 0) {
+        const dir = dy > 0 ? 1 : -1;
+        const speed = Math.min(1, Math.abs(dy) / 120);
+        setScrollDir(dir);
+        setScrollSpeed(speed);
+        lastY = y;
+      }
+      ticking = false;
+    };
+
+    const handleScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(handleScrollFrame);
+        ticking = true;
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   const sortedExperience = useMemo(
     () =>
       [...EXPERIENCE].sort(
@@ -546,8 +750,14 @@ export default function Page() {
           </div>
         </header>
 
-        {/* HERO */}
-        <SectionShell id="top" label="Overview" theme="overview">
+        {/* HERO / OVERVIEW */}
+        <SectionShell
+          id="top"
+          label="Overview"
+          theme="overview"
+          scrollDir={scrollDir}
+          scrollSpeed={scrollSpeed}
+        >
           <div className="grid md:grid-cols-[1.4fr,1fr] gap-10 items-center mt-6">
             {/* TEXT */}
             <motion.div {...fadeProps} className="space-y-6">
@@ -583,7 +793,7 @@ export default function Page() {
               <Card className="max-w-xs mx-auto text-center">
                 <div className="size-40 mx-auto rounded-full overflow-hidden border border-[#D0D4CB]">
                   <img
-                    src="/images/https://github.com/tonichevi/antonius-portfolio-20251010-012555/blob/main/public/images/3C290D86-57BC-42DB-94D9-237783F922FB8R1A8362.jpeg"
+                    src="/images/biographyVF.jpg"
                     alt="Antonius Chevillotte"
                     className="h-full w-full object-cover"
                   />
@@ -601,7 +811,13 @@ export default function Page() {
         </SectionShell>
 
         {/* PROJECTS */}
-        <SectionShell id="projects" label="Projects" theme="projects">
+        <SectionShell
+          id="projects"
+          label="Projects"
+          theme="projects"
+          scrollDir={scrollDir}
+          scrollSpeed={scrollSpeed}
+        >
           <div className="space-y-16 mt-6">
             {PROJECTS.map((p, i) => {
               const isEven = i % 2 === 0;
@@ -692,6 +908,8 @@ export default function Page() {
           id="experience"
           label="Experience"
           theme="experience"
+          scrollDir={scrollDir}
+          scrollSpeed={scrollSpeed}
         >
           <div className="space-y-6 mt-6">
             {sortedExperience.map((exp) => (
@@ -727,7 +945,13 @@ export default function Page() {
         </SectionShell>
 
         {/* EDUCATION */}
-        <SectionShell id="education" label="Education" theme="education">
+        <SectionShell
+          id="education"
+          label="Education"
+          theme="education"
+          scrollDir={scrollDir}
+          scrollSpeed={scrollSpeed}
+        >
           <motion.div {...fadeProps} className="mt-6">
             <Card>
               <h3 className="text-sm uppercase font-semibold text-[#0E6B54] tracking-[0.18em] mb-4">
@@ -762,6 +986,8 @@ export default function Page() {
           id="background"
           label="Background & Impact"
           theme="background"
+          scrollDir={scrollDir}
+          scrollSpeed={scrollSpeed}
         >
           <div className="grid gap-10 lg:grid-cols-[1.4fr,1fr] items-start mt-6">
             {/* VOLUNTEERING */}
@@ -836,7 +1062,13 @@ export default function Page() {
         </SectionShell>
 
         {/* CONTACT */}
-        <SectionShell id="contact" label="Contact" theme="contact">
+        <SectionShell
+          id="contact"
+          label="Contact"
+          theme="contact"
+          scrollDir={scrollDir}
+          scrollSpeed={scrollSpeed}
+        >
           <motion.div {...fadeProps} className="mt-6">
             <Card className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
               <div>
@@ -877,5 +1109,4 @@ export default function Page() {
     </>
   );
 }
-
 
