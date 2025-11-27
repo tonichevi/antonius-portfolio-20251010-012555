@@ -17,7 +17,7 @@ function LightBG() {
 // Faint repeating protein-ish pattern (SVG asset in /public/images)
 function ProteinPatternBG() {
   return (
-    <div className="fixed inset-0 -z-35 opacity-[0.045] bg-[url('/images/ProteinPatternBG.svg')] bg-[length:260px_260px] bg-repeat" />
+    <div className="fixed inset-0 -z-35 opacity-[0.20] bg-[url('/images/ProteinPatternBG.svg')] bg-[length:260px_260px] bg-repeat" />
   );
 }
 
