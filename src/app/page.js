@@ -1,17 +1,18 @@
 "use client";
-import { useMemo, useRef, useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import "./globals.css"; // Import the global CSS file
 
-/* ---------- Blueprint background (no mouse effects) ---------- */
+import { useEffect, useState, useRef, useMemo } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import "./globals.css";
+
+/* ---------- Blueprint background (kept, no mouse effects) ---------- */
 function BlueprintBG() {
   return <div className="fixed inset-0 -z-10 blueprint" />;
 }
 
-/* ---------- Splash Screen ---------- */
-function SplashScreen({ onComplete }) {
+/* ---------- Splash Screen (optional, kept but simplified) ---------- */
+function SplashScreen({ onComplete }: { onComplete: () => void }) {
   useEffect(() => {
-    const timer = setTimeout(() => onComplete(), 2000); // Display for 2 seconds
+    const timer = setTimeout(() => onComplete(), 2000);
     return () => clearTimeout(timer);
   }, [onComplete]);
 
@@ -20,158 +21,277 @@ function SplashScreen({ onComplete }) {
       className="fixed inset-0 bg-black flex items-center justify-center z-50"
       initial={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      transition={{ duration: 1, ease: "easeOut" }}
+      transition={{ duration: 0.8, ease: "easeOut" }}
     >
       <motion.h1
-        className="text-5xl md:text-7xl font-bold text-white"
-        initial={{ scale: 0.8, opacity: 0 }}
+        className="text-4xl md:text-6xl font-semibold text-white tracking-tight"
+        initial={{ scale: 0.9, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
-        exit={{ scale: 1.2, opacity: 0 }}
-        transition={{ duration: 1, ease: "easeOut" }}
+        exit={{ scale: 1.05, opacity: 0 }}
+        transition={{ duration: 0.9, ease: "easeOut" }}
       >
-        Think Different
+        Building Patient-First Systems
       </motion.h1>
     </motion.div>
   );
 }
 
 /* ---------- Data ---------- */
+
+const NAME = "Antonius (Toni) Chevillotte";
+
+const PROJECTS = [
+  {
+    id: "star-rider-ii",
+    title: "Star Rider II — Cause & Effect Vehicle",
+    subtitle: "Adaptive mobility platform for children with disabilities",
+    description:
+      "Lead mechanical designer on a therapeutic 'cause-and-effect' vehicle that lets children with cerebral palsy initiate motion independently. Focused on robust yet sensitive sensing, vibration-based feedback, and a chassis that is both clinic-friendly and kid-proof.",
+    meta: ["UCSB Capstone", "2025", "Assistive Technology"],
+    img: "/images/StarRiderII.jpg",
+    credit:
+      "Credit: https://capstone.engineering.ucsb.edu/projects/starrider",
+  },
+  {
+    id: "urca-steering",
+    title: "URCA Steering System — Bearing Performance Study",
+    subtitle: "Quantifying steering feel & reliability",
+    description:
+      "Analyzed bearing configurations for an undergraduate research competition vehicle. Built parametric models of steering torque and compliance, then validated them against experimental data to recommend a robust, low-maintenance configuration.",
+    meta: ["URCA", "2025", "Vehicle Dynamics"],
+    img: "/images/SteeringUrca.jpg",
+  },
+  {
+    id: "frog-jumper",
+    title: "Frog Jumper Mechanism",
+    subtitle: "Teaching dynamics through playful hardware",
+    description:
+      "Designed a spring-loaded 'frog jumper' that converts stored elastic energy into a repeatable jump. Used it as a teaching tool to connect free-body diagrams, energy methods, and real-world tolerancing.",
+    meta: ["UCSB", "2025", "Mechanisms"],
+    img: "/images/Jumper.jpg",
+  },
+  {
+    id: "solidworks",
+    title: "SOLIDWORKS Design Set",
+    subtitle: "From four-beam TV mount to FSAE steering wheel",
+    description:
+      "A collection of CAD projects including a four-beam TV mount optimized for stiffness-to-mass and a Formula SAE steering wheel designed around ergonomics, manufacturability, and wiring integration.",
+    meta: ["UCSB", "2024–2025", "CAD & Simulation"],
+    imgs: ["/images/TVSketch.jpg", "/images/TV.jpg.png", "/images/SteeringWheel.jpg"],
+  },
+  {
+    id: "sanisure-dashboards",
+    title: "SaniSure Power BI Dashboards",
+    subtitle: "Design analytics for bioprocess hardware",
+    description:
+      "Built live dashboards used by SaniSure’s R&D and Quality teams. One tracks chemical–resin compatibility for single-use systems; another visualizes engagement test data across tubing, connectors, and fittings to surface weak points in the design space.",
+    meta: ["SaniSure", "2025–", "Data & Bioprocess"],
+    imgs: ["/images/ChemicalFilters.jpg", "/images/Material Engagement Check.jpg"],
+  },
+];
+
 const EXPERIENCE = [
-  { id: "dressaire", role: "Fluid Dynamics Researcher", company: "Dressaire Lab", period: "Oct 2025 – Present", start: "2025-10-01", location: "UCSB", bullets: [
-    "Studying effects and applications of capillary bridges in soft gels.",
-    "Designing and building an instrumented fixture to quantify wetting (contact angle, hysteresis) and capillary adhesion (pull-off force, force–separation curves)."
-  ]},
-  { id: "sanisure", role: "Design + R&D Intern", company: "SaniSure — R&D", period: "Jul 2025 – Present", start: "2025-07-01", location: "Camarillo, CA · On-site", bullets: [
-    "Partner with Director of Engineering to create KPI dashboards highlighting throughput across the Design Dept.",
-    "Find, categorize and analyze design flaws in current products; lead structured teardown and failure testing.",
-    "Facilitate meetings with Fabrication and Quality to clarify/update work instructions and improve consistency."
-  ]},
-  { id: "audi", role: "Requirements Engineering Intern", company: "AUDI AG — Technical Development", period: "Jan 2024 – Jun 2024", start: "2024-01-01", location: "Ingolstadt, Germany · On-site", bullets: [
-    "Vehicle requirements engineering within the technical development branch.",
-    "Built Power BI KPI pipelines for Systems Requirements; increased transparency and traceability.",
-    "Collaborated on specifications for planned automotive vehicles with a ~30-engineer cross-functional team."
-  ]},
-  { id: "ucd-research", role: "Research Assistant", company: "UC Davis — College of Engineering", period: "Jan 2023 – Jun 2023", start: "2023-01-01", location: "Davis, CA · On-site", bullets: [
-    "Worked with Dr. Richard Scalettar’s group.",
-    "C programs to simulate projectile motion; parameter sweeps and validation."
-  ]},
-  { id: "ucd-tutor", role: "Calculus Tutor", company: "UC Davis", period: "Sep 2022 – Jun 2023", start: "2022-09-01", location: "Davis, CA · On-site", bullets: [
-    "One-on-one and small-group tutoring (up to 10 students).",
-    "5–10 hrs/week supporting success in core calculus coursework."
-  ]},
+  {
+    id: "dressaire",
+    role: "Fluid Dynamics Researcher",
+    company: "Dressaire Lab",
+    period: "Oct 2025 – Present",
+    start: "2025-10-01",
+    location: "UCSB",
+    bullets: [
+      "Study capillary bridges in soft gels and their relevance for biomedical interfaces.",
+      "Design an instrumented fixture to quantify wetting (contact angle, hysteresis) and capillary adhesion (force–separation curves).",
+    ],
+  },
+  {
+    id: "sanisure",
+    role: "Design + R&D Intern",
+    company: "SaniSure — R&D",
+    period: "Jul 2025 – Present",
+    start: "2025-07-01",
+    location: "Camarillo, CA · On-site",
+    bullets: [
+      "Partner with Director of Engineering to build KPI dashboards for design throughput and failure modes.",
+      "Lead structured teardown and failure testing on single-use assemblies.",
+      "Coordinate with Fabrication and Quality to tighten work instructions and improve process consistency.",
+    ],
+  },
+  {
+    id: "audi",
+    role: "Requirements Engineering Intern",
+    company: "AUDI AG — Technical Development",
+    period: "Jan 2024 – Jun 2024",
+    start: "2024-01-01",
+    location: "Ingolstadt, Germany · On-site",
+    bullets: [
+      "Owned vehicle-level requirements within a ~30-engineer cross-functional team.",
+      "Built Power BI KPI pipelines to increase transparency and traceability of system requirements.",
+      "Contributed to specifications for upcoming vehicle platforms.",
+    ],
+  },
+  {
+    id: "ucd-research",
+    role: "Research Assistant",
+    company: "UC Davis — College of Engineering",
+    period: "Jan 2023 – Jun 2023",
+    start: "2023-01-01",
+    location: "Davis, CA · On-site",
+    bullets: [
+      "Supported Dr. Richard Scalettar’s group on computational physics projects.",
+      "Wrote C programs for projectile motion simulation and parameter sweeps.",
+    ],
+  },
+  {
+    id: "ucd-tutor",
+    role: "Calculus Tutor",
+    company: "UC Davis",
+    period: "Sep 2022 – Jun 2023",
+    start: "2022-09-01",
+    location: "Davis, CA · On-site",
+    bullets: [
+      "Tutored core calculus 5–10 hrs/week in one-on-one and small-group settings.",
+      "Helped students connect intuitive physical reasoning with formal derivations.",
+    ],
+  },
 ];
 
 const EDUCATION = [
-  { school: "UC Santa Barbara", line: "BS/MS Mechanical Engineering", time: "Jun 2023 – Jun 2027", extras: ["Honors College", "Tau Beta Pi", "Formula SAE Racing Club"], gpa: "3.82" },
-  { school: "University of California, Davis", line: "B.S. Mechanical Engineering", time: "Sep 2021 – Jun 2023", extras: ["Student Alumni Association", "CAAA Leadership Scholar"], gpa: "3.82/4.00" },
-  { school: "Glendora High School", line: "High School Diploma", time: "Aug 2017 – Jun 2021", extras: ["National Honors Society (NHS)", "Varsity Tennis"], gpa: "4.69/4.00 (Top 2%)" },
+  {
+    school: "UC Santa Barbara",
+    line: "BS/MS Mechanical Engineering",
+    time: "Jun 2023 – Jun 2027",
+    extras: ["Honors College", "Tau Beta Pi", "Formula SAE Racing Club"],
+    gpa: "3.82",
+  },
+  {
+    school: "University of California, Davis",
+    line: "B.S. Mechanical Engineering",
+    time: "Sep 2021 – Jun 2023",
+    extras: ["Student Alumni Association", "CAAA Leadership Scholar"],
+    gpa: "3.82/4.00",
+  },
+  {
+    school: "Glendora High School",
+    line: "High School Diploma",
+    time: "Aug 2017 – Jun 2021",
+    extras: ["National Honors Society (NHS)", "Varsity Tennis"],
+    gpa: "4.69/4.00 (Top 2%)",
+  },
 ];
 
-/* ---------- UI bits ---------- */
-function TabChips({ tab, setTab }) {
-  const items = [
-    { id: "intro", label: "The Intro" },
-    { id: "projects", label: "Projects" },
-    { id: "helpinghand", label: "A Helping Hand" },
-    { id: "workingit", label: "Working It" },
-    { id: "deets", label: "The Deets" },
-  ];
+const HONORS = [
+  "6× Dean's Honors List (UC Davis & UCSB, Dec 2024).",
+  "AP Capstone Diploma (Jun 2021).",
+  "Glendora Kiwanis Community Service Award (Jun 2021).",
+  "Tartan Achievement Award (Jun 2021).",
+];
+
+const CERTS = [
+  "Entrepreneurship Specialization — The Wharton School (Sep 2022).",
+  "Oil & Gas Industry Operations and Markets — Duke University (Sep 2022).",
+  "Statistics & R Specialization — HarvardX (Aug 2020).",
+];
+
+const LANGS = [
+  "English — Native or bilingual proficiency",
+  "German — Native or bilingual proficiency",
+  "French — Elementary proficiency",
+];
+
+const EXTRAS = [
+  {
+    title: "UCSB Formula SAE",
+    text: "EV racecar design & build; steering and driver interface focus with extensive CAD.",
+  },
+  {
+    title: "Elementary School STEAM Volunteer",
+    text: "Hands-on science & engineering sessions for 6th-grade students.",
+  },
+  {
+    title: "NASA Volunteer at UC Davis",
+    text: "Generator teardown and efficiency benchmarking.",
+  },
+  {
+    title: "Fruitfully Yours — Vice President & Co-founder",
+    text: "Nonprofit reducing food waste via fruit rescue; 80k+ lbs of fruit saved and ~70k food-insecure individuals supported.",
+  },
+  {
+    title: "Assistive Technology Club (UCSB)",
+    text: "Co-founded club developing devices such as VR-based early-screening tools for Alzheimer's.",
+  },
+];
+
+/* ---------- Shared UI primitives ---------- */
+
+function SectionShell({
+  id,
+  label,
+  children,
+}: {
+  id: string;
+  label: string;
+  children: React.ReactNode;
+}) {
   return (
-    <ul className="flex gap-2 rounded-xl p-1 ring-1 ring-white/15 bg-white/5">
-      {items.map(it => (
-        <li key={it.id}>
-          <button
-            onClick={() => setTab(it.id)}
-            className={`relative rounded-lg px-3 py-1.5 text-sm transition-colors ${
-              tab === it.id ? "chip-active" : "text-white/85 hover:text-white"
-            }`}
-          >
-            {tab === it.id && (
-              <motion.span
-                layoutId="chip"
-                className="absolute inset-0 rounded-lg"
-                style={{ background: "linear-gradient(90deg,#7cf9ff,#9e7bff)" }}
-              />
-            )}
-            <span className="relative">{it.label}</span>
-          </button>
-        </li>
-      ))}
-    </ul>
+    <section
+      id={id}
+      className="max-w-6xl mx-auto px-4 py-16 md:py-20 space-y-8"
+    >
+      <div className="flex items-center gap-3">
+        <span className="h-px w-10 bg-gradient-to-r from-cyan-400/80 to-purple-400/80" />
+        <h2 className="text-sm font-semibold tracking-[0.2em] uppercase text-cyan-200/80">
+          {label}
+        </h2>
+      </div>
+      {children}
+    </section>
   );
 }
 
-function Panel({ className = "", children }) {
+function Panel({
+  children,
+  className = "",
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) {
   return (
-    <div className={`panel relative rounded-2xl p-6 ${className}`}>
-      <div className="pointer-events-none absolute inset-0 rounded-2xl ring-1 ring-white/10" />
+    <div
+      className={`relative rounded-3xl border border-white/8 bg-white/5/10 bg-gradient-to-br from-white/5 via-white/0 to-white/0 backdrop-blur-xl p-6 md:p-8 shadow-[0_18px_45px_rgba(0,0,0,0.55)] ${className}`}
+    >
+      <div className="pointer-events-none absolute inset-0 rounded-3xl border border-white/5" />
       {children}
     </div>
   );
 }
 
-function Porthole({ item, selected, onSelect }) {
-  return (
-    <div className="relative flex flex-col items-center w-[168px] md:w-[200px]">
-      <div className="relative size-[168px] md:size-[200px] rounded-full overflow-hidden ring-2 ring-cyan-200/30 bg-[radial-gradient(120%_120%_at_30%_20%,rgba(255,255,255,.22),rgba(16,24,40,.78)_60%,rgba(0,0,0,.9))] flex items-center justify-center text-center px-3 shadow-[0_8px_24px_rgba(0,0,0,0.35)]">
-        <div>
-          <div className="text-[12px] md:text-sm font-semibold leading-tight">{item.role}</div>
-          <div className="text-[11px] md:text-xs opacity-90 mt-0.5">{item.location}</div>
-          <div className="mt-1 text-[10px] md:text-[11px] opacity-80">{item.period}</div>
-        </div>
-      </div>
-      <button
-        onClick={() => onSelect(selected ? null : item.id)}
-        aria-pressed={selected}
-        className="mt-3 relative h-5 w-5 rounded-full ring-2 ring-white/30 bg-white/10 hover:ring-white/60 focus:outline-none"
-        title={selected ? "Hide details" : "Show details"}
-      >
-        <motion.span
-          className="absolute inset-[3px] rounded-full"
-          style={{ background: "linear-gradient(90deg,#7cf9ff,#9e7bff)" }}
-          animate={{ scale: selected ? 1 : 0, opacity: selected ? 1 : 0 }}
-          transition={{ type: "spring", stiffness: 500, damping: 30 }}
-        />
-      </button>
-      <div className="mt-2 text-xs opacity-85">{item.company}</div>
-    </div>
-  );
-}
+/* ---------- Image Modal ---------- */
 
-function Row({ items, selected, onSelect }) {
-  return (
-    <div className="flex items-center gap-5 md:gap-8 w-full">
-      {items.map((it, i) => (
-        <div key={it.id} className="flex items-center gap-5 md:gap-8 flex-1">
-          <Porthole item={it} selected={selected === it.id} onSelect={onSelect} />
-          {i !== items.length - 1 && (
-            <div className="h-[2px] md:h-[3px] flex-1 rounded-full bg-[linear-gradient(90deg,rgba(124,249,255,0),rgba(124,249,255,.7),rgba(124,249,255,0))]" />
-          )}
-        </div>
-      ))}
-    </div>
-  );
-}
-
-function ImageModal({ selectedImage, onClose }) {
+function ImageModal({
+  selectedImage,
+  onClose,
+}: {
+  selectedImage: string | null;
+  onClose: () => void;
+}) {
   return (
     <AnimatePresence>
       {selectedImage && (
         <motion.div
+          className="fixed inset-0 bg-black/80 flex items-center justify-center z-50"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="fixed inset-0 bg-black/80 flex items-center justify-center z-50"
           onClick={onClose}
         >
           <motion.img
             src={selectedImage}
-            alt="Enlarged project image"
-            className="max-w-[80%] max-h-[80vh] object-contain"
-            initial={{ scale: 0.5 }}
+            alt="Project image"
+            className="max-w-[86%] max-h-[80vh] rounded-2xl object-contain"
+            initial={{ scale: 0.8 }}
             animate={{ scale: 1 }}
-            exit={{ scale: 0.5 }}
-            onClick={(e) => e.stopPropagation()} // Prevent closing when clicking the image
+            exit={{ scale: 0.8 }}
+            onClick={(e) => e.stopPropagation()}
           />
           <button
             onClick={onClose}
@@ -186,316 +306,494 @@ function ImageModal({ selectedImage, onClose }) {
 }
 
 /* ---------- Page ---------- */
+
 export default function Page() {
-  const NAME = "Antonius (Toni) Chevillotte";
-  const [alias, setAlias] = useState(NAME), [clicks, setClicks] = useState(0);
-  const tRef = useRef(null);
-  const onName = () => {
-    if (tRef.current) clearTimeout(tRef.current);
-    setClicks(c => {
-      const n = c + 1;
-      if (n >= 3) {
-        setAlias(a => (a === "67" ? NAME : "67"));
+  const [showSplash, setShowSplash] = useState(true);
+
+  // fun alias toggle on clicking the name
+  const [alias, setAlias] = useState(NAME);
+  const [clicks, setClicks] = useState(0);
+  const clickTimerRef = useRef<NodeJS.Timeout | null>(null);
+
+  const handleNameClick = () => {
+    if (clickTimerRef.current) clearTimeout(clickTimerRef.current);
+    setClicks((c) => {
+      const next = c + 1;
+      if (next >= 3) {
+        setAlias((prev) => (prev === "67" ? NAME : "67"));
         return 0;
       }
-      tRef.current = setTimeout(() => setClicks(0), 800);
-      return n;
+      clickTimerRef.current = setTimeout(() => setClicks(0), 800) as any;
+      return next;
     });
   };
 
-  const exp = useMemo(() => {
-    const sorted = [...EXPERIENCE].sort((a, b) => new Date(b.start) - new Date(a.start));
-    return sorted; // Return a single sorted array for simplicity
-  }, []);
-
-  const [tab, setTab] = useState("intro");
-  const [selected, setSelected] = useState(null);
-  const details = EXPERIENCE.find(e => e.id === selected);
-  const [selectedImage, setSelectedImage] = useState(null);
-  const [showSplash, setShowSplash] = useState(true);
-
-  const projects = [
-    { t: "Current: Star Rider II - Cause and Effect Vehicle for Disabled Children", h: "Developing an adaptive vehicle to enhance mobility for disabled children, focusing on cause-and-effect interaction. Credit: https://capstone.engineering.ucsb.edu/projects/starrider", m: ["UCSB", "2025"], img: "/images/StarRiderII.jpg" },
-    { t: "URCA Steering System: An Analysis of Bearing Performance", h: "Conducted a detailed analysis of bearing performance to optimize steering system reliability.", m: ["URCA", "2025"], img: "/images/SteeringUrca.jpg" },
-    { t: "Frog Jumper Project", h: "Designed a spring-loaded mechanism to simulate a frog's jumping motion for educational purposes.", m: ["UCSB", "2025"], img: "/images/Jumper.jpg" },
-    { t: "SOLIDWORKS Projects", h: "A collection of designs including a 4-Beam TV holder and a FSAE steering wheel project, showcasing advanced SOLIDWORKS skills.", m: ["UCSB", "2024-2025"], imgs: ["/images/TVSketch.jpg", "/images/TV.jpg.png", "/images/SteeringWheel.jpg"] },
-    { t: "Power BI Projects", h: "Two 'Dashboards' developed for use by the biotech company SaniSure (see 'Working It' Page for further detail). Dashboard #1 shows a 'Chemical Compatibility' Overview, highlighting which chemical and resins are compatible for bioprocessing use. Dashboard #2 shows an 'Engagement Overview', highlighting the pressure test results of various tube + connector + fitting engagements commonly used by SaniSure.", m: ["SaniSure", "2025-"], imgs: ["/images/ChemicalFilters.jpg", "/images/Material Engagement Check.jpg"] },
-  ];
-  const extras = [
-    { o: "UCSB Formula SAE", d: "EV racecar design & build; extensive CAD; steering project focus." },
-    { o: "Elementary School STEAM Volunteer", d: "Hands-on science & engineering sessions for 6th-grade students." },
-    { o: "NASA Volunteer at UC Davis", d: "Generator teardown and efficiency comparisons." },
-    { o: "Fruitfully Yours Vice President", d: "Co-founded nonprofit reducing food waste via fruit rescue. The impact left by this organization has attained the LA County Humanitarian Award, having saved 80k+lbs of fruit and helping 70k+ food insecure individuals." },
-    { o: "Assistive Technology Club", d: "Co-founded the assistive technology club at UCSB, striving to develop technological solutions to biological problems. The current project is developing a VR headset to determine early-onset of Alzheimer's as part of a regular medical checkup." },
-  ];
-  const HONORS = [
-    "6× Dean's Honors List (UC Davis & UCSB, Dec 2024).",
-    "AP Capstone Diploma (Jun 2021).",
-    "Glendora Kiwanis Community Service Award (Jun 2021).",
-    "Tartan Achievement Award (Jun 2021).",
-  ];
-  const CERTS = [
-    "Entrepreneurship Specialization — The Wharton School (Sep 2022).",
-    "Oil & Gas Industry Operations and Markets — Duke University (Sep 2022).",
-    "Statistics & R Specialization — HarvardX (Aug 2020).",
-  ];
-
-  const LANGS = [
-    "English — Native or bilingual proficiency",
-    "German — Native or bilingual proficiency",
-    "French — Elementary proficiency",
-  ];
-
-  const bioPic = "/images/biography2.jpg";
-  const BioAvatar = () => (
-    <motion.div
-      className="relative size-56 md:size-64 rounded-full overflow-hidden ring-2 ring-white/20 bg-white/10 grid place-items-center"
-      whileHover={{ scale: 1.05, rotate: 5 }}
-      transition={{ type: "spring", stiffness: 300 }}
-    >
-      <img src={bioPic} alt="Antonius Chevillotte headshot" className="h-full w-full object-cover" onError={(e) => { e.currentTarget.style.display = "none"; }} />
-      <span className="absolute inset-0 grid place-items-center text-4xl font-semibold bg-white/5"></span>
-    </motion.div>
+  const sortedExperience = useMemo(
+    () =>
+      [...EXPERIENCE].sort(
+        (a, b) => new Date(b.start).getTime() - new Date(a.start).getTime()
+      ),
+    []
   );
+
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
   return (
     <>
       <BlueprintBG />
-      <AnimatePresence>
-        {showSplash && <SplashScreen onComplete={() => setShowSplash(false)} />}
-      </AnimatePresence>
-      <main
+      <AnimatePresence>{showSplash && <SplashScreen onComplete={() => setShowSplash(false)} />}</AnimatePresence>
+
+      <motion.main
         className="relative min-h-screen text-white"
         initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 2, duration: 1, ease: "easeOut" }}
+        animate={{ opacity: showSplash ? 0 : 1 }}
+        transition={{ duration: 0.8, ease: "easeOut", delay: showSplash ? 0.2 : 0 }}
       >
-        {/* Top bar */}
-        <header className="sticky top-0 z-40 border-b border-white/10 bg-black/40 backdrop-blur">
-          <div className="max-w-6xl mx-auto px-4 py-3 flex items-center gap-3 justify-between">
-            <div className="flex items-center gap-3">
-              <div className="size-7 rounded-md bg-white/10 ring-1 ring-white/10 grid place-items-center">
-                {/* tiny "cog" icon */}
-                <svg width="16" height="16" viewBox="0 0 24 24" className="opacity-80"><path fill="currentColor" d="M12 8a4 4 0 1 1 0 8a4 4 0 0 1 0-8m9.4 4a7.5 7.5 0 0 0-.3-1.7l2-1.6l-2-3.4l-2.4 1a7.6 7.6 0 0 0-1.5-.9l-.4-2.6H8.2l-.4 2.6a7.6 7.6 0 0 0-1.5.9L3.9 3.3L2 6.7l2 1.6a7.5 7.5 0 0 0-.3 1.7c0 .6.1 1.2.3 1.7L2 13.7l2 3.4l2.4-1c.5.4 1 .7 1.5.9l.4 2.6h7.2l.4-2.6c.5-.2 1-.5 1.5-.9l2.4 1l2-3.4l-2.1-1.7c.2-.5.3-1.1.3-1.7Z" /></svg>
+        {/* ---------- Sticky top nav ---------- */}
+        <header className="sticky top-0 z-40 border-b border-white/8 bg-black/65 backdrop-blur-xl">
+          <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between gap-6">
+            <button
+              onClick={handleNameClick}
+              className="flex items-center gap-3 group"
+            >
+              <div className="h-8 w-8 rounded-xl bg-white/10 border border-white/15 grid place-items-center group-hover:rotate-90 transition-transform">
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  className="opacity-80"
+                >
+                  <path
+                    fill="currentColor"
+                    d="M12 8a4 4 0 1 1 0 8a4 4 0 0 1 0-8m9.4 4a7.5 7.5 0 0 0-.3-1.7l2-1.6l-2-3.4l-2.4 1a7.6 7.6 0 0 0-1.5-.9l-.4-2.6H8.2l-.4 2.6a7.6 7.6 0 0 0-1.5.9L3.9 3.3L2 6.7l2 1.6a7.5 7.5 0 0 0-.3 1.7c0 .6.1 1.2.3 1.7L2 13.7l2 3.4l2.4-1c.5.4 1 .7 1.5.9l.4 2.6h7.2l.4-2.6c.5-.2 1-.5 1.5-.9l2.4 1l2-3.4l-2.1-1.7c.2-.5.3-1.1.3-1.7Z"
+                  />
+                </svg>
               </div>
-              <button onClick={onName} className="font-semibold tracking-tight bg-gradient-to-r from-[#7cf9ff] to-[#9e7bff] bg-clip-text text-transparent">{alias}</button>
-            </div>
-            <TabChips tab={tab} setTab={setTab} />
+              <div className="flex flex-col">
+                <span className="text-xs uppercase tracking-[0.2em] text-white/50">
+                  Portfolio
+                </span>
+                <span className="font-semibold tracking-tight bg-gradient-to-r from-[#7cf9ff] to-[#9e7bff] bg-clip-text text-transparent">
+                  {alias}
+                </span>
+              </div>
+            </button>
+
+            <nav className="flex items-center gap-2 text-xs md:text-sm">
+              {[
+                { id: "projects", label: "Projects" },
+                { id: "experience", label: "Experience" },
+                { id: "about", label: "About" },
+                { id: "contact", label: "Contact" },
+              ].map((item) => (
+                <a
+                  key={item.id}
+                  href={`#${item.id}`}
+                  className="relative rounded-full px-3 py-1.5 text-white/80 hover:text-white transition-colors"
+                >
+                  <span className="absolute inset-0 rounded-full bg-white/5 opacity-0 hover:opacity-100 transition-opacity" />
+                  <span className="relative">{item.label}</span>
+                </a>
+              ))}
+            </nav>
           </div>
         </header>
 
-        {/* Content */}
-        <section className="max-w-6xl mx-auto px-4 py-6 space-y-10">
-          {tab === "intro" && (
-            <>
-              <div className="grid gap-6 md:grid-cols-[1fr_2fr]">
-                <Panel className="text-center flex flex-col items-center">
-                  <BioAvatar />
-                  <motion.div
-                    className="mt-6 text-2xl md:text-3xl font-semibold bg-gradient-to-r from-[#7cf9ff] to-[#9e7bff] bg-clip-text text-transparent"
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.2 }}
-                  >
+        {/* ---------- Hero ---------- */}
+        <SectionShell id="top" label="Overview">
+          <div className="grid gap-10 md:grid-cols-[minmax(0,1.4fr),minmax(0,1fr)] items-center">
+            <div className="space-y-6">
+              <motion.h1
+                className="text-3xl md:text-5xl font-semibold tracking-tight leading-tight"
+                initial={{ opacity: 0, y: 24 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, ease: "easeOut" }}
+              >
+                Designing hardware where{" "}
+                <span className="bg-gradient-to-r from-[#7cf9ff] via-[#9e7bff] to-[#ff9de6] bg-clip-text text-transparent">
+                  mechanics meet biology
+                </span>
+                .
+              </motion.h1>
+              <motion.p
+                className="text-sm md:text-base text-white/80 max-w-xl leading-relaxed"
+                initial={{ opacity: 0, y: 24 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, ease: "easeOut", delay: 0.05 }}
+              >
+                I’m a mechanical engineering BS/MS candidate at UCSB working at
+                the intersection of soft materials, assistive devices, and
+                bioprocess hardware. Recent adventures include capillary bridges
+                in soft gels, single-use cell-encapsulation systems, and
+                therapeutic vehicles that let kids move themselves for the first
+                time.
+              </motion.p>
+
+              <motion.div
+                className="flex flex-wrap gap-3"
+                initial={{ opacity: 0, y: 24 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, ease: "easeOut", delay: 0.1 }}
+              >
+                <a
+                  href="#projects"
+                  className="inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium bg-gradient-to-r from-[#7cf9ff] to-[#9e7bff] text-black hover:brightness-110 transition"
+                >
+                  View projects
+                  <span className="text-xs">↓</span>
+                </a>
+                <a
+                  href="#experience"
+                  className="inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium bg-white/5 text-white/90 border border-white/15 hover:bg-white/10 transition"
+                >
+                  Work journey
+                </a>
+              </motion.div>
+            </div>
+
+            <motion.div
+              className="flex justify-center md:justify-end"
+              initial={{ opacity: 0, scale: 0.9, rotate: -4 }}
+              animate={{ opacity: 1, scale: 1, rotate: 0 }}
+              transition={{ duration: 0.7, ease: "easeOut", delay: 0.15 }}
+            >
+              <Panel className="w-full max-w-sm flex flex-col items-center gap-4">
+                <div className="relative size-40 md:size-48 rounded-full overflow-hidden border border-white/20 bg-white/5">
+                  <img
+                    src="/images/biography2.jpg"
+                    alt="Antonius Chevillotte"
+                    className="h-full w-full object-cover"
+                    onError={(e) => {
+                      (e.currentTarget as HTMLImageElement).style.display =
+                        "none";
+                    }}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+                </div>
+                <div className="text-center space-y-1">
+                  <div className="text-sm font-medium text-white/90">
                     {NAME}
-                  </motion.div>
-                  <div className="text-sm text-white/85 mt-2">Honors BS/MS · Mechanical Engineering, UCSB</div>
-                  <div className="mt-1 text-xs text-white/70">Los Angeles, CA</div>
-                </Panel>
-                <Panel className="flex flex-col justify-between">
-                  <motion.div
-                    className="text-xl md:text-3xl leading-10 text-neutral-75"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 0.4 }}
-                  >
-                    Hey 👋 My name is Toni and I am a mechanical engineering BS/MS candidate at UCSB. My recent adventures include exploring fluid dynamics with soft materials at Dressaire Lab, working on design improvements of single-use bioprocessing solutions at SaniSure, and crunching KPIs using Power BI at AUDI AG. I’m super passionate about developing the bio-engineering field with innovative solutions and try my best to follow the Occam’s Razor compliant words of Chris Williamson "The only thing that is doing the thing is doing the thing." I also enjoy playing tennis, running half-marathons, and scuba-diving. 
-                  </motion.div>
-                </Panel>
-              </div>
-              <div className="relative">
-                <Panel>
-                  <h3 className="font-semibold text-2xl text-cyan-200">Educational Journey</h3>
-                  <div className="mt-6 space-y-6">
-                    {EDUCATION.map((edu, i) => (
-                      <motion.div
-                        key={i}
-                        className="flex items-start gap-4"
-                        initial={{ opacity: 0, x: -50 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: i * 0.2 }}
-                      >
-                        <div className="w-3 h-3 bg-cyan-400 rounded-full mt-2 flex-shrink-0"></div>
-                        <div>
-                          <div className="font-medium text-lg">{edu.school}</div>
-                          <div className="text-white/90">{edu.line}</div>
-                          <div className="text-white/70 text-sm">{edu.time} {edu.gpa ? `· GPA: ${edu.gpa}` : ""}</div>
-                          <div className="mt-1 text-sm text-white/75">{edu.extras.join(" • ")}</div>
-                        </div>
-                      </motion.div>
-                    ))}
                   </div>
-                </Panel>
-              </div>
-              <Panel className="mt-6">
-                <h3 className="font-semibold text-xl text-cyan-200">Get in Touch</h3>
-                <div className="mt-4 space-y-2 text-sm text-neutral-100">
-                  <p>Email: <a href="mailto:achevillotte@ucsb.edu" className="text-cyan-400 hover:underline">achevillotte@ucsb.edu</a></p>
-                  <p>Phone: <span className="text-cyan-400">+1 (914) 649-9132</span></p>
+                  <div className="text-xs text-white/65">
+                    Honors BS/MS · Mechanical Engineering, UCSB
+                  </div>
+                  <div className="text-[11px] text-white/50">
+                    Los Angeles, CA · Always building something
+                  </div>
                 </div>
               </Panel>
-            </>
-          )}
+            </motion.div>
+          </div>
+        </SectionShell>
 
-          {tab === "projects" && (
-            <>
-              <div className="grid gap-8 md:grid-cols-3">
-                {projects.map((p, i) => (
-                  <Panel key={i} className="flex flex-col h-full">
-                    <h3 className="font-semibold">{p.t}</h3>
-                    {p.img && (
-                      <div className="mt-4 flex-shrink-0">
-                        <img src={p.img} alt={`${p.t} image`} className="max-w-full h-auto object-contain rounded-lg cursor-pointer" onClick={() => setSelectedImage(p.img)} onError={(e) => { e.currentTarget.style.display = "none"; }} />
+        {/* ---------- Projects (main focus) ---------- */}
+        <SectionShell id="projects" label="Projects">
+          <div className="space-y-10 md:space-y-14">
+            {PROJECTS.map((project, index) => {
+              const isEven = index % 2 === 0;
+
+              return (
+                <motion.article
+                  key={project.id}
+                  className={`grid gap-8 md:gap-12 items-center ${
+                    isEven
+                      ? "md:grid-cols-[minmax(0,1.2fr),minmax(0,1fr)]"
+                      : "md:grid-cols-[minmax(0,1fr),minmax(0,1.2fr)]"
+                  }`}
+                  initial={{ opacity: 0, x: isEven ? -80 : 80 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true, amount: 0.3 }}
+                  transition={{ duration: 0.6, ease: "easeOut" }}
+                >
+                  {/* Text side */}
+                  <div className={isEven ? "" : "md:order-2"}>
+                    <Panel className="h-full">
+                      <div className="text-xs uppercase tracking-[0.2em] text-cyan-200/80 mb-2">
+                        {index + 1 < 10 ? `0${index + 1}` : index + 1} · Project
                       </div>
-                    )}
-                    {p.imgs && (
-                      <div className="mt-4 flex-shrink-0 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                        {p.imgs.map((img, idx) => (
-                          <img key={idx} src={img} alt={`${p.t} image ${idx + 1}`} className="max-w-full h-auto object-contain rounded-lg cursor-pointer" onClick={() => setSelectedImage(img)} onError={(e) => { e.currentTarget.style.display = "none"; }} />
+                      <h3 className="text-xl md:text-2xl font-semibold tracking-tight">
+                        {project.title}
+                      </h3>
+                      {project.subtitle && (
+                        <p className="mt-1 text-sm text-white/70">
+                          {project.subtitle}
+                        </p>
+                      )}
+                      <p className="mt-4 text-sm md:text-[15px] leading-relaxed text-white/85">
+                        {project.description}
+                      </p>
+                      <div className="mt-5 flex flex-wrap gap-2">
+                        {project.meta.map((tag) => (
+                          <span
+                            key={tag}
+                            className="rounded-full border border-white/15 bg-white/5 px-2.5 py-1 text-[11px] uppercase tracking-[0.18em] text-white/70"
+                          >
+                            {tag}
+                          </span>
                         ))}
                       </div>
-                    )}
-                    <p className="mt-6 text-sm leading-6 text-neutral-100 flex-grow">{p.h}</p>
-                    <div className="mt-6 flex flex-wrap gap-2 text-xs">
-                      {p.m.map((m, k) => <span key={k} className="rounded-full px-2 py-1 bg-white/10 ring-1 ring-white/15">{m}</span>)}
-                    </div>
-                  </Panel>
-                ))}
-              </div>
-            </>
-          )}
+                      {project.credit && (
+                        <p className="mt-3 text-[11px] text-white/40">
+                          {project.credit}
+                        </p>
+                      )}
+                    </Panel>
+                  </div>
 
-          {tab === "helpinghand" && (
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-              <Panel className="bg-gradient-to-br from-cyan-900/50 to-indigo-900/50 hover:shadow-lg hover:shadow-cyan-500/20 transition-all duration-300">
-                <h3 className="font-semibold text-lg text-cyan-200">UCSB Formula SAE</h3>
-                <p className="mt-4 text-sm text-neutral-100">EV racecar design & build; extensive CAD; steering project focus.</p>
-              </Panel>
-              <Panel className="bg-gradient-to-br from-indigo-900/50 to-purple-900/50 hover:shadow-lg hover:shadow-purple-500/20 transition-all duration-300">
-                <h3 className="font-semibold text-lg text-purple-200">Elementary School STEAM Volunteer</h3>
-                <p className="mt-4 text-sm text-neutral-100">Hands-on science & engineering sessions for 6th-grade students.</p>
-              </Panel>
-              <Panel className="bg-gradient-to-br from-cyan-900/50 to-indigo-900/50 hover:shadow-lg hover:shadow-cyan-500/20 transition-all duration-300">
-                <h3 className="font-semibold text-lg text-cyan-200">NASA Volunteer at UC Davis</h3>
-                <p className="mt-4 text-sm text-neutral-100">Generator teardown and efficiency comparisons.</p>
-              </Panel>
-              <Panel className="bg-gradient-to-br from-indigo-900/50 to-purple-900/50 hover:shadow-lg hover:shadow-purple-500/20 transition-all duration-300">
-                <h3 className="font-semibold text-lg text-purple-200">Fruitfully Yours Vice President</h3>
-                <p className="mt-4 text-sm text-neutral-100">Co-founded nonprofit reducing food waste via fruit rescue. The impact left by this organization has attained the LA County Humanitarian Award, having saved 80k+lbs of fruit and helping 70k+ food insecure individuals.</p>
-              </Panel>
-              <Panel className="bg-gradient-to-br from-cyan-900/50 to-indigo-900/50 hover:shadow-lg hover:shadow-cyan-500/20 transition-all duration-300">
-                <h3 className="font-semibold text-lg text-cyan-200">Assistive Technology Club</h3>
-                <p className="mt-4 text-sm text-neutral-100">Co-founded the assistive technology club at UCSB, striving to develop technological solutions to biological problems. The current project is developing a VR headset to determine early-onset of Alzheimer's as part of a regular medical checkup.</p>
-              </Panel>
-            </div>
-          )}
-
-          {tab === "workingit" && (
-            <div className="relative">
-              <Panel>
-                <h3 className="font-semibold text-2xl text-cyan-200 mb-6">My Work Journey</h3>
-                <div className="space-y-4">
-                  {exp.map((exp) => (
-                    <div key={exp.id} className="border-l-2 border-cyan-400 pl-4">
-                      <h4 className="text-lg font-semibold">{exp.role} - {exp.company}</h4>
-                      <p className="text-sm text-white/70 mt-1">{exp.period} | {exp.location}</p>
-                      <button
-                        onClick={() => setSelected(exp.id === selected ? null : exp.id)}
-                        className="mt-2 px-4 py-1 bg-cyan-500/20 text-cyan-200 rounded hover:bg-cyan-500/30 transition-colors"
+                  {/* Image side */}
+                  <div className={isEven ? "" : "md:order-1"}>
+                    {project.img && (
+                      <motion.div
+                        className="cursor-pointer"
+                        whileHover={{ y: -4 }}
+                        transition={{ type: "spring", stiffness: 260, damping: 22 }}
+                        onClick={() => setSelectedImage(project.img!)}
                       >
-                        {selected === exp.id ? "Hide Details" : "View Details"}
-                      </button>
-                      <AnimatePresence>
-                        {selected === exp.id && (
-                          <motion.div
-                            initial={{ opacity: 0, height: 0 }}
-                            animate={{ opacity: 1, height: "auto" }}
-                            exit={{ opacity: 0, height: 0 }}
-                            className="mt-2 space-y-2 text-sm text-neutral-100"
-                          >
-                            <ul className="list-disc pl-5">
-                              {exp.bullets.map((bullet, i) => (
-                                <li key={i}>{bullet}</li>
-                              ))}
-                            </ul>
-                          </motion.div>
-                        )}
-                      </AnimatePresence>
+                        <Panel className="p-3">
+                          <div className="aspect-[4/3] w-full overflow-hidden rounded-2xl border border-white/10 bg-black/40">
+                            <img
+                              src={project.img}
+                              alt={project.title}
+                              className="h-full w-full object-cover"
+                              onError={(e) => {
+                                (e.currentTarget as HTMLImageElement).style.display =
+                                  "none";
+                              }}
+                            />
+                          </div>
+                          <div className="mt-2 text-[11px] text-white/55 text-right">
+                            Click to enlarge
+                          </div>
+                        </Panel>
+                      </motion.div>
+                    )}
+
+                    {project.imgs && (
+                      <div className="space-y-3">
+                        <div className="flex gap-3 overflow-x-auto pb-2">
+                          {project.imgs.map((img, i) => (
+                            <motion.button
+                              key={img}
+                              type="button"
+                              className="min-w-[180px] md:min-w-[200px] lg:min-w-[220px]"
+                              whileHover={{ y: -4 }}
+                              transition={{
+                                type: "spring",
+                                stiffness: 260,
+                                damping: 22,
+                                delay: i * 0.03,
+                              }}
+                              onClick={() => setSelectedImage(img)}
+                            >
+                              <Panel className="p-2">
+                                <div className="aspect-[4/3] w-full overflow-hidden rounded-2xl border border-white/10 bg-black/40">
+                                  <img
+                                    src={img}
+                                    alt={`${project.title} view ${i + 1}`}
+                                    className="h-full w-full object-cover"
+                                    onError={(e) => {
+                                      (
+                                        e.currentTarget as HTMLImageElement
+                                      ).style.display = "none";
+                                    }}
+                                  />
+                                </div>
+                              </Panel>
+                            </motion.button>
+                          ))}
+                        </div>
+                        <p className="text-[11px] text-white/55">
+                          Scroll horizontally · Click any image to enlarge.
+                        </p>
+                      </div>
+                    )}
+                  </div>
+                </motion.article>
+              );
+            })}
+          </div>
+        </SectionShell>
+
+        {/* ---------- Experience ---------- */}
+        <SectionShell id="experience" label="Experience">
+          <div className="space-y-6">
+            {sortedExperience.map((exp) => (
+              <motion.div
+                key={exp.id}
+                className="relative pl-6"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.4, ease: "easeOut" }}
+              >
+                <span className="absolute left-0 top-3 h-3 w-3 rounded-full bg-gradient-to-br from-cyan-300 to-purple-400 shadow-[0_0_0_4px_rgba(56,189,248,0.25)]" />
+                <Panel className="overflow-hidden">
+                  <div className="flex flex-wrap justify-between gap-3">
+                    <div>
+                      <h3 className="text-sm md:text-base font-semibold">
+                        {exp.role}
+                      </h3>
+                      <p className="text-xs md:text-sm text-white/70">
+                        {exp.company}
+                      </p>
+                    </div>
+                    <div className="text-right text-xs text-white/55">
+                      <div>{exp.period}</div>
+                      <div>{exp.location}</div>
+                    </div>
+                  </div>
+                  <ul className="mt-3 space-y-1.5 text-xs md:text-[13px] text-white/80">
+                    {exp.bullets.map((b, i) => (
+                      <li key={i} className="flex gap-2">
+                        <span className="mt-[6px] h-[3px] w-[10px] rounded-full bg-cyan-400/80" />
+                        <span>{b}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </Panel>
+              </motion.div>
+            ))}
+          </div>
+        </SectionShell>
+
+        {/* ---------- About: Education + Extras + Skills ---------- */}
+        <SectionShell id="about" label="Background">
+          <div className="grid gap-10 lg:grid-cols-[minmax(0,1.4fr),minmax(0,1fr)] items-start">
+            {/* Education + narrative */}
+            <div className="space-y-6">
+              <Panel>
+                <h3 className="text-sm font-semibold tracking-[0.18em] uppercase text-cyan-200/80 mb-4">
+                  Educational Journey
+                </h3>
+                <div className="space-y-4">
+                  {EDUCATION.map((edu) => (
+                    <div key={edu.school} className="relative pl-4">
+                      <div className="absolute left-0 top-2 h-2 w-2 rounded-full bg-cyan-300" />
+                      <div className="text-sm font-medium">{edu.school}</div>
+                      <div className="text-xs text-white/80">{edu.line}</div>
+                      <div className="text-[11px] text-white/60 mt-0.5">
+                        {edu.time}
+                        {edu.gpa ? ` · GPA: ${edu.gpa}` : ""}
+                      </div>
+                      <div className="text-[11px] text-white/55 mt-0.5">
+                        {edu.extras.join(" • ")}
+                      </div>
                     </div>
                   ))}
                 </div>
               </Panel>
-            </div>
-          )}
 
-          {tab === "deets" && (
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-              <Panel className="bg-gradient-to-br from-cyan-900/50 to-indigo-900/50 hover:shadow-lg hover:shadow-cyan-500/20 transition-all duration-300">
-                <h3 className="font-semibold text-lg text-cyan-200">Languages</h3>
-                <ul className="mt-4 space-y-2 text-sm text-neutral-100">
-                  {LANGS.map((lang, i) => (
-                    <motion.li
-                      key={i}
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: i * 0.1 }}
-                      className="flex items-center gap-2"
-                    >
-                      <span className="w-2 h-2 bg-cyan-400 rounded-full"></span>
-                      {lang}
-                    </motion.li>
+              <Panel>
+                <h3 className="text-sm font-semibold tracking-[0.18em] uppercase text-cyan-200/80 mb-3">
+                  What I’m Optimizing For
+                </h3>
+                <p className="text-sm text-white/80 leading-relaxed">
+                  A throughline in my work is turning one-off fixes into
+                  scalable, patient-specific systems. Whether it’s capillary
+                  bridges in soft gels, single-use cell-encapsulation hardware,
+                  or a Musical Chair-style vehicle that lets a child drive
+                  themselves, I gravitate toward problems where the mechanics
+                  and the biology both matter.
+                </p>
+              </Panel>
+            </div>
+
+            {/* Side info: honors, languages, extras */}
+            <div className="space-y-6">
+              <Panel>
+                <h3 className="text-sm font-semibold tracking-[0.18em] uppercase text-purple-200/80 mb-3">
+                  Honors & Certifications
+                </h3>
+                <ul className="space-y-1.5 text-xs text-white/80">
+                  {HONORS.map((h) => (
+                    <li key={h} className="flex gap-2">
+                      <span className="mt-[6px] h-[3px] w-[10px] rounded-full bg-purple-400/80" />
+                      <span>{h}</span>
+                    </li>
+                  ))}
+                </ul>
+                <div className="mt-3 h-px w-full bg-gradient-to-r from-purple-400/40 via-transparent to-cyan-400/40" />
+                <ul className="mt-3 space-y-1.5 text-xs text-white/80">
+                  {CERTS.map((c) => (
+                    <li key={c} className="flex gap-2">
+                      <span className="mt-[6px] h-[3px] w-[10px] rounded-full bg-pink-400/80" />
+                      <span>{c}</span>
+                    </li>
                   ))}
                 </ul>
               </Panel>
-              <Panel className="bg-gradient-to-br from-indigo-900/50 to-purple-900/50 hover:shadow-lg hover:shadow-purple-500/20 transition-all duration-300">
-                <h3 className="font-semibold text-lg text-purple-200">Honors & Awards</h3>
-                <ul className="mt-4 space-y-2 text-sm text-neutral-100">
-                  {HONORS.map((honor, i) => (
-                    <motion.li
-                      key={i}
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: i * 0.1 }}
-                      className="flex items-center gap-2"
-                    >
-                      <span className="w-2 h-2 bg-purple-400 rounded-full"></span>
-                      {honor}
-                    </motion.li>
+
+              <Panel>
+                <h3 className="text-sm font-semibold tracking-[0.18em] uppercase text-cyan-200/80 mb-3">
+                  Languages
+                </h3>
+                <ul className="space-y-1.5 text-xs text-white/80">
+                  {LANGS.map((lang) => (
+                    <li key={lang} className="flex gap-2">
+                      <span className="mt-[6px] h-[3px] w-[10px] rounded-full bg-cyan-400/80" />
+                      <span>{lang}</span>
+                    </li>
                   ))}
                 </ul>
               </Panel>
-              <Panel className="bg-gradient-to-br from-purple-900/50 to-pink-900/50 hover:shadow-lg hover:shadow-pink-500/20 transition-all duration-300">
-                <h3 className="font-semibold text-lg text-pink-200">Licenses & Certifications</h3>
-                <ul className="mt-4 space-y-2 text-sm text-neutral-100">
-                  {CERTS.map((cert, i) => (
-                    <motion.li
-                      key={i}
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: i * 0.1 }}
-                      className="flex items-center gap-2"
-                    >
-                      <span className="w-2 h-2 bg-pink-400 rounded-full"></span>
-                      {cert}
-                    </motion.li>
+
+              <Panel>
+                <h3 className="text-sm font-semibold tracking-[0.18em] uppercase text-cyan-200/80 mb-3">
+                  Communities & Side Projects
+                </h3>
+                <ul className="space-y-2 text-xs text-white/80">
+                  {EXTRAS.map((ex) => (
+                    <li key={ex.title}>
+                      <div className="font-medium text-white/90">
+                        {ex.title}
+                      </div>
+                      <div className="text-[11px] text-white/65">
+                        {ex.text}
+                      </div>
+                    </li>
                   ))}
                 </ul>
               </Panel>
             </div>
-          )}
-        </section>
-        <ImageModal selectedImage={selectedImage} onClose={() => setSelectedImage(null)} />
-      </main>
+          </div>
+        </SectionShell>
+
+        {/* ---------- Contact ---------- */}
+        <SectionShell id="contact" label="Contact">
+          <Panel className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+            <div>
+              <h3 className="text-lg md:text-xl font-semibold tracking-tight">
+                Let’s build something useful.
+              </h3>
+              <p className="mt-2 text-sm text-white/80 max-w-md">
+                I’m always excited to chat about assistive devices, soft
+                mechanics, bioprocess hardware, or any project where engineering
+                can give someone more independence.
+              </p>
+            </div>
+            <div className="space-y-2 text-sm">
+              <p>
+                Email:{" "}
+                <a
+                  href="mailto:achevillotte@ucsb.edu"
+                  className="text-cyan-300 hover:text-cyan-100 underline-offset-2 hover:underline"
+                >
+                  achevillotte@ucsb.edu
+                </a>
+              </p>
+              <p>
+                Phone:{" "}
+                <span className="text-cyan-300">+1 (914) 649-9132</span>
+              </p>
+            </div>
+          </Panel>
+        </SectionShell>
+
+        <ImageModal
+          selectedImage={selectedImage}
+          onClose={() => setSelectedImage(null)}
+        />
+      </motion.main>
     </>
   );
 }
