@@ -4,56 +4,56 @@ import { useEffect, useState, useRef, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import "./globals.css";
 
-/* ---------- Backgrounds ---------- */
+/* ---------------------------------------
+   BACKGROUNDS (EvolutionaryScale light)
+----------------------------------------*/
 
-function BlueprintBG() {
-  return <div className="fixed inset-0 -z-30 blueprint" />;
+function LightBG() {
+  return (
+    <div className="fixed inset-0 -z-30 bg-[linear-gradient(to_bottom,#F6F7F4_0%,#ECEDE9_100%)]" />
+  );
 }
 
-// extra biotech-y glow layers on top of blueprint
+// Soft green-sage glows (light, airy, not neon)
 function BiotechGlow() {
   return (
     <div className="pointer-events-none fixed inset-0 -z-20 overflow-hidden">
-      {/* left cyan cell */}
-      <div className="absolute -left-24 top-10 h-72 w-72 rounded-full bg-[radial-gradient(circle_at_center,rgba(125,249,255,0.22),transparent_65%)] blur-3xl" />
-      {/* right magenta cell */}
-      <div className="absolute -right-32 top-40 h-80 w-80 rounded-full bg-[radial-gradient(circle_at_center,rgba(244,114,182,0.22),transparent_65%)] blur-3xl" />
-      {/* bottom bio gradient */}
-      <div className="absolute inset-x-0 bottom-[-18rem] h-[24rem] bg-[radial-gradient(ellipse_at_bottom,rgba(56,189,248,0.28),transparent_65%)] blur-3xl" />
-      {/* orbital rings */}
-      <div className="absolute left-1/2 top-1/2 h-[34rem] w-[34rem] -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/7" />
-      <div className="absolute left-1/2 top-1/2 h-[24rem] w-[24rem] -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/7" />
-      <div className="absolute left-1/2 top-1/2 h-[14rem] w-[14rem] -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/7" />
+      {/* top left glow */}
+      <div className="absolute -left-20 -top-10 h-80 w-80 rounded-full bg-[radial-gradient(circle_at_center,rgba(102,153,133,0.20),transparent_70%)] blur-3xl" />
+
+      {/* right mid glow */}
+      <div className="absolute -right-24 top-40 h-96 w-96 rounded-full bg-[radial-gradient(circle_at_center,rgba(14,107,84,0.18),transparent_70%)] blur-3xl" />
+
+      {/* bottom fade */}
+      <div className="absolute inset-x-0 bottom-[-16rem] h-[22rem] bg-[radial-gradient(ellipse_at_bottom,rgba(154,181,166,0.22),transparent_68%)] blur-2xl" />
     </div>
   );
 }
 
-/* ---------- Splash Screen ---------- */
+/* ---------------------------------------
+   SPLASH SCREEN
+----------------------------------------*/
 
 function SplashScreen({ onComplete }) {
   useEffect(() => {
-    const timer = setTimeout(() => onComplete(), 2000);
+    const timer = setTimeout(() => onComplete(), 1600);
     return () => clearTimeout(timer);
   }, [onComplete]);
 
   return (
     <motion.div
-      className="fixed inset-0 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800 flex items-center justify-center z-50"
+      className="fixed inset-0 bg-[#F6F7F4] flex items-center justify-center z-50"
       initial={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      transition={{ duration: 0.8, ease: "easeOut" }}
+      transition={{ duration: 0.6 }}
     >
       <motion.div
-        initial={{ scale: 0.9, opacity: 0, y: 10 }}
-        animate={{ scale: 1, opacity: 1, y: 0 }}
-        exit={{ scale: 1.05, opacity: 0, y: -10 }}
-        transition={{ duration: 0.9, ease: "easeOut" }}
-        className="flex flex-col items-center gap-3"
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: -12 }}
+        transition={{ duration: 0.7, ease: "easeOut" }}
       >
-        <span className="text-xs tracking-[0.3em] uppercase text-cyan-200/80">
-          Mechanics × Materials × Cells
-        </span>
-        <h1 className="text-4xl md:text-6xl font-semibold text-slate-50 tracking-tight text-center">
+        <h1 className="text-4xl md:text-6xl font-semibold text-[#0E6B54] tracking-tight">
           Building Patient-First Systems
         </h1>
       </motion.div>
@@ -61,7 +61,9 @@ function SplashScreen({ onComplete }) {
   );
 }
 
-/* ---------- Data ---------- */
+/* ---------------------------------------
+   DATA
+----------------------------------------*/
 
 const NAME = "Antonius (Toni) Chevillotte";
 
@@ -71,7 +73,7 @@ const PROJECTS = [
     title: "Star Rider II — Cause & Effect Vehicle",
     subtitle: "Adaptive mobility platform for children with disabilities",
     description:
-      "Lead mechanical designer on a therapeutic 'cause-and-effect' vehicle that lets children with cerebral palsy initiate motion independently. Focused on robust yet sensitive sensing, vibration-based feedback, and a chassis that is both clinic-friendly and kid-proof.",
+      "Lead mechanical designer on a therapeutic ‘cause-and-effect’ vehicle enabling independent initiation of motion for children with cerebral palsy. Focus on sensing, vibration feedback, and durable pediatric-safe chassis.",
     meta: ["UCSB Capstone", "2025", "Assistive Technology"],
     img: "/images/StarRiderII.jpg",
     credit:
@@ -79,39 +81,46 @@ const PROJECTS = [
   },
   {
     id: "urca-steering",
-    title: "URCA Steering System — Bearing Performance Study",
-    subtitle: "Quantifying steering feel & reliability",
+    title: "URCA Steering System",
+    subtitle: "Bearing performance & steering reliability",
     description:
-      "Analyzed bearing configurations for an undergraduate research competition vehicle. Built parametric models of steering torque and compliance, then validated them against experimental data to recommend a robust, low-maintenance configuration.",
+      "Parametric steering model development and experimental validation to recommend low-maintenance, high-reliability bearing configurations.",
     meta: ["URCA", "2025", "Vehicle Dynamics"],
     img: "/images/SteeringUrca.jpg",
   },
   {
     id: "frog-jumper",
     title: "Frog Jumper Mechanism",
-    subtitle: "Teaching dynamics through playful hardware",
+    subtitle: "Educational spring-loaded dynamics tool",
     description:
-      "Designed a spring-loaded 'frog jumper' that converts stored elastic energy into a repeatable jump. Used it as a teaching tool to connect free-body diagrams, energy methods, and real-world tolerancing.",
+      "A hands-on demo system that links elastic energy storage with real-world dynamics and tolerancing for student engagement.",
     meta: ["UCSB", "2025", "Mechanisms"],
     img: "/images/Jumper.jpg",
   },
   {
     id: "solidworks",
     title: "SOLIDWORKS Design Set",
-    subtitle: "From four-beam TV mount to FSAE steering wheel",
+    subtitle: "Structural & ergonomic CAD collection",
     description:
-      "A collection of CAD projects including a four-beam TV mount optimized for stiffness-to-mass and a Formula SAE steering wheel designed around ergonomics, manufacturability, and wiring integration.",
+      "Includes a four-beam TV mount optimized for stiffness and a Formula SAE steering wheel designed around ergonomics and manufacturing workflow.",
     meta: ["UCSB", "2024–2025", "CAD & Simulation"],
-    imgs: ["/images/TVSketch.jpg", "/images/TV.jpg.png", "/images/SteeringWheel.jpg"],
+    imgs: [
+      "/images/TVSketch.jpg",
+      "/images/TV.jpg.png",
+      "/images/SteeringWheel.jpg",
+    ],
   },
   {
     id: "sanisure-dashboards",
-    title: "SaniSure Power BI Dashboards",
-    subtitle: "Design analytics for bioprocess hardware",
+    title: "SaniSure Design Analytics",
+    subtitle: "Power BI dashboards for bioprocess hardware",
     description:
-      "Built live dashboards used by SaniSure’s R&D and Quality teams. One tracks chemical–resin compatibility for single-use systems; another visualizes engagement test data across tubing, connectors, and fittings to surface weak points in the design space.",
-    meta: ["SaniSure", "2025–", "Data & Bioprocess"],
-    imgs: ["/images/ChemicalFilters.jpg", "/images/Material Engagement Check.jpg"],
+      "Live dashboards used by SaniSure to evaluate resin compatibility and tubing-connector engagement test performance.",
+    meta: ["SaniSure", "2025–", "Bioprocess Analytics"],
+    imgs: [
+      "/images/ChemicalFilters.jpg",
+      "/images/Material Engagement Check.jpg",
+    ],
   },
 ];
 
@@ -124,129 +133,39 @@ const EXPERIENCE = [
     start: "2025-10-01",
     location: "UCSB",
     bullets: [
-      "Study capillary bridges in soft gels and their relevance for biomedical interfaces.",
-      "Design an instrumented fixture to quantify wetting (contact angle, hysteresis) and capillary adhesion (force–separation curves).",
+      "Study capillary bridges in soft gels relevant for biomedical interfaces.",
+      "Designed instrumented fixture for wetting + capillary adhesion analysis.",
     ],
   },
   {
     id: "sanisure",
-    role: "Design + R&D Intern",
+    role: "Design & R&D Intern",
     company: "SaniSure — R&D",
     period: "Jul 2025 – Present",
     start: "2025-07-01",
-    location: "Camarillo, CA · On-site",
+    location: "Camarillo, CA",
     bullets: [
-      "Partner with Director of Engineering to build KPI dashboards for design throughput and failure modes.",
-      "Lead structured teardown and failure testing on single-use assemblies.",
-      "Coordinate with Fabrication and Quality to tighten work instructions and improve process consistency.",
+      "Built KPI dashboards for design throughput + failure analysis.",
+      "Led teardown + structured failure testing of single-use systems.",
     ],
   },
   {
     id: "audi",
     role: "Requirements Engineering Intern",
-    company: "AUDI AG — Technical Development",
+    company: "AUDI AG",
     period: "Jan 2024 – Jun 2024",
     start: "2024-01-01",
-    location: "Ingolstadt, Germany · On-site",
+    location: "Ingolstadt, Germany",
     bullets: [
-      "Owned vehicle-level requirements within a ~30-engineer cross-functional team.",
-      "Built Power BI KPI pipelines to increase transparency and traceability of system requirements.",
-      "Contributed to specifications for upcoming vehicle platforms.",
-    ],
-  },
-  {
-    id: "ucd-research",
-    role: "Research Assistant",
-    company: "UC Davis — College of Engineering",
-    period: "Jan 2023 – Jun 2023",
-    start: "2023-01-01",
-    location: "Davis, CA · On-site",
-    bullets: [
-      "Supported Dr. Richard Scalettar’s group on computational physics projects.",
-      "Wrote C programs for projectile motion simulation and parameter sweeps.",
-    ],
-  },
-  {
-    id: "ucd-tutor",
-    role: "Calculus Tutor",
-    company: "UC Davis",
-    period: "Sep 2022 – Jun 2023",
-    start: "2022-09-01",
-    location: "Davis, CA · On-site",
-    bullets: [
-      "Tutored core calculus 5–10 hrs/week in one-on-one and small-group settings.",
-      "Helped students connect intuitive physical reasoning with formal derivations.",
+      "Owned system-level requirements for vehicle platform.",
+      "Built Power BI KPI pipelines improving transparency + traceability.",
     ],
   },
 ];
 
-const EDUCATION = [
-  {
-    school: "UC Santa Barbara",
-    line: "BS/MS Mechanical Engineering",
-    time: "Jun 2023 – Jun 2027",
-    extras: ["Honors College", "Tau Beta Pi", "Formula SAE Racing Club"],
-    gpa: "3.82",
-  },
-  {
-    school: "University of California, Davis",
-    line: "B.S. Mechanical Engineering",
-    time: "Sep 2021 – Jun 2023",
-    extras: ["Student Alumni Association", "CAAA Leadership Scholar"],
-    gpa: "3.82/4.00",
-  },
-  {
-    school: "Glendora High School",
-    line: "High School Diploma",
-    time: "Aug 2017 – Jun 2021",
-    extras: ["National Honors Society (NHS)", "Varsity Tennis"],
-    gpa: "4.69/4.00 (Top 2%)",
-  },
-];
-
-const HONORS = [
-  "6× Dean's Honors List (UC Davis & UCSB, Dec 2024).",
-  "AP Capstone Diploma (Jun 2021).",
-  "Glendora Kiwanis Community Service Award (Jun 2021).",
-  "Tartan Achievement Award (Jun 2021).",
-];
-
-const CERTS = [
-  "Entrepreneurship Specialization — The Wharton School (Sep 2022).",
-  "Oil & Gas Industry Operations and Markets — Duke University (Sep 2022).",
-  "Statistics & R Specialization — HarvardX (Aug 2020).",
-];
-
-const LANGS = [
-  "English — Native or bilingual proficiency",
-  "German — Native or bilingual proficiency",
-  "French — Elementary proficiency",
-];
-
-const EXTRAS = [
-  {
-    title: "UCSB Formula SAE",
-    text: "EV racecar design & build; steering and driver interface focus with extensive CAD.",
-  },
-  {
-    title: "Elementary School STEAM Volunteer",
-    text: "Hands-on science & engineering sessions for 6th-grade students.",
-  },
-  {
-    title: "NASA Volunteer at UC Davis",
-    text: "Generator teardown and efficiency benchmarking.",
-  },
-  {
-    title: "Fruitfully Yours — Vice President & Co-founder",
-    text: "Nonprofit reducing food waste via fruit rescue; 80k+ lbs of fruit saved and ~70k food-insecure individuals supported.",
-  },
-  {
-    title: "Assistive Technology Club (UCSB)",
-    text: "Co-founded club developing devices such as VR-based early-screening tools for Alzheimer's.",
-  },
-];
-
-/* ---------- Shared UI primitives ---------- */
+/* ---------------------------------------
+   SHARED UI COMPONENTS
+----------------------------------------*/
 
 function SectionShell({ id, label, children }) {
   return (
@@ -255,8 +174,8 @@ function SectionShell({ id, label, children }) {
       className="max-w-6xl mx-auto px-4 py-16 md:py-20 space-y-8"
     >
       <div className="flex items-center gap-3">
-        <span className="h-px w-10 bg-gradient-to-r from-cyan-400/80 to-purple-400/80" />
-        <h2 className="text-sm font-semibold tracking-[0.2em] uppercase text-cyan-200/80">
+        <span className="h-px w-10 bg-[#0E6B54]/50" />
+        <h2 className="text-xs tracking-[0.22em] uppercase text-[#0E6B54]/70">
           {label}
         </h2>
       </div>
@@ -265,25 +184,26 @@ function SectionShell({ id, label, children }) {
   );
 }
 
-function Panel({ children, className = "" }) {
+function Card({ children, className = "" }) {
   return (
     <div
-      className={`relative rounded-3xl border border-slate-300/20 bg-gradient-to-br from-slate-900/80 via-slate-900/60 to-slate-800/60 backdrop-blur-xl p-6 md:p-8 shadow-[0_18px_45px_rgba(15,23,42,0.7)] ${className}`}
+      className={`relative rounded-3xl border border-[#D9DCD6] bg-white/90 shadow-[0_6px_18px_rgba(0,0,0,0.06)] p-6 md:p-8 ${className}`}
     >
-      <div className="pointer-events-none absolute inset-0 rounded-3xl border border-white/10" />
       {children}
     </div>
   );
 }
 
-/* ---------- Image Modal ---------- */
+/* ---------------------------------------
+   IMAGE MODAL
+----------------------------------------*/
 
 function ImageModal({ selectedImage, onClose }) {
   return (
     <AnimatePresence>
       {selectedImage && (
         <motion.div
-          className="fixed inset-0 bg-slate-900/85 flex items-center justify-center z-50"
+          className="fixed inset-0 bg-black/50 flex items-center justify-center z-50"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -292,29 +212,24 @@ function ImageModal({ selectedImage, onClose }) {
           <motion.img
             src={selectedImage}
             alt="Project image"
-            className="max-w-[86%] max-h-[80vh] rounded-2xl object-contain border border-slate-300/30 bg-slate-900/60"
-            initial={{ scale: 0.8 }}
+            className="max-w-[85%] max-h-[80vh] rounded-2xl shadow-lg"
+            initial={{ scale: 0.9 }}
             animate={{ scale: 1 }}
-            exit={{ scale: 0.8 }}
+            exit={{ scale: 0.9 }}
             onClick={(e) => e.stopPropagation()}
           />
-          <button
-            onClick={onClose}
-            className="absolute top-4 right-4 text-slate-100 text-2xl font-bold bg-slate-900/70 rounded-full w-10 h-10 flex items-center justify-center hover:bg-slate-800"
-          >
-            &times;
-          </button>
         </motion.div>
       )}
     </AnimatePresence>
   );
 }
 
-/* ---------- Page ---------- */
+/* ---------------------------------------
+   PAGE
+----------------------------------------*/
 
 export default function Page() {
   const [showSplash, setShowSplash] = useState(true);
-
   const [alias, setAlias] = useState(NAME);
   const [clicks, setClicks] = useState(0);
   const clickTimerRef = useRef(null);
@@ -344,49 +259,49 @@ export default function Page() {
 
   return (
     <>
-      <BlueprintBG />
+      <LightBG />
       <BiotechGlow />
+
       <AnimatePresence>
         {showSplash && <SplashScreen onComplete={() => setShowSplash(false)} />}
       </AnimatePresence>
 
       <motion.main
-        className="relative min-h-screen text-slate-50 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-900"
+        className="relative min-h-screen text-[#1A1F1A]"
         initial={{ opacity: 0 }}
         animate={{ opacity: showSplash ? 0 : 1 }}
-        transition={{ duration: 0.8, ease: "easeOut", delay: showSplash ? 0.2 : 0 }}
+        transition={{ duration: 0.7 }}
       >
-        {/* ---------- Sticky top nav ---------- */}
-        <header className="sticky top-0 z-40 border-b border-slate-500/25 bg-gradient-to-b from-slate-950/85 via-slate-950/75 to-slate-900/70 backdrop-blur-xl">
-          <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between gap-6">
+        {/* ----------------------------
+            NAVBAR (light, clean)
+        ----------------------------- */}
+        <header className="sticky top-0 z-40 border-b border-[#DADCD7] bg-white/80 backdrop-blur-xl">
+          <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
             <button
               onClick={handleNameClick}
-              className="flex items-center gap-3 group"
+              className="flex items-center gap-3"
             >
-              <div className="h-8 w-8 rounded-xl bg-slate-900/80 border border-slate-400/40 grid place-items-center group-hover:rotate-90 transition-transform">
+              <div className="h-8 w-8 rounded-lg border border-[#D0D4CB] bg-white grid place-items-center">
                 <svg
                   width="16"
                   height="16"
                   viewBox="0 0 24 24"
-                  className="opacity-80 text-slate-100"
+                  className="text-[#0E6B54]"
                 >
-                  <path
-                    fill="currentColor"
-                    d="M12 8a4 4 0 1 1 0 8a4 4 0 0 1 0-8m9.4 4a7.5 7.5 0 0 0-.3-1.7l2-1.6l-2-3.4l-2.4 1a7.6 7.6 0 0 0-1.5-.9l-.4-2.6H8.2l-.4 2.6a7.6 7.6 0 0 0-1.5.9L3.9 3.3L2 6.7l2 1.6a7.5 7.5 0 0 0-.3 1.7c0 .6.1 1.2.3 1.7L2 13.7l2 3.4l2.4-1c.5.4 1 .7 1.5.9l.4 2.6h7.2l.4-2.6c.5-.2 1-.5 1.5-.9l2.4 1l2-3.4l-2.1-1.7c.2-.5.3-1.1.3-1.7Z"
-                  />
+                  <path d="M12 8a4 4 0 1 1 0 8a4 4 0 0 1 0-8m9.4 4a7.5 7.5 0 0 0-.3-1.7..." />
                 </svg>
               </div>
               <div className="flex flex-col">
-                <span className="text-xs uppercase tracking-[0.2em] text-slate-300/70">
+                <span className="text-xs tracking-[0.18em] text-[#0E6B54]/60 uppercase">
                   Mechanics × Biology
                 </span>
-                <span className="font-semibold tracking-tight bg-gradient-to-r from-[#7cf9ff] to-[#9e7bff] bg-clip-text text-transparent">
+                <span className="font-semibold text-[#0E6B54] tracking-tight">
                   {alias}
                 </span>
               </div>
             </button>
 
-            <nav className="flex items-center gap-2 text-xs md:text-sm">
+            <nav className="flex items-center gap-2 text-sm">
               {[
                 { id: "projects", label: "Projects" },
                 { id: "experience", label: "Experience" },
@@ -396,311 +311,190 @@ export default function Page() {
                 <a
                   key={item.id}
                   href={`#${item.id}`}
-                  className="relative rounded-full px-3 py-1.5 text-slate-200/80 hover:text-slate-50 transition-colors"
+                  className="px-3 py-1.5 rounded-full text-[#1A1F1A]/70 hover:text-[#0E6B54] hover:bg-[#E7EBE7] transition-colors"
                 >
-                  <span className="absolute inset-0 rounded-full bg-slate-700/45 opacity-0 hover:opacity-100 transition-opacity" />
-                  <span className="relative">{item.label}</span>
+                  {item.label}
                 </a>
               ))}
             </nav>
           </div>
         </header>
-
-        {/* ---------- Hero ---------- */}
+        {/* ----------------------------
+            HERO SECTION (light + pine)
+        ----------------------------- */}
         <SectionShell id="top" label="Overview">
-          <div className="grid gap-10 md:grid-cols-[minmax(0,1.4fr),minmax(0,1fr)] items-center">
+          <div className="grid gap-10 md:grid-cols-[1.4fr,1fr] items-center">
+            {/* TEXT */}
             <div className="space-y-6">
               <motion.h1
-                className="text-3xl md:text-5xl font-semibold tracking-tight leading-tight text-slate-50"
+                className="text-3xl md:text-5xl font-semibold tracking-tight leading-tight text-[#1A1F1A]"
                 initial={{ opacity: 0, y: 24 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7, ease: "easeOut" }}
+                transition={{ duration: 0.7 }}
               >
                 Designing hardware where{" "}
-                <span className="bg-gradient-to-r from-[#7cf9ff] via-[#9e7bff] to-[#ff9de6] bg-clip-text text-transparent">
-                  mechanics meet biology
-                </span>
-                .
+                <span className="text-[#0E6B54]">mechanics meet biology</span>.
               </motion.h1>
+
               <motion.p
-                className="text-sm md:text-base text-slate-200/85 max-w-xl leading-relaxed"
-                initial={{ opacity: 0, y: 24 }}
+                className="text-[15px] md:text-base text-[#374139] leading-relaxed max-w-xl"
+                initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7, ease: "easeOut", delay: 0.05 }}
+                transition={{ duration: 0.7, delay: 0.05 }}
               >
                 I’m a mechanical engineering BS/MS candidate at UCSB working at
                 the intersection of soft materials, assistive devices, and
-                bioprocess hardware. Recent adventures include capillary bridges
-                in soft gels, single-use cell-encapsulation systems, and
-                therapeutic vehicles that let kids move themselves for the first
-                time.
+                bioprocess hardware. Recent work includes capillary bridges in
+                soft gels, cell-encapsulation systems, and mobility devices that
+                enable independence for children with disabilities.
               </motion.p>
 
-              {/* biotech domain chips */}
-              <motion.div
-                className="flex flex-wrap gap-2"
-                initial={{ opacity: 0, y: 18 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7, ease: "easeOut", delay: 0.09 }}
-              >
+              <div className="flex flex-wrap gap-2">
                 {[
                   "Assistive Devices",
                   "Soft Interfaces",
-                  "Single-Use Bioprocess Hardware",
+                  "Bioprocess Hardware",
                 ].map((d) => (
                   <span
                     key={d}
-                    className="inline-flex items-center gap-2 rounded-full border border-cyan-300/40 bg-cyan-300/10 px-3 py-1 text-[11px] uppercase tracking-[0.18em] text-cyan-100"
+                    className="inline-flex items-center gap-2 rounded-full border border-[#0E6B54]/30 bg-[#0E6B54]/10 px-3 py-1 text-[11px] uppercase tracking-wide text-[#0E6B54]"
                   >
-                    <span className="h-1 w-4 rounded-full bg-gradient-to-r from-cyan-300 to-purple-300" />
                     {d}
                   </span>
                 ))}
-              </motion.div>
+              </div>
 
-              <motion.div
-                className="flex flex-wrap gap-3 pt-2"
-                initial={{ opacity: 0, y: 24 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7, ease: "easeOut", delay: 0.14 }}
-              >
+              <div className="flex gap-3 pt-2">
                 <a
                   href="#projects"
-                  className="inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium bg-gradient-to-r from-[#7cf9ff] to-[#9e7bff] text-slate-950 hover:brightness-110 transition"
+                  className="px-4 py-2 rounded-full bg-[#0E6B54] text-white text-sm font-medium hover:bg-[#0c5f4b] transition"
                 >
-                  View projects
-                  <span className="text-xs">↓</span>
+                  View projects ↓
                 </a>
                 <a
                   href="#experience"
-                  className="inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium bg-slate-800/80 text-slate-50 border border-slate-400/40 hover:bg-slate-700/80 transition"
+                  className="px-4 py-2 rounded-full border border-[#D0D4CB] bg-white text-sm text-[#1A1F1A]/80 hover:bg-[#ECEEEB] transition"
                 >
                   Work journey
                 </a>
-              </motion.div>
-
-              {/* genome-track like line */}
-              <motion.div
-                className="mt-4 flex items-center gap-2"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.2 }}
-              >
-                <div className="flex-1 h-[2px] bg-[repeating-linear-gradient(90deg,rgba(148,163,184,0.7)_0,rgba(148,163,184,0.7)_12px,transparent_12px,transparent_20px)] opacity-70" />
-                <span className="text-[10px] uppercase tracking-[0.22em] text-slate-300/70">
-                  Mechanics · Data · Cells
-                </span>
-              </motion.div>
+              </div>
             </div>
 
+            {/* PORTRAIT CARD */}
             <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.7, delay: 0.1 }}
               className="flex justify-center md:justify-end"
-              initial={{ opacity: 0, scale: 0.9, rotate: -4 }}
-              animate={{ opacity: 1, scale: 1, rotate: 0 }}
-              transition={{ duration: 0.7, ease: "easeOut", delay: 0.15 }}
             >
-              <Panel className="w-full max-w-sm flex flex-col items-center gap-4">
-                <div className="relative size-40 md:size-48 rounded-full overflow-hidden border border-slate-200/40 bg-slate-900/80">
+              <Card className="max-w-sm text-center flex flex-col items-center gap-4">
+                <div className="relative size-40 md:size-48 rounded-full overflow-hidden border border-[#D0D4CB]">
                   <img
                     src="/images/biography2.jpg"
-                    alt="Antonius Chevillotte"
                     className="h-full w-full object-cover"
-                    onError={(e) => {
-                      e.currentTarget.style.display = "none";
-                    }}
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/70 to-transparent" />
                 </div>
-                <div className="text-center space-y-1">
-                  <div className="text-sm font-medium text-slate-50">
-                    {NAME}
-                  </div>
-                  <div className="text-xs text-slate-200/85">
-                    Honors BS/MS · Mechanical Engineering, UCSB
-                  </div>
-                  <div className="text-[11px] text-slate-300/75">
-                    Los Angeles, CA · Always building something
-                  </div>
+                <div className="text-sm font-medium text-[#1A1F1A]">
+                  Antonius (Toni) Chevillotte
                 </div>
-                <div className="mt-2 grid grid-cols-3 gap-2 w-full text-center">
-                  <div className="rounded-2xl bg-slate-900/70 border border-cyan-400/50 px-2 py-2">
-                    <div className="text-xs font-semibold text-cyan-200">
-                      3
-                    </div>
-                    <div className="text-[10px] text-slate-200/80">
-                      Assistive devices in progress
-                    </div>
-                  </div>
-                  <div className="rounded-2xl bg-slate-900/70 border border-purple-400/50 px-2 py-2">
-                    <div className="text-xs font-semibold text-purple-200">
-                      2
-                    </div>
-                    <div className="text-[10px] text-slate-200/80">
-                      Labs & bioprocess teams
-                    </div>
-                  </div>
-                  <div className="rounded-2xl bg-slate-900/70 border border-sky-400/50 px-2 py-2">
-                    <div className="text-xs font-semibold text-sky-200">
-                      6×
-                    </div>
-                    <div className="text-[10px] text-slate-200/80">
-                      Dean&apos;s List & awards
-                    </div>
-                  </div>
+                <div className="text-xs text-[#374139]">
+                  Honors BS/MS · Mechanical Engineering, UCSB
                 </div>
-              </Panel>
+                <div className="text-[11px] text-[#5F6B62]">
+                  Los Angeles, CA · Always building
+                </div>
+              </Card>
             </motion.div>
           </div>
         </SectionShell>
 
-        {/* ---------- Projects (main focus) ---------- */}
+        {/* ----------------------------
+            PROJECTS — main section
+        ----------------------------- */}
         <SectionShell id="projects" label="Projects">
-          {/* focus areas strip */}
-          <div className="mb-6 flex flex-wrap gap-3 items-center">
-            <span className="text-[11px] uppercase tracking-[0.22em] text-slate-300/80">
-              Focus areas
-            </span>
-            <div className="flex flex-wrap gap-2">
-              {[
-                "Therapeutic Mobility",
-                "Soft & Fluid Interfaces",
-                "Bioprocess Analytics",
-              ].map((f) => (
-                <span
-                  key={f}
-                  className="rounded-full bg-slate-800/80 border border-slate-300/40 px-3 py-1 text-[11px] text-slate-100"
-                >
-                  {f}
-                </span>
-              ))}
-            </div>
-          </div>
-
-          <div className="space-y-10 md:space-y-14">
-            {PROJECTS.map((project, index) => {
-              const isEven = index % 2 === 0;
-
+          <div className="space-y-14">
+            {PROJECTS.map((project, i) => {
+              const isEven = i % 2 === 0;
               return (
                 <motion.article
                   key={project.id}
+                  initial={{ opacity: 0, y: 40 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.3 }}
+                  transition={{ duration: 0.6 }}
                   className={`grid gap-8 md:gap-12 items-center ${
                     isEven
-                      ? "md:grid-cols-[minmax(0,1.2fr),minmax(0,1fr)]"
-                      : "md:grid-cols-[minmax(0,1fr),minmax(0,1.2fr)]"
+                      ? "md:grid-cols-[1.2fr,1fr]"
+                      : "md:grid-cols-[1fr,1.2fr]"
                   }`}
-                  initial={{ opacity: 0, x: isEven ? -80 : 80 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true, amount: 0.3 }}
-                  transition={{ duration: 0.6, ease: "easeOut" }}
                 >
-                  {/* Text side */}
+                  {/* TEXT BLOCK */}
                   <div className={isEven ? "" : "md:order-2"}>
-                    <Panel className="h-full">
-                      <div className="flex items-center justify-between gap-3 mb-2">
-                        <div className="text-xs uppercase tracking-[0.2em] text-cyan-200/80">
-                          {index + 1 < 10 ? `0${index + 1}` : index + 1} ·
-                          Project
-                        </div>
-                        <div className="flex gap-1.5">
-                          <span className="h-[3px] w-8 rounded-full bg-gradient-to-r from-cyan-300 to-purple-300" />
-                          <span className="h-[3px] w-8 rounded-full bg-gradient-to-r from-purple-300 to-pink-300" />
-                        </div>
+                    <Card>
+                      <div className="text-xs uppercase tracking-[0.18em] text-[#0E6B54]/70 mb-1">
+                        {i + 1 < 10 ? `0${i + 1}` : i + 1} · Project
                       </div>
-                      <h3 className="text-xl md:text-2xl font-semibold tracking-tight text-slate-50">
+                      <h3 className="text-xl font-semibold text-[#1A1F1A]">
                         {project.title}
                       </h3>
-                      {project.subtitle && (
-                        <p className="mt-1 text-sm text-slate-200/90">
-                          {project.subtitle}
-                        </p>
-                      )}
-                      <p className="mt-4 text-sm md:text-[15px] leading-relaxed text-slate-200/90">
+                      <p className="text-sm text-[#57655B] mt-1">
+                        {project.subtitle}
+                      </p>
+                      <p className="text-sm text-[#374139] mt-4 leading-relaxed">
                         {project.description}
                       </p>
-                      <div className="mt-5 flex flex-wrap gap-2">
+
+                      <div className="mt-4 flex flex-wrap gap-2">
                         {project.meta.map((tag) => (
                           <span
                             key={tag}
-                            className="rounded-full border border-slate-300/40 bg-slate-800/80 px-2.5 py-1 text-[11px] uppercase tracking-[0.18em] text-slate-100"
+                            className="px-2.5 py-1 rounded-full text-[11px] bg-[#ECEEEB] text-[#1A1F1A]/70 border border-[#D0D4CB]"
                           >
                             {tag}
                           </span>
                         ))}
                       </div>
+
                       {project.credit && (
-                        <p className="mt-3 text-[11px] text-slate-300/75">
+                        <p className="mt-2 text-[10px] text-[#7B847E]">
                           {project.credit}
                         </p>
                       )}
-                    </Panel>
+                    </Card>
                   </div>
 
-                  {/* Image side */}
+                  {/* IMAGES */}
                   <div className={isEven ? "" : "md:order-1"}>
                     {project.img && (
-                      <motion.div
+                      <div
                         className="cursor-pointer"
-                        whileHover={{ y: -4 }}
-                        transition={{
-                          type: "spring",
-                          stiffness: 260,
-                          damping: 22,
-                        }}
                         onClick={() => setSelectedImage(project.img)}
                       >
-                        <Panel className="p-3">
-                          <div className="aspect-[4/3] w-full overflow-hidden rounded-2xl border border-slate-300/40 bg-slate-900/80">
-                            <img
-                              src={project.img}
-                              alt={project.title}
-                              className="h-full w-full object-cover"
-                              onError={(e) => {
-                                e.currentTarget.style.display = "none";
-                              }}
-                            />
-                          </div>
-                          <div className="mt-2 text-[11px] text-slate-300/80 text-right">
-                            Click to enlarge
-                          </div>
-                        </Panel>
-                      </motion.div>
+                        <Card className="p-3">
+                          <img
+                            src={project.img}
+                            className="rounded-2xl border border-[#D0D4CB]"
+                          />
+                        </Card>
+                      </div>
                     )}
 
                     {project.imgs && (
-                      <div className="space-y-3">
-                        <div className="flex gap-3 overflow-x-auto pb-2">
-                          {project.imgs.map((img, i) => (
-                            <motion.button
-                              key={img}
-                              type="button"
-                              className="min-w-[180px] md:min-w-[200px] lg:min-w-[220px]"
-                              whileHover={{ y: -4 }}
-                              transition={{
-                                type: "spring",
-                                stiffness: 260,
-                                damping: 22,
-                                delay: i * 0.03,
-                              }}
-                              onClick={() => setSelectedImage(img)}
-                            >
-                              <Panel className="p-2">
-                                <div className="aspect-[4/3] w-full overflow-hidden rounded-2xl border border-slate-300/40 bg-slate-900/80">
-                                  <img
-                                    src={img}
-                                    alt={`${project.title} view ${i + 1}`}
-                                    className="h-full w-full object-cover"
-                                    onError={(e) => {
-                                      e.currentTarget.style.display = "none";
-                                    }}
-                                  />
-                                </div>
-                              </Panel>
-                            </motion.button>
-                          ))}
-                        </div>
-                        <p className="text-[11px] text-slate-300/80">
-                          Scroll horizontally · Click any image to enlarge.
-                        </p>
+                      <div className="flex gap-3 overflow-x-auto pb-2">
+                        {project.imgs.map((img) => (
+                          <button
+                            key={img}
+                            onClick={() => setSelectedImage(img)}
+                            className="min-w-[200px]"
+                          >
+                            <Card className="p-2">
+                              <img
+                                src={img}
+                                className="rounded-xl border border-[#D0D4CB]"
+                              />
+                            </Card>
+                          </button>
+                        ))}
                       </div>
                     )}
                   </div>
@@ -710,191 +504,97 @@ export default function Page() {
           </div>
         </SectionShell>
 
-        {/* ---------- Experience ---------- */}
+        {/* ----------------------------
+            EXPERIENCE
+        ----------------------------- */}
         <SectionShell id="experience" label="Experience">
           <div className="space-y-6">
             {sortedExperience.map((exp) => (
-              <motion.div
-                key={exp.id}
-                className="relative pl-6"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.2 }}
-                transition={{ duration: 0.4, ease: "easeOut" }}
-              >
-                <span className="absolute left-0 top-3 h-3 w-3 rounded-full bg-gradient-to-br from-cyan-300 to-purple-400 shadow-[0_0_0_4px_rgba(56,189,248,0.35)]" />
-                <Panel className="overflow-hidden">
-                  <div className="flex flex-wrap justify-between gap-3">
-                    <div>
-                      <h3 className="text-sm md:text-base font-semibold text-slate-50">
-                        {exp.role}
-                      </h3>
-                      <p className="text-xs md:text-sm text-slate-200/90">
-                        {exp.company}
-                      </p>
-                    </div>
-                    <div className="text-right text-xs text-slate-300/85">
-                      <div>{exp.period}</div>
-                      <div>{exp.location}</div>
-                    </div>
+              <Card key={exp.id} className="relative pl-6">
+                <div className="absolute left-0 top-5 h-3 w-3 rounded-full bg-[#0E6B54]" />
+                <div className="flex justify-between flex-wrap gap-3">
+                  <div>
+                    <h3 className="text-sm font-semibold text-[#1A1F1A]">
+                      {exp.role}
+                    </h3>
+                    <p className="text-xs text-[#57655B]">{exp.company}</p>
                   </div>
-                  <ul className="mt-3 space-y-1.5 text-xs md:text-[13px] text-slate-200/90">
-                    {exp.bullets.map((b, i) => (
-                      <li key={i} className="flex gap-2">
-                        <span className="mt-[6px] h-[3px] w-[10px] rounded-full bg-cyan-400/80" />
-                        <span>{b}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </Panel>
-              </motion.div>
+                  <div className="text-right text-xs text-[#5F6B62]">
+                    <div>{exp.period}</div>
+                    <div>{exp.location}</div>
+                  </div>
+                </div>
+                <ul className="mt-3 space-y-1.5 text-sm text-[#374139]">
+                  {exp.bullets.map((b) => (
+                    <li key={b} className="flex gap-2">
+                      <span className="mt-[6px] h-[2px] w-4 bg-[#0E6B54]/70" />
+                      {b}
+                    </li>
+                  ))}
+                </ul>
+              </Card>
             ))}
           </div>
         </SectionShell>
 
-        {/* ---------- About: Education + Extras + Skills ---------- */}
+        {/* ----------------------------
+            BACKGROUND / EDUCATION
+        ----------------------------- */}
         <SectionShell id="about" label="Background">
-          <div className="grid gap-10 lg:grid-cols-[minmax(0,1.4fr),minmax(0,1fr)] items-start">
-            {/* Education + narrative */}
-            <div className="space-y-6">
-              <Panel>
-                <h3 className="text-sm font-semibold tracking-[0.18em] uppercase text-cyan-200/80 mb-4">
-                  Educational Journey
-                </h3>
-                <div className="space-y-4">
-                  {EDUCATION.map((edu) => (
-                    <div key={edu.school} className="relative pl-4">
-                      <div className="absolute left-0 top-2 h-2 w-2 rounded-full bg-cyan-300" />
-                      <div className="text-sm font-medium text-slate-50">
-                        {edu.school}
-                      </div>
-                      <div className="text-xs text-slate-200/90">
-                        {edu.line}
-                      </div>
-                      <div className="text-[11px] text-slate-300/85 mt-0.5">
-                        {edu.time}
-                        {edu.gpa ? ` · GPA: ${edu.gpa}` : ""}
-                      </div>
-                      <div className="text-[11px] text-slate-300/80 mt-0.5">
-                        {edu.extras.join(" • ")}
-                      </div>
+          <Card>
+            <h3 className="text-sm font-semibold text-[#0E6B54] uppercase tracking-[0.18em] mb-3">
+              Educational Journey
+            </h3>
+            <div className="space-y-4">
+              {EDUCATION.map((edu) => (
+                <div key={edu.school}>
+                  <div className="flex items-center gap-2">
+                    <span className="h-2 w-2 rounded-full bg-[#0E6B54]" />
+                    <div className="text-sm font-medium text-[#1A1F1A]">
+                      {edu.school}
                     </div>
-                  ))}
+                  </div>
+                  <div className="text-xs text-[#374139]">{edu.line}</div>
+                  <div className="text-[11px] text-[#5F6B62]">
+                    {edu.time} {edu.gpa ? `· GPA: ${edu.gpa}` : ""}
+                  </div>
                 </div>
-              </Panel>
-
-              <Panel>
-                <h3 className="text-sm font-semibold tracking-[0.18em] uppercase text-cyan-200/80 mb-3">
-                  What I’m Optimizing For
-                </h3>
-                <p className="text-sm text-slate-200/90 leading-relaxed">
-                  A throughline in my work is turning one-off fixes into
-                  scalable, patient-specific systems. Whether it’s capillary
-                  bridges in soft gels, single-use cell-encapsulation hardware,
-                  or a Musical Chair-style vehicle that lets a child drive
-                  themselves, I gravitate toward problems where the mechanics
-                  and the biology both matter.
-                </p>
-              </Panel>
+              ))}
             </div>
-
-            {/* Side info: honors, languages, extras */}
-            <div className="space-y-6">
-              <Panel>
-                <h3 className="text-sm font-semibold tracking-[0.18em] uppercase text-purple-200/80 mb-3">
-                  Honors & Certifications
-                </h3>
-                <ul className="space-y-1.5 text-xs text-slate-200/90">
-                  {HONORS.map((h) => (
-                    <li key={h} className="flex gap-2">
-                      <span className="mt-[6px] h-[3px] w-[10px] rounded-full bg-purple-400/80" />
-                      <span>{h}</span>
-                    </li>
-                  ))}
-                </ul>
-                <div className="mt-3 h-px w-full bg-gradient-to-r from-purple-400/40 via-transparent to-cyan-400/40" />
-                <ul className="mt-3 space-y-1.5 text-xs text-slate-200/90">
-                  {CERTS.map((c) => (
-                    <li key={c} className="flex gap-2">
-                      <span className="mt-[6px] h-[3px] w-[10px] rounded-full bg-pink-400/80" />
-                      <span>{c}</span>
-                    </li>
-                  ))}
-                </ul>
-              </Panel>
-
-              <Panel>
-                <h3 className="text-sm font-semibold tracking-[0.18em] uppercase text-cyan-200/80 mb-3">
-                  Languages
-                </h3>
-                <ul className="space-y-1.5 text-xs text-slate-200/90">
-                  {LANGS.map((lang) => (
-                    <li key={lang} className="flex gap-2">
-                      <span className="mt-[6px] h-[3px] w-[10px] rounded-full bg-cyan-400/80" />
-                      <span>{lang}</span>
-                    </li>
-                  ))}
-                </ul>
-              </Panel>
-
-              <Panel>
-                <h3 className="text-sm font-semibold tracking-[0.18em] uppercase text-cyan-200/80 mb-3">
-                  Communities & Side Projects
-                </h3>
-                <ul className="space-y-2 text-xs text-slate-200/90">
-                  {EXTRAS.map((ex) => (
-                    <li key={ex.title}>
-                      <div className="font-medium text-slate-50">
-                        {ex.title}
-                      </div>
-                      <div className="text-[11px] text-slate-300/85">
-                        {ex.text}
-                      </div>
-                    </li>
-                  ))}
-                </ul>
-              </Panel>
-            </div>
-          </div>
+          </Card>
         </SectionShell>
 
-        {/* ---------- Contact ---------- */}
+        {/* ----------------------------
+            CONTACT
+        ----------------------------- */}
         <SectionShell id="contact" label="Contact">
-          <Panel className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+          <Card className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
             <div>
-              <h3 className="text-lg md:text-xl font-semibold tracking-tight text-slate-50">
+              <h3 className="text-lg font-semibold text-[#1A1F1A]">
                 Let’s build something useful.
               </h3>
-              <p className="mt-2 text-sm text-slate-200/90 max-w-md">
-                I’m always excited to chat about assistive devices, soft
-                mechanics, bioprocess hardware, or any project where engineering
-                can give someone more independence.
+              <p className="mt-2 text-sm text-[#374139] max-w-md">
+                Always happy to chat about assistive devices, soft mechanics,
+                bioprocess hardware, or anything that gives someone more
+                independence.
               </p>
-              <div className="mt-3 flex flex-wrap gap-2 text-[11px]">
-                <span className="rounded-full bg-slate-900/70 border border-cyan-400/60 px-3 py-1 text-cyan-100">
-                  Open to research & internships
-                </span>
-                <span className="rounded-full bg-slate-900/70 border border-purple-400/60 px-3 py-1 text-purple-100">
-                  Happy to mentor students
-                </span>
-              </div>
             </div>
-            <div className="space-y-2 text-sm">
+
+            <div className="text-sm text-[#1A1F1A]">
               <p>
                 Email:{" "}
                 <a
                   href="mailto:achevillotte@ucsb.edu"
-                  className="text-cyan-300 hover:text-cyan-100 underline-offset-2 hover:underline"
+                  className="text-[#0E6B54] underline-offset-2 hover:underline"
                 >
                   achevillotte@ucsb.edu
                 </a>
               </p>
               <p>
-                Phone:{" "}
-                <span className="text-cyan-300">+1 (914) 649-9132</span>
+                Phone: <span className="text-[#0E6B54]">+1 (914) 649-9132</span>
               </p>
             </div>
-          </Panel>
+          </Card>
         </SectionShell>
 
         <ImageModal
@@ -905,4 +605,3 @@ export default function Page() {
     </>
   );
 }
-
