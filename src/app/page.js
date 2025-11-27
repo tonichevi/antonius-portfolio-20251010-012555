@@ -162,6 +162,29 @@ const EXPERIENCE = [
     ],
   },
 ];
+const EDUCATION = [
+  {
+    school: "UC Santa Barbara",
+    line: "BS/MS Mechanical Engineering",
+    time: "Jun 2023 – Jun 2027",
+    extras: ["Honors College", "Tau Beta Pi", "Formula SAE Racing Club"],
+    gpa: "3.82",
+  },
+  {
+    school: "University of California, Davis",
+    line: "B.S. Mechanical Engineering",
+    time: "Sep 2021 – Jun 2023",
+    extras: ["Student Alumni Association", "CAAA Leadership Scholar"],
+    gpa: "3.82/4.00",
+  },
+  {
+    school: "Glendora High School",
+    line: "High School Diploma",
+    time: "Aug 2017 – Jun 2021",
+    extras: ["National Honors Society (NHS)", "Varsity Tennis"],
+    gpa: "4.69/4.00 (Top 2%)",
+  },
+];
 
 /* ---------------------------------------
    SHARED UI COMPONENTS
