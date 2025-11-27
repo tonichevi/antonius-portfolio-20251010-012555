@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useRef, useMemo } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import "./globals.css";
 
@@ -14,22 +14,23 @@ function LightBG() {
   );
 }
 
-// Faint repeating protein-ish pattern (SVG asset in /public/images)
+// Faint repeating protein pattern, now referencing correct file
 function ProteinPatternBG() {
   return (
-    <div className="fixed inset-0 -z-35 opacity-[0.20] bg-[url('/images/ProteinPatternBG.svg')] bg-[length:260px_260px] bg-repeat" />
+    <div className="fixed inset-0 -z-35 opacity-[0.045] bg-[url('/images/ProteinPatternBG.svg')] bg-[length:260px_260px] bg-repeat" />
   );
 }
 
+// Subtle pine-glow
 function BiotechGlow() {
   return (
     <div className="pointer-events-none fixed inset-0 -z-30 overflow-hidden">
-      {/* Top-left glow */}
-      <div className="absolute -left-20 -top-10 h-80 w-80 rounded-full bg-[radial-gradient(circle_at_center,rgba(102,153,133,0.20),transparent_70%)] blur-3xl" />
-      {/* Right pine glow */}
-      <div className="absolute -right-24 top-40 h-96 w-96 rounded-full bg-[radial-gradient(circle_at_center,rgba(14,107,84,0.18),transparent_70%)] blur-3xl" />
-      {/* Bottom fade */}
-      <div className="absolute inset-x-0 bottom-[-16rem] h-[22rem] bg-[radial-gradient(ellipse_at_bottom,rgba(154,181,166,0.22),transparent_68%)] blur-2xl" />
+      <div className="absolute -left-20 -top-10 h-80 w-80 rounded-full 
+      bg-[radial-gradient(circle_at_center,rgba(102,153,133,0.20),transparent_70%)] blur-3xl" />
+      <div className="absolute -right-24 top-40 h-96 w-96 rounded-full 
+      bg-[radial-gradient(circle_at_center,rgba(14,107,84,0.18),transparent_70%)] blur-3xl" />
+      <div className="absolute inset-x-0 bottom-[-16rem] h-[22rem] 
+      bg-[radial-gradient(ellipse_at_bottom,rgba(154,181,166,0.22),transparent_68%)] blur-2xl" />
     </div>
   );
 }
@@ -76,7 +77,7 @@ const PROJECTS = [
     title: "Star Rider II — Cause & Effect Vehicle",
     subtitle: "Adaptive mobility platform for children with disabilities",
     description:
-      "Lead mechanical designer on a therapeutic “cause-and-effect” vehicle that lets children with cerebral palsy initiate motion independently. Focused on sensitive sensing, vibration feedback, and a clinic-friendly, kid-proof chassis.",
+      "Lead mechanical designer on a therapeutic “cause-and-effect” vehicle that lets children with cerebral palsy initiate motion independently. Focused on sensing, vibration feedback, and a clinic-friendly, kid-proof chassis.",
     meta: ["UCSB Capstone", "2025", "Assistive Technology"],
     img: "/images/StarRiderII.jpg",
   },
@@ -85,7 +86,7 @@ const PROJECTS = [
     title: "Single-Use Bioprocess Assemblies — SaniSure",
     subtitle: "Tubing, connectors, and encapsulation hardware for cell therapy",
     description:
-      "Designed and validated single-use fluid paths used in cell-therapy manufacturing, including tubing–connector–fitting assemblies, mixing systems, and pressure-decay test rigs. Focused on leak integrity, cleanroom manufacturability, and how mechanical decisions ripple into process risk.",
+      "Designed and validated single-use fluid paths used in cell-therapy manufacturing, including tubing–connector–fitting assemblies, encapsulation rigs, and pressure-decay test systems. Focused on leak integrity and manufacturability.",
     meta: ["SaniSure", "2025–", "Bioprocess Hardware"],
     imgs: ["/images/IMG_7857.jpg", "/images/IMG_7995.jpg"],
   },
@@ -94,7 +95,7 @@ const PROJECTS = [
     title: "URCA Steering System — Bearing Performance Study",
     subtitle: "Quantifying steering feel & reliability",
     description:
-      "Analyzed bearing configurations for an undergraduate competition vehicle. Built simple steering-torque models and validated them experimentally to recommend a low-maintenance bearing stack-up.",
+      "Analyzed bearing configurations for an undergraduate competition vehicle. Built steering-torque models and validated them experimentally to recommend a low-maintenance bearing stack-up.",
     meta: ["URCA", "2025", "Vehicle Dynamics"],
     img: "/images/SteeringUrca.jpg",
   },
@@ -103,7 +104,7 @@ const PROJECTS = [
     title: "Frog Jumper Mechanism",
     subtitle: "Teaching dynamics through playful hardware",
     description:
-      "Designed a spring-loaded mechanism that turns stored elastic energy into a repeatable jump. Used as a teaching tool to connect free-body diagrams, energy methods, and real-world tolerancing.",
+      "Designed a spring-loaded mechanism that converts stored elastic energy into a repeatable jump. Used as a teaching tool to connect dynamics principles with real hardware.",
     meta: ["UCSB", "2025", "Mechanisms"],
     img: "/images/Jumper.jpg",
   },
@@ -112,7 +113,7 @@ const PROJECTS = [
     title: "SOLIDWORKS Design Set",
     subtitle: "TV mount, steering wheel, and more",
     description:
-      "A small collection of CAD projects including a stiffness-optimized four-beam TV mount and an ergonomic FSAE steering wheel that balances packaging, wiring, and manufacturability.",
+      "Collection of CAD projects including a stiffness-optimized TV mount and an ergonomic FSAE steering wheel designed for packaging, wiring, and manufacturability.",
     meta: ["UCSB", "2024–2025", "CAD"],
     imgs: [
       "/images/TVSketch.jpg",
@@ -125,7 +126,7 @@ const PROJECTS = [
     title: "SaniSure Power BI Dashboards",
     subtitle: "Bioprocess analytics at scale",
     description:
-      "Developed dashboards used across R&D and Quality for engagement testing, chemical–resin compatibility, and tracking design throughput across assemblies.",
+      "Dashboards used across R&D and Quality for engagement testing, chemical compatibility, and throughput tracking across design pipelines.",
     meta: ["SaniSure", "2025–", "Data & Tools"],
     imgs: [
       "/images/ChemicalFilters.jpg",
@@ -144,7 +145,7 @@ const EXPERIENCE = [
     location: "UCSB",
     bullets: [
       "Study capillary bridges in soft gels relevant to biomedical interfaces.",
-      "Build fixtures measuring wetting, adhesion, and force–separation curves.",
+      "Build fixtures to measure wetting, adhesion, and force–separation curves.",
     ],
   },
   {
@@ -155,9 +156,9 @@ const EXPERIENCE = [
     start: "2025-07-01",
     location: "Camarillo, CA",
     bullets: [
-      "Develop single-use bioprocessing assemblies for cell-therapy manufacturing.",
+      "Develop single-use bioprocessing assemblies for cell therapy.",
       "Run pressure-decay leak tests and structured failure analysis.",
-      "Collaborate with Fabrication and QA to refine SOPs and FMEAs.",
+      "Refine SOPs and FMEAs with Fabrication and QA teams.",
     ],
   },
   {
@@ -169,7 +170,7 @@ const EXPERIENCE = [
     location: "Ingolstadt, Germany",
     bullets: [
       "Built KPI dashboards for Systems Requirements.",
-      "Worked in a cross-functional team of ~30 engineers on future vehicle platforms.",
+      "Worked with ~30 engineers developing next-gen vehicle platforms.",
     ],
   },
   {
@@ -181,7 +182,7 @@ const EXPERIENCE = [
     location: "Davis, CA",
     bullets: [
       "Simulated projectile motion using C with parameter sweeps.",
-      "Validated numerical models against experiments in an undergraduate research setting.",
+      "Validated numerical models against experimental data.",
     ],
   },
   {
@@ -192,8 +193,8 @@ const EXPERIENCE = [
     start: "2022-09-01",
     location: "Davis, CA",
     bullets: [
-      "One-on-one and small-group tutoring (up to 10 students).",
-      "Provided 5–10 hrs/week of support for core calculus coursework.",
+      "One-on-one and small-group tutoring.",
+      "Supported 5–10 hrs/week of instruction for core calculus.",
     ],
   },
 ];
@@ -203,7 +204,7 @@ const EDUCATION = [
     school: "UC Santa Barbara",
     line: "BS/MS Mechanical Engineering",
     time: "Jun 2023 – Jun 2027",
-    extras: ["Honors College", "Tau Beta Pi", "Formula SAE Racing Club"],
+    extras: ["Honors College", "Tau Beta Pi", "Formula SAE"],
     gpa: "3.82",
   },
   {
@@ -217,7 +218,7 @@ const EDUCATION = [
     school: "Glendora High School",
     line: "High School Diploma",
     time: "Aug 2017 – Jun 2021",
-    extras: ["National Honor Society (NHS)", "Varsity Tennis"],
+    extras: ["National Honor Society", "Varsity Tennis"],
     gpa: "4.69/4.00 (Top 2%)",
   },
 ];
@@ -225,48 +226,55 @@ const EDUCATION = [
 const EXTRAS = [
   {
     title: "UCSB Formula SAE",
-    text: "EV racecar design & steering system development with extensive CAD.",
+    text: "EV racecar design & steering system development.",
   },
   {
-    title: "Fruitfully Yours — Vice President & Co-founder",
-    text: "Nonprofit reducing food waste via fruit rescue; 80k+ lbs of fruit saved and ~70k food-insecure individuals supported.",
+    title: "Fruitfully Yours — Vice President",
+    text: "Co-founded nonprofit rescuing 80k+ lbs of fruit and supporting ~70k food-insecure individuals.",
   },
   {
-    title: "NASA Volunteer at UC Davis",
-    text: "Generator teardown and efficiency benchmarking as part of outreach.",
+    title: "NASA Volunteer",
+    text: "Generator teardown and efficiency benchmarking.",
   },
   {
-    title: "Assistive Technology Club (UCSB)",
-    text: "Co-founded club developing technological solutions to biological problems; current project is a VR-based early-screening tool for Alzheimer's.",
+    title: "Assistive Technology Club",
+    text: "Co-founded UCSB club developing VR-based early screening tools for Alzheimer's.",
   },
   {
-    title: "Elementary School STEAM Volunteer",
-    text: "Hands-on engineering and science workshops for 6th-grade students.",
+    title: "Elementary STEAM Volunteer",
+    text: "Hands-on science workshops for 6th-grade students.",
   },
 ];
 
 const HONORS = [
-  "6× Dean's Honors List (UC Davis & UCSB, Dec 2024).",
-  "AP Capstone Diploma (Jun 2021).",
-  "Glendora Kiwanis Community Service Award (Jun 2021).",
-  "Tartan Achievement Award (Jun 2021).",
+  "6× Dean's Honors List (UCD & UCSB).",
+  "AP Capstone Diploma (2021).",
+  "Glendora Kiwanis Community Service Award.",
+  "Tartan Achievement Award.",
 ];
 
 const CERTS = [
-  "Entrepreneurship Specialization — The Wharton School (Sep 2022).",
-  "Oil & Gas Industry Operations and Markets — Duke University (Sep 2022).",
-  "Statistics & R Specialization — HarvardX (Aug 2020).",
+  "Entrepreneurship Specialization — Wharton.",
+  "Oil & Gas Markets — Duke.",
+  "Statistics & R Specialization — HarvardX.",
 ];
 
 const LANGS = [
-  "English — Native or bilingual proficiency",
-  "German — Native or bilingual proficiency",
-  "French — Elementary proficiency",
+  "English — Native",
+  "German — Native",
+  "French — Elementary",
 ];
 
 /* -----------------------------------------------------
    REUSABLE COMPONENTS
 ----------------------------------------------------- */
+
+const fadeProps = {
+  initial: { opacity: 0, y: 20 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, amount: 0.3 },
+  transition: { duration: 0.6, ease: "easeOut" },
+};
 
 function SectionShell({ id, label, children }) {
   return (
@@ -305,7 +313,7 @@ function ImageModal({ selectedImage, onClose }) {
         >
           <motion.img
             src={selectedImage}
-            alt="Project image"
+            alt="Project"
             className="max-w-[85%] max-h-[80vh] rounded-2xl shadow-xl bg-white"
             initial={{ scale: 0.9 }}
             animate={{ scale: 1 }}
@@ -324,24 +332,7 @@ function ImageModal({ selectedImage, onClose }) {
 
 export default function Page() {
   const [showSplash, setShowSplash] = useState(true);
-
-  const [alias, setAlias] = useState(NAME);
-  const [clicks, setClicks] = useState(0);
-  const timerRef = useRef(null);
-
-  const handleNameClick = () => {
-    if (timerRef.current) clearTimeout(timerRef.current);
-
-    setClicks((c) => {
-      const next = c + 1;
-      if (next >= 3) {
-        setAlias((prev) => (prev === "67" ? NAME : "67"));
-        return 0;
-      }
-      timerRef.current = setTimeout(() => setClicks(0), 600);
-      return next;
-    });
-  };
+  const [selectedImage, setSelectedImage] = useState(null);
 
   const sortedExperience = useMemo(
     () =>
@@ -351,8 +342,6 @@ export default function Page() {
     []
   );
 
-  const [selectedImage, setSelectedImage] = useState(null);
-
   return (
     <>
       <LightBG />
@@ -360,26 +349,19 @@ export default function Page() {
       <BiotechGlow />
 
       <AnimatePresence>
-        {showSplash && (
-          <SplashScreen onComplete={() => setShowSplash(false)} />
-        )}
+        {showSplash && <SplashScreen onComplete={() => setShowSplash(false)} />}
       </AnimatePresence>
 
       <main className="relative min-h-screen text-[#1A1F1A]">
         {/* NAVBAR */}
         <header className="sticky top-0 z-40 bg-white/80 border-b border-[#DADCD7] backdrop-blur-xl">
           <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
-            <button onClick={handleNameClick} className="flex items-center gap-3">
-              <div className="h-8 w-8 border border-[#D0D4CB] rounded-lg grid place-items-center text-[#0E6B54]">
-                ⚙️
-              </div>
-              <div className="flex flex-col">
-                <span className="text-xs uppercase tracking-[0.15em] text-[#0E6B54]/60">
-                  Mechanics × Biology
-                </span>
-                <span className="font-semibold text-[#0E6B54]">{alias}</span>
-              </div>
-            </button>
+            <div className="flex flex-col">
+              <span className="text-xs uppercase tracking-[0.15em] text-[#0E6B54]/60">
+                Mechanics × Biology
+              </span>
+              <span className="font-semibold text-[#0E6B54]">{NAME}</span>
+            </div>
 
             <nav className="flex gap-3 text-sm">
               {[
@@ -392,7 +374,8 @@ export default function Page() {
                 <a
                   key={id}
                   href={`#${id}`}
-                  className="px-3 py-1.5 rounded-full hover:bg-[#E7EBE7] text-[#1A1F1A]/70 hover:text-[#0E6B54] transition-colors"
+                  className="px-3 py-1.5 rounded-full hover:bg-[#E7EBE7] 
+                  text-[#1A1F1A]/70 hover:text-[#0E6B54] transition-colors"
                 >
                   {label}
                 </a>
@@ -404,52 +387,52 @@ export default function Page() {
         {/* HERO */}
         <SectionShell id="top" label="Overview">
           <div className="grid md:grid-cols-[1.4fr,1fr] gap-10 items-center">
-            {/* Text */}
-            <div className="space-y-6">
-              <motion.h1
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="text-3xl md:text-5xl font-semibold tracking-tight leading-tight"
-              >
+            {/* TEXT */}
+            <motion.div {...fadeProps} className="space-y-6">
+              <h1 className="text-3xl md:text-5xl font-semibold leading-tight">
                 Designing hardware where{" "}
                 <span className="text-[#0E6B54]">mechanics meet biology</span>.
-              </motion.h1>
+              </h1>
               <p className="text-sm md:text-base text-[#374139] leading-relaxed max-w-xl">
                 I’m a mechanical engineering BS/MS candidate at UCSB working at
                 the intersection of soft materials, assistive devices, and
                 single-use bioprocessing systems.
               </p>
+
               <div className="flex gap-2 flex-wrap">
                 {["Assistive Devices", "Soft Interfaces", "Bioprocess Hardware"].map(
                   (tag) => (
                     <span
                       key={tag}
-                      className="px-3 py-1 text-[11px] uppercase tracking-wide rounded-full bg-[#0E6B54]/10 text-[#0E6B54] border border-[#0E6B54]/30"
+                      className="px-3 py-1 text-[11px] uppercase tracking-wide 
+                      rounded-full bg-[#0E6B54]/10 text-[#0E6B54] border border-[#0E6B54]/30"
                     >
                       {tag}
                     </span>
                   )
                 )}
               </div>
-            </div>
+            </motion.div>
 
-            {/* Portrait */}
-            <Card className="max-w-xs mx-auto text-center">
-              <div className="size-40 mx-auto rounded-full overflow-hidden border border-[#D0D4CB]">
-                <img
-                  src="/images/biographyVF.jpeg"
-                  alt="Antonius Chevillotte"
-                  className="h-full w-full object-cover"
-                />
-              </div>
-              <div className="mt-4 font-medium">{NAME}</div>
-              <div className="text-xs text-[#5F6B62]">
-                Honors BS/MS · Mechanical Engineering, UCSB
-              </div>
-              <div className="text-[11px] text-[#7B847E]">
-                Los Angeles, CA · Always building
-              </div>
-            </Card>
+            {/* PORTRAIT */}
+            <motion.div {...fadeProps}>
+              <Card className="max-w-xs mx-auto text-center">
+                <div className="size-40 mx-auto rounded-full overflow-hidden border border-[#D0D4CB]">
+                  <img
+                    src="/images/biographyVF.jpeg"
+                    alt="Antonius Chevillotte"
+                    className="h-full w-full object-cover"
+                  />
+                </div>
+                <div className="mt-4 font-medium">{NAME}</div>
+                <div className="text-xs text-[#5F6B62]">
+                  Honors BS/MS · Mechanical Engineering, UCSB
+                </div>
+                <div className="text-[11px] text-[#7B847E]">
+                  Los Angeles, CA · Always building
+                </div>
+              </Card>
+            </motion.div>
           </div>
         </SectionShell>
 
@@ -458,18 +441,17 @@ export default function Page() {
           <div className="space-y-16">
             {PROJECTS.map((p, i) => {
               const isEven = i % 2 === 0;
+
               return (
                 <motion.article
                   key={p.id}
-                  initial={{ opacity: 0, y: 32 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, amount: 0.35 }}
-                  transition={{ duration: 0.6 }}
-                  className={`grid items-center gap-10 md:gap-12 ${
-                    isEven
-                      ? "md:grid-cols-[1.2fr,0.9fr]"
-                      : "md:grid-cols-[0.9fr,1.2fr]"
-                  }`}
+                  {...fadeProps}
+                  className={`grid items-center gap-10 md:gap-12 
+                    ${
+                      isEven
+                        ? "md:grid-cols-[1.2fr,1fr]"
+                        : "md:grid-cols-[1fr,1.2fr]"
+                    }`}
                 >
                   {/* TEXT BLOCK */}
                   <div className={isEven ? "" : "md:order-2"}>
@@ -488,11 +470,13 @@ export default function Page() {
                           {p.description}
                         </p>
                       </div>
+
                       <div className="mt-4 flex flex-wrap gap-2">
                         {p.meta.map((tag) => (
                           <span
                             key={tag}
-                            className="px-2.5 py-1 text-[11px] rounded-full border bg-[#ECEEEB] border-[#D0D4CB] text-[#1A1F1A]/70"
+                            className="px-2.5 py-1 text-[11px] rounded-full border 
+                            bg-[#ECEEEB] border-[#D0D4CB] text-[#1A1F1A]/70"
                           >
                             {tag}
                           </span>
@@ -503,39 +487,32 @@ export default function Page() {
 
                   {/* IMAGE(S) BLOCK */}
                   <div className={isEven ? "" : "md:order-1"}>
+                    {/* SINGLE IMAGE */}
                     {p.img && (
-                      <button
-                        type="button"
+                      <motion.img
+                        src={p.img}
+                        alt={p.title}
+                        className="rounded-2xl object-cover w-full max-h-[360px] cursor-pointer"
+                        whileHover={{ scale: 1.02 }}
+                        transition={{ duration: 0.25 }}
                         onClick={() => setSelectedImage(p.img)}
-                        className="w-full"
-                      >
-                        <Card className="p-3 flex items-center justify-center h-full">
-                          <img
-                            src={p.img}
-                            alt={p.title}
-                            className="rounded-2xl border border-[#D0D4CB] max-h-[320px] w-auto mx-auto"
-                          />
-                        </Card>
-                      </button>
+                      />
                     )}
 
+                    {/* MULTI-IMAGES */}
                     {p.imgs && (
                       <div className="flex gap-3 overflow-x-auto pb-1">
                         {p.imgs.map((img) => (
-                          <button
-                            type="button"
+                          <motion.img
                             key={img}
+                            src={img}
+                            alt={p.title}
+                            className="rounded-2xl object-cover cursor-pointer 
+                            min-w-[240px] max-h-[240px]"
+                            whileHover={{ scale: 1.02 }}
+                            transition={{ duration: 0.25 }}
                             onClick={() => setSelectedImage(img)}
-                            className="min-w-[200px]"
-                          >
-                            <Card className="p-2 flex items-center justify-center">
-                              <img
-                                src={img}
-                                alt={p.title}
-                                className="rounded-xl border border-[#D0D4CB] max-h-[220px] w-auto mx-auto"
-                              />
-                            </Card>
-                          </button>
+                          />
                         ))}
                       </div>
                     )}
@@ -550,154 +527,174 @@ export default function Page() {
         <SectionShell id="experience" label="Experience">
           <div className="space-y-6">
             {sortedExperience.map((exp) => (
-              <Card key={exp.id} className="relative pl-6">
-                <div className="absolute left-0 top-5 h-3 w-3 bg-[#0E6B54] rounded-full" />
-                <div className="flex justify-between flex-wrap gap-3">
-                  <div>
-                    <h3 className="text-sm font-semibold text-[#1A1F1A]">
-                      {exp.role}
-                    </h3>
-                    <p className="text-xs text-[#57655B]">{exp.company}</p>
+              <motion.div key={exp.id} {...fadeProps}>
+                <Card className="relative pl-6">
+                  <div className="absolute left-0 top-5 h-3 w-3 bg-[#0E6B54] rounded-full" />
+
+                  <div className="flex justify-between flex-wrap gap-3">
+                    <div>
+                      <h3 className="text-sm font-semibold text-[#1A1F1A]">
+                        {exp.role}
+                      </h3>
+                      <p className="text-xs text-[#57655B]">{exp.company}</p>
+                    </div>
+                    <div className="text-xs text-right text-[#5F6B62]">
+                      <div>{exp.period}</div>
+                      <div>{exp.location}</div>
+                    </div>
                   </div>
-                  <div className="text-xs text-right text-[#5F6B62]">
-                    <div>{exp.period}</div>
-                    <div>{exp.location}</div>
-                  </div>
-                </div>
-                <ul className="mt-3 space-y-1.5 text-sm text-[#374139]">
-                  {exp.bullets.map((b, idx) => (
-                    <li key={idx} className="flex gap-2">
-                      <span className="mt-[6px] h-[2px] w-4 bg-[#0E6B54]/70" />
-                      {b}
-                    </li>
-                  ))}
-                </ul>
-              </Card>
+
+                  <ul className="mt-3 space-y-1.5 text-sm text-[#374139]">
+                    {exp.bullets.map((b, idx) => (
+                      <li key={idx} className="flex gap-2">
+                        <span className="mt-[6px] h-[2px] w-4 bg-[#0E6B54]/70" />
+                        {b}
+                      </li>
+                    ))}
+                  </ul>
+                </Card>
+              </motion.div>
             ))}
           </div>
         </SectionShell>
 
         {/* EDUCATION */}
         <SectionShell id="education" label="Education">
-          <Card>
-            <h3 className="text-sm uppercase font-semibold text-[#0E6B54] tracking-[0.18em] mb-4">
-              Educational Journey
-            </h3>
-            <div className="grid gap-6 md:grid-cols-3">
-              {EDUCATION.map((edu) => (
-                <div key={edu.school} className="space-y-1">
-                  <div className="flex items-center gap-2">
-                    <span className="h-2 w-2 rounded-full bg-[#0E6B54]" />
-                    <span className="text-sm font-medium text-[#1A1F1A]">
-                      {edu.school}
-                    </span>
+          <motion.div {...fadeProps}>
+            <Card>
+              <h3 className="text-sm uppercase font-semibold text-[#0E6B54] tracking-[0.18em] mb-4">
+                Educational Journey
+              </h3>
+
+              <div className="grid gap-6 md:grid-cols-3">
+                {EDUCATION.map((edu) => (
+                  <div key={edu.school} className="space-y-1">
+                    <div className="flex items-center gap-2">
+                      <span className="h-2 w-2 rounded-full bg-[#0E6B54]" />
+                      <span className="text-sm font-medium text-[#1A1F1A]">
+                        {edu.school}
+                      </span>
+                    </div>
+                    <div className="text-xs text-[#374139]">{edu.line}</div>
+                    <div className="text-[11px] text-[#5F6B62]">
+                      {edu.time} {edu.gpa && `· GPA: ${edu.gpa}`}
+                    </div>
+                    <div className="text-[11px] text-[#5F6B62]">
+                      {edu.extras.join(" • ")}
+                    </div>
                   </div>
-                  <div className="text-xs text-[#374139]">{edu.line}</div>
-                  <div className="text-[11px] text-[#5F6B62]">
-                    {edu.time} {edu.gpa && `· GPA: ${edu.gpa}`}
-                  </div>
-                  <div className="text-[11px] text-[#5F6B62]">
-                    {edu.extras.join(" • ")}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </Card>
+                ))}
+              </div>
+            </Card>
+          </motion.div>
         </SectionShell>
 
         {/* BACKGROUND & IMPACT */}
         <SectionShell id="background" label="Background & Impact">
           <div className="grid gap-10 lg:grid-cols-[1.4fr,1fr] items-start">
-            {/* Volunteering & leadership */}
-            <Card>
-              <h3 className="text-sm uppercase tracking-[0.18em] text-[#0E6B54] font-semibold mb-3">
-                Volunteering & Leadership
-              </h3>
-              <div className="space-y-3 text-sm text-[#374139]">
-                {EXTRAS.map((e) => (
-                  <div key={e.title}>
-                    <div className="font-medium text-[#1A1F1A]">{e.title}</div>
-                    <div className="text-[13px] text-[#5F6B62]">{e.text}</div>
-                  </div>
-                ))}
-              </div>
-            </Card>
+            {/* VOLUNTEERING */}
+            <motion.div {...fadeProps}>
+              <Card>
+                <h3 className="text-sm uppercase tracking-[0.18em] text-[#0E6B54] font-semibold mb-3">
+                  Volunteering & Leadership
+                </h3>
 
-            {/* Honors / Certs / Languages */}
+                <div className="space-y-3 text-sm text-[#374139]">
+                  {EXTRAS.map((e) => (
+                    <div key={e.title}>
+                      <div className="font-medium text-[#1A1F1A]">{e.title}</div>
+                      <div className="text-[13px] text-[#5F6B62]">{e.text}</div>
+                    </div>
+                  ))}
+                </div>
+              </Card>
+            </motion.div>
+
+            {/* HONORS + CERTS + LANGUAGES */}
             <div className="space-y-6">
-              <Card>
-                <h3 className="text-sm uppercase tracking-[0.18em] text-[#0E6B54] font-semibold mb-3">
-                  Honors & Awards
-                </h3>
-                <ul className="space-y-1.5 text-sm text-[#374139]">
-                  {HONORS.map((h) => (
-                    <li key={h} className="flex gap-2">
-                      <span className="mt-[6px] h-[2px] w-4 bg-[#0E6B54]/70" />
-                      {h}
-                    </li>
-                  ))}
-                </ul>
-              </Card>
+              <motion.div {...fadeProps}>
+                <Card>
+                  <h3 className="text-sm uppercase tracking-[0.18em] text-[#0E6B54] font-semibold mb-3">
+                    Honors & Awards
+                  </h3>
+                  <ul className="space-y-1.5 text-sm text-[#374139]">
+                    {HONORS.map((h) => (
+                      <li key={h} className="flex gap-2">
+                        <span className="mt-[6px] h-[2px] w-4 bg-[#0E6B54]/70" />
+                        {h}
+                      </li>
+                    ))}
+                  </ul>
+                </Card>
+              </motion.div>
 
-              <Card>
-                <h3 className="text-sm uppercase tracking-[0.18em] text-[#0E6B54] font-semibold mb-3">
-                  Licenses & Certifications
-                </h3>
-                <ul className="space-y-1.5 text-sm text-[#374139]">
-                  {CERTS.map((c) => (
-                    <li key={c} className="flex gap-2">
-                      <span className="mt-[6px] h-[2px] w-4 bg-[#0E6B54]/50" />
-                      {c}
-                    </li>
-                  ))}
-                </ul>
-              </Card>
+              <motion.div {...fadeProps}>
+                <Card>
+                  <h3 className="text-sm uppercase tracking-[0.18em] text-[#0E6B54] font-semibold mb-3">
+                    Licenses & Certifications
+                  </h3>
+                  <ul className="space-y-1.5 text-sm text-[#374139]">
+                    {CERTS.map((c) => (
+                      <li key={c} className="flex gap-2">
+                        <span className="mt-[6px] h-[2px] w-4 bg-[#0E6B54]/50" />
+                        {c}
+                      </li>
+                    ))}
+                  </ul>
+                </Card>
+              </motion.div>
 
-              <Card>
-                <h3 className="text-sm uppercase tracking-[0.18em] text-[#0E6B54] font-semibold mb-3">
-                  Languages
-                </h3>
-                <ul className="space-y-1.5 text-sm text-[#374139]">
-                  {LANGS.map((l) => (
-                    <li key={l} className="flex gap-2">
-                      <span className="mt-[6px] h-[2px] w-4 bg-[#0E6B54]/40" />
-                      {l}
-                    </li>
-                  ))}
-                </ul>
-              </Card>
+              <motion.div {...fadeProps}>
+                <Card>
+                  <h3 className="text-sm uppercase tracking-[0.18em] text-[#0E6B54] font-semibold mb-3">
+                    Languages
+                  </h3>
+                  <ul className="space-y-1.5 text-sm text-[#374139]">
+                    {LANGS.map((l) => (
+                      <li key={l} className="flex gap-2">
+                        <span className="mt-[6px] h-[2px] w-4 bg-[#0E6B54]/40" />
+                        {l}
+                      </li>
+                    ))}
+                  </ul>
+                </Card>
+              </motion.div>
             </div>
           </div>
         </SectionShell>
 
         {/* CONTACT */}
         <SectionShell id="contact" label="Contact">
-          <Card className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
-            <div>
-              <h3 className="text-lg font-semibold text-[#1A1F1A]">
-                Let’s build something useful.
-              </h3>
-              <p className="text-sm text-[#374139] mt-2 max-w-md">
-                I’m always excited to chat about assistive devices, soft
-                mechanics, or bioprocess hardware where engineering gives
-                someone more independence.
-              </p>
-            </div>
-            <div className="text-sm space-y-1 text-[#1A1F1A]">
-              <p>
-                Email:{" "}
-                <a
-                  href="mailto:achevillotte@ucsb.edu"
-                  className="text-[#0E6B54] underline underline-offset-2"
-                >
-                  achevillotte@ucsb.edu
-                </a>
-              </p>
-              <p>
-                Phone: <span className="text-[#0E6B54]">+1 (914) 649-9132</span>
-              </p>
-            </div>
-          </Card>
+          <motion.div {...fadeProps}>
+            <Card className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+              <div>
+                <h3 className="text-lg font-semibold text-[#1A1F1A]">
+                  Let’s build something useful.
+                </h3>
+                <p className="text-sm text-[#374139] mt-2 max-w-md">
+                  Always excited to chat about assistive devices, soft
+                  mechanics, or bioprocess hardware where engineering gives
+                  someone more independence.
+                </p>
+              </div>
+
+              <div className="text-sm space-y-1 text-[#1A1F1A]">
+                <p>
+                  Email:{" "}
+                  <a
+                    href="mailto:achevillotte@ucsb.edu"
+                    className="text-[#0E6B54] underline underline-offset-2"
+                  >
+                    achevillotte@ucsb.edu
+                  </a>
+                </p>
+                <p>
+                  Phone:{" "}
+                  <span className="text-[#0E6B54]">+1 (914) 649-9132</span>
+                </p>
+              </div>
+            </Card>
+          </motion.div>
         </SectionShell>
 
         <ImageModal
@@ -708,5 +705,4 @@ export default function Page() {
     </>
   );
 }
-
 
