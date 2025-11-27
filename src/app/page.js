@@ -10,19 +10,24 @@ import "./globals.css";
 
 function LightBG() {
   return (
-    <div className="fixed inset-0 -z-30 bg-[linear-gradient(to_bottom,#F6F7F4_0%,#ECEDE9_100%)]" />
+    <div className="fixed inset-0 -z-40 bg-[linear-gradient(to_bottom,#F6F7F4_0%,#ECEDE9_100%)]" />
+  );
+}
+
+// Faint repeating protein-ish pattern (SVG asset in /public/images)
+function ProteinPatternBG() {
+  return (
+    <div className="fixed inset-0 -z-35 opacity-[0.045] bg-[url('/images/protein-pattern.svg')] bg-[length:260px_260px] bg-repeat" />
   );
 }
 
 function BiotechGlow() {
   return (
-    <div className="pointer-events-none fixed inset-0 -z-20 overflow-hidden">
+    <div className="pointer-events-none fixed inset-0 -z-30 overflow-hidden">
       {/* Top-left glow */}
       <div className="absolute -left-20 -top-10 h-80 w-80 rounded-full bg-[radial-gradient(circle_at_center,rgba(102,153,133,0.20),transparent_70%)] blur-3xl" />
-
       {/* Right pine glow */}
       <div className="absolute -right-24 top-40 h-96 w-96 rounded-full bg-[radial-gradient(circle_at_center,rgba(14,107,84,0.18),transparent_70%)] blur-3xl" />
-
       {/* Bottom fade */}
       <div className="absolute inset-x-0 bottom-[-16rem] h-[22rem] bg-[radial-gradient(ellipse_at_bottom,rgba(154,181,166,0.22),transparent_68%)] blur-2xl" />
     </div>
@@ -71,16 +76,25 @@ const PROJECTS = [
     title: "Star Rider II — Cause & Effect Vehicle",
     subtitle: "Adaptive mobility platform for children with disabilities",
     description:
-      "Lead mechanical designer on a therapeutic “cause-and-effect” vehicle that lets children with cerebral palsy initiate motion independently. Focused on sensitive sensing, vibration-based feedback, and a clinic-friendly chassis.",
+      "Lead mechanical designer on a therapeutic “cause-and-effect” vehicle that lets children with cerebral palsy initiate motion independently. Focused on sensitive sensing, vibration feedback, and a clinic-friendly, kid-proof chassis.",
     meta: ["UCSB Capstone", "2025", "Assistive Technology"],
     img: "/images/StarRiderII.jpg",
+  },
+  {
+    id: "sanisure-bioprocess",
+    title: "Single-Use Bioprocess Assemblies — SaniSure",
+    subtitle: "Tubing, connectors, and encapsulation hardware for cell therapy",
+    description:
+      "Designed and validated single-use fluid paths used in cell-therapy manufacturing, including tubing–connector–fitting assemblies, mixing systems, and pressure-decay test rigs. Focused on leak integrity, cleanroom manufacturability, and how mechanical decisions ripple into process risk.",
+    meta: ["SaniSure", "2025–", "Bioprocess Hardware"],
+    imgs: ["/images/IMG_7857.HEIC", "/images/IMG_7995.HEIC"],
   },
   {
     id: "urca-steering",
     title: "URCA Steering System — Bearing Performance Study",
     subtitle: "Quantifying steering feel & reliability",
     description:
-      "Analyzed bearing configurations for an undergraduate competition vehicle. Created models of steering torque and validated them experimentally.",
+      "Analyzed bearing configurations for an undergraduate competition vehicle. Built simple steering-torque models and validated them experimentally to recommend a low-maintenance bearing stack-up.",
     meta: ["URCA", "2025", "Vehicle Dynamics"],
     img: "/images/SteeringUrca.jpg",
   },
@@ -89,16 +103,16 @@ const PROJECTS = [
     title: "Frog Jumper Mechanism",
     subtitle: "Teaching dynamics through playful hardware",
     description:
-      "Designed a spring-loaded mechanism demonstrating energy storage & release. Used for teaching dynamics principles through hands-on demos.",
+      "Designed a spring-loaded mechanism that turns stored elastic energy into a repeatable jump. Used as a teaching tool to connect free-body diagrams, energy methods, and real-world tolerancing.",
     meta: ["UCSB", "2025", "Mechanisms"],
     img: "/images/Jumper.jpg",
   },
   {
     id: "solidworks",
     title: "SOLIDWORKS Design Set",
-    subtitle: "TV Mount, Steering Wheel, and more",
+    subtitle: "TV mount, steering wheel, and more",
     description:
-      "Collection of CAD projects including a stiffness-optimized TV mount and an ergonomic FSAE steering wheel.",
+      "A small collection of CAD projects including a stiffness-optimized four-beam TV mount and an ergonomic FSAE steering wheel that balances packaging, wiring, and manufacturability.",
     meta: ["UCSB", "2024–2025", "CAD"],
     imgs: [
       "/images/TVSketch.jpg",
@@ -111,8 +125,8 @@ const PROJECTS = [
     title: "SaniSure Power BI Dashboards",
     subtitle: "Bioprocess analytics at scale",
     description:
-      "Developed dashboards used across R&D and Quality for engagement testing, chemical compatibility, and material performance.",
-    meta: ["SaniSure", "2025–", "Bioprocessing"],
+      "Developed dashboards used across R&D and Quality for engagement testing, chemical–resin compatibility, and tracking design throughput across assemblies.",
+    meta: ["SaniSure", "2025–", "Data & Tools"],
     imgs: [
       "/images/ChemicalFilters.jpg",
       "/images/Material Engagement Check.jpg",
@@ -142,8 +156,8 @@ const EXPERIENCE = [
     location: "Camarillo, CA",
     bullets: [
       "Develop single-use bioprocessing assemblies for cell-therapy manufacturing.",
-      "Run pressure-decay leak tests and structural failure analysis.",
-      "Collaborate across Fabrication and QA to refine SOPs and FMEAs.",
+      "Run pressure-decay leak tests and structured failure analysis.",
+      "Collaborate with Fabrication and QA to refine SOPs and FMEAs.",
     ],
   },
   {
@@ -155,7 +169,7 @@ const EXPERIENCE = [
     location: "Ingolstadt, Germany",
     bullets: [
       "Built KPI dashboards for Systems Requirements.",
-      "Worked in cross-functional team of ~30 engineers.",
+      "Worked in a cross-functional team of ~30 engineers on future vehicle platforms.",
     ],
   },
   {
@@ -167,7 +181,19 @@ const EXPERIENCE = [
     location: "Davis, CA",
     bullets: [
       "Simulated projectile motion using C with parameter sweeps.",
-      "Validated numerical models with experimental data.",
+      "Validated numerical models against experiments in an undergraduate research setting.",
+    ],
+  },
+  {
+    id: "tutor",
+    role: "Calculus Tutor",
+    company: "UC Davis",
+    period: "Sep 2022 – Jun 2023",
+    start: "2022-09-01",
+    location: "Davis, CA",
+    bullets: [
+      "One-on-one and small-group tutoring (up to 10 students).",
+      "Provided 5–10 hrs/week of support for core calculus coursework.",
     ],
   },
 ];
@@ -177,7 +203,7 @@ const EDUCATION = [
     school: "UC Santa Barbara",
     line: "BS/MS Mechanical Engineering",
     time: "Jun 2023 – Jun 2027",
-    extras: ["Honors College", "Tau Beta Pi", "Formula SAE"],
+    extras: ["Honors College", "Tau Beta Pi", "Formula SAE Racing Club"],
     gpa: "3.82",
   },
   {
@@ -191,7 +217,7 @@ const EDUCATION = [
     school: "Glendora High School",
     line: "High School Diploma",
     time: "Aug 2017 – Jun 2021",
-    extras: ["National Honor Society", "Varsity Tennis"],
+    extras: ["National Honor Society (NHS)", "Varsity Tennis"],
     gpa: "4.69/4.00 (Top 2%)",
   },
 ];
@@ -199,43 +225,43 @@ const EDUCATION = [
 const EXTRAS = [
   {
     title: "UCSB Formula SAE",
-    text: "EV racecar design & steering system development.",
+    text: "EV racecar design & steering system development with extensive CAD.",
   },
   {
-    title: "Fruitfully Yours — Vice President",
-    text: "Co-founded nonprofit rescuing 80k+ lbs of fruit.",
+    title: "Fruitfully Yours — Vice President & Co-founder",
+    text: "Nonprofit reducing food waste via fruit rescue; 80k+ lbs of fruit saved and ~70k food-insecure individuals supported.",
   },
   {
-    title: "NASA Volunteer (UC Davis)",
-    text: "Generator teardown & efficiency benchmarking.",
+    title: "NASA Volunteer at UC Davis",
+    text: "Generator teardown and efficiency benchmarking as part of outreach.",
   },
   {
     title: "Assistive Technology Club (UCSB)",
-    text: "VR-based early Alzheimer's screening device.",
+    text: "Co-founded club developing technological solutions to biological problems; current project is a VR-based early-screening tool for Alzheimer's.",
   },
   {
-    title: "STEAM Volunteer",
-    text: "Hands-on engineering workshops for 6th graders.",
+    title: "Elementary School STEAM Volunteer",
+    text: "Hands-on engineering and science workshops for 6th-grade students.",
   },
 ];
 
 const HONORS = [
-  "6× Dean's Honors List",
-  "AP Capstone Diploma",
-  "Kiwanis Community Service Award",
-  "Tartan Achievement Award",
+  "6× Dean's Honors List (UC Davis & UCSB, Dec 2024).",
+  "AP Capstone Diploma (Jun 2021).",
+  "Glendora Kiwanis Community Service Award (Jun 2021).",
+  "Tartan Achievement Award (Jun 2021).",
 ];
 
 const CERTS = [
-  "Wharton Entrepreneurship Specialization",
-  "Duke Oil & Gas Ops",
-  "HarvardX Statistics & R",
+  "Entrepreneurship Specialization — The Wharton School (Sep 2022).",
+  "Oil & Gas Industry Operations and Markets — Duke University (Sep 2022).",
+  "Statistics & R Specialization — HarvardX (Aug 2020).",
 ];
 
 const LANGS = [
-  "English — Native",
-  "German — Native",
-  "French — Elementary",
+  "English — Native or bilingual proficiency",
+  "German — Native or bilingual proficiency",
+  "French — Elementary proficiency",
 ];
 
 /* -----------------------------------------------------
@@ -279,7 +305,8 @@ function ImageModal({ selectedImage, onClose }) {
         >
           <motion.img
             src={selectedImage}
-            className="max-w-[85%] max-h-[80vh] rounded-2xl shadow-xl"
+            alt="Project image"
+            className="max-w-[85%] max-h-[80vh] rounded-2xl shadow-xl bg-white"
             initial={{ scale: 0.9 }}
             animate={{ scale: 1 }}
             exit={{ scale: 0.9 }}
@@ -297,6 +324,7 @@ function ImageModal({ selectedImage, onClose }) {
 
 export default function Page() {
   const [showSplash, setShowSplash] = useState(true);
+
   const [alias, setAlias] = useState(NAME);
   const [clicks, setClicks] = useState(0);
   const timerRef = useRef(null);
@@ -305,26 +333,30 @@ export default function Page() {
     if (timerRef.current) clearTimeout(timerRef.current);
 
     setClicks((c) => {
-      if (c + 1 >= 3) {
+      const next = c + 1;
+      if (next >= 3) {
         setAlias((prev) => (prev === "67" ? NAME : "67"));
         return 0;
       }
       timerRef.current = setTimeout(() => setClicks(0), 600);
-      return c + 1;
+      return next;
     });
   };
 
-  const sortedExperience = useMemo(() => {
-    return [...EXPERIENCE].sort(
-      (a, b) => new Date(b.start).getTime() - new Date(a.start).getTime()
-    );
-  }, []);
+  const sortedExperience = useMemo(
+    () =>
+      [...EXPERIENCE].sort(
+        (a, b) => new Date(b.start).getTime() - new Date(a.start).getTime()
+      ),
+    []
+  );
 
   const [selectedImage, setSelectedImage] = useState(null);
 
   return (
     <>
       <LightBG />
+      <ProteinPatternBG />
       <BiotechGlow />
 
       <AnimatePresence>
@@ -334,7 +366,6 @@ export default function Page() {
       </AnimatePresence>
 
       <main className="relative min-h-screen text-[#1A1F1A]">
-
         {/* NAVBAR */}
         <header className="sticky top-0 z-40 bg-white/80 border-b border-[#DADCD7] backdrop-blur-xl">
           <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
@@ -361,7 +392,7 @@ export default function Page() {
                 <a
                   key={id}
                   href={`#${id}`}
-                  className="px-3 py-1.5 rounded-full hover:bg-[#E7EBE7] text-[#1A1F1A]/70 hover:text-[#0E6B54]"
+                  className="px-3 py-1.5 rounded-full hover:bg-[#E7EBE7] text-[#1A1F1A]/70 hover:text-[#0E6B54] transition-colors"
                 >
                   {label}
                 </a>
@@ -373,8 +404,7 @@ export default function Page() {
         {/* HERO */}
         <SectionShell id="top" label="Overview">
           <div className="grid md:grid-cols-[1.4fr,1fr] gap-10 items-center">
-
-            {/* TEXT */}
+            {/* Text */}
             <div className="space-y-6">
               <motion.h1
                 initial={{ opacity: 0, y: 20 }}
@@ -384,37 +414,40 @@ export default function Page() {
                 Designing hardware where{" "}
                 <span className="text-[#0E6B54]">mechanics meet biology</span>.
               </motion.h1>
-
               <p className="text-sm md:text-base text-[#374139] leading-relaxed max-w-xl">
                 I’m a mechanical engineering BS/MS candidate at UCSB working at
                 the intersection of soft materials, assistive devices, and
                 single-use bioprocessing systems.
               </p>
-
               <div className="flex gap-2 flex-wrap">
-                {["Assistive Devices", "Soft Interfaces", "Bioprocess Hardware"].map((t) => (
-                  <span
-                    key={t}
-                    className="px-3 py-1 text-[11px] uppercase tracking-wide rounded-full bg-[#0E6B54]/10 text-[#0E6B54] border border-[#0E6B54]/30"
-                  >
-                    {t}
-                  </span>
-                ))}
+                {["Assistive Devices", "Soft Interfaces", "Bioprocess Hardware"].map(
+                  (tag) => (
+                    <span
+                      key={tag}
+                      className="px-3 py-1 text-[11px] uppercase tracking-wide rounded-full bg-[#0E6B54]/10 text-[#0E6B54] border border-[#0E6B54]/30"
+                    >
+                      {tag}
+                    </span>
+                  )
+                )}
               </div>
             </div>
 
-            {/* PORTRAIT CARD */}
+            {/* Portrait */}
             <Card className="max-w-xs mx-auto text-center">
-              <div className="rounded-full overflow-hidden border border-[#D0D4CB] size-40 mx-auto">
+              <div className="size-40 mx-auto rounded-full overflow-hidden border border-[#D0D4CB]">
                 <img
                   src="/images/biography2.jpg"
-                  alt="portrait"
+                  alt="Antonius Chevillotte"
                   className="h-full w-full object-cover"
                 />
               </div>
               <div className="mt-4 font-medium">{NAME}</div>
               <div className="text-xs text-[#5F6B62]">
-                Honors BS/MS · Mechanical Engineering
+                Honors BS/MS · Mechanical Engineering, UCSB
+              </div>
+              <div className="text-[11px] text-[#7B847E]">
+                Los Angeles, CA · Always building
               </div>
             </Card>
           </div>
@@ -425,69 +458,81 @@ export default function Page() {
           <div className="space-y-16">
             {PROJECTS.map((p, i) => {
               const isEven = i % 2 === 0;
-
               return (
-                <div
+                <motion.article
                   key={p.id}
-                  className={`grid items-center gap-10 ${
+                  initial={{ opacity: 0, y: 32 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.35 }}
+                  transition={{ duration: 0.6 }}
+                  className={`grid items-center gap-10 md:gap-12 ${
                     isEven
-                      ? "md:grid-cols-[1.2fr,1fr]"
-                      : "md:grid-cols-[1fr,1.2fr]"
+                      ? "md:grid-cols-[1.2fr,0.9fr]"
+                      : "md:grid-cols-[0.9fr,1.2fr]"
                   }`}
                 >
-                  {/* TEXT CARD */}
+                  {/* TEXT BLOCK */}
                   <div className={isEven ? "" : "md:order-2"}>
-                    <Card>
-                      <div className="text-xs uppercase tracking-[0.18em] text-[#0E6B54]/70">
-                        {i + 1 < 10 ? `0${i + 1}` : i + 1} · Project
+                    <Card className="h-full flex flex-col justify-between">
+                      <div>
+                        <div className="text-xs uppercase tracking-[0.18em] text-[#0E6B54]/70">
+                          {i + 1 < 10 ? `0${i + 1}` : i + 1} · Project
+                        </div>
+                        <h3 className="text-xl font-semibold mt-2 text-[#1A1F1A]">
+                          {p.title}
+                        </h3>
+                        <p className="text-sm text-[#57655B] mt-1">
+                          {p.subtitle}
+                        </p>
+                        <p className="text-sm text-[#374139] mt-4 leading-relaxed">
+                          {p.description}
+                        </p>
                       </div>
-                      <h3 className="text-xl font-semibold mt-2">{p.title}</h3>
-                      <p className="text-sm text-[#57655B] mt-1">{p.subtitle}</p>
-                      <p className="text-sm text-[#374139] mt-4 leading-relaxed">
-                        {p.description}
-                      </p>
-
-                      <div className="mt-4 flex gap-2 flex-wrap">
-                        {p.meta.map((m) => (
+                      <div className="mt-4 flex flex-wrap gap-2">
+                        {p.meta.map((tag) => (
                           <span
-                            key={m}
+                            key={tag}
                             className="px-2.5 py-1 text-[11px] rounded-full border bg-[#ECEEEB] border-[#D0D4CB] text-[#1A1F1A]/70"
                           >
-                            {m}
+                            {tag}
                           </span>
                         ))}
                       </div>
                     </Card>
                   </div>
 
-                  {/* IMAGES */}
+                  {/* IMAGE(S) BLOCK */}
                   <div className={isEven ? "" : "md:order-1"}>
                     {p.img && (
                       <button
+                        type="button"
                         onClick={() => setSelectedImage(p.img)}
                         className="w-full"
                       >
-                        <Card className="p-2">
+                        <Card className="p-3 flex items-center justify-center h-full">
                           <img
                             src={p.img}
-                            className="rounded-xl border border-[#D0D4CB]"
+                            alt={p.title}
+                            className="rounded-2xl border border-[#D0D4CB] max-h-[320px] w-auto mx-auto"
                           />
                         </Card>
                       </button>
                     )}
 
                     {p.imgs && (
-                      <div className="flex gap-3 overflow-x-auto">
+                      <div className="flex gap-3 overflow-x-auto pb-1">
                         {p.imgs.map((img) => (
                           <button
-                            onClick={() => setSelectedImage(img)}
+                            type="button"
                             key={img}
+                            onClick={() => setSelectedImage(img)}
                             className="min-w-[200px]"
                           >
-                            <Card className="p-2">
+                            <Card className="p-2 flex items-center justify-center">
                               <img
                                 src={img}
-                                className="rounded-xl border border-[#D0D4CB]"
+                                alt={p.title}
+                                className="rounded-xl border border-[#D0D4CB] max-h-[220px] w-auto mx-auto"
                               />
                             </Card>
                           </button>
@@ -495,98 +540,23 @@ export default function Page() {
                       </div>
                     )}
                   </div>
-                </div>
+                </motion.article>
               );
             })}
           </div>
         </SectionShell>
 
-        {/* EXPERIENCE SECTION */}
+        {/* EXPERIENCE */}
         <SectionShell id="experience" label="Experience">
-
-          {/* ⭐ NEW: FEATURED SANISURE EXPERIENCE SECTION ⭐ */}
-          <motion.div
-            initial={{ opacity: 0, y: 32 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.6 }}
-            className="grid gap-10 md:grid-cols-[1fr,1.1fr] items-center mb-16"
-          >
-            {/* TEXT */}
-            <Card>
-              <div className="text-xs uppercase tracking-[0.18em] text-[#0E6B54]/70 mb-2">
-                Featured Experience
-              </div>
-
-              <h3 className="text-xl font-semibold text-[#1A1F1A]">
-                Bioprocess Hardware Engineering — SaniSure
-              </h3>
-
-              <p className="text-sm text-[#57655B] mt-1">
-                Single-Use Cell Encapsulation & Mixing Systems
-              </p>
-
-              <p className="text-sm text-[#374139] mt-4 leading-relaxed">
-                At SaniSure, I design and validate single-use bioprocessing
-                assemblies used in cell-therapy manufacturing pipelines,
-                including components for encapsulation, sterile mixing,
-                pressure-decay testing, and resin compatibility workflows.
-              </p>
-
-              <ul className="mt-4 text-sm space-y-2 text-[#374139]">
-                {[
-                  "Designed tubing + connector + fitting assemblies for sterile fluid paths.",
-                  "Performed pressure-decay leak testing to characterize engagement reliability.",
-                  "Led teardown & FMEA analyses for mixing assemblies.",
-                  "Built Power BI analytics for chemical compatibility & engagement testing.",
-                ].map((b) => (
-                  <li key={b} className="flex gap-2">
-                    <span className="mt-[6px] h-[2px] w-4 bg-[#0E6B54]/70" />
-                    {b}
-                  </li>
-                ))}
-              </ul>
-            </Card>
-
-            {/* IMAGES */}
-            <div className="flex flex-col gap-4">
-              <button
-                onClick={() =>
-                  setSelectedImage("/images/IMG_7857.jpg")
-                }
-              >
-                <Card className="p-2">
-                  <img
-                    src="/images/IMG_7857.jpg"
-                    className="rounded-xl border border-[#D0D4CB]"
-                  />
-                </Card>
-              </button>
-
-              <button
-                onClick={() =>
-                  setSelectedImage("/images/IMG_7995.jpg")
-                }
-              >
-                <Card className="p-2">
-                  <img
-                    src="/images/IMG_7995.jpg"
-                    className="rounded-xl border border-[#D0D4CB]"
-                  />
-                </Card>
-              </button>
-            </div>
-          </motion.div>
-          
-
-          {/* Timeline of Remaining Experience */}
           <div className="space-y-6">
             {sortedExperience.map((exp) => (
               <Card key={exp.id} className="relative pl-6">
                 <div className="absolute left-0 top-5 h-3 w-3 bg-[#0E6B54] rounded-full" />
                 <div className="flex justify-between flex-wrap gap-3">
                   <div>
-                    <h3 className="text-sm font-semibold">{exp.role}</h3>
+                    <h3 className="text-sm font-semibold text-[#1A1F1A]">
+                      {exp.role}
+                    </h3>
                     <p className="text-xs text-[#57655B]">{exp.company}</p>
                   </div>
                   <div className="text-xs text-right text-[#5F6B62]">
@@ -594,7 +564,6 @@ export default function Page() {
                     <div>{exp.location}</div>
                   </div>
                 </div>
-
                 <ul className="mt-3 space-y-1.5 text-sm text-[#374139]">
                   {exp.bullets.map((b, idx) => (
                     <li key={idx} className="flex gap-2">
@@ -614,21 +583,19 @@ export default function Page() {
             <h3 className="text-sm uppercase font-semibold text-[#0E6B54] tracking-[0.18em] mb-4">
               Educational Journey
             </h3>
-
             <div className="grid gap-6 md:grid-cols-3">
               {EDUCATION.map((edu) => (
                 <div key={edu.school} className="space-y-1">
                   <div className="flex items-center gap-2">
                     <span className="h-2 w-2 rounded-full bg-[#0E6B54]" />
-                    <span className="text-sm font-medium">{edu.school}</span>
+                    <span className="text-sm font-medium text-[#1A1F1A]">
+                      {edu.school}
+                    </span>
                   </div>
-
                   <div className="text-xs text-[#374139]">{edu.line}</div>
-
                   <div className="text-[11px] text-[#5F6B62]">
                     {edu.time} {edu.gpa && `· GPA: ${edu.gpa}`}
                   </div>
-
                   <div className="text-[11px] text-[#5F6B62]">
                     {edu.extras.join(" • ")}
                   </div>
@@ -638,33 +605,26 @@ export default function Page() {
           </Card>
         </SectionShell>
 
-        {/* BACKGROUND */}
+        {/* BACKGROUND & IMPACT */}
         <SectionShell id="background" label="Background & Impact">
-          <div className="grid gap-10 lg:grid-cols-[1.4fr,1fr]">
-
-            {/* Volunteering */}
+          <div className="grid gap-10 lg:grid-cols-[1.4fr,1fr] items-start">
+            {/* Volunteering & leadership */}
             <Card>
               <h3 className="text-sm uppercase tracking-[0.18em] text-[#0E6B54] font-semibold mb-3">
                 Volunteering & Leadership
               </h3>
-
               <div className="space-y-3 text-sm text-[#374139]">
                 {EXTRAS.map((e) => (
                   <div key={e.title}>
-                    <div className="font-medium text-[#1A1F1A]">
-                      {e.title}
-                    </div>
-                    <div className="text-[13px] text-[#5F6B62]">
-                      {e.text}
-                    </div>
+                    <div className="font-medium text-[#1A1F1A]">{e.title}</div>
+                    <div className="text-[13px] text-[#5F6B62]">{e.text}</div>
                   </div>
                 ))}
               </div>
             </Card>
 
-            {/* Right column */}
+            {/* Honors / Certs / Languages */}
             <div className="space-y-6">
-
               <Card>
                 <h3 className="text-sm uppercase tracking-[0.18em] text-[#0E6B54] font-semibold mb-3">
                   Honors & Awards
@@ -706,7 +666,6 @@ export default function Page() {
                   ))}
                 </ul>
               </Card>
-
             </div>
           </div>
         </SectionShell>
@@ -715,17 +674,22 @@ export default function Page() {
         <SectionShell id="contact" label="Contact">
           <Card className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
             <div>
-              <h3 className="text-lg font-semibold">Let’s build something useful.</h3>
+              <h3 className="text-lg font-semibold text-[#1A1F1A]">
+                Let’s build something useful.
+              </h3>
               <p className="text-sm text-[#374139] mt-2 max-w-md">
-                I’m always excited to chat about assistive devices, soft mechanics,
-                or bioprocess hardware.
+                I’m always excited to chat about assistive devices, soft
+                mechanics, or bioprocess hardware where engineering gives
+                someone more independence.
               </p>
             </div>
-
-            <div className="text-sm space-y-1">
+            <div className="text-sm space-y-1 text-[#1A1F1A]">
               <p>
                 Email:{" "}
-                <a href="mailto:achevillotte@ucsb.edu" className="text-[#0E6B54] underline">
+                <a
+                  href="mailto:achevillotte@ucsb.edu"
+                  className="text-[#0E6B54] underline underline-offset-2"
+                >
                   achevillotte@ucsb.edu
                 </a>
               </p>
@@ -744,4 +708,5 @@ export default function Page() {
     </>
   );
 }
+
 
