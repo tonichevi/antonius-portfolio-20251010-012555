@@ -14,7 +14,7 @@ function LightBG() {
   );
 }
 
-// Subtle base pine-glow behind everything
+// Subtle pine-glow behind everything
 function BiotechGlow() {
   return (
     <div className="pointer-events-none fixed inset-0 -z-30 overflow-hidden">
@@ -47,7 +47,7 @@ function ProteinIcon({ className, color = "#0E6B54" }) {
         strokeWidth="1.4"
         strokeLinecap="round"
         strokeLinejoin="round"
-        opacity="0.7"
+        opacity="0.9"
       >
         <circle cx="16" cy="18" r="6" />
         <circle cx="32" cy="32" r="6" />
@@ -63,7 +63,7 @@ function ProteinIcon({ className, color = "#0E6B54" }) {
 function RNAIcon({ className, color = "#0E6B54" }) {
   return (
     <svg viewBox="0 0 64 64" className={className}>
-      <g fill="none" stroke={color} strokeWidth="1.4" opacity="0.7">
+      <g fill="none" stroke={color} strokeWidth="1.4" opacity="0.9">
         <path
           d="M18 10c4 6 4 10 0 16s-4 10 0 16 4 10 0 16"
           strokeLinecap="round"
@@ -81,7 +81,7 @@ function RNAIcon({ className, color = "#0E6B54" }) {
 function DNAIcon({ className, color = "#0E6B54" }) {
   return (
     <svg viewBox="0 0 64 64" className={className}>
-      <g fill="none" stroke={color} strokeWidth="1.4" opacity="0.7">
+      <g fill="none" stroke={color} strokeWidth="1.4" opacity="0.9">
         <path
           d="M20 10c6 6 18 6 24 0M20 54c6-6 18-6 24 0"
           strokeLinecap="round"
@@ -109,7 +109,7 @@ function CircuitIcon({ className, color = "#0E6B54" }) {
         strokeWidth="1.4"
         strokeLinecap="round"
         strokeLinejoin="round"
-        opacity="0.7"
+        opacity="0.9"
       >
         {/* Resistor */}
         <path d="M8 24h8l4-6 4 6 4-6 4 6 4-6 4 6h8" />
@@ -127,7 +127,7 @@ function CircuitIcon({ className, color = "#0E6B54" }) {
 function GearIcon({ className, color = "#0E6B54" }) {
   return (
     <svg viewBox="0 0 64 64" className={className}>
-      <g fill="none" stroke={color} strokeWidth="1.4" opacity="0.7">
+      <g fill="none" stroke={color} strokeWidth="1.4" opacity="0.9">
         <circle cx="32" cy="32" r="8" />
         <circle cx="32" cy="32" r="2.5" />
         <path d="M32 14v6M32 44v6M18 18l4.2 4.2M41.8 41.8L46 46M14 32h6M44 32h6M18 46l4.2-4.2M41.8 22.2L46 18" />
@@ -139,7 +139,7 @@ function GearIcon({ className, color = "#0E6B54" }) {
 function CellIcon({ className, color = "#0E6B54" }) {
   return (
     <svg viewBox="0 0 64 64" className={className}>
-      <g fill="none" stroke={color} strokeWidth="1.4" opacity="0.7">
+      <g fill="none" stroke={color} strokeWidth="1.4" opacity="0.9">
         <ellipse cx="32" cy="32" rx="20" ry="14" />
         <ellipse cx="32" cy="32" rx="8" ry="6" />
         <circle cx="35" cy="30" r="2" />
@@ -152,7 +152,7 @@ function CellIcon({ className, color = "#0E6B54" }) {
 function SpringIcon({ className, color = "#0E6B54" }) {
   return (
     <svg viewBox="0 0 64 64" className={className}>
-      <g fill="none" stroke={color} strokeWidth="1.4" opacity="0.7">
+      <g fill="none" stroke={color} strokeWidth="1.4" opacity="0.9">
         <path
           d="M18 18c4-4 8-4 12 0s8 4 12 0M18 30c4-4 8-4 12 0s8 4 12 0M18 42c4-4 8-4 12 0s8 4 12 0"
           strokeLinecap="round"
@@ -166,7 +166,7 @@ function SpringIcon({ className, color = "#0E6B54" }) {
 function BoltIcon({ className, color = "#0E6B54" }) {
   return (
     <svg viewBox="0 0 64 64" className={className}>
-      <g fill="none" stroke={color} strokeWidth="1.4" opacity="0.7">
+      <g fill="none" stroke={color} strokeWidth="1.4" opacity="0.9">
         <polygon points="28,10 40,10 44,18 40,26 24,26 20,18" />
         <rect x="26" y="26" width="12" height="18" />
         <path d="M26 44h12v4H26z" />
@@ -178,7 +178,7 @@ function BoltIcon({ className, color = "#0E6B54" }) {
 function PumpIcon({ className, color = "#0E6B54" }) {
   return (
     <svg viewBox="0 0 64 64" className={className}>
-      <g fill="none" stroke={color} strokeWidth="1.4" opacity="0.7">
+      <g fill="none" stroke={color} strokeWidth="1.4" opacity="0.9">
         <rect x="16" y="20" width="32" height="20" rx="4" />
         <circle cx="26" cy="30" r="5" />
         <path d="M36 24h6M36 30h6M36 36h6" />
@@ -197,63 +197,34 @@ function WaveIcon({ className, color = "#0E6B54" }) {
         stroke={color}
         strokeWidth="1.4"
         strokeLinecap="round"
-        opacity="0.7"
+        opacity="0.9"
       />
     </svg>
   );
 }
 
 /* -----------------------------------------------------
-   THEME CONFIG (COLORS PER SECTION)
+   THEME CONFIG (ICON COLORS PER SECTION)
 ----------------------------------------------------- */
 
 const THEME_CONFIG = {
-  overview: {
-    iconColor: "#0E6B54",
-    haloClass:
-      "bg-[radial-gradient(circle_at_top,rgba(14,107,84,0.18),transparent_65%)]",
-  },
-  projects: {
-    iconColor: "#078F77",
-    haloClass:
-      "bg-[radial-gradient(circle_at_top,rgba(7,143,119,0.2),transparent_65%)]",
-  },
-  experience: {
-    iconColor: "#3D6B58",
-    haloClass:
-      "bg-[radial-gradient(circle_at_top,rgba(61,107,88,0.2),transparent_65%)]",
-  },
-  education: {
-    iconColor: "#0C6F87",
-    haloClass:
-      "bg-[radial-gradient(circle_at_top,rgba(12,111,135,0.22),transparent_65%)]",
-  },
-  background: {
-    iconColor: "#4C6057",
-    haloClass:
-      "bg-[radial-gradient(circle_at_top,rgba(76,96,87,0.22),transparent_65%)]",
-  },
-  contact: {
-    iconColor: "#B0713D",
-    haloClass:
-      "bg-[radial-gradient(circle_at_top,rgba(176,113,61,0.22),transparent_65%)]",
-  },
-  default: {
-    iconColor: "#0E6B54",
-    haloClass:
-      "bg-[radial-gradient(circle_at_top,rgba(14,107,84,0.16),transparent_65%)]",
-  },
+  overview: { iconColor: "#0E6B54" },
+  projects: { iconColor: "#078F77" },
+  experience: { iconColor: "#3D6B58" },
+  education: { iconColor: "#0C6F87" },
+  background: { iconColor: "#4C6057" },
+  contact: { iconColor: "#B0713D" },
+  default: { iconColor: "#0E6B54" },
 };
 
 /* -----------------------------------------------------
-   SECTION-AWARE FLOATING ICONS (OPTION D)
+   SECTION-AWARE FLOATING ICONS (SCROLL-REACTIVE)
 ----------------------------------------------------- */
 
 function ThemedFloatingIcons({ theme, scrollDir, scrollSpeed }) {
   const config = THEME_CONFIG[theme] || THEME_CONFIG.default;
   const color = config.iconColor;
 
-  // Different icon mixes per theme
   let icons;
   switch (theme) {
     case "projects":
@@ -284,7 +255,6 @@ function ThemedFloatingIcons({ theme, scrollDir, scrollSpeed }) {
       break;
   }
 
-  // Positions per section (roughly around edges)
   const basePositions = [
     { top: "-8%", left: "-6%" },
     { top: "10%", right: "-8%" },
@@ -295,7 +265,7 @@ function ThemedFloatingIcons({ theme, scrollDir, scrollSpeed }) {
   ];
 
   const dirFactor = scrollDir === -1 ? -1 : 1;
-  const speedFactor = 14 + scrollSpeed * 24; // amplitude
+  const speedFactor = 14 + scrollSpeed * 24;
 
   return (
     <div className="pointer-events-none absolute inset-0 z-0 overflow-visible">
@@ -317,7 +287,7 @@ function ThemedFloatingIcons({ theme, scrollDir, scrollSpeed }) {
             className="absolute"
             style={pos}
             initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 0.4, y: 0 }}
+            whileInView={{ opacity: 0.35, y: 0 }}
             viewport={{ once: false, amount: 0.4 }}
             transition={{ duration: 0.9, delay: idx * 0.12, ease: "easeOut" }}
           >
@@ -334,7 +304,7 @@ function ThemedFloatingIcons({ theme, scrollDir, scrollSpeed }) {
               }}
             >
               <Icon
-                className="h-16 w-16 md:h-20 md:w-20"
+                className="h-20 w-20 md:h-24 md:w-24"
                 color={color}
               />
             </motion.div>
@@ -583,27 +553,45 @@ const fadeProps = {
   transition: { duration: 0.6, ease: "easeOut" },
 };
 
+// Radial halo wrapper – no border, no box
+function Card({ children, className = "" }) {
+  return (
+    <div className={`relative ${className}`}>
+      <div
+        className="
+          pointer-events-none absolute inset-[-4%] -z-10
+          bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.55),transparent_72%)]
+          blur-2xl opacity-60
+        "
+      />
+      <div className="relative">{children}</div>
+    </div>
+  );
+}
+
+// Section shell with optional vertical gradient for big sections
 function SectionShell({
   id,
   label,
   theme = "default",
   scrollDir,
   scrollSpeed,
+  verticalGradient = false,
   children,
 }) {
-  const config = THEME_CONFIG[theme] || THEME_CONFIG.default;
-
   return (
     <section
       id={id}
       className="relative max-w-6xl mx-auto px-4 py-20 space-y-10"
     >
-      {/* Local halo / glow for section color shift */}
-      <div className="pointer-events-none absolute inset-x-[-18%] -top-20 h-56 -z-30">
-        <div className={`w-full h-full ${config.haloClass} blur-3xl`} />
-      </div>
+      {/* soft vertical fade behind hero / education */}
+      {verticalGradient && (
+        <div className="pointer-events-none absolute inset-0 -z-20">
+          <div className="w-full h-full bg-[linear-gradient(to_bottom,rgba(255,255,255,0.55),transparent_85%)] opacity-70" />
+        </div>
+      )}
 
-      {/* Floating icons for this section */}
+      {/* floating icons */}
       <ThemedFloatingIcons
         theme={theme}
         scrollDir={scrollDir}
@@ -622,27 +610,6 @@ function SectionShell({
     </section>
   );
 }
-
-function Card({ children, className = "" }) {
-  return (
-    <div className={`relative ${className}`}>
-      {/* Soft halo behind content */}
-      <div
-        className="
-          absolute inset-0 -z-10 
-          bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.75),transparent_70%)]
-          blur-2xl 
-          opacity-70
-        "
-      />
-      {/* Actual content */}
-      <div className="relative z-10">
-        {children}
-      </div>
-    </div>
-  );
-}
-
 
 function ImageModal({ selectedImage, onClose }) {
   return (
@@ -678,8 +645,8 @@ export default function Page() {
   const [showSplash, setShowSplash] = useState(true);
   const [selectedImage, setSelectedImage] = useState(null);
 
-  const [scrollDir, setScrollDir] = useState(1); // 1 = down, -1 = up
-  const [scrollSpeed, setScrollSpeed] = useState(0); // 0–1 approx
+  const [scrollDir, setScrollDir] = useState(1);
+  const [scrollSpeed, setScrollSpeed] = useState(0);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -687,10 +654,9 @@ export default function Page() {
     let lastY = window.scrollY;
     let ticking = false;
 
-    const handleScrollFrame = () => {
+    const handleFrame = () => {
       const y = window.scrollY;
       const dy = y - lastY;
-
       if (dy !== 0) {
         const dir = dy > 0 ? 1 : -1;
         const speed = Math.min(1, Math.abs(dy) / 120);
@@ -701,15 +667,15 @@ export default function Page() {
       ticking = false;
     };
 
-    const handleScroll = () => {
+    const onScroll = () => {
       if (!ticking) {
-        window.requestAnimationFrame(handleScrollFrame);
+        window.requestAnimationFrame(handleFrame);
         ticking = true;
       }
     };
 
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   const sortedExperience = useMemo(
@@ -761,13 +727,14 @@ export default function Page() {
           </div>
         </header>
 
-        {/* HERO / OVERVIEW */}
+        {/* HERO / OVERVIEW – vertical gradient */}
         <SectionShell
           id="top"
           label="Overview"
           theme="overview"
           scrollDir={scrollDir}
           scrollSpeed={scrollSpeed}
+          verticalGradient
         >
           <div className="grid md:grid-cols-[1.4fr,1fr] gap-10 items-center mt-6">
             {/* TEXT */}
@@ -799,12 +766,12 @@ export default function Page() {
               </div>
             </motion.div>
 
-            {/* PORTRAIT */}
+            {/* PORTRAIT – radial halo but no box */}
             <motion.div {...fadeProps}>
-              <Card className="max-w-xs mx-auto text-center">
-                <div className="size-40 mx-auto rounded-full overflow-hidden border border-[#D0D4CB]">
+              <Card className="max-w-xs mx-auto text-center px-0 py-0">
+                <div className="size-40 mx-auto rounded-full overflow-hidden">
                   <img
-                    src="/images/3C290D86-57BC-42DB-94D9-237783F922FB8R1A8362.jpeg"
+                    src="/images/biographyVF.jpg"
                     alt="Antonius Chevillotte"
                     className="h-full w-full object-cover"
                   />
@@ -821,7 +788,7 @@ export default function Page() {
           </div>
         </SectionShell>
 
-        {/* PROJECTS */}
+        {/* PROJECTS – radial halos on text blocks */}
         <SectionShell
           id="projects"
           label="Projects"
@@ -846,7 +813,7 @@ export default function Page() {
                 >
                   {/* TEXT BLOCK */}
                   <div className={isEven ? "" : "md:order-2"}>
-                    <Card className="h-full flex flex-col justify-between">
+                    <Card className="h-full flex flex-col justify-between px-0 md:pr-8">
                       <div>
                         <div className="text-xs uppercase tracking-[0.18em] text-[#0E6B54]/70">
                           {i + 1 < 10 ? `0${i + 1}` : i + 1} · Project
@@ -866,8 +833,8 @@ export default function Page() {
                         {p.meta.map((tag) => (
                           <span
                             key={tag}
-                            className="px-2.5 py-1 text-[11px] rounded-full border 
-                            bg-[#ECEEEB] border-[#D0D4CB] text-[#1A1F1A]/70"
+                            className="px-2.5 py-1 text-[11px] rounded-full 
+                            bg-[#ECEEEB] text-[#1A1F1A]/70"
                           >
                             {tag}
                           </span>
@@ -876,9 +843,8 @@ export default function Page() {
                     </Card>
                   </div>
 
-                  {/* IMAGE(S) BLOCK */}
+                  {/* IMAGE(S) BLOCK – no frame */}
                   <div className={isEven ? "" : "md:order-1"}>
-                    {/* SINGLE IMAGE */}
                     {p.img && (
                       <motion.img
                         src={p.img}
@@ -890,7 +856,6 @@ export default function Page() {
                       />
                     )}
 
-                    {/* MULTI-IMAGES */}
                     {p.imgs && (
                       <div className="flex gap-3 overflow-x-auto pb-1">
                         {p.imgs.map((img) => (
@@ -898,8 +863,7 @@ export default function Page() {
                             key={img}
                             src={img}
                             alt={p.title}
-                            className="rounded-2xl object-cover cursor-pointer 
-                            min-w-[240px] max-h-[240px]"
+                            className="rounded-2xl object-cover cursor-pointer min-w-[240px] max-h-[240px]"
                             whileHover={{ scale: 1.02 }}
                             transition={{ duration: 0.25 }}
                             onClick={() => setSelectedImage(img)}
@@ -914,7 +878,7 @@ export default function Page() {
           </div>
         </SectionShell>
 
-        {/* EXPERIENCE */}
+        {/* EXPERIENCE – radial halos behind each item */}
         <SectionShell
           id="experience"
           label="Experience"
@@ -925,7 +889,7 @@ export default function Page() {
           <div className="space-y-6 mt-6">
             {sortedExperience.map((exp) => (
               <motion.div key={exp.id} {...fadeProps}>
-                <Card className="relative pl-6">
+                <Card className="relative pl-6 py-4">
                   <div className="absolute left-0 top-5 h-3 w-3 bg-[#0E6B54] rounded-full" />
 
                   <div className="flex justify-between flex-wrap gap-3">
@@ -955,44 +919,43 @@ export default function Page() {
           </div>
         </SectionShell>
 
-        {/* EDUCATION */}
+        {/* EDUCATION – vertical section fade, simple columns */}
         <SectionShell
           id="education"
           label="Education"
           theme="education"
           scrollDir={scrollDir}
           scrollSpeed={scrollSpeed}
+          verticalGradient
         >
           <motion.div {...fadeProps} className="mt-6">
-            <Card>
-              <h3 className="text-sm uppercase font-semibold text-[#0E6B54] tracking-[0.18em] mb-4">
-                Educational Journey
-              </h3>
+            <h3 className="text-sm uppercase font-semibold text-[#0E6B54] tracking-[0.18em] mb-6">
+              Educational Journey
+            </h3>
 
-              <div className="grid gap-6 md:grid-cols-3">
-                {EDUCATION.map((edu) => (
-                  <div key={edu.school} className="space-y-1">
-                    <div className="flex items-center gap-2">
-                      <span className="h-2 w-2 rounded-full bg-[#0E6B54]" />
-                      <span className="text-sm font-medium text-[#1A1F1A]">
-                        {edu.school}
-                      </span>
-                    </div>
-                    <div className="text-xs text-[#374139]">{edu.line}</div>
-                    <div className="text-[11px] text-[#5F6B62]">
-                      {edu.time} {edu.gpa && `· GPA: ${edu.gpa}`}
-                    </div>
-                    <div className="text-[11px] text-[#5F6B62]">
-                      {edu.extras.join(" • ")}
-                    </div>
+            <div className="grid gap-6 md:grid-cols-3">
+              {EDUCATION.map((edu) => (
+                <div key={edu.school} className="space-y-1">
+                  <div className="flex items-center gap-2">
+                    <span className="h-2 w-2 rounded-full bg-[#0E6B54]" />
+                    <span className="text-sm font-medium text-[#1A1F1A]">
+                      {edu.school}
+                    </span>
                   </div>
-                ))}
-              </div>
-            </Card>
+                  <div className="text-xs text-[#374139]">{edu.line}</div>
+                  <div className="text-[11px] text-[#5F6B62]">
+                    {edu.time} {edu.gpa && `· GPA: ${edu.gpa}`}
+                  </div>
+                  <div className="text-[11px] text-[#5F6B62]">
+                    {edu.extras.join(" • ")}
+                  </div>
+                </div>
+              ))}
+            </div>
           </motion.div>
         </SectionShell>
 
-        {/* BACKGROUND & IMPACT */}
+        {/* BACKGROUND & IMPACT – radial halos on cards */}
         <SectionShell
           id="background"
           label="Background & Impact"
@@ -1001,9 +964,9 @@ export default function Page() {
           scrollSpeed={scrollSpeed}
         >
           <div className="grid gap-10 lg:grid-cols-[1.4fr,1fr] items-start mt-6">
-            {/* VOLUNTEERING */}
+            {/* Volunteering */}
             <motion.div {...fadeProps}>
-              <Card>
+              <Card className="px-6 py-6">
                 <h3 className="text-sm uppercase tracking-[0.18em] text-[#0E6B54] font-semibold mb-3">
                   Volunteering & Leadership
                 </h3>
@@ -1019,10 +982,10 @@ export default function Page() {
               </Card>
             </motion.div>
 
-            {/* HONORS + CERTS + LANGUAGES */}
+            {/* Honors / Certs / Languages */}
             <div className="space-y-6">
               <motion.div {...fadeProps}>
-                <Card>
+                <Card className="px-6 py-6">
                   <h3 className="text-sm uppercase tracking-[0.18em] text-[#0E6B54] font-semibold mb-3">
                     Honors & Awards
                   </h3>
@@ -1038,7 +1001,7 @@ export default function Page() {
               </motion.div>
 
               <motion.div {...fadeProps}>
-                <Card>
+                <Card className="px-6 py-6">
                   <h3 className="text-sm uppercase tracking-[0.18em] text-[#0E6B54] font-semibold mb-3">
                     Licenses & Certifications
                   </h3>
@@ -1054,7 +1017,7 @@ export default function Page() {
               </motion.div>
 
               <motion.div {...fadeProps}>
-                <Card>
+                <Card className="px-6 py-6">
                   <h3 className="text-sm uppercase tracking-[0.18em] text-[#0E6B54] font-semibold mb-3">
                     Languages
                   </h3>
@@ -1072,7 +1035,7 @@ export default function Page() {
           </div>
         </SectionShell>
 
-        {/* CONTACT */}
+        {/* CONTACT – radial halo on one block */}
         <SectionShell
           id="contact"
           label="Contact"
@@ -1081,7 +1044,7 @@ export default function Page() {
           scrollSpeed={scrollSpeed}
         >
           <motion.div {...fadeProps} className="mt-6">
-            <Card className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+            <Card className="flex flex-col md:flex-row md:items-center md:justify-between gap-6 px-6 py-6">
               <div>
                 <h3 className="text-lg font-semibold text-[#1A1F1A]">
                   Let’s build something useful.
