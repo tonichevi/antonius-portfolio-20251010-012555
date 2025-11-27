@@ -202,6 +202,166 @@ function WaveIcon({ className, color = "#0E6B54" }) {
     </svg>
   );
 }
+/* Map for experiences code */
+function CaliforniaMap({ className }) {
+  return (
+    <svg
+      viewBox="0 0 200 400"
+      className={className}
+      aria-hidden="true"
+    >
+      {/* Outline */}
+      <path
+        d="M60 20 L125 50 L145 120 L125 220 L135 360 L90 380 L65 340 L50 260 L40 190 Z"
+        fill="none"
+        stroke="#0E6B54"
+        strokeWidth="1.5"
+        strokeLinejoin="round"
+        opacity="0.7"
+      />
+
+      {/* Davis */}
+      <line
+        x1="112"
+        y1="90"
+        x2="150"
+        y2="80"
+        stroke="#0E6B54"
+        strokeWidth="1"
+        strokeLinecap="round"
+        opacity="0.45"
+      />
+      <circle cx="112" cy="90" r="4" fill="#0E6B54" />
+      <circle
+        cx="112"
+        cy="90"
+        r="8"
+        stroke="#0E6B54"
+        strokeWidth="1.4"
+        fill="none"
+        opacity="0.28"
+      />
+      <text
+        x="154"
+        y="84"
+        fontSize="9"
+        fill="#354139"
+      >
+        Davis · UC Davis
+      </text>
+
+      {/* Santa Barbara */}
+      <line
+        x1="100"
+        y1="230"
+        x2="150"
+        y2="220"
+        stroke="#0E6B54"
+        strokeWidth="1"
+        strokeLinecap="round"
+        opacity="0.45"
+      />
+      <circle cx="100" cy="230" r="4" fill="#0E6B54" />
+      <circle
+        cx="100"
+        cy="230"
+        r="8"
+        stroke="#0E6B54"
+        strokeWidth="1.4"
+        fill="none"
+        opacity="0.28"
+      />
+      <text
+        x="154"
+        y="224"
+        fontSize="9"
+        fill="#354139"
+      >
+        Santa Barbara · Dressaire
+      </text>
+
+      {/* Camarillo */}
+      <line
+        x1="108"
+        y1="270"
+        x2="150"
+        y2="285"
+        stroke="#0E6B54"
+        strokeWidth="1"
+        strokeLinecap="round"
+        opacity="0.45"
+      />
+      <circle cx="108" cy="270" r="4" fill="#0E6B54" />
+      <circle
+        cx="108"
+        cy="270"
+        r="8"
+        stroke="#0E6B54"
+        strokeWidth="1.4"
+        fill="none"
+        opacity="0.28"
+      />
+      <text
+        x="154"
+        y="289"
+        fontSize="9"
+        fill="#354139"
+      >
+        Camarillo · SaniSure
+      </text>
+    </svg>
+  );
+}
+
+function GermanyMap({ className }) {
+  return (
+    <svg
+      viewBox="0 0 200 340"
+      className={className}
+      aria-hidden="true"
+    >
+      {/* Outline */}
+      <path
+        d="M95 20 L120 40 L130 70 L120 100 L135 125 L130 155 L145 190 L130 230 L135 260 L120 290 L95 310 L70 290 L60 260 L70 230 L65 200 L75 170 L65 140 L70 110 L60 80 L70 50 Z"
+        fill="none"
+        stroke="#0E6B54"
+        strokeWidth="1.5"
+        strokeLinejoin="round"
+        opacity="0.7"
+      />
+
+      {/* Ingolstadt */}
+      <line
+        x1="118"
+        y1="120"
+        x2="155"
+        y2="110"
+        stroke="#0E6B54"
+        strokeWidth="1"
+        strokeLinecap="round"
+        opacity="0.45"
+      />
+      <circle cx="118" cy="120" r="4" fill="#0E6B54" />
+      <circle
+        cx="118"
+        cy="120"
+        r="8"
+        stroke="#0E6B54"
+        strokeWidth="1.4"
+        fill="none"
+        opacity="0.28"
+      />
+      <text
+        x="159"
+        y="114"
+        fontSize="9"
+        fill="#354139"
+      >
+        Ingolstadt · AUDI
+      </text>
+    </svg>
+  );
+}
 
 /* -----------------------------------------------------
    THEME CONFIG (ICON COLORS PER SECTION)
@@ -878,46 +1038,181 @@ export default function Page() {
           </div>
         </SectionShell>
 
-        {/* EXPERIENCE – radial halos behind each item */}
-        <SectionShell
-          id="experience"
-          label="Experience"
-          theme="experience"
-          scrollDir={scrollDir}
-          scrollSpeed={scrollSpeed}
-        >
-          <div className="space-y-6 mt-6">
-            {sortedExperience.map((exp) => (
-              <motion.div key={exp.id} {...fadeProps}>
-                <Card className="relative pl-6 py-4">
-                  <div className="absolute left-0 top-5 h-3 w-3 bg-[#0E6B54] rounded-full" />
+       {/* EXPERIENCE – map-based timeline */}
+<SectionShell
+  id="experience"
+  label="Experience"
+  theme="experience"
+  scrollDir={scrollDir}
+  scrollSpeed={scrollSpeed}
+>
+  <div className="space-y-14 mt-6">
+    {/* CALIFORNIA BLOCK */}
+    <motion.div {...fadeProps}>
+      <div className="flex items-baseline justify-between gap-4 mb-4">
+        <h3 className="text-sm uppercase tracking-[0.18em] text-[#0E6B54] font-semibold">
+          California · Bioprocess & Research
+        </h3>
+        <span className="text-[11px] text-[#5F6B62]">
+          Santa Barbara · Camarillo · Davis
+        </span>
+      </div>
 
-                  <div className="flex justify-between flex-wrap gap-3">
-                    <div>
-                      <h3 className="text-sm font-semibold text-[#1A1F1A]">
-                        {exp.role}
-                      </h3>
-                      <p className="text-xs text-[#57655B]">{exp.company}</p>
-                    </div>
-                    <div className="text-xs text-right text-[#5F6B62]">
-                      <div>{exp.period}</div>
-                      <div>{exp.location}</div>
-                    </div>
-                  </div>
+      <Card className="grid gap-10 md:grid-cols-[1.05fr,1.4fr] items-start px-0 py-0">
+        {/* MAP */}
+        <div className="px-2 md:px-4 pt-2">
+          <CaliforniaMap className="w-full max-w-xs md:max-w-sm mx-auto" />
+        </div>
 
-                  <ul className="mt-3 space-y-1.5 text-sm text-[#374139]">
-                    {exp.bullets.map((b, idx) => (
-                      <li key={idx} className="flex gap-2">
-                        <span className="mt-[6px] h-[2px] w-4 bg-[#0E6B54]/70" />
-                        {b}
-                      </li>
-                    ))}
-                  </ul>
-                </Card>
-              </motion.div>
-            ))}
+        {/* ROLES */}
+        <div className="space-y-6 pr-1 md:pr-6 pb-4">
+          {/* Dressaire Lab */}
+          <div>
+            <div className="flex items-baseline justify-between gap-2">
+              <div>
+                <h4 className="text-sm font-semibold text-[#1A1F1A]">
+                  Fluid Dynamics Researcher
+                </h4>
+                <p className="text-xs text-[#57655B]">Dressaire Lab · UCSB</p>
+              </div>
+              <div className="text-[11px] text-right text-[#5F6B62] whitespace-nowrap">
+                Oct 2025 – Present
+                <br />
+                Santa Barbara, CA
+              </div>
+            </div>
+            <ul className="mt-2 space-y-1.5 text-sm text-[#374139]">
+              <li className="flex gap-2">
+                <span className="mt-[6px] h-[2px] w-4 bg-[#0E6B54]/70" />
+                Study capillary bridges in soft gels relevant to biomedical
+                interfaces.
+              </li>
+              <li className="flex gap-2">
+                <span className="mt-[6px] h-[2px] w-4 bg-[#0E6B54]/70" />
+                Build fixtures to measure wetting, adhesion, and
+                force–separation curves.
+              </li>
+            </ul>
           </div>
-        </SectionShell>
+
+          {/* SaniSure R&D */}
+          <div>
+            <div className="flex items-baseline justify-between gap-2">
+              <div>
+                <h4 className="text-sm font-semibold text-[#1A1F1A]">
+                  Design + R&amp;D Intern
+                </h4>
+                <p className="text-xs text-[#57655B]">SaniSure — R&amp;D</p>
+              </div>
+              <div className="text-[11px] text-right text-[#5F6B62] whitespace-nowrap">
+                Jul 2025 – Present
+                <br />
+                Camarillo, CA
+              </div>
+            </div>
+            <ul className="mt-2 space-y-1.5 text-sm text-[#374139]">
+              <li className="flex gap-2">
+                <span className="mt-[6px] h-[2px] w-4 bg-[#0E6B54]/70" />
+                Develop single-use bioprocessing assemblies for cell therapy.
+              </li>
+              <li className="flex gap-2">
+                <span className="mt-[6px] h-[2px] w-4 bg-[#0E6B54]/70" />
+                Run pressure-decay tests and structured failure analyses.
+              </li>
+              <li className="flex gap-2">
+                <span className="mt-[6px] h-[2px] w-4 bg-[#0E6B54]/70" />
+                Refine SOPs and FMEAs with Fabrication and QA teams; create
+                dashboards for chemical compatibility and department overview.
+              </li>
+            </ul>
+          </div>
+
+          {/* UC Davis (RA + Tutor) */}
+          <div>
+            <div className="flex items-baseline justify-between gap-2">
+              <div>
+                <h4 className="text-sm font-semibold text-[#1A1F1A]">
+                  Research Assistant · Calculus Tutor
+                </h4>
+                <p className="text-xs text-[#57655B]">
+                  UC Davis · College of Engineering
+                </p>
+              </div>
+              <div className="text-[11px] text-right text-[#5F6B62] whitespace-nowrap">
+                Jan 2023 – Jun 2023 (RA)
+                <br />
+                Sep 2022 – Jun 2023 (Tutor)
+                <br />
+                Davis, CA
+              </div>
+            </div>
+            <ul className="mt-2 space-y-1.5 text-sm text-[#374139]">
+              <li className="flex gap-2">
+                <span className="mt-[6px] h-[2px] w-4 bg-[#0E6B54]/70" />
+                Simulated projectile motion in C with parameter sweeps and
+                experimental validation.
+              </li>
+              <li className="flex gap-2">
+                <span className="mt-[6px] h-[2px] w-4 bg-[#0E6B54]/70" />
+                Led one-on-one and small-group calculus tutoring
+                (~5–10 hrs/week).
+              </li>
+            </ul>
+          </div>
+        </div>
+      </Card>
+    </motion.div>
+
+    {/* GERMANY BLOCK */}
+    <motion.div {...fadeProps}>
+      <div className="flex items-baseline justify-between gap-4 mb-4">
+        <h3 className="text-sm uppercase tracking-[0.18em] text-[#0E6B54] font-semibold">
+          Germany · Automotive Systems
+        </h3>
+        <span className="text-[11px] text-[#5F6B62]">Ingolstadt</span>
+      </div>
+
+      <Card className="grid gap-10 md:grid-cols-[1.05fr,1.4fr] items-start px-0 py-0">
+        {/* MAP */}
+        <div className="px-2 md:px-4 pt-2">
+          <GermanyMap className="w-full max-w-xs md:max-w-sm mx-auto" />
+        </div>
+
+        {/* AUDI ROLE */}
+        <div className="space-y-6 pr-1 md:pr-6 pb-4">
+          <div>
+            <div className="flex items-baseline justify-between gap-2">
+              <div>
+                <h4 className="text-sm font-semibold text-[#1A1F1A]">
+                  Requirements Engineering Intern
+                </h4>
+                <p className="text-xs text-[#57655B]">AUDI AG — Technical Development</p>
+              </div>
+              <div className="text-[11px] text-right text-[#5F6B62] whitespace-nowrap">
+                Jan 2024 – Jun 2024
+                <br />
+                Ingolstadt, Germany
+              </div>
+            </div>
+            <ul className="mt-2 space-y-1.5 text-sm text-[#374139]">
+              <li className="flex gap-2">
+                <span className="mt-[6px] h-[2px] w-4 bg-[#0E6B54]/70" />
+                Built KPI dashboards for Systems Requirements, improving
+                traceability and visibility across vehicle programs.
+              </li>
+              <li className="flex gap-2">
+                <span className="mt-[6px] h-[2px] w-4 bg-[#0E6B54]/70" />
+                Collaborated with ~30 engineers across disciplines on
+                specifications for next-generation vehicles.
+              </li>
+            </ul>
+          </div>
+        </div>
+      </Card>
+    </motion.div>
+  </div>
+</SectionShell>
+
 
         {/* EDUCATION – vertical section fade, simple columns */}
         <SectionShell
