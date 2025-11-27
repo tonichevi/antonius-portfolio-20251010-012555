@@ -298,7 +298,7 @@ function ThemedFloatingIcons({ theme, scrollDir, scrollSpeed }) {
   const speedFactor = 14 + scrollSpeed * 24; // amplitude
 
   return (
-    <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
+    <div className="pointer-events-none absolute inset-0 z-0 overflow-visible">
       {icons.map((Icon, idx) => {
         const pos = basePositions[idx % basePositions.length];
         const axis =
