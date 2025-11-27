@@ -17,7 +17,7 @@ function LightBG() {
 // Faint repeating protein pattern, now referencing correct file
 function ProteinPatternBG() {
   return (
-    <div className="fixed inset-0 -z-35 opacity-[0.045] bg-[url('/images/ProteinPatternBG.svg')] bg-[length:260px_260px] bg-repeat" />
+    <div className="fixed inset-0 -z-35 opacity-[0.45] bg-[url('/images/ProteinPatternBG.svg')] bg-[length:260px_260px] bg-repeat" />
   );
 }
 
@@ -73,8 +73,8 @@ const NAME = "Antonius (Toni) Chevillotte";
 
 const PROJECTS = [
   {
-    id: "star-rider-ii",
-    title: "Star Rider II — Cause & Effect Vehicle",
+    id: "Musical Chair",
+    title: "Musical Chair — Cause & Effect Vehicle",
     subtitle: "Adaptive mobility platform for children with disabilities",
     description:
       "Lead mechanical designer on a therapeutic “cause-and-effect” vehicle that lets children with cerebral palsy initiate motion independently. Focused on sensing, vibration feedback, and a clinic-friendly, kid-proof chassis.",
@@ -117,7 +117,6 @@ const PROJECTS = [
     meta: ["UCSB", "2024–2025", "CAD"],
     imgs: [
       "/images/TVSketch.jpg",
-      "/images/TV.jpg.png",
       "/images/SteeringWheel.jpg",
     ],
   },
@@ -159,6 +158,7 @@ const EXPERIENCE = [
       "Develop single-use bioprocessing assemblies for cell therapy.",
       "Run pressure-decay leak tests and structured failure analysis.",
       "Refine SOPs and FMEAs with Fabrication and QA teams.",
+       "Create Dashboards for chemical compatibility and dept. overview",
     ],
   },
   {
