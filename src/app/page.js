@@ -14,23 +14,181 @@ function LightBG() {
   );
 }
 
-// Faint repeating protein pattern, now referencing correct file
-function ProteinPatternBG() {
-  return (
-    <div className="fixed inset-0 -z-35 opacity-[0.45] bg-[url('/images/ProteinPatternBG.svg')] bg-[length:260px_260px] bg-repeat" />
-  );
-}
-
 // Subtle pine-glow
 function BiotechGlow() {
   return (
     <div className="pointer-events-none fixed inset-0 -z-30 overflow-hidden">
-      <div className="absolute -left-20 -top-10 h-80 w-80 rounded-full 
-      bg-[radial-gradient(circle_at_center,rgba(102,153,133,0.20),transparent_70%)] blur-3xl" />
-      <div className="absolute -right-24 top-40 h-96 w-96 rounded-full 
-      bg-[radial-gradient(circle_at_center,rgba(14,107,84,0.18),transparent_70%)] blur-3xl" />
-      <div className="absolute inset-x-0 bottom-[-16rem] h-[22rem] 
-      bg-[radial-gradient(ellipse_at_bottom,rgba(154,181,166,0.22),transparent_68%)] blur-2xl" />
+      <div
+        className="absolute -left-20 -top-10 h-80 w-80 rounded-full 
+      bg-[radial-gradient(circle_at_center,rgba(102,153,133,0.20),transparent_70%)] blur-3xl"
+      />
+      <div
+        className="absolute -right-24 top-40 h-96 w-96 rounded-full 
+      bg-[radial-gradient(circle_at_center,rgba(14,107,84,0.18),transparent_70%)] blur-3xl"
+      />
+      <div
+        className="absolute inset-x-0 bottom-[-16rem] h-[22rem] 
+      bg-[radial-gradient(ellipse_at_bottom,rgba(154,181,166,0.22),transparent_68%)] blur-2xl"
+      />
+    </div>
+  );
+}
+
+/* -----------------------------------------------------
+   INLINE BACKGROUND ICONS
+----------------------------------------------------- */
+
+function ProteinIcon({ className }) {
+  return (
+    <svg viewBox="0 0 64 64" className={className}>
+      <g
+        fill="none"
+        stroke="#0E6B54"
+        strokeWidth="1.4"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        opacity="0.65"
+      >
+        <circle cx="16" cy="18" r="6" />
+        <circle cx="32" cy="32" r="6" />
+        <circle cx="48" cy="18" r="6" />
+        <circle cx="24" cy="46" r="6" />
+        <circle cx="40" cy="46" r="6" />
+        <path d="M21 22l7 7m9 0l7-7M29 38l-3 4m12-4l3 4" />
+      </g>
+    </svg>
+  );
+}
+
+function RNAIcon({ className }) {
+  return (
+    <svg viewBox="0 0 64 64" className={className}>
+      <g fill="none" stroke="#0E6B54" strokeWidth="1.4" opacity="0.65">
+        <path
+          d="M18 10c4 6 4 10 0 16s-4 10 0 16 4 10 0 16"
+          strokeLinecap="round"
+        />
+        <path
+          d="M46 10c-4 6-4 10 0 16s4 10 0 16-4 10 0 16"
+          strokeLinecap="round"
+        />
+        <path d="M22 14h8M34 14h8M22 22h8M34 22h8M22 30h8M34 30h8M22 38h8M34 38h8M22 46h8M34 46h8M22 54h8M34 54h8" />
+      </g>
+    </svg>
+  );
+}
+
+function CircuitIcon({ className }) {
+  return (
+    <svg viewBox="0 0 64 64" className={className}>
+      <g
+        fill="none"
+        stroke="#0E6B54"
+        strokeWidth="1.4"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        opacity="0.65"
+      >
+        {/* Resistor */}
+        <path d="M8 24h8l4-6 4 6 4-6 4 6 4-6 4 6h8" />
+        {/* Op-amp */}
+        <path d="M18 44l14-8v16l-14-8z" />
+        <path d="M32 36h8M32 52h8M20 40h-6M20 48h-6M40 44h6" />
+        {/* Nodes */}
+        <circle cx="8" cy="24" r="1.5" />
+        <circle cx="56" cy="24" r="1.5" />
+      </g>
+    </svg>
+  );
+}
+
+function GearIcon({ className }) {
+  return (
+    <svg viewBox="0 0 64 64" className={className}>
+      <g fill="none" stroke="#0E6B54" strokeWidth="1.4" opacity="0.65">
+        <circle cx="32" cy="32" r="8" />
+        <circle cx="32" cy="32" r="2.5" />
+        <path d="M32 14v6M32 44v6M18 18l4.2 4.2M41.8 41.8L46 46M14 32h6M44 32h6M18 46l4.2-4.2M41.8 22.2L46 18" />
+      </g>
+    </svg>
+  );
+}
+
+function CellIcon({ className }) {
+  return (
+    <svg viewBox="0 0 64 64" className={className}>
+      <g fill="none" stroke="#0E6B54" strokeWidth="1.4" opacity="0.65">
+        <ellipse cx="32" cy="32" rx="20" ry="14" />
+        <ellipse cx="32" cy="32" rx="8" ry="6" />
+        <circle cx="35" cy="30" r="2" />
+        <path d="M18 28c2 1 3 1 5 0m18 8c2 1 3 1 5 0M20 37c2 1 4 1 6 0" />
+      </g>
+    </svg>
+  );
+}
+
+/* -----------------------------------------------------
+   SECTION-AWARE FLOATING BACKGROUND ICONS
+----------------------------------------------------- */
+
+function ThemedFloatingIcons({ theme }) {
+  // Choose a palette of icons for each theme
+  let icons;
+  switch (theme) {
+    case "projects":
+      icons = [ProteinIcon, RNAIcon, CircuitIcon];
+      break;
+    case "experience":
+      icons = [CircuitIcon, GearIcon, CircuitIcon];
+      break;
+    case "education":
+      icons = [RNAIcon, ProteinIcon, CellIcon];
+      break;
+    case "background":
+      icons = [CellIcon, GearIcon, CircuitIcon];
+      break;
+    case "contact":
+      icons = [GearIcon, CircuitIcon];
+      break;
+    case "overview":
+    default:
+      icons = [CellIcon, GearIcon, ProteinIcon];
+      break;
+  }
+
+  const positions = [
+    { top: "6%", left: "-4%" },
+    { top: "40%", right: "-6%" },
+    { bottom: "-10%", left: "32%" },
+  ];
+
+  return (
+    <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
+      {icons.map((Icon, idx) => {
+        const pos = positions[idx] || { top: "20%", left: "70%" };
+        return (
+          <motion.div
+            key={idx}
+            className="absolute"
+            style={pos}
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 0.5, y: 0 }}
+            viewport={{ once: false, amount: 0.4 }}
+            transition={{ duration: 0.8, delay: idx * 0.12 }}
+          >
+            <motion.div
+              animate={{ y: [0, -18, 0] }}
+              transition={{
+                duration: 18 + idx * 3,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+            >
+              <Icon className="h-20 w-20 md:h-24 md:w-24" />
+            </motion.div>
+          </motion.div>
+        );
+      })}
     </div>
   );
 }
@@ -73,7 +231,7 @@ const NAME = "Antonius (Toni) Chevillotte";
 
 const PROJECTS = [
   {
-    id: "Musical Chair",
+    id: "musical-chair",
     title: "Musical Chair — Cause & Effect Vehicle",
     subtitle: "Adaptive mobility platform for children with disabilities",
     description:
@@ -115,10 +273,7 @@ const PROJECTS = [
     description:
       "Collection of CAD projects including a stiffness-optimized TV mount and an ergonomic FSAE steering wheel designed for packaging, wiring, and manufacturability.",
     meta: ["UCSB", "2024–2025", "CAD"],
-    imgs: [
-      "/images/TVSketch.jpg",
-      "/images/SteeringWheel.jpg",
-    ],
+    imgs: ["/images/TVSketch.jpg", "/images/SteeringWheel.jpg"],
   },
   {
     id: "sanisure-dash",
@@ -158,7 +313,7 @@ const EXPERIENCE = [
       "Develop single-use bioprocessing assemblies for cell therapy.",
       "Run pressure-decay leak tests and structured failure analysis.",
       "Refine SOPs and FMEAs with Fabrication and QA teams.",
-       "Create Dashboards for chemical compatibility and dept. overview",
+      "Create dashboards for chemical compatibility and department overview.",
     ],
   },
   {
@@ -276,16 +431,24 @@ const fadeProps = {
   transition: { duration: 0.6, ease: "easeOut" },
 };
 
-function SectionShell({ id, label, children }) {
+function SectionShell({ id, label, theme, children }) {
   return (
-    <section id={id} className="max-w-6xl mx-auto px-4 py-20 space-y-10">
-      <div className="flex items-center gap-3">
-        <span className="h-px w-10 bg-[#0E6B54]/50" />
-        <h2 className="text-xs uppercase tracking-[0.22em] text-[#0E6B54]/70">
-          {label}
-        </h2>
+    <section
+      id={id}
+      className="relative max-w-6xl mx-auto px-4 py-20 space-y-10"
+    >
+      {/* Section-aware floating icons */}
+      <ThemedFloatingIcons theme={theme} />
+
+      <div className="relative z-10">
+        <div className="flex items-center gap-3">
+          <span className="h-px w-10 bg-[#0E6B54]/50" />
+          <h2 className="text-xs uppercase tracking-[0.22em] text-[#0E6B54]/70">
+            {label}
+          </h2>
+        </div>
+        {children}
       </div>
-      {children}
     </section>
   );
 }
@@ -345,7 +508,6 @@ export default function Page() {
   return (
     <>
       <LightBG />
-      <ProteinPatternBG />
       <BiotechGlow />
 
       <AnimatePresence>
@@ -385,8 +547,8 @@ export default function Page() {
         </header>
 
         {/* HERO */}
-        <SectionShell id="top" label="Overview">
-          <div className="grid md:grid-cols-[1.4fr,1fr] gap-10 items-center">
+        <SectionShell id="top" label="Overview" theme="overview">
+          <div className="grid md:grid-cols-[1.4fr,1fr] gap-10 items-center mt-6">
             {/* TEXT */}
             <motion.div {...fadeProps} className="space-y-6">
               <h1 className="text-3xl md:text-5xl font-semibold leading-tight">
@@ -400,17 +562,19 @@ export default function Page() {
               </p>
 
               <div className="flex gap-2 flex-wrap">
-                {["Assistive Devices", "Soft Interfaces", "Bioprocess Hardware"].map(
-                  (tag) => (
-                    <span
-                      key={tag}
-                      className="px-3 py-1 text-[11px] uppercase tracking-wide 
+                {[
+                  "Assistive Devices",
+                  "Soft Interfaces",
+                  "Bioprocess Hardware",
+                ].map((tag) => (
+                  <span
+                    key={tag}
+                    className="px-3 py-1 text-[11px] uppercase tracking-wide 
                       rounded-full bg-[#0E6B54]/10 text-[#0E6B54] border border-[#0E6B54]/30"
-                    >
-                      {tag}
-                    </span>
-                  )
-                )}
+                  >
+                    {tag}
+                  </span>
+                ))}
               </div>
             </motion.div>
 
@@ -437,8 +601,8 @@ export default function Page() {
         </SectionShell>
 
         {/* PROJECTS */}
-        <SectionShell id="projects" label="Projects">
-          <div className="space-y-16">
+        <SectionShell id="projects" label="Projects" theme="projects">
+          <div className="space-y-16 mt-6">
             {PROJECTS.map((p, i) => {
               const isEven = i % 2 === 0;
 
@@ -524,8 +688,12 @@ export default function Page() {
         </SectionShell>
 
         {/* EXPERIENCE */}
-        <SectionShell id="experience" label="Experience">
-          <div className="space-y-6">
+        <SectionShell
+          id="experience"
+          label="Experience"
+          theme="experience"
+        >
+          <div className="space-y-6 mt-6">
             {sortedExperience.map((exp) => (
               <motion.div key={exp.id} {...fadeProps}>
                 <Card className="relative pl-6">
@@ -559,8 +727,8 @@ export default function Page() {
         </SectionShell>
 
         {/* EDUCATION */}
-        <SectionShell id="education" label="Education">
-          <motion.div {...fadeProps}>
+        <SectionShell id="education" label="Education" theme="education">
+          <motion.div {...fadeProps} className="mt-6">
             <Card>
               <h3 className="text-sm uppercase font-semibold text-[#0E6B54] tracking-[0.18em] mb-4">
                 Educational Journey
@@ -590,8 +758,12 @@ export default function Page() {
         </SectionShell>
 
         {/* BACKGROUND & IMPACT */}
-        <SectionShell id="background" label="Background & Impact">
-          <div className="grid gap-10 lg:grid-cols-[1.4fr,1fr] items-start">
+        <SectionShell
+          id="background"
+          label="Background & Impact"
+          theme="background"
+        >
+          <div className="grid gap-10 lg:grid-cols-[1.4fr,1fr] items-start mt-6">
             {/* VOLUNTEERING */}
             <motion.div {...fadeProps}>
               <Card>
@@ -664,8 +836,8 @@ export default function Page() {
         </SectionShell>
 
         {/* CONTACT */}
-        <SectionShell id="contact" label="Contact">
-          <motion.div {...fadeProps}>
+        <SectionShell id="contact" label="Contact" theme="contact">
+          <motion.div {...fadeProps} className="mt-6">
             <Card className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
               <div>
                 <h3 className="text-lg font-semibold text-[#1A1F1A]">
@@ -705,4 +877,5 @@ export default function Page() {
     </>
   );
 }
+
 
