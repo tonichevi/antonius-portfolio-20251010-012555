@@ -599,7 +599,7 @@ function SectionShell({
       className="relative max-w-6xl mx-auto px-4 py-20 space-y-10"
     >
       {/* Local halo / glow for section color shift */}
-      <div className="pointer-events-none absolute inset-x-[-18%] -top-20 h-56 -z-20">
+      <div className="pointer-events-none absolute inset-x-[-18%] -top-20 h-56 -z-30">
         <div className={`w-full h-full ${config.haloClass} blur-3xl`} />
       </div>
 
