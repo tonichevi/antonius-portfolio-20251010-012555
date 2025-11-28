@@ -194,200 +194,89 @@ function WaveIcon({ className, color = "#0E6B54" }) {
    MAP COMPONENTS
 ----------------------------------------------------- */
 
-{/* -----------------------------------------------------
-   EXPERIENCE – INTERACTIVE MAPS (JS SAFE)
------------------------------------------------------ */}
-
-/* --------------------------------------------------------------------------
-   EXPERIENCE MAP — HIGH-FIDELITY SILHOUETTES (JS SAFE)
-----------------------------------------------------------------------------*/
-
-function ExperienceMap({ scrollDir, scrollSpeed }) {
-  const [activeId, setActiveId] = useState(null);
-
-  // Close card when clicking outside
-  useEffect(() => {
-    const close = () => setActiveId(null);
-    window.addEventListener("click", close);
-    return () => window.removeEventListener("click", close);
-  }, []);
-
-  const handleMarker = (e, id) => {
-    e.stopPropagation();
-    setActiveId((prev) => (prev === id ? null : id));
-  };
-
-  const data = {
-    dressaire: {
-      title: "Fluid Dynamics Researcher",
-      company: "Dressaire Lab · UCSB",
-      dates: "Oct 2025 – Present",
-      location: "Santa Barbara, CA",
-      bullets: [
-        "Study capillary bridges in soft gels relevant to biomedical interfaces.",
-        "Built fixtures to measure wetting, adhesion, and force–separation curves.",
-      ],
-    },
-    sanisure: {
-      title: "Design + R&D Intern",
-      company: "SaniSure — R&D",
-      dates: "Jul 2025 – Present",
-      location: "Camarillo, CA",
-      bullets: [
-        "Develop single-use bioprocessing assemblies for cell therapy.",
-        "Run pressure-decay tests and structured failure analysis.",
-        "Refined SOPs + FMEAs and built QA dashboards.",
-      ],
-    },
-    ucd: {
-      title: "Research Assistant · Calculus Tutor",
-      company: "UC Davis · College of Engineering",
-      dates: "Jan 2023 – Jun 2023 (RA); Sep 2022 – Jun 2023 (Tutor)",
-      location: "Davis, CA",
-      bullets: [
-        "Simulated projectile motion in C with parameter sweeps.",
-        "Tutored 5–10 hrs/week in core calculus.",
-      ],
-    },
-    audi: {
-      title: "Requirements Engineering Intern",
-      company: "AUDI AG — Technical Development",
-      dates: "Jan 2024 – Jun 2024",
-      location: "Ingolstadt, Germany",
-      bullets: [
-        "Built KPI dashboards improving systems traceability.",
-        "Collaborated with ~30 engineers across disciplines.",
-      ],
-    },
-  };
+function CaliforniaMap({ className, activeId, onMarkerClick }) {
+  const markers = [
+    { id: "ucd", cx: 125, cy: 155 }, // Davis (accurate inland)
+    { id: "dressaire", cx: 145, cy: 285 }, // Santa Barbara (coastal)
+    { id: "sanisure", cx: 150, cy: 320 }, // Camarillo (coastal)
+  ];
 
   return (
-    <SectionShell
-      id="experience"
-      label="Experience"
-      theme="experience"
-      scrollDir={scrollDir}
-      scrollSpeed={scrollSpeed}
-    >
-      <div className="relative mt-10 grid md:grid-cols-2 gap-12">
+    <svg viewBox="0 0 260 500" className={className}>
+      <path
+        d="
+        M 95 12 L 110 18 L 125 35 L 135 60 L 145 90 L 155 115 L 160 140 
+        L 162 165 L 160 180 L 158 200 L 155 220 L 152 240 L 150 260 
+        L 148 275 L 147 290 L 150 305 L 155 320 L 160 335 L 162 350 
+        L 160 365 L 155 380 L 145 400 L 132 420 L 120 435 L 110 450 
+        L 100 465 L 90 478 L 80 485 L 72 480 L 65 465 L 58 450 
+        L 55 430 L 53 410 L 52 390 L 50 365 L 48 345 L 45 330 
+        L 42 310 L 40 290 L 38 270 L 36 250 L 34 230 L 32 210 
+        L 30 190 L 28 170 L 26 150 L 28 130 L 32 115 L 40 95 
+        L 52 75 L 65 55 L 78 35 L 90 20 Z
+        "
+        fill="none"
+        stroke="#0E6B54"
+        strokeWidth="2"
+        strokeLinejoin="round"
+        opacity="0.9"
+      />
 
-        {/* ------------------------------------------------------------------
-            CALIFORNIA MAP — HIGH-RES OUTLINE (≈ 100-point coastal path)
-        ------------------------------------------------------------------- */}
-        <div className="relative select-none" onClick={(e) => e.stopPropagation()}>
-          <p className="text-[11px] uppercase tracking-[0.18em] text-[#0E6B54]/70 mb-2">
-            California · Bioprocess & Research
-          </p>
-
-          <svg
-            viewBox="0 0 320 900"
-            className="w-full max-w-xs"
+      {markers.map((m) => {
+        const active = activeId === m.id;
+        return (
+          <g key={m.id}
+            className="cursor-pointer"
+            onClick={(e) => { e.stopPropagation(); onMarkerClick(m.id); }}
           >
-            <path
-              d="M115 40 L140 120 L178 260 L205 350 L225 470
-                 L218 620 L195 760 L150 840 L120 760 L95 620
-                 L75 480 L65 330 L70 200 Z"
-              fill="none"
-              stroke="#0E6B54"
-              strokeWidth="3"
-              strokeLinejoin="round"
-              strokeLinecap="round"
-              opacity="0.78"
+            <circle cx={m.cx} cy={m.cy} r={active ? 6 : 4} fill="#0E6B54" />
+            <circle cx={m.cx} cy={m.cy} r={active ? 12 : 9}
+              stroke="#0E6B54" strokeWidth="1.5" fill="none" opacity="0.25"
             />
+          </g>
+        );
+      })}
+    </svg>
+  );
+}
+function GermanyMap({ className, activeId, onMarkerClick }) {
+  const markers = [
+    { id: "audi", cx: 140, cy: 215 }, // Ingolstadt (accurate Bavaria placement)
+  ];
 
-            {/* Davis */}
-            <circle cx="155" cy="250" r="11"
-              fill="#0E6B54"
-              onClick={(e) => handleMarker(e, "ucd")}
-            />
+  return (
+    <svg viewBox="0 0 260 420" className={className}>
+      <path
+        d="
+        M 135 15 L 155 35 L 170 60 L 175 90 L 185 115 L 190 140 
+        L 185 165 L 190 190 L 195 215 L 190 240 L 185 265 L 175 290 
+        L 165 315 L 155 340 L 145 360 L 130 385 L 120 400 L 110 380 
+        L 100 360 L 90 330 L 82 305 L 75 275 L 70 250 L 72 225 
+        L 70 200 L 68 180 L 70 160 L 72 135 L 80 115 L 95 90 
+        L 110 70 L 120 55 L 130 35 Z
+        "
+        fill="none"
+        stroke="#0E6B54"
+        strokeWidth="2"
+        strokeLinejoin="round"
+        opacity="0.9"
+      />
 
-            {/* Santa Barbara */}
-            <circle cx="150" cy="500" r="11"
-              fill="#0E6B54"
-              onClick={(e) => handleMarker(e, "dressaire")}
-            />
-
-            {/* Camarillo */}
-            <circle cx="165" cy="540" r="11"
-              fill="#0E6B54"
-              onClick={(e) => handleMarker(e, "sanisure")}
-            />
-          </svg>
-        </div>
-
-        {/* ------------------------------------------------------------------
-            GERMANY MAP — HIGH-RES OUTLINE
-        ------------------------------------------------------------------- */}
-        <div className="relative select-none" onClick={(e) => e.stopPropagation()}>
-          <p className="text-[11px] uppercase tracking-[0.18em] text-[#0E6B54]/70 mb-2">
-            Germany · Automotive Systems
-          </p>
-
-          <svg viewBox="0 0 300 900" className="w-full max-w-xs">
-            <path
-              d="
-                M150 50 L190 110 L210 190 L198 260 L215 330
-                L200 420 L222 520 L205 650 L160 780 
-                L110 720 L90 580 L110 480 L100 360 L120 250 
-                L110 150 Z
-              "
-              fill="none"
-              stroke="#0E6B54"
-              strokeWidth="3"
-              strokeLinejoin="round"
-              strokeLinecap="round"
-              opacity="0.78"
-            />
-
-            {/* Ingolstadt */}
-            <circle cx="175" cy="430" r="11"
-              fill="#0E6B54"
-              onClick={(e) => handleMarker(e, "audi")}
-            />
-          </svg>
-        </div>
-      </div>
-
-      {/* ------------------------------------------------------------------
-          ACTIVE EXPERIENCE CARD
-      ------------------------------------------------------------------- */}
-      <AnimatePresence>
-        {activeId && (
-          <motion.div
-            key={activeId}
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 16 }}
-            transition={{ duration: 0.35 }}
-            className="
-              absolute left-1/2 -translate-x-1/2 mt-10 
-              bg-white rounded-2xl border border-[#D9DED8] 
-              shadow-xl p-6 w-[90%] max-w-lg z-30
-            "
-            onClick={(e) => e.stopPropagation()}
+      {markers.map((m) => {
+        const active = activeId === m.id;
+        return (
+          <g key={m.id}
+            className="cursor-pointer"
+            onClick={(e) => { e.stopPropagation(); onMarkerClick(m.id); }}
           >
-            <h4 className="text-lg font-semibold">{data[activeId].title}</h4>
-            <p className="text-sm text-[#5F6B62]">
-              {data[activeId].company}
-            </p>
-
-            <div className="flex justify-between text-xs text-[#7A847C] mt-1">
-              <span>{data[activeId].dates}</span>
-              <span>{data[activeId].location}</span>
-            </div>
-
-            <ul className="mt-4 space-y-2 text-sm text-[#374139]">
-              {data[activeId].bullets.map((b, i) => (
-                <li key={i} className="flex gap-2">
-                  <span className="mt-1 h-[3px] w-4 bg-[#0E6B54]" />
-                  {b}
-                </li>
-              ))}
-            </ul>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </SectionShell>
+            <circle cx={m.cx} cy={m.cy} r={active ? 6 : 4} fill="#0E6B54" />
+            <circle cx={m.cx} cy={m.cy} r={active ? 12 : 9}
+              stroke="#0E6B54" strokeWidth="1.5" fill="none" opacity="0.25"
+            />
+          </g>
+        );
+      })}
+    </svg>
   );
 }
 
@@ -1000,8 +889,106 @@ export default function Page() {
         </SectionShell>
 
         {/* EXPERIENCE – MAP-BASED */}
-<ExperienceMap scrollDir={scrollDir} scrollSpeed={scrollSpeed} />
+        <SectionShell
+          id="experience"
+          label="Experience"
+          theme="experience"
+          scrollDir={scrollDir}
+          scrollSpeed={scrollSpeed}
+        >
+          <motion.div {...fadeProps} className="mt-6 relative pb-32">
+            <div className="flex items-baseline justify-between gap-4 mb-6">
+              <h3 className="text-sm uppercase tracking-[0.18em] text-[#0E6B54] font-semibold">
+                California & Germany · Where I’ve Worked
+              </h3>
+              <span className="text-[11px] text-[#5F6B62]">
+                Click a marker to see the story
+              </span>
+            </div>
 
+            <div className="grid gap-10 md:grid-cols-2 items-start">
+              <div
+                className="relative flex justify-center"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <CaliforniaMap
+                  className="w-full max-w-sm"
+                  activeId={
+                    activeExperienceId === "audi" ? null : activeExperienceId
+                  }
+                  onMarkerClick={handleMarkerClick}
+                />
+                <p className="absolute left-4 top-4 text-[10px] uppercase tracking-[0.18em] text-[#0E6B54]/70">
+                  California · Bioprocess & Research
+                </p>
+              </div>
+
+              <div
+                className="relative flex justify-center"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <GermanyMap
+                  className="w-full max-w-sm"
+                  activeId={activeExperienceId === "audi" ? "audi" : null}
+                  onMarkerClick={handleMarkerClick}
+                />
+                <p className="absolute left-4 top-4 text-[10px] uppercase tracking-[0.18em] text-[#0E6B54]/70">
+                  Germany · Automotive Systems
+                </p>
+              </div>
+            </div>
+
+            <AnimatePresence>
+              {activeExperience && activeMap && (
+                <motion.div
+                  key={activeExperienceId}
+                  initial={{ opacity: 0, y: 16 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 16 }}
+                  transition={{ duration: 0.35, ease: "easeOut" }}
+                  className="pointer-events-auto absolute max-w-md"
+                  style={
+                    activeMap === "ca"
+                      ? { left: "4%", bottom: "4%" }
+                      : { right: "4%", bottom: "4%" }
+                  }
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <div className="rounded-3xl bg-white/96 shadow-[0_18px_45px_rgba(0,0,0,0.12)] border border-[#D0D4CB]/80 px-5 py-4 md:px-6 md:py-5">
+                    <div className="flex justify-between gap-4">
+                      <div>
+                        <div className="text-xs font-semibold uppercase tracking-[0.16em] text-[#0E6B54]/70 mb-1">
+                          {activeMap === "ca"
+                            ? "California Experience"
+                            : "Germany Experience"}
+                        </div>
+                        <h4 className="text-sm md:text-base font-semibold text-[#1A1F1A]">
+                          {activeExperience.role}
+                        </h4>
+                        <p className="text-xs text-[#57655B] mt-0.5">
+                          {activeExperience.company}
+                        </p>
+                      </div>
+                      <div className="text-[11px] text-right text-[#5F6B62] whitespace-nowrap">
+                        <div>{activeExperience.period}</div>
+                        <div>{activeExperience.location}</div>
+                      </div>
+                    </div>
+
+                    <ul className="mt-3 space-y-1.5 text-sm text-[#374139]">
+                      {activeExperience.bullets.map((b, idx) => (
+                        <li key={idx} className="flex gap-2">
+                          <span className="mt-[7px] h-[2px] w-4 bg-[#0E6B54]/70" />
+                          <span>{b}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </motion.div>
+        </SectionShell>
 
         {/* EDUCATION */}
         <SectionShell
@@ -1186,6 +1173,8 @@ export default function Page() {
     </>
   );
 }
+
+
 
 
 
