@@ -14,12 +14,22 @@ function LightBG() {
   );
 }
 
+// Subtle pine-glow behind everything
 function BiotechGlow() {
   return (
-    <div className="pointer-events-none fixed inset-0 -z-30 overflow-visible">
-      <div className="absolute -left-20 -top-10 h-80 w-80 rounded-full bg-[radial-gradient(circle_at_center,rgba(102,153,133,0.20),transparent_70%)] blur-3xl" />
-      <div className="absolute -right-24 top-40 h-96 w-96 rounded-full bg-[radial-gradient(circle_at_center,rgba(14,107,84,0.18),transparent_70%)] blur-3xl" />
-      <div className="absolute inset-x-0 bottom-[-16rem] h-[22rem] bg-[radial-gradient(ellipse_at_bottom,rgba(154,181,166,0.22),transparent_68%)] blur-2xl" />
+    <div className="pointer-events-none fixed inset-0 -z-30 overflow-hidden">
+      <div
+        className="absolute -left-20 -top-10 h-80 w-80 rounded-full 
+      bg-[radial-gradient(circle_at_center,rgba(102,153,133,0.20),transparent_70%)] blur-3xl"
+      />
+      <div
+        className="absolute -right-24 top-40 h-96 w-96 rounded-full 
+      bg-[radial-gradient(circle_at_center,rgba(14,107,84,0.18),transparent_70%)] blur-3xl"
+      />
+      <div
+        className="absolute inset-x-0 bottom-[-16rem] h-[22rem] 
+      bg-[radial-gradient(ellipse_at_bottom,rgba(154,181,166,0.22),transparent_68%)] blur-2xl"
+      />
     </div>
   );
 }
@@ -191,101 +201,223 @@ function WaveIcon({ className, color = "#0E6B54" }) {
 }
 
 /* -----------------------------------------------------
-   MAP COMPONENTS
+   EXPERIENCE MAPS (CALIFORNIA + GERMANY)
+   Stylized but more faithful silhouettes + coastal pins
 ----------------------------------------------------- */
 
-function CaliforniaMap({ className, activeId, onMarkerClick }) {
+type MapProps = {
+  activeId: string | null;
+  onSelect: (id: string | null) => void;
+};
+
+function CaliforniaMap({ activeId, onSelect }: MapProps) {
+  // Davis, Santa Barbara, Camarillo
   const markers = [
-    { id: "ucd", cx: 125, cy: 155 }, // Davis (accurate inland)
-    { id: "dressaire", cx: 145, cy: 285 }, // Santa Barbara (coastal)
-    { id: "sanisure", cx: 150, cy: 320 }, // Camarillo (coastal)
+    { id: "ucd", cx: 130, cy: 130, label: "Davis · UC Davis" },
+    { id: "dressaire", cx: 105, cy: 245, label: "Santa Barbara · UCSB" },
+    { id: "sanisure", cx: 110, cy: 280, label: "Camarillo · SaniSure" },
   ];
 
   return (
-    <svg viewBox="0 0 260 500" className={className}>
-      <path
-        d="
-        M 95 12 L 110 18 L 125 35 L 135 60 L 145 90 L 155 115 L 160 140 
-        L 162 165 L 160 180 L 158 200 L 155 220 L 152 240 L 150 260 
-        L 148 275 L 147 290 L 150 305 L 155 320 L 160 335 L 162 350 
-        L 160 365 L 155 380 L 145 400 L 132 420 L 120 435 L 110 450 
-        L 100 465 L 90 478 L 80 485 L 72 480 L 65 465 L 58 450 
-        L 55 430 L 53 410 L 52 390 L 50 365 L 48 345 L 45 330 
-        L 42 310 L 40 290 L 38 270 L 36 250 L 34 230 L 32 210 
-        L 30 190 L 28 170 L 26 150 L 28 130 L 32 115 L 40 95 
-        L 52 75 L 65 55 L 78 35 L 90 20 Z
+    <div
+      className="flex justify-center"
+      onClick={(e) => e.stopPropagation()}
+    >
+      <svg
+        viewBox="0 0 220 420"
+        className="w-full max-w-[190px] md:max-w-[220px]"
+        aria-hidden="true"
+      >
+        {/* Stylized California outline */}
+        <path
+          d="
+          M150 10
+          L185 35
+          Q195 45 190 70
+          L180 115
+          Q177 130 185 155
+          L195 190
+          Q200 210 190 235
+          L175 270
+          Q170 285 175 305
+          L185 340
+          Q190 360 180 380
+          L160 405
+          Q145 415 130 408
+          L105 395
+          Q95 390 90 370
+          L75 310
+          Q70 290 72 270
+          L70 245
+          Q68 220 65 205
+          L55 160
+          Q50 135 58 115
+          L75 80
+          Q82 65 90 55
+          L115 25
+          Q130 10 150 10
         "
-        fill="none"
-        stroke="#0E6B54"
-        strokeWidth="2"
-        strokeLinejoin="round"
-        opacity="0.9"
-      />
+          fill="none"
+          stroke="#0E6B54"
+          strokeWidth="1.8"
+          strokeLinejoin="round"
+          strokeLinecap="round"
+          opacity="0.85"
+        />
 
-      {markers.map((m) => {
-        const active = activeId === m.id;
-        return (
-          <g key={m.id}
-            className="cursor-pointer"
-            onClick={(e) => { e.stopPropagation(); onMarkerClick(m.id); }}
-          >
-            <circle cx={m.cx} cy={m.cy} r={active ? 6 : 4} fill="#0E6B54" />
-            <circle cx={m.cx} cy={m.cy} r={active ? 12 : 9}
-              stroke="#0E6B54" strokeWidth="1.5" fill="none" opacity="0.25"
-            />
-          </g>
-        );
-      })}
-    </svg>
+        {markers.map((m) => {
+          const isActive = activeId === m.id;
+          return (
+            <g
+              key={m.id}
+              className="cursor-pointer"
+              onClick={(e) => {
+                e.stopPropagation();
+                onSelect(isActive ? null : m.id);
+              }}
+            >
+              <circle
+                cx={m.cx}
+                cy={m.cy}
+                r={9}
+                fill="white"
+                opacity={isActive ? 0.92 : 0.7}
+              />
+              <circle
+                cx={m.cx}
+                cy={m.cy}
+                r={6.5}
+                fill="none"
+                stroke="#0E6B54"
+                strokeWidth={1.4}
+                opacity={0.6}
+              />
+              <circle
+                cx={m.cx}
+                cy={m.cy}
+                r={3.6}
+                fill="#0E6B54"
+              />
+            </g>
+          );
+        })}
+      </svg>
+    </div>
   );
 }
-function GermanyMap({ className, activeId, onMarkerClick }) {
+
+function GermanyMap({ activeId, onSelect }: MapProps) {
   const markers = [
-    { id: "audi", cx: 140, cy: 215 }, // Ingolstadt (accurate Bavaria placement)
+    { id: "audi", cx: 115, cy: 210, label: "Ingolstadt · AUDI" },
   ];
 
   return (
-    <svg viewBox="0 0 260 420" className={className}>
-      <path
-        d="
-        M 135 15 L 155 35 L 170 60 L 175 90 L 185 115 L 190 140 
-        L 185 165 L 190 190 L 195 215 L 190 240 L 185 265 L 175 290 
-        L 165 315 L 155 340 L 145 360 L 130 385 L 120 400 L 110 380 
-        L 100 360 L 90 330 L 82 305 L 75 275 L 70 250 L 72 225 
-        L 70 200 L 68 180 L 70 160 L 72 135 L 80 115 L 95 90 
-        L 110 70 L 120 55 L 130 35 Z
+    <div
+      className="flex justify-center"
+      onClick={(e) => e.stopPropagation()}
+    >
+      <svg
+        viewBox="0 0 220 420"
+        className="w-full max-w-[170px] md:max-w-[200px]"
+        aria-hidden="true"
+      >
+        {/* Stylized Germany outline */}
+        <path
+          d="
+          M125 15
+          Q140 30 150 45
+          L160 75
+          Q165 90 160 105
+          L167 130
+          Q170 145 165 160
+          L170 185
+          Q175 205 168 220
+          L165 240
+          Q162 255 168 275
+          L175 305
+          Q180 320 170 335
+          L150 360
+          Q140 375 130 390
+          L110 405
+          Q100 412 90 405
+          L70 390
+          Q60 380 62 365
+          L68 335
+          Q70 325 65 310
+          L58 285
+          Q55 275 60 260
+          L65 240
+          Q68 230 63 215
+          L55 190
+          Q50 175 55 160
+          L60 140
+          Q63 130 60 118
+          L53 95
+          Q48 80 55 65
+          L70 40
+          Q80 25 95 18
+          L110 12
+          Q120 10 125 15
         "
-        fill="none"
-        stroke="#0E6B54"
-        strokeWidth="2"
-        strokeLinejoin="round"
-        opacity="0.9"
-      />
+          fill="none"
+          stroke="#0E6B54"
+          strokeWidth="1.8"
+          strokeLinejoin="round"
+          strokeLinecap="round"
+          opacity="0.85"
+        />
 
-      {markers.map((m) => {
-        const active = activeId === m.id;
-        return (
-          <g key={m.id}
-            className="cursor-pointer"
-            onClick={(e) => { e.stopPropagation(); onMarkerClick(m.id); }}
-          >
-            <circle cx={m.cx} cy={m.cy} r={active ? 6 : 4} fill="#0E6B54" />
-            <circle cx={m.cx} cy={m.cy} r={active ? 12 : 9}
-              stroke="#0E6B54" strokeWidth="1.5" fill="none" opacity="0.25"
-            />
-          </g>
-        );
-      })}
-    </svg>
+        {markers.map((m) => {
+          const isActive = activeId === m.id;
+          return (
+            <g
+              key={m.id}
+              className="cursor-pointer"
+              onClick={(e) => {
+                e.stopPropagation();
+                onSelect(isActive ? null : m.id);
+              }}
+            >
+              <circle
+                cx={m.cx}
+                cy={m.cy}
+                r={9}
+                fill="white"
+                opacity={isActive ? 0.92 : 0.7}
+              />
+              <circle
+                cx={m.cx}
+                cy={m.cy}
+                r={6.5}
+                fill="none"
+                stroke="#0E6B54"
+                strokeWidth={1.4}
+                opacity={0.6}
+              />
+              <circle
+                cx={m.cx}
+                cy={m.cy}
+                r={3.6}
+                fill="#0E6B54"
+              />
+            </g>
+          );
+        })}
+      </svg>
+    </div>
   );
 }
-
 
 /* -----------------------------------------------------
-   THEME CONFIG + FLOATING ICONS
+   THEME CONFIG (ICON COLORS PER SECTION)
 ----------------------------------------------------- */
 
-const THEME_CONFIG = {
+const THEME_CONFIG: Record<
+  string,
+  {
+    iconColor: string;
+  }
+> = {
   overview: { iconColor: "#0E6B54" },
   projects: { iconColor: "#078F77" },
   experience: { iconColor: "#3D6B58" },
@@ -295,14 +427,33 @@ const THEME_CONFIG = {
   default: { iconColor: "#0E6B54" },
 };
 
-function ThemedFloatingIcons({ theme, scrollDir, scrollSpeed }) {
+/* -----------------------------------------------------
+   SECTION-AWARE FLOATING ICONS (SCROLL-REACTIVE)
+----------------------------------------------------- */
+
+function ThemedFloatingIcons({
+  theme,
+  scrollDir,
+  scrollSpeed,
+}: {
+  theme: string;
+  scrollDir: number;
+  scrollSpeed: number;
+}) {
   const config = THEME_CONFIG[theme] || THEME_CONFIG.default;
   const color = config.iconColor;
 
   let icons;
   switch (theme) {
     case "projects":
-      icons = [ProteinIcon, RNAIcon, CircuitIcon, DNAIcon, PumpIcon, WaveIcon];
+      icons = [
+        ProteinIcon,
+        RNAIcon,
+        CircuitIcon,
+        DNAIcon,
+        PumpIcon,
+        WaveIcon,
+      ];
       break;
     case "experience":
       icons = [CircuitIcon, GearIcon, SpringIcon, BoltIcon, WaveIcon];
@@ -345,13 +496,14 @@ function ThemedFloatingIcons({ theme, scrollDir, scrollSpeed }) {
         const delta =
           (axis === "y" ? speedFactor : speedFactor * 0.6) *
           (idx % 2 === 0 ? dirFactor : -dirFactor);
+
         const duration = 20 + idx * 3;
 
         return (
           <motion.div
             key={`${theme}-${idx}`}
             className="absolute"
-            style={pos}
+            style={pos as any}
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 0.35, y: 0 }}
             viewport={{ once: false, amount: 0.4 }}
@@ -359,7 +511,9 @@ function ThemedFloatingIcons({ theme, scrollDir, scrollSpeed }) {
           >
             <motion.div
               animate={
-                axis === "y" ? { y: [0, -delta, 0] } : { x: [0, delta, 0] }
+                axis === "y"
+                  ? { y: [0, -delta, 0] }
+                  : { x: [0, delta, 0] }
               }
               transition={{
                 duration,
@@ -367,7 +521,10 @@ function ThemedFloatingIcons({ theme, scrollDir, scrollSpeed }) {
                 ease: "easeInOut",
               }}
             >
-              <Icon className="h-20 w-20 md:h-24 md:w-24" color={color} />
+              <Icon
+                className="h-20 w-20 md:h-24 md:w-24"
+                color={color}
+              />
             </motion.div>
           </motion.div>
         );
@@ -380,7 +537,7 @@ function ThemedFloatingIcons({ theme, scrollDir, scrollSpeed }) {
    SPLASH SCREEN
 ----------------------------------------------------- */
 
-function SplashScreen({ onComplete }) {
+function SplashScreen({ onComplete }: { onComplete: () => void }) {
   useEffect(() => {
     const timer = setTimeout(onComplete, 1600);
     return () => clearTimeout(timer);
@@ -472,9 +629,19 @@ const PROJECTS = [
   },
 ];
 
-const EXPERIENCE_DETAILS = {
+// Experience summaries for the map overlay card
+const EXPERIENCE_DETAIL: Record<
+  string,
+  {
+    title: string;
+    company: string;
+    period: string;
+    location: string;
+    bullets: string[];
+  }
+> = {
   dressaire: {
-    role: "Fluid Dynamics Researcher",
+    title: "Fluid Dynamics Researcher",
     company: "Dressaire Lab · UCSB",
     period: "Oct 2025 – Present",
     location: "Santa Barbara, CA",
@@ -484,18 +651,18 @@ const EXPERIENCE_DETAILS = {
     ],
   },
   sanisure: {
-    role: "Design + R&D Intern",
+    title: "Design + R&D Intern",
     company: "SaniSure — R&D",
     period: "Jul 2025 – Present",
     location: "Camarillo, CA",
     bullets: [
-      "Develop single-use bioprocessing assemblies for cell therapy manufacturing.",
-      "Run pressure-decay leak tests and structured failure analysis.",
+      "Develop single-use bioprocessing assemblies for cell therapy.",
+      "Run pressure-decay tests and structured failure analyses.",
       "Refine SOPs and FMEAs with Fabrication and QA teams; create dashboards for chemical compatibility and department overview.",
     ],
   },
   ucd: {
-    role: "Research Assistant · Calculus Tutor",
+    title: "Research Assistant · Calculus Tutor",
     company: "UC Davis · College of Engineering",
     period: "Jan 2023 – Jun 2023 (RA); Sep 2022 – Jun 2023 (Tutor)",
     location: "Davis, CA",
@@ -505,7 +672,7 @@ const EXPERIENCE_DETAILS = {
     ],
   },
   audi: {
-    role: "Requirements Engineering Intern",
+    title: "Requirements Engineering Intern",
     company: "AUDI AG — Technical Development",
     period: "Jan 2024 – Jun 2024",
     location: "Ingolstadt, Germany",
@@ -515,6 +682,30 @@ const EXPERIENCE_DETAILS = {
     ],
   },
 };
+
+const EDUCATION = [
+  {
+    school: "UC Santa Barbara",
+    line: "BS/MS Mechanical Engineering",
+    time: "Jun 2023 – Jun 2027",
+    extras: ["Honors College", "Tau Beta Pi", "Formula SAE"],
+    gpa: "3.82",
+  },
+  {
+    school: "University of California, Davis",
+    line: "B.S. Mechanical Engineering",
+    time: "Sep 2021 – Jun 2023",
+    extras: ["Student Alumni Association", "CAAA Leadership Scholar"],
+    gpa: "3.82/4.00",
+  },
+  {
+    school: "Glendora High School",
+    line: "High School Diploma",
+    time: "Aug 2017 – Jun 2021",
+    extras: ["National Honor Society", "Varsity Tennis"],
+    gpa: "4.69/4.00 (Top 2%)",
+  },
+];
 
 const EXTRAS = [
   {
@@ -569,15 +760,29 @@ const fadeProps = {
   transition: { duration: 0.6, ease: "easeOut" },
 };
 
-function Card({ children, className = "" }) {
+// Radial halo wrapper – no border, no box
+function Card({
+  children,
+  className = "",
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) {
   return (
     <div className={`relative ${className}`}>
-      <div className="pointer-events-none absolute inset-[-4%] -z-10 bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.55),transparent_72%)] blur-2xl opacity-60" />
+      <div
+        className="
+          pointer-events-none absolute inset-[-4%] -z-10
+          bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.55),transparent_72%)]
+          blur-2xl opacity-60
+        "
+      />
       <div className="relative">{children}</div>
     </div>
   );
 }
 
+// Section shell with optional vertical gradient for big sections
 function SectionShell({
   id,
   label,
@@ -585,10 +790,24 @@ function SectionShell({
   scrollDir,
   scrollSpeed,
   verticalGradient = false,
+  onClick,
   children,
+}: {
+  id: string;
+  label: string;
+  theme?: string;
+  scrollDir: number;
+  scrollSpeed: number;
+  verticalGradient?: boolean;
+  onClick?: () => void;
+  children: React.ReactNode;
 }) {
   return (
-    <section id={id} className="relative max-w-6xl mx-auto px-4 py-20 space-y-10">
+    <section
+      id={id}
+      className="relative max-w-6xl mx-auto px-4 py-20 space-y-10"
+      onClick={onClick}
+    >
       {verticalGradient && (
         <div className="pointer-events-none absolute inset-0 -z-20">
           <div className="w-full h-full bg-[linear-gradient(to_bottom,rgba(255,255,255,0.55),transparent_85%)] opacity-70" />
@@ -614,7 +833,13 @@ function SectionShell({
   );
 }
 
-function ImageModal({ selectedImage, onClose }) {
+function ImageModal({
+  selectedImage,
+  onClose,
+}: {
+  selectedImage: string | null;
+  onClose: () => void;
+}) {
   return (
     <AnimatePresence>
       {selectedImage && (
@@ -646,12 +871,13 @@ function ImageModal({ selectedImage, onClose }) {
 
 export default function Page() {
   const [showSplash, setShowSplash] = useState(true);
-  const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [activeExperienceId, setActiveExperienceId] = useState<string | null>(
+    null
+  );
 
   const [scrollDir, setScrollDir] = useState(1);
   const [scrollSpeed, setScrollSpeed] = useState(0);
-
-  const [activeExperienceId, setActiveExperienceId] = useState(null);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -683,19 +909,8 @@ export default function Page() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const handleGlobalClick = () => {
-    setActiveExperienceId(null);
-  };
-
-  const handleMarkerClick = (id) => {
-    setActiveExperienceId((prev) => (prev === id ? null : id));
-  };
-
   const activeExperience =
-    activeExperienceId && EXPERIENCE_DETAILS[activeExperienceId];
-
-  const activeMap =
-    activeExperienceId === "audi" ? "de" : activeExperienceId ? "ca" : null;
+    activeExperienceId && EXPERIENCE_DETAIL[activeExperienceId];
 
   return (
     <>
@@ -706,10 +921,7 @@ export default function Page() {
         {showSplash && <SplashScreen onComplete={() => setShowSplash(false)} />}
       </AnimatePresence>
 
-      <main
-        className="relative min-h-screen text-[#1A1F1A]"
-        onClick={handleGlobalClick}
-      >
+      <main className="relative min-h-screen text-[#1A1F1A]">
         {/* NAVBAR */}
         <header className="sticky top-0 z-40 bg-white/80 border-b border-[#DADCD7] backdrop-blur-xl">
           <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
@@ -731,8 +943,8 @@ export default function Page() {
                 <a
                   key={id}
                   href={`#${id}`}
-                  onClick={(e) => e.stopPropagation()}
-                  className="px-3 py-1.5 rounded-full hover:bg-[#E7EBE7] text-[#1A1F1A]/70 hover:text-[#0E6B54] transition-colors"
+                  className="px-3 py-1.5 rounded-full hover:bg-[#E7EBE7] 
+                  text-[#1A1F1A]/70 hover:text-[#0E6B54] transition-colors"
                 >
                   {label}
                 </a>
@@ -741,7 +953,7 @@ export default function Page() {
           </div>
         </header>
 
-        {/* HERO */}
+        {/* HERO / OVERVIEW */}
         <SectionShell
           id="top"
           label="Overview"
@@ -770,7 +982,8 @@ export default function Page() {
                 ].map((tag) => (
                   <span
                     key={tag}
-                    className="px-3 py-1 text-[11px] uppercase tracking-wide rounded-full bg-[#0E6B54]/10 text-[#0E6B54] border border-[#0E6B54]/30"
+                    className="px-3 py-1 text-[11px] uppercase tracking-wide 
+                      rounded-full bg-[#0E6B54]/10 text-[#0E6B54] border border-[#0E6B54]/30"
                   >
                     {tag}
                   </span>
@@ -810,15 +1023,17 @@ export default function Page() {
           <div className="space-y-16 mt-6">
             {PROJECTS.map((p, i) => {
               const isEven = i % 2 === 0;
+
               return (
                 <motion.article
                   key={p.id}
                   {...fadeProps}
-                  className={`grid items-center gap-10 md:gap-12 ${
-                    isEven
-                      ? "md:grid-cols-[1.2fr,1fr]"
-                      : "md:grid-cols-[1fr,1.2fr]"
-                  }`}
+                  className={`grid items-center gap-10 md:gap-12 
+                    ${
+                      isEven
+                        ? "md:grid-cols-[1.2fr,1fr]"
+                        : "md:grid-cols-[1fr,1.2fr]"
+                    }`}
                 >
                   <div className={isEven ? "" : "md:order-2"}>
                     <Card className="h-full flex flex-col justify-between px-0 md:pr-8">
@@ -836,11 +1051,13 @@ export default function Page() {
                           {p.description}
                         </p>
                       </div>
+
                       <div className="mt-4 flex flex-wrap gap-2">
                         {p.meta.map((tag) => (
                           <span
                             key={tag}
-                            className="px-2.5 py-1 text-[11px] rounded-full bg-[#ECEEEB] text-[#1A1F1A]/70"
+                            className="px-2.5 py-1 text-[11px] rounded-full 
+                            bg-[#ECEEEB] text-[#1A1F1A]/70"
                           >
                             {tag}
                           </span>
@@ -857,12 +1074,10 @@ export default function Page() {
                         className="rounded-2xl object-cover w-full max-h-[360px] cursor-pointer"
                         whileHover={{ scale: 1.02 }}
                         transition={{ duration: 0.25 }}
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          setSelectedImage(p.img);
-                        }}
+                        onClick={() => setSelectedImage(p.img!)}
                       />
                     )}
+
                     {p.imgs && (
                       <div className="flex gap-3 overflow-x-auto pb-1">
                         {p.imgs.map((img) => (
@@ -873,10 +1088,7 @@ export default function Page() {
                             className="rounded-2xl object-cover cursor-pointer min-w-[240px] max-h-[240px]"
                             whileHover={{ scale: 1.02 }}
                             transition={{ duration: 0.25 }}
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              setSelectedImage(img);
-                            }}
+                            onClick={() => setSelectedImage(img)}
                           />
                         ))}
                       </div>
@@ -888,106 +1100,92 @@ export default function Page() {
           </div>
         </SectionShell>
 
-        {/* EXPERIENCE – MAP-BASED */}
+        {/* EXPERIENCE – MAPS + INTERACTIVE CARD */}
         <SectionShell
           id="experience"
           label="Experience"
           theme="experience"
           scrollDir={scrollDir}
           scrollSpeed={scrollSpeed}
+          onClick={() => setActiveExperienceId(null)}
         >
-          <motion.div {...fadeProps} className="mt-6 relative pb-32">
+          <div className="mt-6">
             <div className="flex items-baseline justify-between gap-4 mb-6">
               <h3 className="text-sm uppercase tracking-[0.18em] text-[#0E6B54] font-semibold">
-                California & Germany · Where I’ve Worked
+                California & Germany · Where I've worked
               </h3>
               <span className="text-[11px] text-[#5F6B62]">
                 Click a marker to see the story
               </span>
             </div>
 
-            <div className="grid gap-10 md:grid-cols-2 items-start">
-              <div
-                className="relative flex justify-center"
-                onClick={(e) => e.stopPropagation()}
-              >
-                <CaliforniaMap
-                  className="w-full max-w-sm"
-                  activeId={
-                    activeExperienceId === "audi" ? null : activeExperienceId
-                  }
-                  onMarkerClick={handleMarkerClick}
-                />
-                <p className="absolute left-4 top-4 text-[10px] uppercase tracking-[0.18em] text-[#0E6B54]/70">
-                  California · Bioprocess & Research
-                </p>
-              </div>
-
-              <div
-                className="relative flex justify-center"
-                onClick={(e) => e.stopPropagation()}
-              >
-                <GermanyMap
-                  className="w-full max-w-sm"
-                  activeId={activeExperienceId === "audi" ? "audi" : null}
-                  onMarkerClick={handleMarkerClick}
-                />
-                <p className="absolute left-4 top-4 text-[10px] uppercase tracking-[0.18em] text-[#0E6B54]/70">
-                  Germany · Automotive Systems
-                </p>
-              </div>
-            </div>
-
-            <AnimatePresence>
-              {activeExperience && activeMap && (
-                <motion.div
-                  key={activeExperienceId}
-                  initial={{ opacity: 0, y: 16 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 16 }}
-                  transition={{ duration: 0.35, ease: "easeOut" }}
-                  className="pointer-events-auto absolute max-w-md"
-                  style={
-                    activeMap === "ca"
-                      ? { left: "4%", bottom: "4%" }
-                      : { right: "4%", bottom: "4%" }
-                  }
-                  onClick={(e) => e.stopPropagation()}
-                >
-                  <div className="rounded-3xl bg-white/96 shadow-[0_18px_45px_rgba(0,0,0,0.12)] border border-[#D0D4CB]/80 px-5 py-4 md:px-6 md:py-5">
-                    <div className="flex justify-between gap-4">
-                      <div>
-                        <div className="text-xs font-semibold uppercase tracking-[0.16em] text-[#0E6B54]/70 mb-1">
-                          {activeMap === "ca"
-                            ? "California Experience"
-                            : "Germany Experience"}
-                        </div>
-                        <h4 className="text-sm md:text-base font-semibold text-[#1A1F1A]">
-                          {activeExperience.role}
-                        </h4>
-                        <p className="text-xs text-[#57655B] mt-0.5">
-                          {activeExperience.company}
-                        </p>
-                      </div>
-                      <div className="text-[11px] text-right text-[#5F6B62] whitespace-nowrap">
-                        <div>{activeExperience.period}</div>
-                        <div>{activeExperience.location}</div>
-                      </div>
-                    </div>
-
-                    <ul className="mt-3 space-y-1.5 text-sm text-[#374139]">
-                      {activeExperience.bullets.map((b, idx) => (
-                        <li key={idx} className="flex gap-2">
-                          <span className="mt-[7px] h-[2px] w-4 bg-[#0E6B54]/70" />
-                          <span>{b}</span>
-                        </li>
-                      ))}
-                    </ul>
+            <div className="relative">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16">
+                <div>
+                  <div className="mb-3 text-[11px] uppercase tracking-[0.18em] text-[#0E6B54]/80">
+                    California · Bioprocess & Research
                   </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </motion.div>
+                  <CaliforniaMap
+                    activeId={activeExperienceId}
+                    onSelect={setActiveExperienceId}
+                  />
+                </div>
+
+                <div>
+                  <div className="mb-3 text-[11px] uppercase tracking-[0.18em] text-[#0E6B54]/80 text-left md:text-right">
+                    Germany · Automotive Systems
+                  </div>
+                  <GermanyMap
+                    activeId={activeExperienceId}
+                    onSelect={setActiveExperienceId}
+                  />
+                </div>
+              </div>
+
+              {/* Overlay card */}
+              <AnimatePresence>
+                {activeExperience && (
+                  <motion.div
+                    key={activeExperienceId}
+                    className="pointer-events-auto absolute left-1/2 bottom-[-10px] w-full max-w-xl -translate-x-1/2 translate-y-full md:translate-y-[70%]"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 16 }}
+                    transition={{ duration: 0.35, ease: "easeOut" }}
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <div className="rounded-3xl bg-white/95 shadow-[0_16px_50px_rgba(0,0,0,0.12)] border border-[#D6DAD2] px-6 py-5 md:px-7 md:py-6">
+                      <div className="flex justify-between gap-3 flex-wrap">
+                        <div>
+                          <div className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0E6B54]/70">
+                            {activeExperience.location}
+                          </div>
+                          <h4 className="mt-1 text-sm md:text-base font-semibold text-[#1A1F1A]">
+                            {activeExperience.title}
+                          </h4>
+                          <p className="text-xs md:text-[13px] text-[#57655B]">
+                            {activeExperience.company}
+                          </p>
+                        </div>
+                        <div className="text-[11px] text-right text-[#5F6B62]">
+                          {activeExperience.period}
+                        </div>
+                      </div>
+
+                      <ul className="mt-3 space-y-1.5 text-sm text-[#374139]">
+                        {activeExperience.bullets.map((b, idx) => (
+                          <li key={idx} className="flex gap-2">
+                            <span className="mt-[6px] h-[2px] w-4 bg-[#0E6B54]/70" />
+                            <span>{b}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+          </div>
         </SectionShell>
 
         {/* EDUCATION */}
@@ -1003,30 +1201,9 @@ export default function Page() {
             <h3 className="text-sm uppercase font-semibold text-[#0E6B54] tracking-[0.18em] mb-6">
               Educational Journey
             </h3>
+
             <div className="grid gap-6 md:grid-cols-3">
-              {[
-                {
-                  school: "UC Santa Barbara",
-                  line: "BS/MS Mechanical Engineering",
-                  time: "Jun 2023 – Jun 2027",
-                  extras: ["Honors College", "Tau Beta Pi", "Formula SAE"],
-                  gpa: "3.82",
-                },
-                {
-                  school: "University of California, Davis",
-                  line: "B.S. Mechanical Engineering",
-                  time: "Sep 2021 – Jun 2023",
-                  extras: ["Student Alumni Association", "CAAA Leadership Scholar"],
-                  gpa: "3.82/4.00",
-                },
-                {
-                  school: "Glendora High School",
-                  line: "High School Diploma",
-                  time: "Aug 2017 – Jun 2021",
-                  extras: ["National Honor Society", "Varsity Tennis"],
-                  gpa: "4.69/4.00 (Top 2%)",
-                },
-              ].map((edu) => (
+              {EDUCATION.map((edu) => (
                 <div key={edu.school} className="space-y-1">
                   <div className="flex items-center gap-2">
                     <span className="h-2 w-2 rounded-full bg-[#0E6B54]" />
@@ -1061,11 +1238,14 @@ export default function Page() {
                 <h3 className="text-sm uppercase tracking-[0.18em] text-[#0E6B54] font-semibold mb-3">
                   Volunteering & Leadership
                 </h3>
+
                 <div className="space-y-3 text-sm text-[#374139]">
                   {EXTRAS.map((e) => (
                     <div key={e.title}>
                       <div className="font-medium text-[#1A1F1A]">{e.title}</div>
-                      <div className="text-[13px] text-[#5F6B62]">{e.text}</div>
+                      <div className="text-[13px] text-[#5F6B62]">
+                        {e.text}
+                      </div>
                     </div>
                   ))}
                 </div>
@@ -1150,7 +1330,6 @@ export default function Page() {
                   Email:{" "}
                   <a
                     href="mailto:achevillotte@ucsb.edu"
-                    onClick={(e) => e.stopPropagation()}
                     className="text-[#0E6B54] underline underline-offset-2"
                   >
                     achevillotte@ucsb.edu
@@ -1173,5 +1352,6 @@ export default function Page() {
     </>
   );
 }
+
 
 
