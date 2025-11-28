@@ -932,106 +932,107 @@ export default function Page() {
         </SectionShell>
 
         {/* EXPERIENCE – MAP-BASED */}
-        <SectionShell
-          id="experience"
-          label="Experience"
-          theme="experience"
-          scrollDir={scrollDir}
-          scrollSpeed={scrollSpeed}
+       {/* EXPERIENCE – MAP-BASED */}
+<SectionShell
+  id="experience"
+  label="Experience"
+  theme="experience"
+  scrollDir={scrollDir}
+  scrollSpeed={scrollSpeed}
+>
+  <motion.div {...fadeProps} className="mt-6 relative pb-32">
+
+    {/* NEW: Top Header */}
+    <div className="text-center mb-10">
+      <h3 className="text-sm uppercase tracking-[0.18em] text-[#0E6B54] font-semibold">
+        Where I’ve Worked
+      </h3>
+      <p className="text-[11px] text-[#5F6B62] mt-1">
+        Click a marker to see the story
+      </p>
+    </div>
+
+    {/* TWO MAPS SIDE BY SIDE */}
+    <div className="grid gap-10 md:grid-cols-2 items-start">
+
+      {/* CALIFORNIA COLUMN */}
+      <div className="relative flex flex-col items-center" onClick={(e) => e.stopPropagation()}>
+        <h4 className="text-xs uppercase tracking-[0.18em] text-[#0E6B54]/70 mb-3">
+          California
+        </h4>
+
+        <CaliforniaMap
+          className="w-full max-w-sm"
+          activeId={activeExperienceId === "audi" ? null : activeExperienceId}
+          onMarkerClick={handleMarkerClick}
+        />
+      </div>
+
+      {/* GERMANY COLUMN */}
+      <div className="relative flex flex-col items-center" onClick={(e) => e.stopPropagation()}>
+        <h4 className="text-xs uppercase tracking-[0.18em] text-[#0E6B54]/70 mb-3">
+          Germany
+        </h4>
+
+        <GermanyMap
+          className="w-full max-w-sm"
+          activeId={activeExperienceId === "audi" ? "audi" : null}
+          onMarkerClick={handleMarkerClick}
+        />
+      </div>
+
+    </div>
+
+    {/* EXPERIENCE CARD MODAL */}
+    <AnimatePresence>
+      {activeExperience && (
+        <motion.div
+          key={activeExperienceId}
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: 16 }}
+          transition={{ duration: 0.35, ease: "easeOut" }}
+          className="pointer-events-auto absolute max-w-md"
+          style={
+            activeExperienceId === "audi"
+              ? { right: "4%", bottom: "4%" }
+              : { left: "4%", bottom: "4%" }
+          }
+          onClick={(e) => e.stopPropagation()}
         >
-          <motion.div {...fadeProps} className="mt-6 relative pb-32">
-            <div className="flex items-baseline justify-between gap-4 mb-6">
-              <h3 className="text-sm uppercase tracking-[0.18em] text-[#0E6B54] font-semibold">
-                California & Germany · Where I’ve Worked
-              </h3>
-              <span className="text-[11px] text-[#5F6B62]">
-                Click a marker to see the story
-              </span>
-            </div>
-
-            <div className="grid gap-10 md:grid-cols-2 items-start">
-              <div
-                className="relative flex justify-center"
-                onClick={(e) => e.stopPropagation()}
-              >
-                <CaliforniaMap
-                  className="w-full max-w-sm"
-                  activeId={
-                    activeExperienceId === "audi" ? null : activeExperienceId
-                  }
-                  onMarkerClick={handleMarkerClick}
-                />
-                <p className="absolute left-4 top-4 text-[10px] uppercase tracking-[0.18em] text-[#0E6B54]/70">
-                  California · Bioprocess & Research
+          <div className="rounded-3xl bg-white/96 shadow-[0_18px_45px_rgba(0,0,0,0.12)] border border-[#D0D4CB]/80 px-5 py-4 md:px-6 md:py-5">
+            <div className="flex justify-between gap-4">
+              <div>
+                <div className="text-xs font-semibold uppercase tracking-[0.16em] text-[#0E6B54]/70 mb-1">
+                  {activeExperienceId === "audi" ? "Germany Experience" : "California Experience"}
+                </div>
+                <h4 className="text-sm md:text-base font-semibold text-[#1A1F1A]">
+                  {activeExperience.role}
+                </h4>
+                <p className="text-xs text-[#57655B] mt-0.5">
+                  {activeExperience.company}
                 </p>
               </div>
-
-              <div
-                className="relative flex justify-center"
-                onClick={(e) => e.stopPropagation()}
-              >
-                <GermanyMap
-                  className="w-full max-w-sm"
-                  activeId={activeExperienceId === "audi" ? "audi" : null}
-                  onMarkerClick={handleMarkerClick}
-                />
-                <p className="absolute left-4 top-4 text-[10px] uppercase tracking-[0.18em] text-[#0E6B54]/70">
-                  Germany · Automotive Systems
-                </p>
+              <div className="text-[11px] text-right text-[#5F6B62] whitespace-nowrap">
+                <div>{activeExperience.period}</div>
+                <div>{activeExperience.location}</div>
               </div>
             </div>
 
-            <AnimatePresence>
-              {activeExperience && activeMap && (
-                <motion.div
-                  key={activeExperienceId}
-                  initial={{ opacity: 0, y: 16 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 16 }}
-                  transition={{ duration: 0.35, ease: "easeOut" }}
-                  className="pointer-events-auto absolute max-w-md"
-                  style={
-                    activeMap === "ca"
-                      ? { left: "4%", bottom: "4%" }
-                      : { right: "4%", bottom: "4%" }
-                  }
-                  onClick={(e) => e.stopPropagation()}
-                >
-                  <div className="rounded-3xl bg-white/96 shadow-[0_18px_45px_rgba(0,0,0,0.12)] border border-[#D0D4CB]/80 px-5 py-4 md:px-6 md:py-5">
-                    <div className="flex justify-between gap-4">
-                      <div>
-                        <div className="text-xs font-semibold uppercase tracking-[0.16em] text-[#0E6B54]/70 mb-1">
-                          {activeMap === "ca"
-                            ? "California Experience"
-                            : "Germany Experience"}
-                        </div>
-                        <h4 className="text-sm md:text-base font-semibold text-[#1A1F1A]">
-                          {activeExperience.role}
-                        </h4>
-                        <p className="text-xs text-[#57655B] mt-0.5">
-                          {activeExperience.company}
-                        </p>
-                      </div>
-                      <div className="text-[11px] text-right text-[#5F6B62] whitespace-nowrap">
-                        <div>{activeExperience.period}</div>
-                        <div>{activeExperience.location}</div>
-                      </div>
-                    </div>
-
-                    <ul className="mt-3 space-y-1.5 text-sm text-[#374139]">
-                      {activeExperience.bullets.map((b, idx) => (
-                        <li key={idx} className="flex gap-2">
-                          <span className="mt-[7px] h-[2px] w-4 bg-[#0E6B54]/70" />
-                          <span>{b}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </motion.div>
-        </SectionShell>
+            <ul className="mt-3 space-y-1.5 text-sm text-[#374139]">
+              {activeExperience.bullets.map((b, idx) => (
+                <li key={idx} className="flex gap-2">
+                  <span className="mt-[7px] h-[2px] w-4 bg-[#0E6B54]/70" />
+                  <span>{b}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  </motion.div>
+</SectionShell>
 
         {/* EDUCATION */}
         <SectionShell
