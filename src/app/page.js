@@ -191,23 +191,18 @@ function WaveIcon({ className, color = "#0E6B54" }) {
 }
 
 /* -----------------------------------------------------
-   MAP COMPONENTS (OUTLINE + CLICKABLE PINS)
+   MAP COMPONENTS
 ----------------------------------------------------- */
 
 function CaliforniaMap({ className, activeId, onMarkerClick }) {
   const markers = [
-    { id: "ucd", cx: 120, cy: 135, label: "Davis" },
-    { id: "dressaire", cx: 115, cy: 265, label: "Santa Barbara" },
-    { id: "sanisure", cx: 125, cy: 305, label: "Camarillo" },
+    { id: "ucd", cx: 120, cy: 135 },
+    { id: "dressaire", cx: 115, cy: 265 },
+    { id: "sanisure", cx: 125, cy: 305 },
   ];
 
   return (
-    <svg
-      viewBox="0 0 220 520"
-      className={className}
-      aria-hidden="true"
-    >
-      {/* Rough California outline – more recognizable */}
+    <svg viewBox="0 0 220 520" className={className} aria-hidden="true">
       <path
         d="M60 15 L150 40 L190 150 L165 250 L185 360 L120 505 L80 485 L60 360 L55 280 L40 200 Z"
         fill="none"
@@ -228,12 +223,7 @@ function CaliforniaMap({ className, activeId, onMarkerClick }) {
               onMarkerClick(m.id);
             }}
           >
-            <circle
-              cx={m.cx}
-              cy={m.cy}
-              r={isActive ? 6 : 4}
-              fill="#0E6B54"
-            />
+            <circle cx={m.cx} cy={m.cy} r={isActive ? 6 : 4} fill="#0E6B54" />
             <circle
               cx={m.cx}
               cy={m.cy}
@@ -251,15 +241,10 @@ function CaliforniaMap({ className, activeId, onMarkerClick }) {
 }
 
 function GermanyMap({ className, activeId, onMarkerClick }) {
-  const markers = [{ id: "audi", cx: 120, cy: 215, label: "Ingolstadt" }];
+  const markers = [{ id: "audi", cx: 120, cy: 215 }];
 
   return (
-    <svg
-      viewBox="0 0 220 420"
-      className={className}
-      aria-hidden="true"
-    >
-      {/* Rough Germany outline */}
+    <svg viewBox="0 0 220 420" className={className} aria-hidden="true">
       <path
         d="M105 10 L140 30 L155 70 L145 105 L160 135 L150 170 L165 205 L155 245 L165 275 L150 315 L120 405 L90 390 L70 350 L80 315 L70 280 L80 245 L70 215 L80 185 L70 145 L80 115 L70 80 L80 50 Z"
         fill="none"
@@ -280,12 +265,7 @@ function GermanyMap({ className, activeId, onMarkerClick }) {
               onMarkerClick(m.id);
             }}
           >
-            <circle
-              cx={m.cx}
-              cy={m.cy}
-              r={isActive ? 6 : 4}
-              fill="#0E6B54"
-            />
+            <circle cx={m.cx} cy={m.cy} r={isActive ? 6 : 4} fill="#0E6B54" />
             <circle
               cx={m.cx}
               cy={m.cy}
@@ -493,7 +473,6 @@ const PROJECTS = [
   },
 ];
 
-// Experience details specifically for the map overlay
 const EXPERIENCE_DETAILS = {
   dressaire: {
     role: "Fluid Dynamics Researcher",
@@ -591,7 +570,6 @@ const fadeProps = {
   transition: { duration: 0.6, ease: "easeOut" },
 };
 
-// Radial halo wrapper
 function Card({ children, className = "" }) {
   return (
     <div className={`relative ${className}`}>
@@ -669,16 +647,13 @@ function ImageModal({ selectedImage, onClose }) {
 
 export default function Page() {
   const [showSplash, setShowSplash] = useState(true);
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [selectedImage, setSelectedImage] = useState(null);
 
   const [scrollDir, setScrollDir] = useState(1);
   const [scrollSpeed, setScrollSpeed] = useState(0);
 
-  const [activeExperienceId, setActiveExperienceId] = useState<
-    "dressaire" | "sanisure" | "ucd" | "audi" | null
-  >(null);
+  const [activeExperienceId, setActiveExperienceId] = useState(null);
 
-  // Scroll tracking for floating icons
   useEffect(() => {
     if (typeof window === "undefined") return;
 
@@ -710,7 +685,6 @@ export default function Page() {
   }, []);
 
   const handleGlobalClick = () => {
-    // clicking anywhere outside markers / overlay should clear the selection
     setActiveExperienceId(null);
   };
 
@@ -915,7 +889,7 @@ export default function Page() {
           </div>
         </SectionShell>
 
-        {/* EXPERIENCE – MAP-BASED, INTERACTIVE */}
+        {/* EXPERIENCE – MAP-BASED */}
         <SectionShell
           id="experience"
           label="Experience"
@@ -965,7 +939,6 @@ export default function Page() {
               </div>
             </div>
 
-            {/* Experience overlay – appears near the relevant map, closes on outside click */}
             <AnimatePresence>
               {activeExperience && activeMap && (
                 <motion.div
@@ -1201,4 +1174,5 @@ export default function Page() {
     </>
   );
 }
+
 
