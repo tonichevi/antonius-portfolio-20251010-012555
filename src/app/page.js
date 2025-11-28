@@ -193,59 +193,65 @@ function WaveIcon({ className, color = "#0E6B54" }) {
 /* -----------------------------------------------------
    MAP COMPONENTS
 ----------------------------------------------------- */
+const CALIFORNIA_PATH = `
+M 221.6 7.1 
+L 219.9 9.4 214.8 8.7 210.1 12.3 206.9 20.2 202.1 26.9 
+L 198.3 33.7 196.0 40.6 192.7 49.4 185.7 58.6 177.3 64.8 
+L 170.8 74.9 168.4 83.7 166.5 92.4 160.5 100.1 150.3 110.3 
+L 145.5 118.1 140.4 125.8 133.8 130.2 125.3 134.7 120.9 145.2 
+L 115.4 154.8 111.9 166.3 108.4 178.5 103.2 186.8 98.3 195.8 
+L 96.1 207.5 90.2 216.8 87.1 226.7 80.6 236.4 75.4 248.2 
+L 72.2 260.8 67.9 274.6 63.2 285.8 58.1 296.6 55.3 309.0 
+L 52.8 324.3 48.1 336.4 44.0 345.8 40.2 357.4 33.4 366.1 
+L 28.6 375.4 25.9 385.0 22.8 396.4 20.6 405.8 19.1 417.6 
+L 17.2 432.9 11.9 440.8 8.4 450.3 7.3 462.5 10.7 470.4 
+L 16.2 474.8 24.7 478.6 34.6 482.1 46.9 487.6 60.3 492.2 
+L 73.1 498.6 89.5 501.2 106.2 499.7 121.3 495.8 136.7 489.1 
+L 151.2 480.0 165.1 468.1 175.8 453.6 184.3 437.5 190.7 421.4 
+L 195.9 406.7 202.4 392.1 208.5 378.6 212.6 363.2 216.1 349.6 
+L 219.3 335.3 221.7 321.2 224.4 308.4 226.6 293.1 229.2 281.6 
+L 231.5 269.1 232.9 255.3 234.1 242.4 233.0 230.6 231.5 216.8 
+L 230.1 202.0 229.5 186.5 228.7 169.9 227.6 153.6 225.3 136.7 
+L 223.9 121.2 221.4 104.0 220.6 89.4 220.1 73.9 219.3 59.2 
+L 218.3 45.1 217.2 31.0 218.0 18.6 219.4 10.1 221.6 7.1 
+Z
+`;
 
 function CaliforniaMap({ className, activeId, onMarkerClick }) {
+
   const markers = [
-    { id: "ucd", cx: 330, cy: 380 },   // Davis
-    { id: "dressaire", cx: 360, cy: 820 }, // Santa Barbara
-    { id: "sanisure", cx: 390, cy: 900 },  // Camarillo
+    { id: "ucd", cx: 110, cy: 170 },     // Davis
+    { id: "dressaire", cx: 130, cy: 300 }, // Santa Barbara
+    { id: "sanisure", cx: 135, cy: 335 },  // Camarillo
   ];
 
   return (
     <svg
-      viewBox="0 0 800 1500"
+      viewBox="0 0 260 520"
       className={className}
-      onClick={(e) => e.stopPropagation()}
+      stroke="#0E6B54"
+      strokeWidth="3"
+      fill="none"
     >
-      {/* TRUE California Outline */}
-      <path
-        d="
-          M140 40 
-          L180 200 L260 420 L310 610 L330 780 
-          L350 930 L400 1100 L450 1250 L500 1380 
-          L580 1430 L650 1440 L700 1400 
-          L720 1300 L710 1180 L690 1020 
-          L670 850 L650 700 L620 520 
-          L580 350 L540 200 L500 100 
-          L450 60 L380 40 Z
-        "
-        fill="none"
-        stroke="#0E6B54"
-        strokeWidth="16"
-        strokeLinejoin="round"
-      />
+      <path d={CALIFORNIA_PATH} />
 
-      {/* Experience pins */}
       {markers.map((m) => {
         const active = activeId === m.id;
         return (
           <g
             key={m.id}
             className="cursor-pointer"
-            onClick={(e) => {
-              e.stopPropagation();
-              onMarkerClick(m.id);
-            }}
+            onClick={(e) => { e.stopPropagation(); onMarkerClick(m.id); }}
           >
-            <circle cx={m.cx} cy={m.cy} r={active ? 28 : 20} fill="#0E6B54" />
+            <circle cx={m.cx} cy={m.cy} r={active ? 7 : 5} fill="#0E6B54" />
             <circle
               cx={m.cx}
               cy={m.cy}
-              r={active ? 52 : 38}
-              stroke="#0E6B54"
-              strokeWidth="6"
+              r={active ? 14 : 11}
               fill="none"
-              opacity="0.25"
+              stroke="#0E6B54"
+              strokeWidth="1.6"
+              opacity="0.28"
             />
           </g>
         );
@@ -253,6 +259,7 @@ function CaliforniaMap({ className, activeId, onMarkerClick }) {
     </svg>
   );
 }
+
 
 
 
