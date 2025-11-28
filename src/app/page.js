@@ -194,12 +194,87 @@ function WaveIcon({ className, color = "#0E6B54" }) {
    MAP COMPONENTS
 ----------------------------------------------------- */
 
+function buildCaliforniaPath() {
+  // Upright California-ish silhouette in 0–400 x 0–800 space
+  const basePoints = [
+    // North coast down to San Diego (west edge)
+    { x: 150, y: 40 },
+    { x: 135, y: 80 },
+    { x: 125, y: 130 },
+    { x: 120, y: 180 },
+    { x: 120, y: 230 },
+    { x: 125, y: 280 },
+    { x: 135, y: 330 },
+    { x: 145, y: 380 },
+    { x: 150, y: 430 },
+    { x: 155, y: 480 },
+    { x: 160, y: 530 },
+    { x: 165, y: 580 },
+    { x: 170, y: 630 },
+    { x: 180, y: 680 },
+    { x: 195, y: 720 },
+    { x: 210, y: 750 },
+    { x: 225, y: 770 }, // San Diego-ish
+
+    // Southern / SE border
+    { x: 245, y: 760 },
+    { x: 260, y: 740 },
+    { x: 270, y: 710 },
+
+    // Eastern border up through inland / Nevada line
+    { x: 275, y: 660 },
+    { x: 280, y: 610 },
+    { x: 285, y: 560 },
+    { x: 290, y: 510 },
+    { x: 295, y: 460 },
+    { x: 300, y: 410 },
+    { x: 305, y: 360 },
+    { x: 308, y: 310 },
+    { x: 310, y: 260 },
+    { x: 312, y: 210 },
+    { x: 313, y: 160 },
+    { x: 310, y: 120 },
+
+    // Northern inland & back toward the coast
+    { x: 300, y: 90 },
+    { x: 285, y: 70 },
+    { x: 265, y: 55 },
+    { x: 240, y: 45 },
+    { x: 215, y: 40 },
+    { x: 190, y: 38 },
+    { x: 170, y: 38 },
+    { x: 150, y: 40 }, // back to near start
+  ];
+
+  // Densify: subdivide each segment into many points (~8 segments per edge).
+  // basePoints.length ~40 → ~40 * 8 = 320 + the originals ≈ 360–400 points
+  const SUBDIV = 8;
+  let d = `M ${basePoints[0].x} ${basePoints[0].y}`;
+
+  for (let i = 0; i < basePoints.length - 1; i++) {
+    const p0 = basePoints[i];
+    const p1 = basePoints[i + 1];
+
+    for (let k = 1; k <= SUBDIV; k++) {
+      const t = k / SUBDIV;
+      const x = p0.x + (p1.x - p0.x) * t;
+      const y = p0.y + (p1.y - p0.y) * t;
+      d += ` L ${x.toFixed(1)} ${y.toFixed(1)}`;
+    }
+  }
+
+  d += " Z";
+  return d;
+}
+
+const CALIFORNIA_PATH_D = buildCaliforniaPath();
+
 function CaliforniaMap({ className, activeId, onMarkerClick }) {
-  // Markers approximated for this coordinate system
+  // Markers roughly placed for this path / coordinate system
   const markers = [
-    { id: "ucd", cx: 190, cy: 260 },      // Davis (inland NorCal)
-    { id: "dressaire", cx: 180, cy: 460 }, // Santa Barbara (mid coast)
-    { id: "sanisure", cx: 195, cy: 500 },  // Camarillo (slightly south/inland)
+    { id: "ucd", cx: 230, cy: 260 },     // Davis (upper inland)
+    { id: "dressaire", cx: 200, cy: 460 }, // Santa Barbara (mid coast)
+    { id: "sanisure", cx: 210, cy: 500 },  // Camarillo (slightly south/inland)
   ];
 
   return (
@@ -210,37 +285,8 @@ function CaliforniaMap({ className, activeId, onMarkerClick }) {
       stroke="#0E6B54"
       strokeWidth="6"
     >
-      {/* Higher-resolution California outline (option B) */}
-      <path
-        d="
-          M 110 40
-          L 140 50 L 165 60 L 185 75 L 200 95 L 210 120
-          L 215 150 L 220 180 L 225 210
-          L 230 240 L 238 270 L 245 300
-          L 252 330 L 258 360 L 264 390
-          L 270 420 L 276 450 L 282 480
-          L 288 510 L 294 540 L 300 570
-          L 306 600 L 312 630 L 318 660
-          L 322 690 L 324 720 L 322 745
-          L 315 765 L 302 780 L 285 790
-          L 265 788 L 245 780 L 225 765
-          L 210 745 L 196 720 L 184 695
-          L 172 670 L 162 645 L 153 620
-          L 145 595 L 138 570 L 132 545
-          L 126 520 L 120 495 L 114 470
-          L 108 445 L 102 420 L  96 395
-          L  90 370 L  84 345 L  78 320
-          L  72 295 L  68 270 L  65 245
-          L  62 220 L  60 195 L  60 170
-          L  62 150 L  66 130 L  72 115
-          L  80 100 L  92  85 L 100  75
-          L 108  65 L 115  55 L 110  40
-          Z
-        "
-        fill="none"
-      />
+      <path d={CALIFORNIA_PATH_D} />
 
-      {/* Experience markers */}
       {markers.map((m) => {
         const active = activeId === m.id;
         return (
@@ -268,7 +314,6 @@ function CaliforniaMap({ className, activeId, onMarkerClick }) {
     </svg>
   );
 }
-
 
 
 
