@@ -251,64 +251,49 @@ function CaliforniaMap({ className, activeId, onMarkerClick }) {
 
 
 function GermanyMap({ className, activeId, onMarkerClick }) {
+  // Ingolstadt marker (Audi)
+  // Coordinates tuned for centered Germany image at 600×850
   const markers = [
-    { id: "audi", cx: 470, cy: 630 }, // Ingolstadt
+    { id: "audi", cx: 350, cy: 570 }    // Ingolstadt
   ];
 
   return (
     <svg
-      viewBox="0 0 800 1200"
       className={className}
-      onClick={(e) => e.stopPropagation()}
+      viewBox="0 0 700 950"   // matches California map size
+      fill="none"
     >
-      {/* TRUE Germany Outline */}
-      <path
-        d="
-          M430 40 
-          L480 70 L520 130 L560 160 L620 210 
-          L610 260 L640 330 L660 380 L650 430 
-          L670 480 L650 530 L660 590 L640 650 
-          L600 700 L620 760 L600 820 L560 860 
-          L540 920 L500 960 L480 1020 L450 1080 
-          L420 1100 L380 1080 L340 1060 L300 1000 
-          L260 960 L240 900 L230 840 L200 780 
-          L210 720 L180 680 L170 630 L180 580 
-          L160 520 L180 470 L170 420 L200 360 
-          L220 300 L240 260 L260 210 L300 170 
-          L340 130 L380 80 Z
-        "
-        fill="none"
-        stroke="#0E6B54"
-        strokeWidth="16"
-        strokeLinejoin="round"
+      {/* Germany image from public/images */}
+      <image
+        href="/images/Germany2.jpg"
+        x="50"       // centered horizontally
+        y="50"
+        width="600"
+        height="850"
+        preserveAspectRatio="xMidYMid meet"
       />
 
-      {/* Experience marker(s) */}
+      {/* Marker */}
       {markers.map((m) => {
         const active = activeId === m.id;
         return (
           <g
             key={m.id}
-            className="cursor-pointer"
             onClick={(e) => {
               e.stopPropagation();
               onMarkerClick(m.id);
             }}
+            className="cursor-pointer"
           >
+            <circle cx={m.cx} cy={m.cy} r={active ? 14 : 10} fill="#0E6B54" />
             <circle
               cx={m.cx}
               cy={m.cy}
-              r={active ? 28 : 20}
-              fill="#0E6B54"
-            />
-            <circle
-              cx={m.cx}
-              cy={m.cy}
-              r={active ? 52 : 38}
+              r={active ? 26 : 20}
               stroke="#0E6B54"
-              strokeWidth="6"
+              strokeWidth="2"
+              opacity="0.3"
               fill="none"
-              opacity="0.25"
             />
           </g>
         );
