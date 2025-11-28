@@ -10,7 +10,7 @@ import "./globals.css";
 
 function LightBG() {
   return (
-    <div className="fixed inset-0 -z-40 bg-[linear-gradient(to_bottom,#F6F7F4_0%,#ECEDE9_100%)]" />
+    <div className="fixed inset-0 -z-40 bg-[linear-gradient(to_bottom,#F1F4F1_0%,#E2E5E0_100%)]" />
   );
 }
 
