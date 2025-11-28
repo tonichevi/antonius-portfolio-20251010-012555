@@ -195,57 +195,81 @@ function WaveIcon({ className, color = "#0E6B54" }) {
 ----------------------------------------------------- */
 
 function CaliforniaMap({ className, activeId, onMarkerClick }) {
-  // Marker positions in % relative to image dimensions
+  // Marker positions (as % inside the viewBox)
   const markers = [
-    { id: "ucd", x: 49, y: 34 },        // Davis
-    { id: "dressaire", x: 55, y: 63 },  // Santa Barbara
-    { id: "sanisure", x: 57, y: 70 },   // Camarillo
+    { id: "ucd", x: 47, y: 29 },       // Davis
+    { id: "dressaire", x: 55, y: 63 }, // Santa Barbara
+    { id: "sanisure", x: 57, y: 70 },  // Camarillo
   ];
 
   return (
-    <div className={`relative ${className}`}>
-      <img
-        src="/images/California.jpg"
-        alt="California map"
-        className="w-full h-auto select-none pointer-events-none"
-        draggable="false"
+    <svg
+      className={className}
+      viewBox="0 0 600 1600"
+      fill="none"
+      stroke="#0E6B54"
+      strokeWidth="18"
+      strokeLinejoin="round"
+    >
+      {/* Accurate California outline */}
+      <path
+        d="
+          M136,23 
+          L450,23 
+          L450,260 
+          L585,520 
+          L585,710 
+          L430,1080 
+          L380,1180 
+          L355,1205 
+          L350,1300 
+          L310,1430 
+          L230,1550 
+          L150,1550 
+          L95,1420 
+          L55,1280 
+          L45,1150 
+          L40,1000 
+          L25,800 
+          L20,620 
+          L28,480 
+          L45,330 
+          L70,200 
+          L110,100 Z
+        "
+        opacity="0.9"
       />
 
+      {/* Markers */}
       {markers.map((m) => {
         const active = activeId === m.id;
         return (
-          <div
+          <g
             key={m.id}
-            className="absolute cursor-pointer"
-            style={{
-              left: `${m.x}%`,
-              top: `${m.y}%`,
-              transform: "translate(-50%, -50%)",
-            }}
             onClick={(e) => {
               e.stopPropagation();
               onMarkerClick(m.id);
             }}
+            className="cursor-pointer"
+            transform={`translate(${(m.x / 100) * 600}, ${(m.y / 100) * 1600})`}
           >
             {/* Outer ring */}
-            <div
-              className={`rounded-full border ${
-                active ? "border-[#0E6B54] w-6 h-6" : "border-[#0E6B54]/40 w-5 h-5"
-              } flex items-center justify-center`}
-            >
-              {/* Inner dot */}
-              <div
-                className={`rounded-full ${
-                  active ? "w-3 h-3" : "w-2 h-2"
-                } bg-[#0E6B54]`}
-              />
-            </div>
-          </div>
+            <circle
+              r={active ? 36 : 28}
+              stroke="#0E6B54"
+              strokeWidth="6"
+              fill="none"
+              opacity="0.35"
+            />
+            {/* Inner dot */}
+            <circle r={active ? 18 : 12} fill="#0E6B54" />
+          </g>
         );
       })}
-    </div>
+    </svg>
   );
 }
+
 function GermanyMap({ className, activeId, onMarkerClick }) {
   const markers = [
     { id: "audi", x: 59, y: 55 }, // Ingolstadt (Bavaria)
