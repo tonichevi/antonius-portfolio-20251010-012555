@@ -213,8 +213,8 @@ function CaliforniaMap({ className, activeId, onMarkerClick }) {
         href="/images/California2.jpg"
         x="25"          // was 50
         y="10"          // was 50
-        width="650"     // was 600
-        height="900"    // was 850
+        width="750"     // was 600
+        height="1050"    // was 850
         preserveAspectRatio="xMidYMid meet"
       />
 
