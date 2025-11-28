@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import "./globals.css";
 
@@ -111,12 +111,9 @@ function CircuitIcon({ className, color = "#0E6B54" }) {
         strokeLinejoin="round"
         opacity="0.9"
       >
-        {/* Resistor */}
         <path d="M8 24h8l4-6 4 6 4-6 4 6 4-6 4 6h8" />
-        {/* Op-amp */}
         <path d="M18 44l14-8v16l-14-8z" />
         <path d="M32 36h8M32 52h8M20 40h-6M20 48h-6M40 44h6" />
-        {/* Nodes */}
         <circle cx="8" cy="24" r="1.5" />
         <circle cx="56" cy="24" r="1.5" />
       </g>
@@ -202,166 +199,219 @@ function WaveIcon({ className, color = "#0E6B54" }) {
     </svg>
   );
 }
-/* Map for experiences code */
-function CaliforniaMap({ className }) {
+
+/* -----------------------------------------------------
+   MAPS FOR EXPERIENCES (B-1 GEOMETRIC OUTLINES)
+----------------------------------------------------- */
+
+function CaliforniaMap({ className, activeId, onSelect }) {
+  const isActive = (id) => activeId === id;
+
   return (
     <svg
       viewBox="0 0 200 400"
       className={className}
       aria-hidden="true"
     >
-      {/* Outline */}
+      {/* Stylized California outline */}
       <path
-        d="M60 20 L125 50 L145 120 L125 220 L135 360 L90 380 L65 340 L50 260 L40 190 Z"
+        d="M72 24 L132 52 L150 120 L132 220 L144 360 L94 382 L70 338 L54 260 L46 188 Z"
         fill="none"
         stroke="#0E6B54"
-        strokeWidth="1.5"
+        strokeWidth="1.7"
         strokeLinejoin="round"
-        opacity="0.7"
+        opacity="0.85"
       />
 
-      {/* Davis */}
-      <line
-        x1="112"
-        y1="90"
-        x2="150"
-        y2="80"
-        stroke="#0E6B54"
-        strokeWidth="1"
-        strokeLinecap="round"
-        opacity="0.45"
-      />
-      <circle cx="112" cy="90" r="4" fill="#0E6B54" />
-      <circle
-        cx="112"
-        cy="90"
-        r="8"
-        stroke="#0E6B54"
-        strokeWidth="1.4"
-        fill="none"
-        opacity="0.28"
-      />
-      <text
-        x="154"
-        y="84"
-        fontSize="9"
-        fill="#354139"
+      {/* Davis – UC Davis */}
+      <g
+        onClick={(e) => {
+          e.stopPropagation();
+          onSelect && onSelect("ucd");
+        }}
+        className="cursor-pointer"
       >
-        Davis · UC Davis
-      </text>
+        <circle
+          cx="122"
+          cy="98"
+          r={isActive("ucd") ? 5 : 4}
+          fill={isActive("ucd") ? "#0E6B54" : "#F6F7F4"}
+          stroke="#0E6B54"
+          strokeWidth="1.6"
+        />
+        <circle
+          cx="122"
+          cy="98"
+          r={isActive("ucd") ? 11 : 9}
+          fill="none"
+          stroke="#0E6B54"
+          strokeWidth="1.2"
+          opacity={isActive("ucd") ? 0.45 : 0.25}
+        />
+      </g>
 
-      {/* Santa Barbara */}
-      <line
-        x1="100"
-        y1="230"
-        x2="150"
-        y2="220"
-        stroke="#0E6B54"
-        strokeWidth="1"
-        strokeLinecap="round"
-        opacity="0.45"
-      />
-      <circle cx="100" cy="230" r="4" fill="#0E6B54" />
-      <circle
-        cx="100"
-        cy="230"
-        r="8"
-        stroke="#0E6B54"
-        strokeWidth="1.4"
-        fill="none"
-        opacity="0.28"
-      />
-      <text
-        x="154"
-        y="224"
-        fontSize="9"
-        fill="#354139"
+      {/* Santa Barbara – Dressaire Lab */}
+      <g
+        onClick={(e) => {
+          e.stopPropagation();
+          onSelect && onSelect("dressaire");
+        }}
+        className="cursor-pointer"
       >
-        Santa Barbara · Dressaire
-      </text>
+        <circle
+          cx="106"
+          cy="232"
+          r={isActive("dressaire") ? 5 : 4}
+          fill={isActive("dressaire") ? "#0E6B54" : "#F6F7F4"}
+          stroke="#0E6B54"
+          strokeWidth="1.6"
+        />
+        <circle
+          cx="106"
+          cy="232"
+          r={isActive("dressaire") ? 11 : 9}
+          fill="none"
+          stroke="#0E6B54"
+          strokeWidth="1.2"
+          opacity={isActive("dressaire") ? 0.45 : 0.25}
+        />
+      </g>
 
-      {/* Camarillo */}
-      <line
-        x1="108"
-        y1="270"
-        x2="150"
-        y2="285"
-        stroke="#0E6B54"
-        strokeWidth="1"
-        strokeLinecap="round"
-        opacity="0.45"
-      />
-      <circle cx="108" cy="270" r="4" fill="#0E6B54" />
-      <circle
-        cx="108"
-        cy="270"
-        r="8"
-        stroke="#0E6B54"
-        strokeWidth="1.4"
-        fill="none"
-        opacity="0.28"
-      />
-      <text
-        x="154"
-        y="289"
-        fontSize="9"
-        fill="#354139"
+      {/* Camarillo – SaniSure */}
+      <g
+        onClick={(e) => {
+          e.stopPropagation();
+          onSelect && onSelect("sanisure");
+        }}
+        className="cursor-pointer"
       >
-        Camarillo · SaniSure
-      </text>
+        <circle
+          cx="114"
+          cy="274"
+          r={isActive("sanisure") ? 5 : 4}
+          fill={isActive("sanisure") ? "#0E6B54" : "#F6F7F4"}
+          stroke="#0E6B54"
+          strokeWidth="1.6"
+        />
+        <circle
+          cx="114"
+          cy="274"
+          r={isActive("sanisure") ? 11 : 9}
+          fill="none"
+          stroke="#0E6B54"
+          strokeWidth="1.2"
+          opacity={isActive("sanisure") ? 0.45 : 0.25}
+        />
+      </g>
     </svg>
   );
 }
 
-function GermanyMap({ className }) {
+function GermanyMap({ className, activeId, onSelect }) {
+  const isActive = (id) => activeId === id;
+
   return (
     <svg
       viewBox="0 0 200 340"
       className={className}
       aria-hidden="true"
     >
-      {/* Outline */}
+      {/* Stylized Germany outline */}
       <path
-        d="M95 20 L120 40 L130 70 L120 100 L135 125 L130 155 L145 190 L130 230 L135 260 L120 290 L95 310 L70 290 L60 260 L70 230 L65 200 L75 170 L65 140 L70 110 L60 80 L70 50 Z"
+        d="M92 24 L122 42 L134 72 L124 104 L138 134 L132 166 L146 196 L134 230 L140 260 L124 294 L96 316 L70 294 L60 262 L70 232 L64 204 L76 172 L66 140 L72 110 L60 80 L72 50 Z"
         fill="none"
         stroke="#0E6B54"
-        strokeWidth="1.5"
+        strokeWidth="1.7"
         strokeLinejoin="round"
-        opacity="0.7"
+        opacity="0.85"
       />
 
-      {/* Ingolstadt */}
-      <line
-        x1="118"
-        y1="120"
-        x2="155"
-        y2="110"
-        stroke="#0E6B54"
-        strokeWidth="1"
-        strokeLinecap="round"
-        opacity="0.45"
-      />
-      <circle cx="118" cy="120" r="4" fill="#0E6B54" />
-      <circle
-        cx="118"
-        cy="120"
-        r="8"
-        stroke="#0E6B54"
-        strokeWidth="1.4"
-        fill="none"
-        opacity="0.28"
-      />
-      <text
-        x="159"
-        y="114"
-        fontSize="9"
-        fill="#354139"
+      {/* Ingolstadt – AUDI AG */}
+      <g
+        onClick={(e) => {
+          e.stopPropagation();
+          onSelect && onSelect("audi");
+        }}
+        className="cursor-pointer"
       >
-        Ingolstadt · AUDI
-      </text>
+        <circle
+          cx="118"
+          cy="166"
+          r={isActive("audi") ? 5 : 4}
+          fill={isActive("audi") ? "#0E6B54" : "#F6F7F4"}
+          stroke="#0E6B54"
+          strokeWidth="1.6"
+        />
+        <circle
+          cx="118"
+          cy="166"
+          r={isActive("audi") ? 11 : 9}
+          fill="none"
+          stroke="#0E6B54"
+          strokeWidth="1.2"
+          opacity={isActive("audi") ? 0.45 : 0.25}
+        />
+      </g>
     </svg>
   );
 }
+
+/* -----------------------------------------------------
+   EXPERIENCE OVERLAY DATA
+----------------------------------------------------- */
+
+const EXPERIENCE_DETAIL = {
+  dressaire: {
+    id: "dressaire",
+    region: "california",
+    title: "Fluid Dynamics Researcher",
+    company: "Dressaire Lab · UCSB",
+    period: "Oct 2025 – Present",
+    location: "Santa Barbara, CA",
+    bullets: [
+      "Study capillary bridges in soft gels relevant to biomedical interfaces.",
+      "Build fixtures to measure wetting, adhesion, and force–separation curves.",
+    ],
+  },
+  sanisure: {
+    id: "sanisure",
+    region: "california",
+    title: "Design + R&D Intern",
+    company: "SaniSure — R&D",
+    period: "Jul 2025 – Present",
+    location: "Camarillo, CA",
+    bullets: [
+      "Develop single-use bioprocessing assemblies for cell therapy.",
+      "Run pressure-decay leak tests and structured failure analyses.",
+      "Refine SOPs and FMEAs with Fabrication and QA teams.",
+      "Create dashboards for chemical compatibility and department overview.",
+    ],
+  },
+  ucd: {
+    id: "ucd",
+    region: "california",
+    title: "Research Assistant · Calculus Tutor",
+    company: "UC Davis · College of Engineering",
+    period: "Jan 2023 – Jun 2023 (RA); Sep 2022 – Jun 2023 (Tutor)",
+    location: "Davis, CA",
+    bullets: [
+      "Simulated projectile motion in C with parameter sweeps and experimental validation.",
+      "Led one-on-one and small-group calculus tutoring (~5–10 hrs/week).",
+    ],
+  },
+  audi: {
+    id: "audi",
+    region: "germany",
+    title: "Requirements Engineering Intern",
+    company: "AUDI AG — Technical Development",
+    period: "Jan 2024 – Jun 2024",
+    location: "Ingolstadt, Germany",
+    bullets: [
+      "Built KPI dashboards for Systems Requirements, improving traceability and visibility across vehicle programs.",
+      "Collaborated with ~30 engineers across disciplines on specifications for next-generation vehicles.",
+    ],
+  },
+};
 
 /* -----------------------------------------------------
    THEME CONFIG (ICON COLORS PER SECTION)
@@ -571,71 +621,6 @@ const PROJECTS = [
   },
 ];
 
-const EXPERIENCE = [
-  {
-    id: "dressaire",
-    role: "Fluid Dynamics Researcher",
-    company: "Dressaire Lab",
-    period: "Oct 2025 – Present",
-    start: "2025-10-01",
-    location: "UCSB",
-    bullets: [
-      "Study capillary bridges in soft gels relevant to biomedical interfaces.",
-      "Build fixtures to measure wetting, adhesion, and force–separation curves.",
-    ],
-  },
-  {
-    id: "sanisure",
-    role: "Design + R&D Intern",
-    company: "SaniSure — R&D",
-    period: "Jul 2025 – Present",
-    start: "2025-07-01",
-    location: "Camarillo, CA",
-    bullets: [
-      "Develop single-use bioprocessing assemblies for cell therapy.",
-      "Run pressure-decay leak tests and structured failure analysis.",
-      "Refine SOPs and FMEAs with Fabrication and QA teams.",
-      "Create dashboards for chemical compatibility and department overview.",
-    ],
-  },
-  {
-    id: "audi",
-    role: "Requirements Engineering Intern",
-    company: "AUDI AG",
-    period: "Jan 2024 – Jun 2024",
-    start: "2024-01-01",
-    location: "Ingolstadt, Germany",
-    bullets: [
-      "Built KPI dashboards for Systems Requirements.",
-      "Worked with ~30 engineers developing next-gen vehicle platforms.",
-    ],
-  },
-  {
-    id: "ucd",
-    role: "Research Assistant",
-    company: "UC Davis",
-    period: "Jan 2023 – Jun 2023",
-    start: "2023-01-01",
-    location: "Davis, CA",
-    bullets: [
-      "Simulated projectile motion using C with parameter sweeps.",
-      "Validated numerical models against experimental data.",
-    ],
-  },
-  {
-    id: "tutor",
-    role: "Calculus Tutor",
-    company: "UC Davis",
-    period: "Sep 2022 – Jun 2023",
-    start: "2022-09-01",
-    location: "Davis, CA",
-    bullets: [
-      "One-on-one and small-group tutoring.",
-      "Supported 5–10 hrs/week of instruction for core calculus.",
-    ],
-  },
-];
-
 const EDUCATION = [
   {
     school: "UC Santa Barbara",
@@ -744,14 +729,12 @@ function SectionShell({
       id={id}
       className="relative max-w-6xl mx-auto px-4 py-20 space-y-10"
     >
-      {/* soft vertical fade behind hero / education */}
       {verticalGradient && (
         <div className="pointer-events-none absolute inset-0 -z-20">
           <div className="w-full h-full bg-[linear-gradient(to_bottom,rgba(255,255,255,0.55),transparent_85%)] opacity-70" />
         </div>
       )}
 
-      {/* floating icons */}
       <ThemedFloatingIcons
         theme={theme}
         scrollDir={scrollDir}
@@ -798,6 +781,49 @@ function ImageModal({ selectedImage, onClose }) {
 }
 
 /* -----------------------------------------------------
+   EXPERIENCE OVERLAY COMPONENT
+----------------------------------------------------- */
+
+function ExperienceOverlay({ experience }) {
+  return (
+    <AnimatePresence>
+      {experience && (
+        <motion.div
+          key={experience.id}
+          initial={{ opacity: 0, y: 18 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: 18 }}
+          transition={{ duration: 0.35, ease: "easeOut" }}
+          className="absolute left-1/2 bottom-4 -translate-x-1/2 w-[92%] max-w-sm rounded-2xl border border-[#D0D4CB]/70 bg-[rgba(246,247,244,0.96)] backdrop-blur shadow-[0_18px_40px_rgba(0,0,0,0.18)] px-4 py-3"
+        >
+          <div className="flex items-baseline justify-between gap-2">
+            <div>
+              <h4 className="text-sm font-semibold text-[#1A1F1A]">
+                {experience.title}
+              </h4>
+              <p className="text-xs text-[#57655B]">{experience.company}</p>
+            </div>
+            <div className="text-[10px] text-right text-[#5F6B62] whitespace-nowrap">
+              {experience.period}
+              <br />
+              {experience.location}
+            </div>
+          </div>
+          <ul className="mt-2 space-y-1.5 text-[13px] text-[#374139]">
+            {experience.bullets.map((b, idx) => (
+              <li key={idx} className="flex gap-2">
+                <span className="mt-[6px] h-[2px] w-4 bg-[#0E6B54]/70" />
+                {b}
+              </li>
+            ))}
+          </ul>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+}
+
+/* -----------------------------------------------------
    PAGE
 ----------------------------------------------------- */
 
@@ -807,6 +833,8 @@ export default function Page() {
 
   const [scrollDir, setScrollDir] = useState(1);
   const [scrollSpeed, setScrollSpeed] = useState(0);
+
+  const [activeExperience, setActiveExperience] = useState(null);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -838,13 +866,14 @@ export default function Page() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const sortedExperience = useMemo(
-    () =>
-      [...EXPERIENCE].sort(
-        (a, b) => new Date(b.start).getTime() - new Date(a.start).getTime()
-      ),
-    []
-  );
+  const active = activeExperience
+    ? EXPERIENCE_DETAIL[activeExperience]
+    : null;
+
+  const activeCA =
+    active && active.region === "california" ? active : null;
+  const activeDE =
+    active && active.region === "germany" ? active : null;
 
   return (
     <>
@@ -887,7 +916,7 @@ export default function Page() {
           </div>
         </header>
 
-        {/* HERO / OVERVIEW – vertical gradient */}
+        {/* HERO / OVERVIEW */}
         <SectionShell
           id="top"
           label="Overview"
@@ -897,7 +926,6 @@ export default function Page() {
           verticalGradient
         >
           <div className="grid md:grid-cols-[1.4fr,1fr] gap-10 items-center mt-6">
-            {/* TEXT */}
             <motion.div {...fadeProps} className="space-y-6">
               <h1 className="text-3xl md:text-5xl font-semibold leading-tight">
                 Designing hardware where{" "}
@@ -926,7 +954,6 @@ export default function Page() {
               </div>
             </motion.div>
 
-            {/* PORTRAIT – radial halo but no box */}
             <motion.div {...fadeProps}>
               <Card className="max-w-xs mx-auto text-center px-0 py-0">
                 <div className="size-40 mx-auto rounded-full overflow-hidden">
@@ -948,7 +975,7 @@ export default function Page() {
           </div>
         </SectionShell>
 
-        {/* PROJECTS – radial halos on text blocks */}
+        {/* PROJECTS */}
         <SectionShell
           id="projects"
           label="Projects"
@@ -971,7 +998,6 @@ export default function Page() {
                         : "md:grid-cols-[1fr,1.2fr]"
                     }`}
                 >
-                  {/* TEXT BLOCK */}
                   <div className={isEven ? "" : "md:order-2"}>
                     <Card className="h-full flex flex-col justify-between px-0 md:pr-8">
                       <div>
@@ -1003,7 +1029,6 @@ export default function Page() {
                     </Card>
                   </div>
 
-                  {/* IMAGE(S) BLOCK – no frame */}
                   <div className={isEven ? "" : "md:order-1"}>
                     {p.img && (
                       <motion.img
@@ -1038,183 +1063,72 @@ export default function Page() {
           </div>
         </SectionShell>
 
-       {/* EXPERIENCE – map-based timeline */}
-<SectionShell
-  id="experience"
-  label="Experience"
-  theme="experience"
-  scrollDir={scrollDir}
-  scrollSpeed={scrollSpeed}
->
-  <div className="space-y-14 mt-6">
-    {/* CALIFORNIA BLOCK */}
-    <motion.div {...fadeProps}>
-      <div className="flex items-baseline justify-between gap-4 mb-4">
-        <h3 className="text-sm uppercase tracking-[0.18em] text-[#0E6B54] font-semibold">
-          California · Bioprocess & Research
-        </h3>
-        <span className="text-[11px] text-[#5F6B62]">
-          Santa Barbara · Camarillo · Davis
-        </span>
-      </div>
+        {/* EXPERIENCE – SIDE-BY-SIDE INTERACTIVE MAPS */}
+        <SectionShell
+          id="experience"
+          label="Experience"
+          theme="experience"
+          scrollDir={scrollDir}
+          scrollSpeed={scrollSpeed}
+        >
+          <div
+            className="mt-6 space-y-10"
+            onClick={() => setActiveExperience(null)}
+          >
+            <div className="grid gap-10 lg:grid-cols-2 items-start">
+              {/* California column */}
+              <motion.div {...fadeProps} onClick={(e) => e.stopPropagation()}>
+                <div className="flex items-baseline justify-between gap-4 mb-4">
+                  <h3 className="text-sm uppercase tracking-[0.18em] text-[#0E6B54] font-semibold">
+                    California · Bioprocess & Research
+                  </h3>
+                  <span className="text-[11px] text-[#5F6B62]">
+                    Santa Barbara · Camarillo · Davis
+                  </span>
+                </div>
 
-      <Card className="grid gap-10 md:grid-cols-[1.05fr,1.4fr] items-start px-0 py-0">
-        {/* MAP */}
-        <div className="px-2 md:px-4 pt-2">
-          <CaliforniaMap className="w-full max-w-xs md:max-w-sm mx-auto" />
-        </div>
+                <Card className="px-0 py-0">
+                  <div className="relative aspect-[3/5] w-full max-w-sm mx-auto pt-2 pb-3">
+                    <CaliforniaMap
+                      className="w-full h-full"
+                      activeId={activeExperience}
+                      onSelect={setActiveExperience}
+                    />
+                    <ExperienceOverlay experience={activeCA} />
+                  </div>
+                </Card>
+              </motion.div>
 
-        {/* ROLES */}
-        <div className="space-y-6 pr-1 md:pr-6 pb-4">
-          {/* Dressaire Lab */}
-          <div>
-            <div className="flex items-baseline justify-between gap-2">
-              <div>
-                <h4 className="text-sm font-semibold text-[#1A1F1A]">
-                  Fluid Dynamics Researcher
-                </h4>
-                <p className="text-xs text-[#57655B]">Dressaire Lab · UCSB</p>
-              </div>
-              <div className="text-[11px] text-right text-[#5F6B62] whitespace-nowrap">
-                Oct 2025 – Present
-                <br />
-                Santa Barbara, CA
-              </div>
+              {/* Germany column */}
+              <motion.div {...fadeProps} onClick={(e) => e.stopPropagation()}>
+                <div className="flex items-baseline justify-between gap-4 mb-4">
+                  <h3 className="text-sm uppercase tracking-[0.18em] text-[#0E6B54] font-semibold">
+                    Germany · Automotive Systems
+                  </h3>
+                  <span className="text-[11px] text-[#5F6B62]">Ingolstadt</span>
+                </div>
+
+                <Card className="px-0 py-0">
+                  <div className="relative aspect-[3/5] w-full max-w-sm mx-auto pt-2 pb-3">
+                    <GermanyMap
+                      className="w-full h-full"
+                      activeId={activeExperience}
+                      onSelect={setActiveExperience}
+                    />
+                    <ExperienceOverlay experience={activeDE} />
+                  </div>
+                </Card>
+              </motion.div>
             </div>
-            <ul className="mt-2 space-y-1.5 text-sm text-[#374139]">
-              <li className="flex gap-2">
-                <span className="mt-[6px] h-[2px] w-4 bg-[#0E6B54]/70" />
-                Study capillary bridges in soft gels relevant to biomedical
-                interfaces.
-              </li>
-              <li className="flex gap-2">
-                <span className="mt-[6px] h-[2px] w-4 bg-[#0E6B54]/70" />
-                Build fixtures to measure wetting, adhesion, and
-                force–separation curves.
-              </li>
-            </ul>
+
+            <p className="text-[11px] text-[#5F6B62] text-center">
+              Tap or click a marker to explore what I built in each place. Click
+              on the background to reset.
+            </p>
           </div>
+        </SectionShell>
 
-          {/* SaniSure R&D */}
-          <div>
-            <div className="flex items-baseline justify-between gap-2">
-              <div>
-                <h4 className="text-sm font-semibold text-[#1A1F1A]">
-                  Design + R&amp;D Intern
-                </h4>
-                <p className="text-xs text-[#57655B]">SaniSure — R&amp;D</p>
-              </div>
-              <div className="text-[11px] text-right text-[#5F6B62] whitespace-nowrap">
-                Jul 2025 – Present
-                <br />
-                Camarillo, CA
-              </div>
-            </div>
-            <ul className="mt-2 space-y-1.5 text-sm text-[#374139]">
-              <li className="flex gap-2">
-                <span className="mt-[6px] h-[2px] w-4 bg-[#0E6B54]/70" />
-                Develop single-use bioprocessing assemblies for cell therapy.
-              </li>
-              <li className="flex gap-2">
-                <span className="mt-[6px] h-[2px] w-4 bg-[#0E6B54]/70" />
-                Run pressure-decay tests and structured failure analyses.
-              </li>
-              <li className="flex gap-2">
-                <span className="mt-[6px] h-[2px] w-4 bg-[#0E6B54]/70" />
-                Refine SOPs and FMEAs with Fabrication and QA teams; create
-                dashboards for chemical compatibility and department overview.
-              </li>
-            </ul>
-          </div>
-
-          {/* UC Davis (RA + Tutor) */}
-          <div>
-            <div className="flex items-baseline justify-between gap-2">
-              <div>
-                <h4 className="text-sm font-semibold text-[#1A1F1A]">
-                  Research Assistant · Calculus Tutor
-                </h4>
-                <p className="text-xs text-[#57655B]">
-                  UC Davis · College of Engineering
-                </p>
-              </div>
-              <div className="text-[11px] text-right text-[#5F6B62] whitespace-nowrap">
-                Jan 2023 – Jun 2023 (RA)
-                <br />
-                Sep 2022 – Jun 2023 (Tutor)
-                <br />
-                Davis, CA
-              </div>
-            </div>
-            <ul className="mt-2 space-y-1.5 text-sm text-[#374139]">
-              <li className="flex gap-2">
-                <span className="mt-[6px] h-[2px] w-4 bg-[#0E6B54]/70" />
-                Simulated projectile motion in C with parameter sweeps and
-                experimental validation.
-              </li>
-              <li className="flex gap-2">
-                <span className="mt-[6px] h-[2px] w-4 bg-[#0E6B54]/70" />
-                Led one-on-one and small-group calculus tutoring
-                (~5–10 hrs/week).
-              </li>
-            </ul>
-          </div>
-        </div>
-      </Card>
-    </motion.div>
-
-    {/* GERMANY BLOCK */}
-    <motion.div {...fadeProps}>
-      <div className="flex items-baseline justify-between gap-4 mb-4">
-        <h3 className="text-sm uppercase tracking-[0.18em] text-[#0E6B54] font-semibold">
-          Germany · Automotive Systems
-        </h3>
-        <span className="text-[11px] text-[#5F6B62]">Ingolstadt</span>
-      </div>
-
-      <Card className="grid gap-10 md:grid-cols-[1.05fr,1.4fr] items-start px-0 py-0">
-        {/* MAP */}
-        <div className="px-2 md:px-4 pt-2">
-          <GermanyMap className="w-full max-w-xs md:max-w-sm mx-auto" />
-        </div>
-
-        {/* AUDI ROLE */}
-        <div className="space-y-6 pr-1 md:pr-6 pb-4">
-          <div>
-            <div className="flex items-baseline justify-between gap-2">
-              <div>
-                <h4 className="text-sm font-semibold text-[#1A1F1A]">
-                  Requirements Engineering Intern
-                </h4>
-                <p className="text-xs text-[#57655B]">AUDI AG — Technical Development</p>
-              </div>
-              <div className="text-[11px] text-right text-[#5F6B62] whitespace-nowrap">
-                Jan 2024 – Jun 2024
-                <br />
-                Ingolstadt, Germany
-              </div>
-            </div>
-            <ul className="mt-2 space-y-1.5 text-sm text-[#374139]">
-              <li className="flex gap-2">
-                <span className="mt-[6px] h-[2px] w-4 bg-[#0E6B54]/70" />
-                Built KPI dashboards for Systems Requirements, improving
-                traceability and visibility across vehicle programs.
-              </li>
-              <li className="flex gap-2">
-                <span className="mt-[6px] h-[2px] w-4 bg-[#0E6B54]/70" />
-                Collaborated with ~30 engineers across disciplines on
-                specifications for next-generation vehicles.
-              </li>
-            </ul>
-          </div>
-        </div>
-      </Card>
-    </motion.div>
-  </div>
-</SectionShell>
-
-
-        {/* EDUCATION – vertical section fade, simple columns */}
+        {/* EDUCATION */}
         <SectionShell
           id="education"
           label="Education"
@@ -1250,7 +1164,7 @@ export default function Page() {
           </motion.div>
         </SectionShell>
 
-        {/* BACKGROUND & IMPACT – radial halos on cards */}
+        {/* BACKGROUND & IMPACT */}
         <SectionShell
           id="background"
           label="Background & Impact"
@@ -1259,7 +1173,6 @@ export default function Page() {
           scrollSpeed={scrollSpeed}
         >
           <div className="grid gap-10 lg:grid-cols-[1.4fr,1fr] items-start mt-6">
-            {/* Volunteering */}
             <motion.div {...fadeProps}>
               <Card className="px-6 py-6">
                 <h3 className="text-sm uppercase tracking-[0.18em] text-[#0E6B54] font-semibold mb-3">
@@ -1277,7 +1190,6 @@ export default function Page() {
               </Card>
             </motion.div>
 
-            {/* Honors / Certs / Languages */}
             <div className="space-y-6">
               <motion.div {...fadeProps}>
                 <Card className="px-6 py-6">
@@ -1330,7 +1242,7 @@ export default function Page() {
           </div>
         </SectionShell>
 
-        {/* CONTACT – radial halo on one block */}
+        {/* CONTACT */}
         <SectionShell
           id="contact"
           label="Contact"
@@ -1378,4 +1290,5 @@ export default function Page() {
     </>
   );
 }
+
 
