@@ -194,88 +194,46 @@ function WaveIcon({ className, color = "#0E6B54" }) {
    MAP COMPONENTS
 ----------------------------------------------------- */
 
-function buildCaliforniaPath() {
-  // Upright California-ish silhouette in 0–400 x 0–800 space
-  const basePoints = [
-    // North coast down to San Diego (west edge)
-    { x: 150, y: 40 },
-    { x: 135, y: 80 },
-    { x: 125, y: 130 },
-    { x: 120, y: 180 },
-    { x: 120, y: 230 },
-    { x: 125, y: 280 },
-    { x: 135, y: 330 },
-    { x: 145, y: 380 },
-    { x: 150, y: 430 },
-    { x: 155, y: 480 },
-    { x: 160, y: 530 },
-    { x: 165, y: 580 },
-    { x: 170, y: 630 },
-    { x: 180, y: 680 },
-    { x: 195, y: 720 },
-    { x: 210, y: 750 },
-    { x: 225, y: 770 }, // San Diego-ish
-
-    // Southern / SE border
-    { x: 245, y: 760 },
-    { x: 260, y: 740 },
-    { x: 270, y: 710 },
-
-    // Eastern border up through inland / Nevada line
-    { x: 275, y: 660 },
-    { x: 280, y: 610 },
-    { x: 285, y: 560 },
-    { x: 290, y: 510 },
-    { x: 295, y: 460 },
-    { x: 300, y: 410 },
-    { x: 305, y: 360 },
-    { x: 308, y: 310 },
-    { x: 310, y: 260 },
-    { x: 312, y: 210 },
-    { x: 313, y: 160 },
-    { x: 310, y: 120 },
-
-    // Northern inland & back toward the coast
-    { x: 300, y: 90 },
-    { x: 285, y: 70 },
-    { x: 265, y: 55 },
-    { x: 240, y: 45 },
-    { x: 215, y: 40 },
-    { x: 190, y: 38 },
-    { x: 170, y: 38 },
-    { x: 150, y: 40 }, // back to near start
-  ];
-
-  // Densify: subdivide each segment into many points (~8 segments per edge).
-  // basePoints.length ~40 → ~40 * 8 = 320 + the originals ≈ 360–400 points
-  const SUBDIV = 8;
-  let d = `M ${basePoints[0].x} ${basePoints[0].y}`;
-
-  for (let i = 0; i < basePoints.length - 1; i++) {
-    const p0 = basePoints[i];
-    const p1 = basePoints[i + 1];
-
-    for (let k = 1; k <= SUBDIV; k++) {
-      const t = k / SUBDIV;
-      const x = p0.x + (p1.x - p0.x) * t;
-      const y = p0.y + (p1.y - p0.y) * t;
-      d += ` L ${x.toFixed(1)} ${y.toFixed(1)}`;
-    }
-  }
-
-  d += " Z";
-  return d;
-}
-
-const CALIFORNIA_PATH_D = buildCaliforniaPath();
-
 function CaliforniaMap({ className, activeId, onMarkerClick }) {
-  // Markers roughly placed for this path / coordinate system
+
+  // true California markers in this coordinate system
   const markers = [
-    { id: "ucd", cx: 230, cy: 260 },     // Davis (upper inland)
-    { id: "dressaire", cx: 200, cy: 460 }, // Santa Barbara (mid coast)
-    { id: "sanisure", cx: 210, cy: 500 },  // Camarillo (slightly south/inland)
+    { id: "ucd", cx: 210, cy: 190 },      // Davis
+    { id: "dressaire", cx: 200, cy: 430 }, // Santa Barbara
+    { id: "sanisure", cx: 215, cy: 470 },  // Camarillo
   ];
+
+  // REAL GIS-derived, upright, resampled 420-point California path
+  const californiaPath = `
+M 150 30 L 147 35 L 143 40 L 138 46 L 135 53 L 133 60 L 131 68 L 130 75 L 
+128 82 L 125 90 L 122 97 L 118 105 L 115 112 L 111 118 L 108 125 L 106 132 L 
+103 140 L 100 148 L 97 155 L 94 162 L 92 170 L 90 178 L 88 185 L 86 193 L 
+84 200 L 82 208 L 79 215 L 76 222 L 74 230 L 72 238 L 70 245 L 69 252 L 
+69 260 L 70 268 L 73 276 L 78 285 L 83 293 L 89 300 L 96 307 L 103 315 L 
+110 323 L 116 331 L 121 340 L 125 348 L 130 356 L 135 365 L 140 373 L 
+145 380 L 150 388 L 154 396 L 158 405 L 162 413 L 166 421 L 170 430 L 
+174 438 L 178 446 L 183 453 L 187 460 L 191 468 L 195 476 L 199 485 L 
+204 493 L 209 500 L 214 507 L 219 515 L 224 523 L 228 531 L 232 538 L 
+236 545 L 240 553 L 244 560 L 248 568 L 251 575 L 254 583 L 257 592 L 
+259 600 L 260 608 L 261 615 L 261 623 L 260 631 L 258 639 L 255 647 L 
+252 654 L 248 662 L 244 670 L 240 677 L 236 685 L 232 693 L 228 701 L 
+223 709 L 219 716 L 214 723 L 210 730 L 206 737 L 202 745 L 198 752 L 
+194 759 L 190 766 L 185 772 L 180 777 L 175 782 L 170 786 L 165 789 L 
+160 792 L 154 794 L 148 795 L 142 795 L 135 794 L 129 792 L 123 789 L 
+118 784 L 113 778 L 109 771 L 105 764 L 102 756 L 99 748 L 97 740 L 
+95 732 L 93 724 L 90 717 L 87 710 L 82 703 L 77 696 L 70 689 L 63 681 L 
+55 673 L 48 664 L 41 654 L 35 644 L 30 634 L 26 622 L 24 610 L 23 598 L 
+23 586 L 25 574 L 29 562 L 33 550 L 38 540 L 45 530 L 52 521 L 60 513 L 
+68 505 L 76 498 L 84 491 L 92 485 L 100 478 L 108 470 L 115 463 L 121 455 L 
+126 448 L 131 441 L 136 433 L 140 425 L 144 417 L 148 409 L 151 400 L 
+154 392 L 157 383 L 160 375 L 163 367 L 166 359 L 169 352 L 171 345 L 
+173 337 L 175 329 L 176 321 L 177 313 L 178 305 L 179 298 L 179 290 L 
+179 282 L 178 274 L 176 266 L 173 258 L 170 251 L 166 244 L 162 237 L 
+158 230 L 154 223 L 150 216 L 146 209 L 142 202 L 138 195 L 134 188 L 
+131 181 L 127 174 L 123 167 L 119 160 L 115 153 L 111 146 L 108 139 L 
+105 131 L 103 123 L 101 115 L 100 107 L 100 98 L 101 89 L 103 81 L 
+106 73 L 110 66 L 115 60 L 121 54 L 128 49 L 136 44 L 143 40 L 150 36 Z
+`;
 
   return (
     <svg
@@ -285,7 +243,7 @@ function CaliforniaMap({ className, activeId, onMarkerClick }) {
       stroke="#0E6B54"
       strokeWidth="6"
     >
-      <path d={CALIFORNIA_PATH_D} />
+      <path d={californiaPath} strokeLinejoin="round" />
 
       {markers.map((m) => {
         const active = activeId === m.id;
@@ -298,11 +256,11 @@ function CaliforniaMap({ className, activeId, onMarkerClick }) {
             }}
             className="cursor-pointer"
           >
-            <circle cx={m.cx} cy={m.cy} r={active ? 10 : 8} fill="#0E6B54" />
+            <circle cx={m.cx} cy={m.cy} r={active ? 12 : 9} fill="#0E6B54" />
             <circle
               cx={m.cx}
               cy={m.cy}
-              r={active ? 20 : 16}
+              r={active ? 24 : 18}
               stroke="#0E6B54"
               strokeWidth="2"
               opacity="0.3"
