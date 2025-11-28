@@ -195,63 +195,30 @@ function WaveIcon({ className, color = "#0E6B54" }) {
 ----------------------------------------------------- */
 
 function CaliforniaMap({ className, activeId, onMarkerClick }) {
-
-  // true California markers in this coordinate system
+  // Coordinates relative to the image coordinate system
   const markers = [
-    { id: "ucd", cx: 210, cy: 190 },      // Davis
-    { id: "dressaire", cx: 200, cy: 430 }, // Santa Barbara
-    { id: "sanisure", cx: 215, cy: 470 },  // Camarillo
+    { id: "ucd", cx: 200, cy: 240 },       // adjust visually once image loads
+    { id: "dressaire", cx: 210, cy: 480 },
+    { id: "sanisure", cx: 220, cy: 520 },
   ];
-
-  // REAL GIS-derived, upright, resampled 420-point California path
-  const californiaPath = `
-M 100 40
-L 97 44 97 52 97 59 98 67 99 74 100 82 101 89 101 97 
-100 105 100 113 100 121 100 129 100 137 100 145 
-99 153 99 161 99 169 99 177 99 185 99 193 99 201 
-99 209 99 217 99 225 100 233 100 241 101 249 102 257 
-102 265 103 273 104 281 105 289 106 297 107 305 108 313 
-109 321 110 329 111 337 112 345 113 353 114 361 115 369 
-116 377 117 385 118 393 119 401 120 409 121 417 122 425 
-123 433 124 441 125 449 126 457 127 465 128 473 129 481 
-130 489 131 497 132 505 133 513 134 521 135 529 136 537 
-137 545 138 553 139 561 140 569 141 577 142 585 143 593 
-144 601 145 609 146 617 147 625 148 633 149 641 150 649 
-151 657 152 665 153 673 154 681 155 689 156 697 157 705 
-158 713 159 721 160 729 161 737 162 745 163 753 164 761 
-165 769 166 777 167 785 168 793 169 799 170 803 171 806 
-172 808 173 809 174 810 175 811 176 811 177 811 178 811 
-179 811 180 809 181 806 182 803 183 799 184 795 185 791 
-186 787 187 783 188 779 189 775 190 771 191 767 192 763 
-193 759 194 755 195 751 196 747 197 743 198 739 199 735 
-200 731 201 727 202 723 203 719 204 715 205 711 206 707 
-207 703 208 699 209 695 210 691 211 687 212 683 213 679 
-214 675 215 671 216 667 217 663 218 659 219 655 220 651 
-221 647 222 643 223 639 224 635 225 631 226 627 227 623 
-228 619 229 615 230 611 231 607 232 603 233 599 234 595 
-235 591 236 587 237 583 238 579 239 575 240 571 241 567 
-242 563 243 559 244 555 245 551 246 547 247 543 248 539 
-249 535 250 531 251 527 252 523 253 519 254 515 255 511 
-256 507 257 503 258 499 259 495 260 491 261 487 262 483 
-263 479 264 475 265 471 266 467 267 463 268 459 269 455 
-270 451 271 447 272 443 273 439 274 435 275 431 276 427 
-277 423 278 419 279 415 280 411 281 407 282 403 283 399 
-284 395 285 391 286 387 287 383 288 379 289 375 290 371 
-291 367 292 363 293 359 294 355 295 351 296 347 297 343 
-298 339 299 335 300 331 301 327 302 323 303 319 333 319 
-333 40
-Z`;
 
   return (
     <svg
       className={className}
-      viewBox="0 0 400 800"
+      viewBox="0 0 600 1000"   // matches the approximate aspect ratio of the photo
       fill="none"
-      stroke="#0E6B54"
-      strokeWidth="6"
     >
-      <path d={californiaPath} strokeLinejoin="round" />
+      {/* California image from public/images */}
+      <image
+        href="/images/California2.jpg"
+        x="0"
+        y="0"
+        width="600"
+        height="1000"
+        preserveAspectRatio="xMidYMid meet"
+      />
 
+      {/* Markers */}
       {markers.map((m) => {
         const active = activeId === m.id;
         return (
@@ -263,11 +230,11 @@ Z`;
             }}
             className="cursor-pointer"
           >
-            <circle cx={m.cx} cy={m.cy} r={active ? 12 : 9} fill="#0E6B54" />
+            <circle cx={m.cx} cy={m.cy} r={active ? 14 : 10} fill="#0E6B54" />
             <circle
               cx={m.cx}
               cy={m.cy}
-              r={active ? 24 : 18}
+              r={active ? 26 : 20}
               stroke="#0E6B54"
               strokeWidth="2"
               opacity="0.3"
