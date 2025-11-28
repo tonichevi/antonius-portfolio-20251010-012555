@@ -198,8 +198,8 @@ function CaliforniaMap({ className, activeId, onMarkerClick }) {
   // Updated coordinates tuned to your latest screenshot
   const markers = [
     { id: "ucd", cx: 325, cy: 380 },     // UC Davis (slightly right + down)
-    { id: "dressaire", cx: 365, cy: 660 }, // Santa Barbara
-    { id: "sanisure", cx: 420, cy: 700 },  // Camarillo
+    { id: "dressaire", cx: 365, cy: 640 }, // Santa Barbara
+    { id: "sanisure", cx: 440, cy: 680 },  // Camarillo
   ];
 
   return (
