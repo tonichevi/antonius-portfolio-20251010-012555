@@ -205,7 +205,7 @@ function CaliforniaMap({ className, activeId, onMarkerClick }) {
   return (
     <svg
       className={className}
-      viewBox="0 0 700 950"   // enlarged frame
+      viewBox="0 0 450 950"   // enlarged frame
       fill="none"
     >
       {/* Enlarged + centered California image */}
