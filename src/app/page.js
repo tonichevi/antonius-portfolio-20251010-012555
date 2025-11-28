@@ -17,8 +17,8 @@ function LightBG() {
 function BiotechGlow() {
   return (
     <div className="pointer-events-none fixed inset-0 -z-30 overflow-visible">
-      <div className="absolute -left-20 -top-10 h-80 w-80 rounded-full bg-[radial-gradient(circle_at_center,rgba(102,153,133,0.20),transparent_70%)] blur-3xl" />
-      <div className="absolute -right-24 top-40 h-96 w-96 rounded-full bg-[radial-gradient(circle_at_center,rgba(14,107,84,0.18),transparent_70%)] blur-3xl" />
+      <div className="absolute -left-20 -top-10 h-80 w-80 rounded-full bg-[radial-gradient(circle_at_center,rgba(102,153,133,0.35),transparent_55%)] blur-3xl" />
+      <div className="absolute -right-24 top-40 h-96 w-96 rounded-full bg-[radial-gradient(circle_at_center,rgba(14,107,84,0.18),transparent_60%)] blur-3xl" />
       <div className="absolute inset-x-0 bottom-[-16rem] h-[22rem] bg-[radial-gradient(ellipse_at_bottom,rgba(154,181,166,0.22),transparent_68%)] blur-2xl" />
     </div>
   );
