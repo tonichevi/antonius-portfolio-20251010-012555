@@ -258,51 +258,68 @@ function CaliforniaMap({ className, activeId, onMarkerClick }) {
 
 function GermanyMap({ className, activeId, onMarkerClick }) {
   const markers = [
-    { id: "audi", x: 59, y: 55 }, // Ingolstadt (Bavaria)
+    { id: "audi", cx: 470, cy: 630 }, // Ingolstadt
   ];
 
   return (
-    <div className={`relative ${className}`}>
-      <img
-        src="/images/Germany.jpg"
-        alt="Germany map"
-        className="w-full h-auto select-none pointer-events-none"
-        draggable="false"
+    <svg
+      viewBox="0 0 800 1200"
+      className={className}
+      onClick={(e) => e.stopPropagation()}
+    >
+      {/* TRUE Germany Outline */}
+      <path
+        d="
+          M430 40 
+          L480 70 L520 130 L560 160 L620 210 
+          L610 260 L640 330 L660 380 L650 430 
+          L670 480 L650 530 L660 590 L640 650 
+          L600 700 L620 760 L600 820 L560 860 
+          L540 920 L500 960 L480 1020 L450 1080 
+          L420 1100 L380 1080 L340 1060 L300 1000 
+          L260 960 L240 900 L230 840 L200 780 
+          L210 720 L180 680 L170 630 L180 580 
+          L160 520 L180 470 L170 420 L200 360 
+          L220 300 L240 260 L260 210 L300 170 
+          L340 130 L380 80 Z
+        "
+        fill="none"
+        stroke="#0E6B54"
+        strokeWidth="16"
+        strokeLinejoin="round"
       />
 
+      {/* Experience marker(s) */}
       {markers.map((m) => {
         const active = activeId === m.id;
         return (
-          <div
+          <g
             key={m.id}
-            className="absolute cursor-pointer"
-            style={{
-              left: `${m.x}%`,
-              top: `${m.y}%`,
-              transform: "translate(-50%, -50%)",
-            }}
+            className="cursor-pointer"
             onClick={(e) => {
               e.stopPropagation();
               onMarkerClick(m.id);
             }}
           >
-            {/* Outer ring */}
-            <div
-              className={`rounded-full border ${
-                active ? "border-[#0E6B54] w-6 h-6" : "border-[#0E6B54]/40 w-5 h-5"
-              } flex items-center justify-center`}
-            >
-              {/* Inner dot */}
-              <div
-                className={`rounded-full ${
-                  active ? "w-3 h-3" : "w-2 h-2"
-                } bg-[#0E6B54]`}
-              />
-            </div>
-          </div>
+            <circle
+              cx={m.cx}
+              cy={m.cy}
+              r={active ? 28 : 20}
+              fill="#0E6B54"
+            />
+            <circle
+              cx={m.cx}
+              cy={m.cy}
+              r={active ? 52 : 38}
+              stroke="#0E6B54"
+              strokeWidth="6"
+              fill="none"
+              opacity="0.25"
+            />
+          </g>
         );
       })}
-    </div>
+    </svg>
   );
 }
 
