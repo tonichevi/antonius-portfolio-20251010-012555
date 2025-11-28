@@ -196,15 +196,30 @@ function WaveIcon({ className, color = "#0E6B54" }) {
 
 function CaliforniaMap({ className, activeId, onMarkerClick }) {
   const markers = [
-    { id: "ucd", cx: 120, cy: 135 },
-    { id: "dressaire", cx: 115, cy: 265 },
-    { id: "sanisure", cx: 125, cy: 305 },
+    { id: "ucd", cx: 110, cy: 155 },        // Davis
+    { id: "dressaire", cx: 120, cy: 280 },  // Santa Barbara
+    { id: "sanisure", cx: 130, cy: 315 },   // Camarillo
   ];
 
   return (
-    <svg viewBox="0 0 220 520" className={className} aria-hidden="true">
+    <svg viewBox="0 0 250 500" className={className} aria-hidden="true">
       <path
-        d="M60 15 L150 40 L190 150 L165 250 L185 360 L120 505 L80 485 L60 360 L55 280 L40 200 Z"
+        d="
+          M 55 20
+          L 150 30
+          L 180 90
+          L 175 140
+          L 200 200
+          L 185 260
+          L 200 315
+          L 140 480
+          L 90 455
+          L 65 350
+          L 70 280
+          L 50 180
+          L 45 110
+          Z
+        "
         fill="none"
         stroke="#0E6B54"
         strokeWidth="2"
@@ -213,25 +228,25 @@ function CaliforniaMap({ className, activeId, onMarkerClick }) {
       />
 
       {markers.map((m) => {
-        const isActive = activeId === m.id;
+        const active = activeId === m.id;
         return (
           <g
             key={m.id}
-            className="cursor-pointer"
             onClick={(e) => {
               e.stopPropagation();
               onMarkerClick(m.id);
             }}
+            className="cursor-pointer"
           >
-            <circle cx={m.cx} cy={m.cy} r={isActive ? 6 : 4} fill="#0E6B54" />
+            <circle cx={m.cx} cy={m.cy} r={active ? 6 : 4} fill="#0E6B54" />
             <circle
               cx={m.cx}
               cy={m.cy}
-              r={isActive ? 12 : 9}
+              r={active ? 12 : 9}
               stroke="#0E6B54"
               strokeWidth="1.6"
               fill="none"
-              opacity="0.28"
+              opacity="0.25"
             />
           </g>
         );
@@ -241,12 +256,38 @@ function CaliforniaMap({ className, activeId, onMarkerClick }) {
 }
 
 function GermanyMap({ className, activeId, onMarkerClick }) {
-  const markers = [{ id: "audi", cx: 120, cy: 215 }];
+  const markers = [
+    { id: "audi", cx: 125, cy: 215 }, // Ingolstadt
+  ];
 
   return (
-    <svg viewBox="0 0 220 420" className={className} aria-hidden="true">
+    <svg viewBox="0 0 250 420" className={className} aria-hidden="true">
       <path
-        d="M105 10 L140 30 L155 70 L145 105 L160 135 L150 170 L165 205 L155 245 L165 275 L150 315 L120 405 L90 390 L70 350 L80 315 L70 280 L80 245 L70 215 L80 185 L70 145 L80 115 L70 80 L80 50 Z"
+        d="
+          M 125 15
+          L 155 40
+          L 170 85
+          L 160 120
+          L 178 150
+          L 165 185
+          L 180 215
+          L 165 250
+          L 180 285
+          L 165 325
+          L 130 405
+          L 95 390
+          L 70 340
+          L 85 310
+          L 70 275
+          L 85 240
+          L 70 205
+          L 85 175
+          L 70 140
+          L 85 100
+          L 75 60
+          L 95 35
+          Z
+        "
         fill="none"
         stroke="#0E6B54"
         strokeWidth="2"
@@ -255,7 +296,7 @@ function GermanyMap({ className, activeId, onMarkerClick }) {
       />
 
       {markers.map((m) => {
-        const isActive = activeId === m.id;
+        const active = activeId === m.id;
         return (
           <g
             key={m.id}
@@ -265,15 +306,15 @@ function GermanyMap({ className, activeId, onMarkerClick }) {
               onMarkerClick(m.id);
             }}
           >
-            <circle cx={m.cx} cy={m.cy} r={isActive ? 6 : 4} fill="#0E6B54" />
+            <circle cx={m.cx} cy={m.cy} r={active ? 6 : 4} fill="#0E6B54" />
             <circle
               cx={m.cx}
               cy={m.cy}
-              r={isActive ? 12 : 9}
+              r={active ? 12 : 9}
               stroke="#0E6B54"
               strokeWidth="1.6"
               fill="none"
-              opacity="0.28"
+              opacity="0.25"
             />
           </g>
         );
@@ -281,6 +322,7 @@ function GermanyMap({ className, activeId, onMarkerClick }) {
     </svg>
   );
 }
+
 
 /* -----------------------------------------------------
    THEME CONFIG + FLOATING ICONS
