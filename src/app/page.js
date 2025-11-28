@@ -196,35 +196,30 @@ function WaveIcon({ className, color = "#0E6B54" }) {
 
 function CaliforniaMap({ className, activeId, onMarkerClick }) {
   const markers = [
-    { id: "ucd", cx: 110, cy: 155 },        // Davis
-    { id: "dressaire", cx: 120, cy: 280 },  // Santa Barbara
-    { id: "sanisure", cx: 130, cy: 315 },   // Camarillo
+    { id: "ucd", cx: 135, cy: 140 },      // Davis
+    { id: "dressaire", cx: 150, cy: 260 }, // Santa Barbara
+    { id: "sanisure", cx: 160, cy: 305 },  // Camarillo
   ];
 
   return (
-    <svg viewBox="0 0 250 500" className={className} aria-hidden="true">
+    <svg viewBox="0 0 260 500" className={className}>
       <path
         d="
-          M 55 20
-          L 150 30
-          L 180 90
-          L 175 140
-          L 200 200
-          L 185 260
-          L 200 315
-          L 140 480
-          L 90 455
-          L 65 350
-          L 70 280
-          L 50 180
-          L 45 110
+          M 65 20
+          L 185 35
+          L 205 120
+          L 175 250
+          L 205 350
+          L 145 480
+          L 85 430
+          L 60 250
           Z
         "
         fill="none"
         stroke="#0E6B54"
         strokeWidth="2"
         strokeLinejoin="round"
-        opacity="0.7"
+        opacity="0.8"
       />
 
       {markers.map((m) => {
@@ -232,11 +227,11 @@ function CaliforniaMap({ className, activeId, onMarkerClick }) {
         return (
           <g
             key={m.id}
+            className="cursor-pointer"
             onClick={(e) => {
               e.stopPropagation();
-              onMarkerClick(m.id);
+              onMarkerClick?.(m.id);
             }}
-            className="cursor-pointer"
           >
             <circle cx={m.cx} cy={m.cy} r={active ? 6 : 4} fill="#0E6B54" />
             <circle
@@ -244,7 +239,7 @@ function CaliforniaMap({ className, activeId, onMarkerClick }) {
               cy={m.cy}
               r={active ? 12 : 9}
               stroke="#0E6B54"
-              strokeWidth="1.6"
+              strokeWidth="1.5"
               fill="none"
               opacity="0.25"
             />
@@ -254,45 +249,34 @@ function CaliforniaMap({ className, activeId, onMarkerClick }) {
     </svg>
   );
 }
-
 function GermanyMap({ className, activeId, onMarkerClick }) {
   const markers = [
-    { id: "audi", cx: 125, cy: 215 }, // Ingolstadt
+    { id: "audi", cx: 135, cy: 205 }, // Ingolstadt
   ];
 
   return (
-    <svg viewBox="0 0 250 420" className={className} aria-hidden="true">
+    <svg viewBox="0 0 260 420" className={className}>
       <path
         d="
-          M 125 15
-          L 155 40
-          L 170 85
-          L 160 120
-          L 178 150
-          L 165 185
-          L 180 215
-          L 165 250
-          L 180 285
-          L 165 325
-          L 130 405
-          L 95 390
-          L 70 340
-          L 85 310
-          L 70 275
-          L 85 240
-          L 70 205
-          L 85 175
-          L 70 140
-          L 85 100
-          L 75 60
-          L 95 35
+          M 130 20
+          L 170 60
+          L 185 120
+          L 170 175
+          L 190 235
+          L 165 300
+          L 130 395
+          L 95 345
+          L 75 260
+          L 95 185
+          L 75 120
+          L 95 55
           Z
         "
         fill="none"
         stroke="#0E6B54"
         strokeWidth="2"
         strokeLinejoin="round"
-        opacity="0.7"
+        opacity="0.8"
       />
 
       {markers.map((m) => {
@@ -303,7 +287,7 @@ function GermanyMap({ className, activeId, onMarkerClick }) {
             className="cursor-pointer"
             onClick={(e) => {
               e.stopPropagation();
-              onMarkerClick(m.id);
+              onMarkerClick?.(m.id);
             }}
           >
             <circle cx={m.cx} cy={m.cy} r={active ? 6 : 4} fill="#0E6B54" />
@@ -312,7 +296,7 @@ function GermanyMap({ className, activeId, onMarkerClick }) {
               cy={m.cy}
               r={active ? 12 : 9}
               stroke="#0E6B54"
-              strokeWidth="1.6"
+              strokeWidth="1.5"
               fill="none"
               opacity="0.25"
             />
