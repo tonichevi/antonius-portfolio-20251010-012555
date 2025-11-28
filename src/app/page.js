@@ -194,89 +194,196 @@ function WaveIcon({ className, color = "#0E6B54" }) {
    MAP COMPONENTS
 ----------------------------------------------------- */
 
-function CaliforniaMap({ className, activeId, onMarkerClick }) {
-  const markers = [
-    { id: "ucd", cx: 125, cy: 155 }, // Davis (accurate inland)
-    { id: "dressaire", cx: 145, cy: 285 }, // Santa Barbara (coastal)
-    { id: "sanisure", cx: 150, cy: 320 }, // Camarillo (coastal)
-  ];
+{/* -----------------------------------------------------
+   EXPERIENCE – INTERACTIVE MAPS (JS SAFE)
+----------------------------------------------------- */}
+
+function ExperienceMap() {
+  const [activeId, setActiveId] = useState(null);
+
+  // close card when clicking anywhere else
+  useEffect(() => {
+    const close = () => setActiveId(null);
+    window.addEventListener("click", close);
+    return () => window.removeEventListener("click", close);
+  }, []);
+
+  const handleSelect = (e, id) => {
+    e.stopPropagation();
+    setActiveId(id);
+  };
+
+  const cards = {
+    dressaire: {
+      title: "Fluid Dynamics Researcher",
+      company: "Dressaire Lab · UCSB",
+      dates: "Oct 2025 – Present",
+      location: "Santa Barbara, CA",
+      bullets: [
+        "Study capillary bridges in soft gels relevant to biomedical interfaces.",
+        "Build fixtures to measure wetting, adhesion, and force–separation curves.",
+      ],
+    },
+    sanisure: {
+      title: "Design + R&D Intern",
+      company: "SaniSure — R&D",
+      dates: "Jul 2025 – Present",
+      location: "Camarillo, CA",
+      bullets: [
+        "Develop single-use bioprocessing assemblies for cell therapy.",
+        "Run pressure-decay tests and structured failure analysis.",
+        "Refine SOPs + FMEAs with Fabrication & QA teams; create dashboards.",
+      ],
+    },
+    ucd: {
+      title: "Research Assistant · Calculus Tutor",
+      company: "UC Davis · College of Engineering",
+      dates: "Jan 2023 – Jun 2023 (RA); Sep 2022 – Jun 2023 (Tutor)",
+      location: "Davis, CA",
+      bullets: [
+        "Simulated projectile motion in C with parameter sweeps and experimental validation.",
+        "Led one-on-one and small-group calculus tutoring (~5–10 hrs/week).",
+      ],
+    },
+    audi: {
+      title: "Requirements Engineering Intern",
+      company: "AUDI AG — Technical Development",
+      dates: "Jan 2024 – Jun 2024",
+      location: "Ingolstadt, Germany",
+      bullets: [
+        "Built KPI dashboards improving systems traceability across vehicle programs.",
+        "Collaborated with ~30 engineers across disciplines.",
+      ],
+    },
+  };
 
   return (
-    <svg viewBox="0 0 260 500" className={className}>
-      <path
-        d="
-        M 95 12 L 110 18 L 125 35 L 135 60 L 145 90 L 155 115 L 160 140 
-        L 162 165 L 160 180 L 158 200 L 155 220 L 152 240 L 150 260 
-        L 148 275 L 147 290 L 150 305 L 155 320 L 160 335 L 162 350 
-        L 160 365 L 155 380 L 145 400 L 132 420 L 120 435 L 110 450 
-        L 100 465 L 90 478 L 80 485 L 72 480 L 65 465 L 58 450 
-        L 55 430 L 53 410 L 52 390 L 50 365 L 48 345 L 45 330 
-        L 42 310 L 40 290 L 38 270 L 36 250 L 34 230 L 32 210 
-        L 30 190 L 28 170 L 26 150 L 28 130 L 32 115 L 40 95 
-        L 52 75 L 65 55 L 78 35 L 90 20 Z
-        "
-        fill="none"
-        stroke="#0E6B54"
-        strokeWidth="2"
-        strokeLinejoin="round"
-        opacity="0.9"
-      />
+    <SectionShell
+      id="experience"
+      label="Experience"
+      theme="experience"
+      scrollDir={scrollDir}
+      scrollSpeed={scrollSpeed}
+    >
+      <div className="flex flex-col mt-10 gap-20">
+        {/* ---------------------- CALIFORNIA + GERMANY MAPS ---------------------- */}
+        <div className="grid md:grid-cols-2 gap-10 relative">
 
-      {markers.map((m) => {
-        const active = activeId === m.id;
-        return (
-          <g key={m.id}
-            className="cursor-pointer"
-            onClick={(e) => { e.stopPropagation(); onMarkerClick(m.id); }}
-          >
-            <circle cx={m.cx} cy={m.cy} r={active ? 6 : 4} fill="#0E6B54" />
-            <circle cx={m.cx} cy={m.cy} r={active ? 12 : 9}
-              stroke="#0E6B54" strokeWidth="1.5" fill="none" opacity="0.25"
-            />
-          </g>
-        );
-      })}
-    </svg>
-  );
-}
-function GermanyMap({ className, activeId, onMarkerClick }) {
-  const markers = [
-    { id: "audi", cx: 140, cy: 215 }, // Ingolstadt (accurate Bavaria placement)
-  ];
+          {/* ---------------------- CALIFORNIA ---------------------- */}
+          <div className="relative">
+            <h3 className="text-xs uppercase tracking-[0.18em] text-[#0E6B54]/80 mb-2">
+              California · Bioprocess & Research
+            </h3>
 
-  return (
-    <svg viewBox="0 0 260 420" className={className}>
-      <path
-        d="
-        M 135 15 L 155 35 L 170 60 L 175 90 L 185 115 L 190 140 
-        L 185 165 L 190 190 L 195 215 L 190 240 L 185 265 L 175 290 
-        L 165 315 L 155 340 L 145 360 L 130 385 L 120 400 L 110 380 
-        L 100 360 L 90 330 L 82 305 L 75 275 L 70 250 L 72 225 
-        L 70 200 L 68 180 L 70 160 L 72 135 L 80 115 L 95 90 
-        L 110 70 L 120 55 L 130 35 Z
-        "
-        fill="none"
-        stroke="#0E6B54"
-        strokeWidth="2"
-        strokeLinejoin="round"
-        opacity="0.9"
-      />
+            <svg
+              viewBox="0 0 400 900"
+              className="w-full max-w-sm"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* MORE ACCURATE CALIFORNIA OUTLINE */}
+              <path
+                d="
+                  M130 40 L160 120 L200 260
+                  L240 350 L260 480 L250 650
+                  L200 820 L150 860 L110 750
+                  L90 600 L70 450 L55 300 L60 160 Z
+                "
+                fill="none"
+                stroke="#0E6B54"
+                strokeWidth="3"
+                opacity="0.75"
+              />
 
-      {markers.map((m) => {
-        const active = activeId === m.id;
-        return (
-          <g key={m.id}
-            className="cursor-pointer"
-            onClick={(e) => { e.stopPropagation(); onMarkerClick(m.id); }}
-          >
-            <circle cx={m.cx} cy={m.cy} r={active ? 6 : 4} fill="#0E6B54" />
-            <circle cx={m.cx} cy={m.cy} r={active ? 12 : 9}
-              stroke="#0E6B54" strokeWidth="1.5" fill="none" opacity="0.25"
-            />
-          </g>
-        );
-      })}
-    </svg>
+              {/* Davis */}
+              <circle cx="180" cy="250" r="10"
+                fill="#0E6B54"
+                onClick={(e) => handleSelect(e, "ucd")}
+              />
+
+              {/* Santa Barbara */}
+              <circle cx="160" cy="520" r="10"
+                fill="#0E6B54"
+                onClick={(e) => handleSelect(e, "dressaire")}
+              />
+
+              {/* Camarillo */}
+              <circle cx="180" cy="570" r="10"
+                fill="#0E6B54"
+                onClick={(e) => handleSelect(e, "sanisure")}
+              />
+            </svg>
+          </div>
+
+          {/* ---------------------- GERMANY ---------------------- */}
+          <div className="relative">
+            <h3 className="text-xs uppercase tracking-[0.18em] text-[#0E6B54]/80 mb-2">
+              Germany · Automotive Systems
+            </h3>
+
+            <svg
+              viewBox="0 0 400 900"
+              className="w-full max-w-sm"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* MORE ACCURATE GERMANY OUTLINE */}
+              <path
+                d="
+                  M200 40 L260 110 L280 200 L260 300
+                  L290 380 L270 500 L300 620
+                  L260 760 L200 820 L140 760 L100 620
+                  L130 500 L110 380 L140 260 L120 150 Z
+                "
+                fill="none"
+                stroke="#0E6B54"
+                strokeWidth="3"
+                opacity="0.75"
+              />
+
+              {/* Ingolstadt */}
+              <circle cx="240" cy="460" r="10"
+                fill="#0E6B54"
+                onClick={(e) => handleSelect(e, "audi")}
+              />
+            </svg>
+          </div>
+
+        </div>
+
+        {/* ---------------------- INFO CARD ---------------------- */}
+        <AnimatePresence>
+          {activeId && (
+            <motion.div
+              key="card"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 10 }}
+              transition={{ duration: 0.35 }}
+              className="absolute left-1/2 -translate-x-1/2 top-[65%] 
+                        bg-white rounded-2xl shadow-xl p-6 w-[90%] max-w-lg
+                        border border-[#DDE2DE]"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <h4 className="text-lg font-semibold">{cards[activeId].title}</h4>
+              <p className="text-sm text-[#5F6B62]">{cards[activeId].company}</p>
+
+              <div className="flex justify-between mt-2 text-xs text-[#7A847C]">
+                <span>{cards[activeId].dates}</span>
+                <span>{cards[activeId].location}</span>
+              </div>
+
+              <ul className="mt-4 space-y-2 text-sm text-[#374139]">
+                {cards[activeId].bullets.map((b, i) => (
+                  <li key={i} className="flex gap-2">
+                    <span className="mt-1 h-[3px] w-4 bg-[#0E6B54]" />
+                    {b}
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+    </SectionShell>
   );
 }
 
