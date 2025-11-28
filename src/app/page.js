@@ -197,9 +197,9 @@ function WaveIcon({ className, color = "#0E6B54" }) {
 function CaliforniaMap({ className, activeId, onMarkerClick }) {
   // Updated coordinates tuned to your latest screenshot
   const markers = [
-    { id: "ucd", cx: 285, cy: 320 },     // UC Davis (slightly right + down)
-    { id: "dressaire", cx: 265, cy: 560 }, // Santa Barbara
-    { id: "sanisure", cx: 265, cy: 620 },  // Camarillo
+    { id: "ucd", cx: 290, cy: 380 },     // UC Davis (slightly right + down)
+    { id: "dressaire", cx: 275, cy: 600 }, // Santa Barbara
+    { id: "sanisure", cx: 275, cy: 660 },  // Camarillo
   ];
 
   return (
