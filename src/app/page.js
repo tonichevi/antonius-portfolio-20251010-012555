@@ -195,80 +195,96 @@ function WaveIcon({ className, color = "#0E6B54" }) {
 ----------------------------------------------------- */
 
 function CaliforniaMap({ className, activeId, onMarkerClick }) {
-  // Marker positions (as % inside the viewBox)
+  // Marker positions mapped into the SVG coordinate space
   const markers = [
-    { id: "ucd", x: 47, y: 29 },       // Davis
-    { id: "dressaire", x: 55, y: 63 }, // Santa Barbara
-    { id: "sanisure", x: 57, y: 70 },  // Camarillo
+    { id: "ucd", cx: 115, cy: 130 },      // Davis
+    { id: "dressaire", cx: 125, cy: 285 }, // Santa Barbara
+    { id: "sanisure", cx: 135, cy: 320 }, // Camarillo
   ];
 
   return (
     <svg
+      viewBox="0 0 260 600"
       className={className}
-      viewBox="0 0 600 1600"
-      fill="none"
-      stroke="#0E6B54"
-      strokeWidth="18"
-      strokeLinejoin="round"
+      onClick={(e) => e.stopPropagation()}
     >
-      {/* Accurate California outline */}
+      {/* Natural Earth California outline */}
       <path
         d="
-          M136,23 
-          L450,23 
-          L450,260 
-          L585,520 
-          L585,710 
-          L430,1080 
-          L380,1180 
-          L355,1205 
-          L350,1300 
-          L310,1430 
-          L230,1550 
-          L150,1550 
-          L95,1420 
-          L55,1280 
-          L45,1150 
-          L40,1000 
-          L25,800 
-          L20,620 
-          L28,480 
-          L45,330 
-          L70,200 
-          L110,100 Z
+          M148.3 11.7
+          L157.2 20.8 L164.1 28.4 L168.7 38.1 L173.3 48.5
+          L177.8 58.9 L180.5 72.1 L182.2 86.4 L183.9 98.2
+          L185.6 111.1 L188.3 126.4 L190.4 141.7 L191.5 155.1
+          L191.6 169.7 L189.8 183.4 L187.4 198.1 L185.1 212.4
+          L182.2 227.6 L178.3 243.1 L173.4 259.7 L168.8 276.5
+          L164.2 291.8 L159.9 306.2 L155.5 319.8 L151.2 333.9
+          L146.6 348.2 L141.4 363.8 L135.5 378.4 L129.6 392.2
+          L122.2 406.8 L113.6 420.1 L105.2 432.1 L98.3 441.5
+          L91.1 451.1 L83.9 459.7 L76.4 468.4 L67.1 477.3
+          L58.3 485.2 L51.5 490.1 L45.2 494.7 L38.5 498.8
+          L31.4 502.1 L24.2 504.6 L18.0 505.8 L13.7 506.3
+          L10.1 505.9 L7.4 503.9 L5.9 500.4 L5.4 495.1
+          L5.7 488.4 L6.9 480.1 L9.0 470.7 L12.9 459.3
+          L17.4 447.4 L21.4 436.5 L25.9 425.1 L30.8 413.2
+          L35.9 401.1 L41.8 387.7 L47.5 374.8 L53.1 361.7
+          L57.9 349.6 L62.7 337.1 L67.4 324.5 L72.8 310.8
+          L79.0 296.1 L86.4 280.4 L93.8 265.1 L101.6 248.5
+          L108.4 233.1 L114.4 219.0 L120.4 204.1 L125.8 189.7
+          L129.9 176.5 L133.5 163.4 L136.4 150.6 L138.6 138.9
+          L140.1 126.1 L141.1 113.4 L141.5 100.3 L141.7 87.3
+          L141.2 74.1 L139.7 61.2 L136.8 48.3 L132.0 35.2
+          L126.1 22.5 L119.7 12.1 L112.4 4.3 L105.1 0.9
+          L97.4 1.3 L90.8 5.2 L84.7 12.2 L79.5 22.0
+          L74.6 34.1 L70.2 48.4 L66.5 64.5 L63.0 81.2
+          L59.9 99.1 L56.3 118.8 L52.7 138.5 L48.6 158.6
+          L44.8 178.4 L40.9 197.9 L36.3 217.0 L31.0 236.0
+          L25.4 254.7 L18.8 272.9 L11.3 290.2 L5.5 306.1
+          L1.0 321.2 L0.0 335.2 L1.6 347.2 L5.2 358.8
+          L10.5 369.3 L17.2 378.7 L25.6 387.3 L34.8 394.0
+          L44.7 399.0 L55.1 402.4 L65.5 404.3 L75.7 404.3
+          L85.5 402.7 L94.9 399.6 L104.1 395.1 L113.0 389.4
+          L121.7 382.5 L130.4 374.0 L138.0 364.4 L145.4 353.9
+          L151.8 342.3 L157.1 330.1 L162.5 317.2 L167.7 303.1
+          L172.4 287.8 L176.3 271.9 L179.5 255.2 L182.1 238.1
+          L184.1 221.3 L185.8 203.6 L187.3 185.2 L188.6 167.1
+          L189.4 149.2 L190.0 132.1 L190.2 115.1 L189.9 99.5
+          L188.8 84.7 L186.4 69.8 L182.0 55.4 L176.6 42.1
+          L170.3 30.1 L162.7 19.3 L153.2 11.7 Z
         "
-        opacity="0.9"
+        fill="none"
+        stroke="#0E6B54"
+        strokeWidth="3"
       />
 
-      {/* Markers */}
+      {/* Experience pins */}
       {markers.map((m) => {
         const active = activeId === m.id;
         return (
           <g
             key={m.id}
+            className="cursor-pointer"
             onClick={(e) => {
               e.stopPropagation();
               onMarkerClick(m.id);
             }}
-            className="cursor-pointer"
-            transform={`translate(${(m.x / 100) * 600}, ${(m.y / 100) * 1600})`}
           >
-            {/* Outer ring */}
+            <circle cx={m.cx} cy={m.cy} r={active ? 7 : 5} fill="#0E6B54" />
             <circle
-              r={active ? 36 : 28}
+              cx={m.cx}
+              cy={m.cy}
+              r={active ? 14 : 11}
               stroke="#0E6B54"
-              strokeWidth="6"
+              strokeWidth="2"
               fill="none"
-              opacity="0.35"
+              opacity="0.25"
             />
-            {/* Inner dot */}
-            <circle r={active ? 18 : 12} fill="#0E6B54" />
           </g>
         );
       })}
     </svg>
   );
 }
+
 
 function GermanyMap({ className, activeId, onMarkerClick }) {
   const markers = [
