@@ -1001,23 +1001,32 @@ export default function Page() {
           onClick={(e) => e.stopPropagation()}
         >
           <div className="rounded-3xl bg-white/96 shadow-[0_18px_45px_rgba(0,0,0,0.12)] border border-[#D0D4CB]/80 px-5 py-4 md:px-6 md:py-5">
-            <div className="flex justify-between gap-4">
-              <div>
-                <div className="text-xs font-semibold uppercase tracking-[0.16em] text-[#0E6B54]/70 mb-1">
-                  {activeExperienceId === "audi" ? "Germany Experience" : "California Experience"}
-                </div>
-                <h4 className="text-sm md:text-base font-semibold text-[#1A1F1A]">
-                  {activeExperience.role}
-                </h4>
-                <p className="text-xs text-[#57655B] mt-0.5">
-                  {activeExperience.company}
-                </p>
-              </div>
-              <div className="text-[11px] text-right text-[#5F6B62] whitespace-nowrap">
-                <div>{activeExperience.period}</div>
-                <div>{activeExperience.location}</div>
-              </div>
-            </div>
+      <div className="flex justify-between items-start gap-6">
+
+  {/* LEFT TEXT BLOCK */}
+  <div className="space-y-1">
+    <div className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[#0E6B54]/70">
+      {activeMap === "ca" ? "California Experience" : "Germany Experience"}
+    </div>
+
+    {/* Title stays on one line */}
+    <h4 className="text-base font-semibold text-[#1A1F1A] leading-snug whitespace-nowrap">
+      {activeExperience.role}
+    </h4>
+
+    {/* Company stays tidy and never wraps weirdly */}
+    <p className="text-xs text-[#57655B] leading-tight whitespace-nowrap">
+      {activeExperience.company}
+    </p>
+  </div>
+
+  {/* RIGHT METADATA BLOCK */}
+  <div className="text-[11px] text-right text-[#5F6B62] leading-tight whitespace-nowrap">
+    <div>{activeExperience.period}</div>
+    <div>{activeExperience.location}</div>
+  </div>
+</div>
+
 
             <ul className="mt-3 space-y-1.5 text-sm text-[#374139]">
               {activeExperience.bullets.map((b, idx) => (
