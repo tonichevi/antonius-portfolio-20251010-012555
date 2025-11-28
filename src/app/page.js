@@ -205,7 +205,7 @@ function CaliforniaMap({ className, activeId, onMarkerClick }) {
   return (
     <svg
       className={className}
-      viewBox="0 0 550 850"   // ← correct aspect ratio, no distortion
+      viewBox="180 0 330 850"   // ← correct aspect ratio, no distortion
       fill="none"
       stroke="#0E6B54"
       strokeWidth="6"
