@@ -197,9 +197,9 @@ function WaveIcon({ className, color = "#0E6B54" }) {
 function CaliforniaMap({ className, activeId, onMarkerClick }) {
   // Updated coordinates tuned to your latest screenshot
   const markers = [
-    { id: "ucd", cx: 300, cy: 220 },     // UC Davis (slightly right + down)
-    { id: "dressaire", cx: 318, cy: 425 }, // Santa Barbara
-    { id: "sanisure", cx: 333, cy: 465 },  // Camarillo
+    { id: "ucd", cx: 275, cy: 220 },     // UC Davis (slightly right + down)
+    { id: "dressaire", cx: 250, cy: 425 }, // Santa Barbara
+    { id: "sanisure", cx: 250, cy: 465 },  // Camarillo
   ];
 
   return (
@@ -213,8 +213,8 @@ function CaliforniaMap({ className, activeId, onMarkerClick }) {
         href="/images/California2.jpg"
         x="50"        // centered horizontally
         y="-40"       // moved upward 50px from your last version
-        width="600"   // scaled to match Germany more closely
-        height="900"  // consistent vertical scale
+        width="800"   // scaled to match Germany more closely
+        height="1200"  // consistent vertical scale
         preserveAspectRatio="xMidYMid meet"
       />
 
