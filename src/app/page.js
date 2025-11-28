@@ -195,26 +195,26 @@ function WaveIcon({ className, color = "#0E6B54" }) {
 ----------------------------------------------------- */
 
 function CaliforniaMap({ className, activeId, onMarkerClick }) {
-  // Coordinates relative to the image coordinate system
+  // Adjusted coordinates to match the enlarged image
   const markers = [
-    { id: "ucd", cx: 200, cy: 240 },       // adjust visually once image loads
-    { id: "dressaire", cx: 210, cy: 480 },
-    { id: "sanisure", cx: 220, cy: 520 },
+    { id: "ucd", cx: 300, cy: 200 },      // UC Davis
+    { id: "dressaire", cx: 320, cy: 420 }, // Santa Barbara
+    { id: "sanisure", cx: 335, cy: 460 },  // Camarillo
   ];
 
   return (
     <svg
       className={className}
-      viewBox="0 0 600 1000"   // matches the approximate aspect ratio of the photo
+      viewBox="0 0 700 950"   // enlarged frame
       fill="none"
     >
-      {/* California image from public/images */}
+      {/* Enlarged + centered California image */}
       <image
         href="/images/California2.jpg"
-        x="0"
-        y="0"
+        x="50"      // center horizontally
+        y="50"
         width="600"
-        height="1000"
+        height="850"
         preserveAspectRatio="xMidYMid meet"
       />
 
