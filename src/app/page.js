@@ -195,88 +195,104 @@ function WaveIcon({ className, color = "#0E6B54" }) {
 ----------------------------------------------------- */
 
 function CaliforniaMap({ className, activeId, onMarkerClick }) {
+  // Marker positions in % relative to image dimensions
   const markers = [
-    { id: "ucd", cx: 125, cy: 155 }, // Davis (accurate inland)
-    { id: "dressaire", cx: 145, cy: 285 }, // Santa Barbara (coastal)
-    { id: "sanisure", cx: 150, cy: 320 }, // Camarillo (coastal)
+    { id: "ucd", x: 49, y: 34 },        // Davis
+    { id: "dressaire", x: 55, y: 63 },  // Santa Barbara
+    { id: "sanisure", x: 57, y: 70 },   // Camarillo
   ];
 
   return (
-    <svg viewBox="0 0 260 500" className={className}>
-      <path
-        d="
-        M 95 12 L 110 18 L 125 35 L 135 60 L 145 90 L 155 115 L 160 140 
-        L 162 165 L 160 180 L 158 200 L 155 220 L 152 240 L 150 260 
-        L 148 275 L 147 290 L 150 305 L 155 320 L 160 335 L 162 350 
-        L 160 365 L 155 380 L 145 400 L 132 420 L 120 435 L 110 450 
-        L 100 465 L 90 478 L 80 485 L 72 480 L 65 465 L 58 450 
-        L 55 430 L 53 410 L 52 390 L 50 365 L 48 345 L 45 330 
-        L 42 310 L 40 290 L 38 270 L 36 250 L 34 230 L 32 210 
-        L 30 190 L 28 170 L 26 150 L 28 130 L 32 115 L 40 95 
-        L 52 75 L 65 55 L 78 35 L 90 20 Z
-        "
-        fill="none"
-        stroke="#0E6B54"
-        strokeWidth="2"
-        strokeLinejoin="round"
-        opacity="0.9"
+    <div className={`relative ${className}`}>
+      <img
+        src="/images/California.jpg"
+        alt="California map"
+        className="w-full h-auto select-none pointer-events-none"
+        draggable="false"
       />
 
       {markers.map((m) => {
         const active = activeId === m.id;
         return (
-          <g key={m.id}
-            className="cursor-pointer"
-            onClick={(e) => { e.stopPropagation(); onMarkerClick(m.id); }}
+          <div
+            key={m.id}
+            className="absolute cursor-pointer"
+            style={{
+              left: `${m.x}%`,
+              top: `${m.y}%`,
+              transform: "translate(-50%, -50%)",
+            }}
+            onClick={(e) => {
+              e.stopPropagation();
+              onMarkerClick(m.id);
+            }}
           >
-            <circle cx={m.cx} cy={m.cy} r={active ? 6 : 4} fill="#0E6B54" />
-            <circle cx={m.cx} cy={m.cy} r={active ? 12 : 9}
-              stroke="#0E6B54" strokeWidth="1.5" fill="none" opacity="0.25"
-            />
-          </g>
+            {/* Outer ring */}
+            <div
+              className={`rounded-full border ${
+                active ? "border-[#0E6B54] w-6 h-6" : "border-[#0E6B54]/40 w-5 h-5"
+              } flex items-center justify-center`}
+            >
+              {/* Inner dot */}
+              <div
+                className={`rounded-full ${
+                  active ? "w-3 h-3" : "w-2 h-2"
+                } bg-[#0E6B54]`}
+              />
+            </div>
+          </div>
         );
       })}
-    </svg>
+    </div>
   );
 }
 function GermanyMap({ className, activeId, onMarkerClick }) {
   const markers = [
-    { id: "audi", cx: 140, cy: 215 }, // Ingolstadt (accurate Bavaria placement)
+    { id: "audi", x: 59, y: 55 }, // Ingolstadt (Bavaria)
   ];
 
   return (
-    <svg viewBox="0 0 260 420" className={className}>
-      <path
-        d="
-        M 135 15 L 155 35 L 170 60 L 175 90 L 185 115 L 190 140 
-        L 185 165 L 190 190 L 195 215 L 190 240 L 185 265 L 175 290 
-        L 165 315 L 155 340 L 145 360 L 130 385 L 120 400 L 110 380 
-        L 100 360 L 90 330 L 82 305 L 75 275 L 70 250 L 72 225 
-        L 70 200 L 68 180 L 70 160 L 72 135 L 80 115 L 95 90 
-        L 110 70 L 120 55 L 130 35 Z
-        "
-        fill="none"
-        stroke="#0E6B54"
-        strokeWidth="2"
-        strokeLinejoin="round"
-        opacity="0.9"
+    <div className={`relative ${className}`}>
+      <img
+        src="/images/Germany.jpg"
+        alt="Germany map"
+        className="w-full h-auto select-none pointer-events-none"
+        draggable="false"
       />
 
       {markers.map((m) => {
         const active = activeId === m.id;
         return (
-          <g key={m.id}
-            className="cursor-pointer"
-            onClick={(e) => { e.stopPropagation(); onMarkerClick(m.id); }}
+          <div
+            key={m.id}
+            className="absolute cursor-pointer"
+            style={{
+              left: `${m.x}%`,
+              top: `${m.y}%`,
+              transform: "translate(-50%, -50%)",
+            }}
+            onClick={(e) => {
+              e.stopPropagation();
+              onMarkerClick(m.id);
+            }}
           >
-            <circle cx={m.cx} cy={m.cy} r={active ? 6 : 4} fill="#0E6B54" />
-            <circle cx={m.cx} cy={m.cy} r={active ? 12 : 9}
-              stroke="#0E6B54" strokeWidth="1.5" fill="none" opacity="0.25"
-            />
-          </g>
+            {/* Outer ring */}
+            <div
+              className={`rounded-full border ${
+                active ? "border-[#0E6B54] w-6 h-6" : "border-[#0E6B54]/40 w-5 h-5"
+              } flex items-center justify-center`}
+            >
+              {/* Inner dot */}
+              <div
+                className={`rounded-full ${
+                  active ? "w-3 h-3" : "w-2 h-2"
+                } bg-[#0E6B54]`}
+              />
+            </div>
+          </div>
         );
       })}
-    </svg>
+    </div>
   );
 }
 
