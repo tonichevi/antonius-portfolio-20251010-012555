@@ -59,27 +59,22 @@ body::after{
   filter:blur(28px); mix-blend-mode:overlay; transition:background 80ms linear;
 }
 /* --------- PRINT TO PDF (Overview only) --------- */
+/* --------- PRINT TO PDF (Full page content) --------- */
 @media print {
   body {
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
   }
 
-  /* Hide everything except the overview section */
-  header,
-  footer,
-  projects,
-  experience,
-  education,
-  background,
-  contact,
-  .fixed,
-  .pointer-events-none {
+  /* Hide only overlays/background effects & splash/modal */
+  .pointer-events-none,
+  .bg-black\/50 {
     display: none !important;
   }
 
-  #overview-print {
-    display: block !important;
+  /* Optional: hide the splash / fixed backgrounds if they ever render */
+  .fixed {
+    display: none !important;
   }
 
   html,
