@@ -60,19 +60,17 @@ body::after{
 }
 /* --------- PRINT TO PDF (Overview only) --------- */
 /* --------- PRINT TO PDF (Full page content) --------- */
+/* --------- PRINT TO PDF (Full page, better layout) --------- */
 @media print {
   body {
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
+    background: #ffffff !important;
   }
 
-  /* Hide only overlays/background effects & splash/modal */
+  /* Hide only overlays / floating glow / modals, NOT content */
   .pointer-events-none,
-  .bg-black\/50 {
-    display: none !important;
-  }
-
-  /* Optional: hide the splash / fixed backgrounds if they ever render */
+  .bg-black\/50,
   .fixed {
     display: none !important;
   }
@@ -82,6 +80,25 @@ body::after{
   main {
     margin: 0;
     padding: 0;
+  }
+
+  /* Tighter vertical spacing between sections on paper */
+  .portfolio-section {
+    padding-top: 16px !important;
+    padding-bottom: 16px !important;
+  }
+
+  /* Keep cards and project blocks from being split across pages */
+  .print-card,
+  .project-block {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  /* Optional: avoid page break right after headings */
+  .portfolio-section > div:first-child {
+    page-break-after: avoid;
+    break-after: avoid;
   }
 }
 
