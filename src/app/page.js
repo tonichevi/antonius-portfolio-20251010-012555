@@ -195,7 +195,6 @@ function WaveIcon({ className, color = "#0E6B54" }) {
 ----------------------------------------------------- */
 
 function CaliforniaMap({ className, activeId, onMarkerClick }) {
-  // Updated coordinates tuned to your latest screenshot
   const markers = [
     { id: "ucd", cx: 325, cy: 380 }, // UC Davis
     { id: "dressaire", cx: 365, cy: 620 }, // Santa Barbara
@@ -204,7 +203,6 @@ function CaliforniaMap({ className, activeId, onMarkerClick }) {
 
   return (
     <svg className={className} viewBox="0 0 700 950" fill="none">
-      {/* California image */}
       <image
         href="/images/California2.jpg"
         x="50"
@@ -213,8 +211,6 @@ function CaliforniaMap({ className, activeId, onMarkerClick }) {
         height="1200"
         preserveAspectRatio="xMidYMid meet"
       />
-
-      {/* Markers */}
       {markers.map((m) => {
         const active = activeId === m.id;
         return (
@@ -248,7 +244,6 @@ function GermanyMap({ className, activeId, onMarkerClick }) {
 
   return (
     <svg className={className} viewBox="0 0 700 950" fill="none">
-      {/* Germany image */}
       <image
         href="/images/Germany2.jpg"
         x="50"
@@ -257,8 +252,6 @@ function GermanyMap({ className, activeId, onMarkerClick }) {
         height="850"
         preserveAspectRatio="xMidYMid meet"
       />
-
-      {/* Marker */}
       {markers.map((m) => {
         const active = activeId === m.id;
         return (
@@ -462,7 +455,11 @@ const PROJECTS = [
     description:
       "Collection of CAD projects including a stiffness-optimized TV mount and an ergonomic FSAE steering wheel designed for packaging, wiring, and manufacturability.",
     meta: ["UCSB", "2024–2025", "CAD"],
-    imgs: ["/images/TVSketch.jpg", "/images/SteeringWheel.jpg", "/images/SkateboardCAD.jpg"],
+    imgs: [
+      "/images/TVSketch.jpg",
+      "/images/SteeringWheel.jpg",
+      "/images/SkateboardCAD.jpg",
+    ],
   },
   {
     id: "sanisure-dash",
@@ -568,16 +565,16 @@ const LANGS = [
    REUSABLE COMPONENTS
 ----------------------------------------------------- */
 
+/* updated: animate instead of whileInView so everything is visible for print */
 const fadeProps = {
   initial: { opacity: 0, y: 20 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, amount: 0.3 },
+  animate: { opacity: 1, y: 0 },
   transition: { duration: 0.6, ease: "easeOut" },
 };
 
 function Card({ children, className = "" }) {
   return (
-    <div className={`relative ${className}`}>
+    <div className={`relative print-card ${className}`}>
       <div className="pointer-events-none absolute inset-[-4%] -z-10 bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.55),transparent_72%)] blur-2xl opacity-60" />
       <div className="relative">{children}</div>
     </div>
@@ -594,7 +591,10 @@ function SectionShell({
   children,
 }) {
   return (
-    <section id={id} className="relative max-w-6xl mx-auto px-4 py-20 space-y-10">
+    <section
+      id={id}
+      className="portfolio-section relative max-w-6xl mx-auto px-4 py-20 space-y-10"
+    >
       {verticalGradient && (
         <div className="pointer-events-none absolute inset-0 -z-20">
           <div className="w-full h-full bg-[linear-gradient(to_bottom,rgba(255,255,255,0.55),transparent_85%)] opacity-70" />
@@ -659,7 +659,6 @@ export default function Page() {
 
   const [activeExperienceId, setActiveExperienceId] = useState(null);
 
-  // NEW: handler to trigger browser print -> "Save as PDF"
   const handleDownloadPdf = (e) => {
     e.stopPropagation();
     if (typeof window !== "undefined") {
@@ -754,7 +753,6 @@ export default function Page() {
                 ))}
               </nav>
 
-              {/* Download PDF button */}
               <button
                 onClick={handleDownloadPdf}
                 className="hidden sm:inline-flex px-3 py-1.5 rounded-full border border-[#0E6B54]/60 text-[11px] uppercase tracking-[0.15em] text-[#0E6B54] hover:bg-[#0E6B54]/5 transition-colors"
@@ -774,7 +772,6 @@ export default function Page() {
           scrollSpeed={scrollSpeed}
           verticalGradient
         >
-          {/* Print target wrapper */}
           <div id="overview-print">
             <div className="grid md:grid-cols-[1.4fr,1fr] gap-10 items-center mt-6">
               <motion.div {...fadeProps} className="space-y-6">
@@ -844,7 +841,7 @@ export default function Page() {
                 <motion.article
                   key={p.id}
                   {...fadeProps}
-                  className={`grid items-center gap-10 md:gap-12 ${
+                  className={`project-block grid items-center gap-10 md:gap-12 ${
                     isEven
                       ? "md:grid-cols-[1.2fr,1fr]"
                       : "md:grid-cols-[1fr,1.2fr]"
@@ -927,7 +924,6 @@ export default function Page() {
           scrollSpeed={scrollSpeed}
         >
           <motion.div {...fadeProps} className="mt-6 relative pb-32">
-            {/* Top Header */}
             <div className="text-center mb-10">
               <h3 className="text-sm uppercase tracking-[0.18em] text-[#0E6B54] font-semibold">
                 Where I’ve Worked
@@ -937,9 +933,7 @@ export default function Page() {
               </p>
             </div>
 
-            {/* TWO MAPS SIDE BY SIDE */}
             <div className="grid gap-10 md:grid-cols-2 items-start">
-              {/* CALIFORNIA COLUMN */}
               <div
                 className="relative flex flex-col items-center"
                 onClick={(e) => e.stopPropagation()}
@@ -957,7 +951,6 @@ export default function Page() {
                 />
               </div>
 
-              {/* GERMANY COLUMN */}
               <div
                 className="relative flex flex-col items-center"
                 onClick={(e) => e.stopPropagation()}
@@ -974,7 +967,6 @@ export default function Page() {
               </div>
             </div>
 
-            {/* EXPERIENCE CARD MODAL */}
             <AnimatePresence>
               {activeExperience && (
                 <motion.div
@@ -993,7 +985,6 @@ export default function Page() {
                 >
                   <div className="rounded-3xl bg-white/96 shadow-[0_18px_45px_rgba(0,0,0,0.12)] border border-[#D0D4CB]/80 px-5 py-4 md:px-6 md:py-5">
                     <div className="flex justify-between items-start gap-6">
-                      {/* LEFT TEXT BLOCK */}
                       <div className="space-y-1">
                         <div className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[#0E6B54]/70">
                           {activeMap === "ca"
@@ -1010,7 +1001,6 @@ export default function Page() {
                         </p>
                       </div>
 
-                      {/* RIGHT METADATA BLOCK */}
                       <div className="text-[11px] text-right text-[#5F6B62] leading-tight whitespace-nowrap">
                         <div>{activeExperience.period}</div>
                         <div>{activeExperience.location}</div>
@@ -1058,7 +1048,10 @@ export default function Page() {
                   school: "University of California, Davis",
                   line: "B.S. Mechanical Engineering",
                   time: "Sep 2021 – Jun 2023",
-                  extras: ["Student Alumni Association", "CAAA Leadership Scholar"],
+                  extras: [
+                    "Student Alumni Association",
+                    "CAAA Leadership Scholar",
+                  ],
                   gpa: "3.82/4.00",
                 },
                 {
@@ -1215,7 +1208,6 @@ export default function Page() {
     </>
   );
 }
-
 
 
 
