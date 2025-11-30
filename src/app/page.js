@@ -462,7 +462,7 @@ const PROJECTS = [
     description:
       "Collection of CAD projects including a stiffness-optimized TV mount and an ergonomic FSAE steering wheel designed for packaging, wiring, and manufacturability.",
     meta: ["UCSB", "2024–2025", "CAD"],
-    imgs: ["/images/TVSketch.jpg", "/images/SteeringWheel.jpg"],
+    imgs: ["/images/TVSketch.jpg", "/images/SteeringWheel.jpg", "/images/SkateboardCAD.jpg"],
   },
   {
     id: "sanisure-dash",
