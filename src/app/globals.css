@@ -58,4 +58,36 @@ body::after{
              rgba(255,255,255,var(--glow-strength)), rgba(255,255,255,0) 60%);
   filter:blur(28px); mix-blend-mode:overlay; transition:background 80ms linear;
 }
+/* --------- PRINT TO PDF (Overview only) --------- */
+@media print {
+  body {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* Hide everything except the overview section */
+  header,
+  footer,
+  #projects,
+  #experience,
+  #education,
+  #background,
+  #contact,
+  .fixed,
+  .pointer-events-none {
+    display: none !important;
+  }
+
+  #overview-print {
+    display: block !important;
+  }
+
+  html,
+  body,
+  main {
+    margin: 0;
+    padding: 0;
+  }
+}
+
 /* ======================================================================= */
