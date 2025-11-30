@@ -197,24 +197,20 @@ function WaveIcon({ className, color = "#0E6B54" }) {
 function CaliforniaMap({ className, activeId, onMarkerClick }) {
   // Updated coordinates tuned to your latest screenshot
   const markers = [
-    { id: "ucd", cx: 325, cy: 380 },     // UC Davis (slightly right + down)
+    { id: "ucd", cx: 325, cy: 380 }, // UC Davis
     { id: "dressaire", cx: 365, cy: 620 }, // Santa Barbara
-    { id: "sanisure", cx: 450, cy: 660 },  // Camarillo
+    { id: "sanisure", cx: 450, cy: 660 }, // Camarillo
   ];
 
   return (
-    <svg
-      className={className}
-      viewBox="0 0 700 950"
-      fill="none"
-    >
-      {/* California image, larger but now properly aligned upward */}
+    <svg className={className} viewBox="0 0 700 950" fill="none">
+      {/* California image */}
       <image
         href="/images/California2.jpg"
-        x="50"        // centered horizontally
-        y="-120"       // moved upward 50px from your last version
-        width="800"   // scaled to match Germany more closely
-        height="1200"  // consistent vertical scale
+        x="50"
+        y="-120"
+        width="800"
+        height="1200"
         preserveAspectRatio="xMidYMid meet"
       />
 
@@ -247,26 +243,15 @@ function CaliforniaMap({ className, activeId, onMarkerClick }) {
   );
 }
 
-
-
-
 function GermanyMap({ className, activeId, onMarkerClick }) {
-  // Ingolstadt marker (Audi)
-  // Coordinates tuned for centered Germany image at 600×850
-  const markers = [
-    { id: "audi", cx: 350, cy: 570 }    // Ingolstadt
-  ];
+  const markers = [{ id: "audi", cx: 350, cy: 570 }];
 
   return (
-    <svg
-      className={className}
-      viewBox="0 0 700 950"   // matches California map size
-      fill="none"
-    >
-      {/* Germany image from public/images */}
+    <svg className={className} viewBox="0 0 700 950" fill="none">
+      {/* Germany image */}
       <image
         href="/images/Germany2.jpg"
-        x="50"       // centered horizontally
+        x="50"
         y="50"
         width="600"
         height="850"
@@ -301,7 +286,6 @@ function GermanyMap({ className, activeId, onMarkerClick }) {
     </svg>
   );
 }
-
 
 /* -----------------------------------------------------
    THEME CONFIG + FLOATING ICONS
@@ -675,6 +659,14 @@ export default function Page() {
 
   const [activeExperienceId, setActiveExperienceId] = useState(null);
 
+  // NEW: handler to trigger browser print -> "Save as PDF"
+  const handleDownloadPdf = (e) => {
+    e.stopPropagation();
+    if (typeof window !== "undefined") {
+      window.print();
+    }
+  };
+
   useEffect(() => {
     if (typeof window === "undefined") return;
 
@@ -742,28 +734,38 @@ export default function Page() {
               <span className="font-semibold text-[#0E6B54]">{NAME}</span>
             </div>
 
-            <nav className="flex gap-3 text-sm">
-              {[
-                ["projects", "Projects"],
-                ["experience", "Experience"],
-                ["education", "Education"],
-                ["background", "Background"],
-                ["contact", "Contact"],
-              ].map(([id, label]) => (
-                <a
-                  key={id}
-                  href={`#${id}`}
-                  onClick={(e) => e.stopPropagation()}
-                  className="px-3 py-1.5 rounded-full hover:bg-[#E7EBE7] text-[#1A1F1A]/70 hover:text-[#0E6B54] transition-colors"
-                >
-                  {label}
-                </a>
-              ))}
-            </nav>
+            <div className="flex items-center gap-3 text-sm">
+              <nav className="flex gap-3">
+                {[
+                  ["projects", "Projects"],
+                  ["experience", "Experience"],
+                  ["education", "Education"],
+                  ["background", "Background"],
+                  ["contact", "Contact"],
+                ].map(([id, label]) => (
+                  <a
+                    key={id}
+                    href={`#${id}`}
+                    onClick={(e) => e.stopPropagation()}
+                    className="px-3 py-1.5 rounded-full hover:bg-[#E7EBE7] text-[#1A1F1A]/70 hover:text-[#0E6B54] transition-colors"
+                  >
+                    {label}
+                  </a>
+                ))}
+              </nav>
+
+              {/* Download PDF button */}
+              <button
+                onClick={handleDownloadPdf}
+                className="hidden sm:inline-flex px-3 py-1.5 rounded-full border border-[#0E6B54]/60 text-[11px] uppercase tracking-[0.15em] text-[#0E6B54] hover:bg-[#0E6B54]/5 transition-colors"
+              >
+                Download PDF
+              </button>
+            </div>
           </div>
         </header>
 
-        {/* HERO */}
+        {/* HERO / OVERVIEW */}
         <SectionShell
           id="top"
           label="Overview"
@@ -772,52 +774,58 @@ export default function Page() {
           scrollSpeed={scrollSpeed}
           verticalGradient
         >
-          <div className="grid md:grid-cols-[1.4fr,1fr] gap-10 items-center mt-6">
-            <motion.div {...fadeProps} className="space-y-6">
-              <h1 className="text-3xl md:text-5xl font-semibold leading-tight">
-                Designing hardware where{" "}
-                <span className="text-[#0E6B54]">mechanics meet biology</span>.
-              </h1>
-              <p className="text-sm md:text-base text-[#374139] leading-relaxed max-w-xl">
-                I’m a mechanical engineering BS/MS candidate at UCSB working at
-                the intersection of soft materials, assistive devices, and
-                single-use bioprocessing systems.
-              </p>
-
-              <div className="flex gap-2 flex-wrap">
-                {[
-                  "Assistive Devices",
-                  "Soft Interfaces",
-                  "Bioprocess Hardware",
-                ].map((tag) => (
-                  <span
-                    key={tag}
-                    className="px-3 py-1 text-[11px] uppercase tracking-wide rounded-full bg-[#0E6B54]/10 text-[#0E6B54] border border-[#0E6B54]/30"
-                  >
-                    {tag}
+          {/* Print target wrapper */}
+          <div id="overview-print">
+            <div className="grid md:grid-cols-[1.4fr,1fr] gap-10 items-center mt-6">
+              <motion.div {...fadeProps} className="space-y-6">
+                <h1 className="text-3xl md:text-5xl font-semibold leading-tight">
+                  Designing hardware where{" "}
+                  <span className="text-[#0E6B54]">
+                    mechanics meet biology
                   </span>
-                ))}
-              </div>
-            </motion.div>
+                  .
+                </h1>
+                <p className="text-sm md:text-base text-[#374139] leading-relaxed max-w-xl">
+                  I’m a mechanical engineering BS/MS candidate at UCSB working
+                  at the intersection of soft materials, assistive devices, and
+                  single-use bioprocessing systems.
+                </p>
 
-            <motion.div {...fadeProps}>
-              <Card className="max-w-xs mx-auto text-center px-0 py-0">
-                <div className="size-40 mx-auto rounded-full overflow-hidden">
-                  <img
-                    src="/images/3C290D86-57BC-42DB-94D9-237783F922FB8R1A8362.jpeg"
-                    alt="Antonius Chevillotte"
-                    className="h-full w-full object-cover"
-                  />
+                <div className="flex gap-2 flex-wrap">
+                  {[
+                    "Assistive Devices",
+                    "Soft Interfaces",
+                    "Bioprocess Hardware",
+                  ].map((tag) => (
+                    <span
+                      key={tag}
+                      className="px-3 py-1 text-[11px] uppercase tracking-wide rounded-full bg-[#0E6B54]/10 text-[#0E6B54] border border-[#0E6B54]/30"
+                    >
+                      {tag}
+                    </span>
+                  ))}
                 </div>
-                <div className="mt-4 font-medium">{NAME}</div>
-                <div className="text-xs text-[#5F6B62]">
-                  Honors BS/MS · Mechanical Engineering, UCSB
-                </div>
-                <div className="text-[11px] text-[#7B847E]">
-                  Los Angeles, CA · Always building
-                </div>
-              </Card>
-            </motion.div>
+              </motion.div>
+
+              <motion.div {...fadeProps}>
+                <Card className="max-w-xs mx-auto text-center px-0 py-0">
+                  <div className="size-40 mx-auto rounded-full overflow-hidden">
+                    <img
+                      src="/images/3C290D86-57BC-42DB-94D9-237783F922FB8R1A8362.jpeg"
+                      alt="Antonius Chevillotte"
+                      className="h-full w-full object-cover"
+                    />
+                  </div>
+                  <div className="mt-4 font-medium">{NAME}</div>
+                  <div className="text-xs text-[#5F6B62]">
+                    Honors BS/MS · Mechanical Engineering, UCSB
+                  </div>
+                  <div className="text-[11px] text-[#7B847E]">
+                    Los Angeles, CA · Always building
+                  </div>
+                </Card>
+              </motion.div>
+            </div>
           </div>
         </SectionShell>
 
@@ -911,116 +919,118 @@ export default function Page() {
         </SectionShell>
 
         {/* EXPERIENCE – MAP-BASED */}
-       {/* EXPERIENCE – MAP-BASED */}
-<SectionShell
-  id="experience"
-  label="Experience"
-  theme="experience"
-  scrollDir={scrollDir}
-  scrollSpeed={scrollSpeed}
->
-  <motion.div {...fadeProps} className="mt-6 relative pb-32">
-
-    {/* NEW: Top Header */}
-    <div className="text-center mb-10">
-      <h3 className="text-sm uppercase tracking-[0.18em] text-[#0E6B54] font-semibold">
-        Where I’ve Worked
-      </h3>
-      <p className="text-[11px] text-[#5F6B62] mt-1">
-        Click a marker to see the story
-      </p>
-    </div>
-
-    {/* TWO MAPS SIDE BY SIDE */}
-    <div className="grid gap-10 md:grid-cols-2 items-start">
-
-      {/* CALIFORNIA COLUMN */}
-      <div className="relative flex flex-col items-center" onClick={(e) => e.stopPropagation()}>
-        <h4 className="text-xs uppercase tracking-[0.18em] text-[#0E6B54]/70 mb-3">
-          California
-        </h4>
-
-        <CaliforniaMap
-          className="w-full max-w-sm"
-          activeId={activeExperienceId === "audi" ? null : activeExperienceId}
-          onMarkerClick={handleMarkerClick}
-        />
-      </div>
-
-      {/* GERMANY COLUMN */}
-      <div className="relative flex flex-col items-center" onClick={(e) => e.stopPropagation()}>
-        <h4 className="text-xs uppercase tracking-[0.18em] text-[#0E6B54]/70 mb-3">
-          Germany
-        </h4>
-
-        <GermanyMap
-          className="w-full max-w-sm"
-          activeId={activeExperienceId === "audi" ? "audi" : null}
-          onMarkerClick={handleMarkerClick}
-        />
-      </div>
-
-    </div>
-
-    {/* EXPERIENCE CARD MODAL */}
-    <AnimatePresence>
-      {activeExperience && (
-        <motion.div
-          key={activeExperienceId}
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: 16 }}
-          transition={{ duration: 0.35, ease: "easeOut" }}
-          className="pointer-events-auto absolute max-w-md"
-          style={
-            activeExperienceId === "audi"
-              ? { right: "4%", bottom: "4%" }
-              : { left: "4%", bottom: "4%" }
-          }
-          onClick={(e) => e.stopPropagation()}
+        <SectionShell
+          id="experience"
+          label="Experience"
+          theme="experience"
+          scrollDir={scrollDir}
+          scrollSpeed={scrollSpeed}
         >
-          <div className="rounded-3xl bg-white/96 shadow-[0_18px_45px_rgba(0,0,0,0.12)] border border-[#D0D4CB]/80 px-5 py-4 md:px-6 md:py-5">
-      <div className="flex justify-between items-start gap-6">
+          <motion.div {...fadeProps} className="mt-6 relative pb-32">
+            {/* Top Header */}
+            <div className="text-center mb-10">
+              <h3 className="text-sm uppercase tracking-[0.18em] text-[#0E6B54] font-semibold">
+                Where I’ve Worked
+              </h3>
+              <p className="text-[11px] text-[#5F6B62] mt-1">
+                Click a marker to see the story
+              </p>
+            </div>
 
-  {/* LEFT TEXT BLOCK */}
-  <div className="space-y-1">
-    <div className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[#0E6B54]/70">
-      {activeMap === "ca" ? "California Experience" : "Germany Experience"}
-    </div>
+            {/* TWO MAPS SIDE BY SIDE */}
+            <div className="grid gap-10 md:grid-cols-2 items-start">
+              {/* CALIFORNIA COLUMN */}
+              <div
+                className="relative flex flex-col items-center"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <h4 className="text-xs uppercase tracking-[0.18em] text-[#0E6B54]/70 mb-3">
+                  California
+                </h4>
 
-    {/* Title stays on one line */}
-    <h4 className="text-base font-semibold text-[#1A1F1A] leading-snug whitespace-nowrap">
-      {activeExperience.role}
-    </h4>
+                <CaliforniaMap
+                  className="w-full max-w-sm"
+                  activeId={
+                    activeExperienceId === "audi" ? null : activeExperienceId
+                  }
+                  onMarkerClick={handleMarkerClick}
+                />
+              </div>
 
-    {/* Company stays tidy and never wraps weirdly */}
-    <p className="text-xs text-[#57655B] leading-tight whitespace-nowrap">
-      {activeExperience.company}
-    </p>
-  </div>
+              {/* GERMANY COLUMN */}
+              <div
+                className="relative flex flex-col items-center"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <h4 className="text-xs uppercase tracking-[0.18em] text-[#0E6B54]/70 mb-3">
+                  Germany
+                </h4>
 
-  {/* RIGHT METADATA BLOCK */}
-  <div className="text-[11px] text-right text-[#5F6B62] leading-tight whitespace-nowrap">
-    <div>{activeExperience.period}</div>
-    <div>{activeExperience.location}</div>
-  </div>
-</div>
+                <GermanyMap
+                  className="w-full max-w-sm"
+                  activeId={activeExperienceId === "audi" ? "audi" : null}
+                  onMarkerClick={handleMarkerClick}
+                />
+              </div>
+            </div>
 
+            {/* EXPERIENCE CARD MODAL */}
+            <AnimatePresence>
+              {activeExperience && (
+                <motion.div
+                  key={activeExperienceId}
+                  initial={{ opacity: 0, y: 16 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 16 }}
+                  transition={{ duration: 0.35, ease: "easeOut" }}
+                  className="pointer-events-auto absolute max-w-md"
+                  style={
+                    activeExperienceId === "audi"
+                      ? { right: "4%", bottom: "4%" }
+                      : { left: "4%", bottom: "4%" }
+                  }
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <div className="rounded-3xl bg-white/96 shadow-[0_18px_45px_rgba(0,0,0,0.12)] border border-[#D0D4CB]/80 px-5 py-4 md:px-6 md:py-5">
+                    <div className="flex justify-between items-start gap-6">
+                      {/* LEFT TEXT BLOCK */}
+                      <div className="space-y-1">
+                        <div className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[#0E6B54]/70">
+                          {activeMap === "ca"
+                            ? "California Experience"
+                            : "Germany Experience"}
+                        </div>
 
-            <ul className="mt-3 space-y-1.5 text-sm text-[#374139]">
-              {activeExperience.bullets.map((b, idx) => (
-                <li key={idx} className="flex gap-2">
-                  <span className="mt-[7px] h-[2px] w-4 bg-[#0E6B54]/70" />
-                  <span>{b}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </motion.div>
-      )}
-    </AnimatePresence>
-  </motion.div>
-</SectionShell>
+                        <h4 className="text-base font-semibold text-[#1A1F1A] leading-snug whitespace-nowrap">
+                          {activeExperience.role}
+                        </h4>
+
+                        <p className="text-xs text-[#57655B] leading-tight whitespace-nowrap">
+                          {activeExperience.company}
+                        </p>
+                      </div>
+
+                      {/* RIGHT METADATA BLOCK */}
+                      <div className="text-[11px] text-right text-[#5F6B62] leading-tight whitespace-nowrap">
+                        <div>{activeExperience.period}</div>
+                        <div>{activeExperience.location}</div>
+                      </div>
+                    </div>
+
+                    <ul className="mt-3 space-y-1.5 text-sm text-[#374139]">
+                      {activeExperience.bullets.map((b, idx) => (
+                        <li key={idx} className="flex gap-2">
+                          <span className="mt-[7px] h-[2px] w-4 bg-[#0E6B54]/70" />
+                          <span>{b}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </motion.div>
+        </SectionShell>
 
         {/* EDUCATION */}
         <SectionShell
@@ -1171,9 +1181,9 @@ export default function Page() {
                   Let’s build something useful.
                 </h3>
                 <p className="text-sm text-[#374139] mt-2 max-w-md">
-                  Always excited to chat about assistive devices, soft
-                  mechanics, or bioprocess hardware where engineering gives
-                  someone more independence.
+                  Always excited to chat about assistive devices, soft mechanics,
+                  or bioprocess hardware where engineering gives someone more
+                  independence.
                 </p>
               </div>
 
@@ -1205,8 +1215,6 @@ export default function Page() {
     </>
   );
 }
-
-
 
 
 
