@@ -68,11 +68,11 @@ body::after{
   /* Hide everything except the overview section */
   header,
   footer,
-  #projects,
-  #experience,
-  #education,
-  #background,
-  #contact,
+  projects,
+  experience,
+  education,
+  background,
+  contact,
   .fixed,
   .pointer-events-none {
     display: none !important;
