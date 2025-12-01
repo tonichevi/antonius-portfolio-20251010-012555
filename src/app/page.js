@@ -244,7 +244,7 @@ function GermanyMap({ className, activeId, onMarkerClick }) {
 
   return (
     <svg className={className} viewBox="0 0 700 950" fill="none">
-      <image
+    <image
         href="/images/Germany2.jpg"
         x="50"
         y="50"
@@ -634,7 +634,7 @@ function ImageModal({ selectedImage, onClose }) {
           <motion.img
             src={selectedImage}
             alt="Project"
-            className="max-w-[85%] max-h-[80vh] rounded-2xl shadow-xl bg-white"
+            className="max-w-[85%] max-h-[80vh] rounded-2xl shadow-xl bg-white object-contain"
             initial={{ scale: 0.9 }}
             animate={{ scale: 1 }}
             exit={{ scale: 0.9 }}
@@ -881,7 +881,7 @@ export default function Page() {
                       <motion.img
                         src={p.img}
                         alt={p.title}
-                        className="rounded-2xl object-cover w-full max-h-[360px] cursor-pointer"
+                        className="rounded-2xl object-contain w-full max-h-[360px] cursor-pointer bg-[#E5E8E3]"
                         whileHover={{ scale: 1.02 }}
                         transition={{ duration: 0.25 }}
                         onClick={(e) => {
@@ -897,7 +897,7 @@ export default function Page() {
                             key={img}
                             src={img}
                             alt={p.title}
-                            className="rounded-2xl object-cover cursor-pointer min-w-[240px] max-h-[240px]"
+                            className="rounded-2xl object-contain cursor-pointer min-w-[240px] max-h-[240px] bg-[#E5E8E3]"
                             whileHover={{ scale: 1.02 }}
                             transition={{ duration: 0.25 }}
                             onClick={(e) => {
@@ -1208,6 +1208,7 @@ export default function Page() {
     </>
   );
 }
+
 
 
 
