@@ -58,8 +58,18 @@ body::after{
              rgba(255,255,255,var(--glow-strength)), rgba(255,255,255,0) 60%);
   filter:blur(28px); mix-blend-mode:overlay; transition:background 80ms linear;
 }
-/* --------- PRINT TO PDF (Overview only) --------- */
-/* --------- PRINT TO PDF (Full page content) --------- */
+
+/* ---------- HIDE WORK EXPERIENCE TAB & SECTION ---------- */
+/* Hide the entire Experience section */
+#experience {
+  display: none !important;
+}
+
+/* Hide the navbar link that points to Experience */
+a[href="#experience"] {
+  display: none !important;
+}
+
 /* --------- PRINT TO PDF (Full page, better layout) --------- */
 @media print {
   body {
@@ -101,5 +111,6 @@ body::after{
     break-after: avoid;
   }
 }
+
 
 /* ======================================================================= */
