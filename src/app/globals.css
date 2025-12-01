@@ -49,25 +49,20 @@ body{background:var(--bg);color:var(--text)}
 /* cursor trail brighter */
 .trail{position:fixed;left:0;top:0;pointer-events:none;z-index:50;mix-blend:screen}
 .trail span{position:absolute;width:9px;height:9px;border-radius:9999px;background:radial-gradient(circle at 30% 30%, #fff, #9af6ff);filter:blur(.4px)}
+
 /* === Cursor Glow (liquid groove) ======================================= */
-:root{--mx:50vw;--my:50vh;--glow-size:42vmin;--glow-strength:0.18}
+:root{
+  --mx:50vw;
+  --my:50vh;
+  --glow-size:42vmin;
+  --glow-strength:0.18;
+}
 body::after{
   content:'';
   position:fixed; inset:-20vh -20vw; pointer-events:none; z-index:40;
   background:radial-gradient(var(--glow-size) var(--glow-size) at var(--mx) var(--my),
              rgba(255,255,255,var(--glow-strength)), rgba(255,255,255,0) 60%);
   filter:blur(28px); mix-blend-mode:overlay; transition:background 80ms linear;
-}
-
-/* ---------- HIDE WORK EXPERIENCE TAB & SECTION ---------- */
-/* Hide the entire Experience section */
-#experience {
-  display: none !important;
-}
-
-/* Hide the navbar link that points to Experience */
-a[href="#experience"] {
-  display: none !important;
 }
 
 /* --------- PRINT TO PDF (Full page, better layout) --------- */
@@ -78,7 +73,7 @@ a[href="#experience"] {
     background: #ffffff !important;
   }
 
-  /* Hide only overlays / floating glow / modals, NOT content */
+  /* Hide only overlays / floating glow / modals, NOT main content */
   .pointer-events-none,
   .bg-black\/50,
   .fixed {
@@ -110,7 +105,23 @@ a[href="#experience"] {
     page-break-after: avoid;
     break-after: avoid;
   }
+
+  /* HIDE EXPERIENCE ONLY IN THE PDF */
+  #experience {
+    display: none !important;
+  }
+
+  a[href="#experience"] {
+    display: none !important;
+  }
+
+  /* FORCE EVERYTHING AFTER EXPERIENCE TO START ON A NEW PAGE */
+  #education {
+    page-break-before: always;
+    break-before: page;
+  }
 }
+
 
 
 /* ======================================================================= */
