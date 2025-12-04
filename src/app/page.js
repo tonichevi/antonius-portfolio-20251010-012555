@@ -417,7 +417,7 @@ const PROJECTS = [
     title: "Musical Chair — Cause & Effect Vehicle",
     subtitle: "Adaptive mobility platform for children with disabilities",
     description:
-      "Lead mechanical designer on a therapeutic “cause-and-effect” vehicle that lets children with cerebral palsy initiate motion independently. Focused on sensing, vibration feedback, and a clinic-friendly, kid-proof chassis.",
+      "Active project, collaborating in a team of 5 to design a therapeutic “cause-and-effect” vehicle that lets children with cerebral palsy initiate motion independently. Focused on sensing, vibration feedback, and a clinic-friendly, kid-proof chassis. Personally, I am leading the prototyping and design for a guitar-adapted sensor which translates mechanical vibration into an electrical signal, used to actuate the 'Musical Chair' ",
     meta: ["UCSB Capstone", "2025", "Assistive Technology"],
     img: "/images/StarRiderII.jpg",
   },
