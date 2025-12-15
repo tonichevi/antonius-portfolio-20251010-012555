@@ -467,7 +467,7 @@ const PROJECTS = [
       "/images/TVSketch.jpg",
       "/images/SteeringWheel.jpg",
       "/images/BridgeTrussFEA.jpg",
-       "/images/Skateboard.jpg"
+       "/images/SkateboardCAD.jpg"
     ],
   },
   {
