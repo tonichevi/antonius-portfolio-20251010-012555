@@ -197,7 +197,7 @@ function WaveIcon({ className, color = "#0E6B54" }) {
 function CaliforniaMap({ className, activeId, onMarkerClick }) {
   const markers = [
     { id: "ucd", cx: 325, cy: 380 }, // UC Davis
-    { id: "dressaire", cx: 365, cy: 620 }, // Santa Barbara
+    { id: "", cx: 365, cy: 620 }, // Santa Barbara
     { id: "sanisure", cx: 450, cy: 660 }, // Camarillo
   ];
 
@@ -436,7 +436,7 @@ const PROJECTS = [
     description:
       "Designed and built an instrumented fixture in the Dressaire Lab to quantify wetting and capillary adhesion of soft-gel capillary bridges for cystic fibrosis airway-clearance lubricants (publication targeted year-end).",
     meta: ["Dressaire Lab", "2025–", "Biointerfaces/soft-matter for medical application"],
-    imgs: ["/images/DressaireLabSetup.JPG", "/images/CapillaryBridgeTesting_1.png"],
+    imgs: ["/images/DressaireLabSetup.JPG", "/images/CapillaryBridgeTesting_1.png","/images/DressaireGel.jpeg"],
   },
    {
     id: "frog",
