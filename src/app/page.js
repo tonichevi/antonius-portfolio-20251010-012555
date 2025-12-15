@@ -436,7 +436,16 @@ const PROJECTS = [
     description:
       "Designed and built an instrumented fixture in the Dressaire Lab to quantify wetting and capillary adhesion of soft-gel capillary bridges for cystic fibrosis airway-clearance lubricants (publication targeted year-end).",
     meta: ["Dressaire Lab", "2025–", "Biointerfaces/soft-matter for medical application"],
-    imgs: ["/images/IMG_7857.jpg", "/images/IMG_7995.jpg"],
+    imgs: ["/images/DressaireLabSetup.jpg", "/images/CapillaryBridgeTesting_1.jpg"],
+  },
+   {
+    id: "frog",
+    title: "Frog Jumper Mechanism",
+    subtitle: "Teaching dynamics through playful hardware",
+    description:
+      "Designed a spring-loaded mechanism that converts stored elastic energy into a repeatable jump. Used as a teaching tool to connect dynamics principles with real hardware.",
+    meta: ["UCSB", "2025", "Mechanisms"],
+    img: "/images/Jumper.jpg",
   },
   {
     id: "urca-steering",
@@ -448,25 +457,17 @@ const PROJECTS = [
     img: "/images/SteeringUrca.jpg",
   },
   {
-    id: "frog",
-    title: "Frog Jumper Mechanism",
-    subtitle: "Teaching dynamics through playful hardware",
-    description:
-      "Designed a spring-loaded mechanism that converts stored elastic energy into a repeatable jump. Used as a teaching tool to connect dynamics principles with real hardware.",
-    meta: ["UCSB", "2025", "Mechanisms"],
-    img: "/images/Jumper.jpg",
-  },
-  {
     id: "solidworks",
     title: "SOLIDWORKS Design Set",
     subtitle: "TV mount, steering wheel, and more",
     description:
-      "Collection of CAD projects including a stiffness-optimized TV mount and an ergonomic FSAE steering wheel designed for packaging, wiring, and manufacturability.",
+      "Collection of CAD/FEA projects including a stiffness-optimized TV mount, an ergonomic FSAE steering wheel, a Truss Bridge exposed to loading in an FEA simulation, and an experimental off-road skateboard.",
     meta: ["UCSB", "2024–2025", "CAD"],
     imgs: [
       "/images/TVSketch.jpg",
       "/images/SteeringWheel.jpg",
-      "/images/SkateboardCAD.jpg",
+      "/images/BridgeTrussFEA.jpg",
+       "/images/Skateboard.jpg"
     ],
   },
   {
