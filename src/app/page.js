@@ -436,7 +436,7 @@ const PROJECTS = [
     description:
       "Designed and built an instrumented fixture in the Dressaire Lab to quantify wetting and capillary adhesion of soft-gel capillary bridges for cystic fibrosis airway-clearance lubricants (publication targeted year-end).",
     meta: ["Dressaire Lab", "2025–", "Biointerfaces/soft-matter for medical application"],
-    imgs: ["/images/DressaireLabSetup.jpg", "/images/CapillaryBridgeTesting_1.jpg"],
+    imgs: ["/images/DressaireLabSetup.JPG", "/images/CapillaryBridgeTesting_1.png"],
   },
    {
     id: "frog",
@@ -466,7 +466,7 @@ const PROJECTS = [
     imgs: [
       "/images/TVSketch.jpg",
       "/images/SteeringWheel.jpg",
-      "/images/BridgeTrussFEA.jpg",
+      "/images/BridgeTrussFEA.JPG",
        "/images/SkateboardCAD.jpg"
     ],
   },
