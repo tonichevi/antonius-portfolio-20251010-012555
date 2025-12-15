@@ -1183,9 +1183,8 @@ export default function Page() {
                   Let’s build something useful.
                 </h3>
                 <p className="text-sm text-[#374139] mt-2 max-w-md">
-                  Always excited to chat about assistive devices, soft mechanics,
-                  or bioprocess hardware where engineering gives someone more
-                  independence.
+                  Always excited to chat about assistive devices
+                  or bioprocess hardware and their application in cell therapy to restore autonomy. 
                 </p>
               </div>
 
