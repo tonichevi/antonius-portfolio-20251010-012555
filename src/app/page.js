@@ -445,7 +445,7 @@ const PROJECTS = [
     description:
       "Designed a spring-loaded mechanism that converts stored potential elastic energy into a repeatable jump. This was accomplished using only zip-ties, popsicle sticks, a 5V battery, rubber bands, and a high torque, low-speed motor.",
     meta: ["UCSB", "2025", "Mechanisms"],
-    img: "/images/Jumper.jpg",
+    imgs: ["/images/IMG_9483.JPG", "/images/Jumper.jpg"],
   },
   {
     id: "urca-steering",
