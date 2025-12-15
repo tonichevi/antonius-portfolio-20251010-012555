@@ -430,6 +430,14 @@ const PROJECTS = [
     meta: ["SaniSure", "2025–", "Bioprocess Hardware"],
     imgs: ["/images/IMG_7857.jpg", "/images/IMG_7995.jpg"],
   },
+  {    id: "Dressaire-lab",
+    title: "Capillary Bridge Testing on Experimental Gel - Dressaire Lab",
+    subtitle: "Tnesile Testing of Viscoelestic Gel for Cystic Fibrosis Application",
+    description:
+      "Designed and built an instrumented fixture in the Dressaire Lab to quantify wetting and capillary adhesion of soft-gel capillary bridges for cystic fibrosis airway-clearance lubricants (publication targeted year-end).",
+    meta: ["Dressaire Lab", "2025–", "Biointerfaces/soft-matter for medical application"],
+    imgs: ["/images/IMG_7857.jpg", "/images/IMG_7995.jpg"],
+  },
   {
     id: "urca-steering",
     title: "URCA Steering System — Bearing Performance Study",
