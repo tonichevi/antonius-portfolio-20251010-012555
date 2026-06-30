@@ -409,16 +409,16 @@ function SplashScreen({ onComplete }) {
    DATA
 ----------------------------------------------------- */
 
-const NAME = "Antonius (Toni) Chevillotte";
+const NAME = "Toni Chevillotte";
 
 const PROJECTS = [
   {
     id: "musical-chair",
-    title: "Musical Chair — Cause & Effect Vehicle",
-    subtitle: "Adaptive mobility platform for children with disabilities",
+    title: "BanGO — Cause & Effect Vehicle",
+    subtitle: "Therapeutic device for children with Cerebral Palsy (CP)",
     description:
-      "Active project, collaborating in a team of 5 to design a therapeutic “cause-and-effect” vehicle that lets children with cerebral palsy initiate motion independently. Focused on sensing, vibration feedback, and a clinic-friendly, kid-proof chassis. Personally, I am leading the prototyping and design for a guitar-adapted sensor which translates mechanical vibration into an electrical signal, used to actuate the 'Musical Chair' ",
-    meta: ["UCSB Capstone", "2025", "Assistive Technology"],
+      "This year-long project was completed in June 2026 as part of my Senior Capstone Project at the University of California, Santa Barbara (UCSB). It is a cause-and-effect vehicle designed for therapeutic use only that lets children with cerebral palsy initiate motion independently through various sensing technologies. Focused on sensing, vibration feedback, and a clinic-friendly, child-proof chassis. Personally, I worked on the design and electronic integration of the whole vehicle while most of time was spent on prototyping and building a guitar-based sensor which translates mechanical vibration into an electrical signal to move the 'BanGO' vehicle in a desired direction while playing a sound since we wanted the product to be fun to use for the children. Input: Child tapping/strumming one of the strings. Outputs: - Vehicle moves in desired direction - One of 3 encoded MP3 files is selected from the on-board MP3 player module. Manufacturing: The guitar sensor itself is entirely custom-designed on SOLIDWORKS and subsequently 3D-printed. Electronics: The mechanical vibration is converted into a weak (~0.01V) AC electrical signal using a transducer that lives directly beneath the guitar strings. The signal is sent to a custom-designed and manufactured PCB that lives inside of the guitar housing. The PCB consists of a rectifier and amplifier circuitry which handles the weak incoming AC signal. This signal is then sent to an onboard Arduino Nano microcontroller. From thsi microcontroller, we then get two outputs. Once is a binary signal that gets sent to another Arduino Mega (the brain of the system) from which the motor drivers activate. The second output is a signal that gets sent to the onboard MP3 player to play one of the 3 encoded MP3 files in a random order such that the user never knows which sound gets played first. To output the sound, the MP3 player is connected to a speaker. The Arduino Nano also handles 3 additional user inputs coming from buttons that are easily asseccible for the user: volume up, volume down, and favorite buttons. The favorite button allows a user to 'lock' a track in place such that they continue playing the song from wherever it last took off. Each sound is played for 5 seconds at a time.",
+    meta: ["UCSB Capstone", "2025-2026", "Assistive Technology"],
     img: "/images/StarRiderII.jpg",
   },
   {
