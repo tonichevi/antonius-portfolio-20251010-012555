@@ -3,539 +3,240 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-
-/* -----------------------------------------------------
-   GLOBAL BACKGROUND
------------------------------------------------------ */
-
-function LightBG() {
-  return (
-    <div className="fixed inset-0 -z-40 bg-[linear-gradient(to_bottom,#F1F4F1_0%,#E2E5E0_100%)]" />
-  );
-}
-
-function BiotechGlow() {
-  return (
-    <div className="pointer-events-none fixed inset-0 -z-30 overflow-visible">
-      <div className="absolute -left-20 -top-10 h-80 w-80 rounded-full bg-[radial-gradient(circle_at_center,rgba(102,153,133,0.1),transparent_35%)] blur-3xl" />
-      <div className="absolute -right-24 top-40 h-96 w-96 rounded-full bg-[radial-gradient(circle_at_center,rgba(14,107,84,0.4),transparent_60%)] blur-3xl" />
-      <div className="absolute inset-x-0 bottom-[-16rem] h-[22rem] bg-[radial-gradient(ellipse_at_bottom,rgba(154,181,166,0.20),transparent_68%)] blur-2xl" />
-    </div>
-  );
-}
-
-/* -----------------------------------------------------
-   INLINE ICONS (BIO + CIRCUIT + MECH)
------------------------------------------------------ */
-
-function ProteinIcon({ className, color = "#0E6B54" }) {
-  return (
-    <svg viewBox="0 0 64 64" className={className}>
-      <g
-        fill="none"
-        stroke={color}
-        strokeWidth="1.4"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        opacity="0.9"
-      >
-        <circle cx="16" cy="18" r="6" />
-        <circle cx="32" cy="32" r="6" />
-        <circle cx="48" cy="18" r="6" />
-        <circle cx="24" cy="46" r="6" />
-        <circle cx="40" cy="46" r="6" />
-        <path d="M21 22l7 7m9 0l7-7M29 38l-3 4m12-4l3 4" />
-      </g>
-    </svg>
-  );
-}
-
-function RNAIcon({ className, color = "#0E6B54" }) {
-  return (
-    <svg viewBox="0 0 64 64" className={className}>
-      <g fill="none" stroke={color} strokeWidth="1.4" opacity="0.9">
-        <path
-          d="M18 10c4 6 4 10 0 16s-4 10 0 16 4 10 0 16"
-          strokeLinecap="round"
-        />
-        <path
-          d="M46 10c-4 6-4 10 0 16s4 10 0 16-4 10 0 16"
-          strokeLinecap="round"
-        />
-        <path d="M22 14h8M34 14h8M22 22h8M34 22h8M22 30h8M34 30h8M22 38h8M34 38h8M22 46h8M34 46h8M22 54h8M34 54h8" />
-      </g>
-    </svg>
-  );
-}
-
-function DNAIcon({ className, color = "#0E6B54" }) {
-  return (
-    <svg viewBox="0 0 64 64" className={className}>
-      <g fill="none" stroke={color} strokeWidth="1.4" opacity="0.9">
-        <path
-          d="M20 10c6 6 18 6 24 0M20 54c6-6 18-6 24 0"
-          strokeLinecap="round"
-        />
-        <path
-          d="M20 10c-2 6-2 12 0 18s2 12 0 18"
-          strokeLinecap="round"
-        />
-        <path
-          d="M44 10c2 6 2 12 0 18s-2 12 0 18"
-          strokeLinecap="round"
-        />
-        <path d="M24 18h8M32 18h8M24 32h8M32 32h8M24 46h8M32 46h8" />
-      </g>
-    </svg>
-  );
-}
-
-function CircuitIcon({ className, color = "#0E6B54" }) {
-  return (
-    <svg viewBox="0 0 64 64" className={className}>
-      <g
-        fill="none"
-        stroke={color}
-        strokeWidth="1.4"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        opacity="0.9"
-      >
-        <path d="M8 24h8l4-6 4 6 4-6 4 6 4-6 4 6h8" />
-        <path d="M18 44l14-8v16l-14-8z" />
-        <path d="M32 36h8M32 52h8M20 40h-6M20 48h-6M40 44h6" />
-        <circle cx="8" cy="24" r="1.5" />
-        <circle cx="56" cy="24" r="1.5" />
-      </g>
-    </svg>
-  );
-}
-
-function GearIcon({ className, color = "#0E6B54" }) {
-  return (
-    <svg viewBox="0 0 64 64" className={className}>
-      <g fill="none" stroke={color} strokeWidth="1.4" opacity="0.9">
-        <circle cx="32" cy="32" r="8" />
-        <circle cx="32" cy="32" r="2.5" />
-        <path d="M32 14v6M32 44v6M18 18l4.2 4.2M41.8 41.8L46 46M14 32h6M44 32h6M18 46l4.2-4.2M41.8 22.2L46 18" />
-      </g>
-    </svg>
-  );
-}
-
-function CellIcon({ className, color = "#0E6B54" }) {
-  return (
-    <svg viewBox="0 0 64 64" className={className}>
-      <g fill="none" stroke={color} strokeWidth="1.4" opacity="0.9">
-        <ellipse cx="32" cy="32" rx="20" ry="14" />
-        <ellipse cx="32" cy="32" rx="8" ry="6" />
-        <circle cx="35" cy="30" r="2" />
-        <path d="M18 28c2 1 3 1 5 0m18 8c2 1 3 1 5 0M20 37c2 1 4 1 6 0" />
-      </g>
-    </svg>
-  );
-}
-
-function SpringIcon({ className, color = "#0E6B54" }) {
-  return (
-    <svg viewBox="0 0 64 64" className={className}>
-      <g fill="none" stroke={color} strokeWidth="1.4" opacity="0.9">
-        <path
-          d="M18 18c4-4 8-4 12 0s8 4 12 0M18 30c4-4 8-4 12 0s8 4 12 0M18 42c4-4 8-4 12 0s8 4 12 0"
-          strokeLinecap="round"
-        />
-        <path d="M14 18h4M46 18h4M14 42h4M46 42h4" />
-      </g>
-    </svg>
-  );
-}
-
-function BoltIcon({ className, color = "#0E6B54" }) {
-  return (
-    <svg viewBox="0 0 64 64" className={className}>
-      <g fill="none" stroke={color} strokeWidth="1.4" opacity="0.9">
-        <polygon points="28,10 40,10 44,18 40,26 24,26 20,18" />
-        <rect x="26" y="26" width="12" height="18" />
-        <path d="M26 44h12v4H26z" />
-      </g>
-    </svg>
-  );
-}
-
-function PumpIcon({ className, color = "#0E6B54" }) {
-  return (
-    <svg viewBox="0 0 64 64" className={className}>
-      <g fill="none" stroke={color} strokeWidth="1.4" opacity="0.9">
-        <rect x="16" y="20" width="32" height="20" rx="4" />
-        <circle cx="26" cy="30" r="5" />
-        <path d="M36 24h6M36 30h6M36 36h6" />
-        <path d="M16 30H8M48 30h8" strokeLinecap="round" />
-      </g>
-    </svg>
-  );
-}
-
-function WaveIcon({ className, color = "#0E6B54" }) {
-  return (
-    <svg viewBox="0 0 64 64" className={className}>
-      <path
-        d="M6 38c6-8 10-8 16 0s10 8 16 0 10-8 16 0 10 8 16 0"
-        fill="none"
-        stroke={color}
-        strokeWidth="1.4"
-        strokeLinecap="round"
-        opacity="0.9"
-      />
-    </svg>
-  );
-}
-
-/* -----------------------------------------------------
-   MAP COMPONENTS
------------------------------------------------------ */
-
-function CaliforniaMap({ className, activeId, onMarkerClick }) {
-  const markers = [
-    { id: "ucd", cx: 325, cy: 380 }, // UC Davis
-    { id: "", cx: 365, cy: 620 }, // Santa Barbara
-    { id: "sanisure", cx: 450, cy: 660 }, // Camarillo
-  ];
-
-  return (
-    <svg className={className} viewBox="0 0 700 950" fill="none">
-      <image
-        href="/images/California2.jpg"
-        x="50"
-        y="-120"
-        width="800"
-        height="1200"
-        preserveAspectRatio="xMidYMid meet"
-      />
-      {markers.map((m) => {
-        const active = activeId === m.id;
-        return (
-          <g
-            key={m.id}
-            onClick={(e) => {
-              e.stopPropagation();
-              onMarkerClick(m.id);
-            }}
-            className="cursor-pointer"
-          >
-            <circle cx={m.cx} cy={m.cy} r={active ? 14 : 10} fill="#0E6B54" />
-            <circle
-              cx={m.cx}
-              cy={m.cy}
-              r={active ? 26 : 20}
-              stroke="#0E6B54"
-              strokeWidth="2"
-              opacity="0.3"
-              fill="none"
-            />
-          </g>
-        );
-      })}
-    </svg>
-  );
-}
-
-function GermanyMap({ className, activeId, onMarkerClick }) {
-  const markers = [{ id: "audi", cx: 350, cy: 570 }];
-
-  return (
-    <svg className={className} viewBox="0 0 700 950" fill="none">
-    <image
-        href="/images/Germany2.jpg"
-        x="50"
-        y="50"
-        width="600"
-        height="850"
-        preserveAspectRatio="xMidYMid meet"
-      />
-      {markers.map((m) => {
-        const active = activeId === m.id;
-        return (
-          <g
-            key={m.id}
-            onClick={(e) => {
-              e.stopPropagation();
-              onMarkerClick(m.id);
-            }}
-            className="cursor-pointer"
-          >
-            <circle cx={m.cx} cy={m.cy} r={active ? 14 : 10} fill="#0E6B54" />
-            <circle
-              cx={m.cx}
-              cy={m.cy}
-              r={active ? 26 : 20}
-              stroke="#0E6B54"
-              strokeWidth="2"
-              opacity="0.3"
-              fill="none"
-            />
-          </g>
-        );
-      })}
-    </svg>
-  );
-}
-
-/* -----------------------------------------------------
-   THEME CONFIG + FLOATING ICONS
------------------------------------------------------ */
-
-const THEME_CONFIG = {
-  overview: { iconColor: "#0E6B54" },
-  projects: { iconColor: "#078F77" },
-  experience: { iconColor: "#3D6B58" },
-  education: { iconColor: "#0C6F87" },
-  background: { iconColor: "#4C6057" },
-  contact: { iconColor: "#B0713D" },
-  default: { iconColor: "#0E6B54" },
-};
-
-function ThemedFloatingIcons({ theme, scrollDir, scrollSpeed }) {
-  const config = THEME_CONFIG[theme] || THEME_CONFIG.default;
-  const color = config.iconColor;
-
-  let icons;
-  switch (theme) {
-    case "projects":
-      icons = [ProteinIcon, RNAIcon, CircuitIcon, DNAIcon, PumpIcon, WaveIcon];
-      break;
-    case "experience":
-      icons = [CircuitIcon, GearIcon, SpringIcon, BoltIcon, WaveIcon];
-      break;
-    case "education":
-      icons = [RNAIcon, DNAIcon, ProteinIcon, CellIcon, WaveIcon];
-      break;
-    case "background":
-      icons = [CellIcon, GearIcon, CircuitIcon, SpringIcon, DNAIcon];
-      break;
-    case "contact":
-      icons = [GearIcon, CircuitIcon, WaveIcon];
-      break;
-    case "overview":
-    default:
-      icons = [CellIcon, GearIcon, ProteinIcon, CircuitIcon, DNAIcon];
-      break;
-  }
-
-  const basePositions = [
-    { top: "-8%", left: "-6%" },
-    { top: "10%", right: "-8%" },
-    { top: "38%", left: "-10%" },
-    { top: "54%", right: "-10%" },
-    { bottom: "-12%", left: "10%" },
-    { bottom: "-8%", right: "12%" },
-  ];
-
-  const dirFactor = scrollDir === -1 ? -1 : 1;
-  const speedFactor = 14 + scrollSpeed * 24;
-
-  return (
-    <div className="pointer-events-none absolute inset-0 z-0 overflow-visible">
-      {icons.map((Icon, idx) => {
-        const pos = basePositions[idx % basePositions.length];
-        const axis =
-          theme === "experience" || (theme === "projects" && idx % 3 === 1)
-            ? "x"
-            : "y";
-        const delta =
-          (axis === "y" ? speedFactor : speedFactor * 0.6) *
-          (idx % 2 === 0 ? dirFactor : -dirFactor);
-        const duration = 20 + idx * 3;
-
-        return (
-          <motion.div
-            key={`${theme}-${idx}`}
-            className="absolute"
-            style={pos}
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 0.35, y: 0 }}
-            viewport={{ once: false, amount: 0.4 }}
-            transition={{ duration: 0.9, delay: idx * 0.12, ease: "easeOut" }}
-          >
-            <motion.div
-              animate={
-                axis === "y" ? { y: [0, -delta, 0] } : { x: [0, delta, 0] }
-              }
-              transition={{
-                duration,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-            >
-              <Icon className="h-20 w-20 md:h-24 md:w-24" color={color} />
-            </motion.div>
-          </motion.div>
-        );
-      })}
-    </div>
-  );
-}
-
-/* -----------------------------------------------------
-   SPLASH SCREEN
------------------------------------------------------ */
-
-function SplashScreen({ onComplete }) {
-  useEffect(() => {
-    const timer = setTimeout(onComplete, 1600);
-    return () => clearTimeout(timer);
-  }, [onComplete]);
-
-  return (
-    <motion.div
-      className="fixed inset-0 bg-[#F6F7F4] flex items-center justify-center z-50"
-      initial={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.6 }}
-    >
-      <motion.h1
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0 }}
-        transition={{ duration: 0.7 }}
-        className="text-4xl md:text-6xl font-semibold text-[#0E6B54] text-center"
-      >
-        Building Patient-First Systems
-      </motion.h1>
-    </motion.div>
-  );
-}
-
 /* -----------------------------------------------------
    DATA
 ----------------------------------------------------- */
 
 const NAME = "Toni Chevillotte";
+const PROFILE_IMAGE =
+  "/images/3C290D86-57BC-42DB-94D9-237783F922FB8R1A8362.jpeg";
+
+const NAV_ITEMS = [
+  { id: "home", label: "Home" },
+  { id: "projects", label: "Projects" },
+  { id: "experience", label: "Experience" },
+  { id: "education", label: "Education" },
+  { id: "background", label: "Background" },
+  { id: "contact", label: "Contact" },
+];
 
 const PROJECTS = [
   {
     id: "musical-chair",
     title: "BanGO — Cause & Effect Vehicle",
     subtitle: "Therapeutic device for children with Cerebral Palsy (CP)",
+    summary:
+      "A clinic-friendly assistive vehicle that lets children initiate motion through a guitar-inspired sensor, playful sound feedback, and accessible controls.",
     description:
-      "This year-long project was completed in June 2026 as part of my Senior Capstone Project at the University of California, Santa Barbara (UCSB). It is a cause-and-effect vehicle designed for therapeutic use only that lets children with cerebral palsy initiate motion independently through various sensing technologies. Focused on sensing, vibration feedback, and a clinic-friendly, child-proof chassis. Personally, I worked on the design and electronic integration of the whole vehicle while most of time was spent on prototyping and building a guitar-based sensor which translates mechanical vibration into an electrical signal to move the 'BanGO' vehicle in a desired direction while playing a sound since we wanted the product to be fun to use for the children. Input: Child tapping/strumming one of the strings. Outputs: - Vehicle moves in desired direction - One of 3 encoded MP3 files is selected from the on-board MP3 player module. Manufacturing: The guitar sensor itself is entirely custom-designed on SOLIDWORKS and subsequently 3D-printed. Electronics: The mechanical vibration is converted into a weak (~0.01V) AC electrical signal using a transducer that lives directly beneath the guitar strings. The signal is sent to a custom-designed and manufactured PCB that lives inside of the guitar housing. The PCB consists of a rectifier and amplifier circuitry which handles the weak incoming AC signal. This signal is then sent to an onboard Arduino Nano microcontroller. From thsi microcontroller, we then get two outputs. Once is a binary signal that gets sent to another Arduino Mega (the brain of the system) from which the motor drivers activate. The second output is a signal that gets sent to the onboard MP3 player to play one of the 3 encoded MP3 files in a random order such that the user never knows which sound gets played first. To output the sound, the MP3 player is connected to a speaker. The Arduino Nano also handles 3 additional user inputs coming from buttons that are easily asseccible for the user: volume up, volume down, and favorite buttons. The favorite button allows a user to 'lock' a track in place such that they continue playing the song from wherever it last took off. Each sound is played for 5 seconds at a time.",
-    meta: ["UCSB Capstone", "2025-2026", "Assistive Technology"],
-    img: "/images/StarRiderII.jpg",
+      "This year-long project was completed in June 2026 as part of my Senior Capstone Project at the University of California, Santa Barbara. BanGO is a cause-and-effect vehicle designed for therapeutic use only that lets children with cerebral palsy initiate motion independently through different sensing technologies. I focused on the design and electronic integration of the vehicle, with most of my prototyping centered on a guitar-based sensor that translates mechanical vibration into an electrical signal to move the vehicle while playing sound.",
+    details: [
+      "Input: the child taps or strums one of the guitar strings.",
+      "Outputs: the vehicle moves in the desired direction and one of three encoded MP3 files is selected from the onboard MP3 player module.",
+      "Manufacturing: the guitar sensor housing was custom-designed in SOLIDWORKS and 3D printed.",
+      "Electronics: vibration is converted into a weak AC electrical signal using a transducer beneath the strings, then passed through custom rectifier and amplifier circuitry on a PCB inside the housing.",
+      "Control: an Arduino Nano outputs a binary signal to an Arduino Mega motor-driver system and also controls the MP3 player, speaker, volume buttons, and favorite-track behavior.",
+      "Interaction: the favorite button allows a user to lock a track in place and resume the song from where it last stopped. Each sound plays in five-second windows.",
+    ],
+    meta: ["UCSB Capstone", "2025–2026", "Assistive Technology"],
+    images: ["/images/StarRiderII.jpg"],
   },
   {
     id: "sanisure-bioprocess",
     title: "Single-Use Bioprocess Assemblies — SaniSure",
     subtitle: "Tubing, connectors, and encapsulation hardware for cell therapy",
+    summary:
+      "Single-use fluid-path hardware for cell-therapy manufacturing, built around leak integrity, manufacturability, and closed-process reliability.",
     description:
-      "Designed and validated single-use fluid paths used in cell-therapy manufacturing, including tubing–connector–fitting assemblies, encapsulation rigs, and pressure-decay test systems. Focused on leak integrity and manufacturability.",
+      "Designed and validated single-use fluid paths used in cell-therapy manufacturing, including tubing–connector–fitting assemblies, encapsulation rigs, and pressure-decay test systems. My work focused on leak integrity, manufacturability, documentation, and repeatable test methods for bioprocess hardware.",
+    details: [
+      "Developed and refined tubing, connector, fitting, and encapsulation assemblies.",
+      "Supported pressure-decay leak testing and failure-analysis workflows.",
+      "Worked across R&D, fabrication, and quality to improve documentation and design transfer.",
+    ],
     meta: ["SaniSure", "2025–", "Bioprocess Hardware"],
-    imgs: ["/images/IMG_7857.jpg", "/images/IMG_7995.jpg"],
+    images: ["/images/IMG_7857.jpg", "/images/IMG_7995.jpg"],
   },
-  {    id: "Dressaire-lab",
-    title: "Capillary Bridge Testing on Experimental Gel - Dressaire Lab",
-    subtitle: "Tnesile Testing of Viscoelestic Gel for Cystic Fibrosis Application",
+  {
+    id: "dressaire-lab",
+    title: "Capillary Bridge Testing on Experimental Gel — Dressaire Lab",
+    subtitle: "Tensile testing of viscoelastic gels for cystic-fibrosis applications",
+    summary:
+      "A soft-matter research platform for measuring capillary adhesion, wetting, and force–separation behavior on experimental gels.",
     description:
-      "Designed and built an instrumented fixture in the Dressaire Lab to quantify wetting and capillary adhesion of soft-gel capillary bridges for cystic fibrosis airway-clearance lubricants (publication targeted year-end).",
-    meta: ["Dressaire Lab", "2025–", "Biointerfaces/soft-matter for medical application"],
-    imgs: ["/images/DressaireLabSetup.JPG", "/images/DressaireLabImage1.jpg","/images/DressaireGel.jpeg"],
+      "Designed and built an instrumented fixture in the Dressaire Lab to quantify wetting and capillary adhesion of soft-gel capillary bridges for cystic-fibrosis airway-clearance lubricant concepts. The project connects mechanical testing, image analysis, and biointerface design.",
+    details: [
+      "Measured contact angles, meniscus curvature, pull-off behavior, and force–separation curves.",
+      "Built an image-analysis pipeline to extract bridge geometry and compare gel conditions.",
+      "Focused on how soft, viscoelastic surfaces alter wetting and adhesion compared with rigid substrates.",
+    ],
+    meta: ["Dressaire Lab", "2025–", "Biointerfaces / Soft Matter"],
+    images: [
+      "/images/DressaireLabSetup.JPG",
+      "/images/DressaireLabImage1.jpg",
+      "/images/DressaireGel.jpeg",
+    ],
   },
-   {
+  {
     id: "frog",
     title: "Frog Jumper Mechanism",
     subtitle: "Teaching dynamics through playful hardware",
+    summary:
+      "A spring-loaded mechanism that turns stored elastic energy into a repeatable jump using simple, accessible materials.",
     description:
-      "Designed a spring-loaded mechanism that converts stored potential elastic energy into a repeatable jump. This was accomplished using only zip-ties, popsicle sticks, a 5V battery, rubber bands, and a high torque, low-speed motor.",
+      "Designed a spring-loaded mechanism that converts stored elastic potential energy into a repeatable jump. The mechanism was built using zip ties, popsicle sticks, a 5V battery, rubber bands, and a high-torque, low-speed motor.",
+    details: [
+      "Demonstrated energy storage, release, and mechanical timing through a hands-on build.",
+      "Used constrained materials to keep the mechanism simple, playful, and teachable.",
+    ],
     meta: ["UCSB", "2025", "Mechanisms"],
-    imgs: ["/images/IMG_9483.JPG", "/images/Jumper.jpg"],
+    images: ["/images/IMG_9483.JPG", "/images/Jumper.jpg"],
   },
   {
     id: "urca-steering",
     title: "URCA Steering System — Bearing Performance Study",
-    subtitle: "Quantifying steering feel & reliability",
+    subtitle: "Quantifying steering feel and reliability",
+    summary:
+      "A steering-system study focused on bearing configuration, torque behavior, and reliability for an undergraduate competition vehicle.",
     description:
       "Analyzed bearing configurations for an undergraduate competition vehicle. Built steering-torque models and validated them experimentally to recommend a low-maintenance bearing stack-up.",
+    details: [
+      "Compared bearing arrangements for steering feel, reliability, and maintainability.",
+      "Combined modeling with experimental validation to support a final design recommendation.",
+    ],
     meta: ["URCA", "2025", "Vehicle Dynamics"],
-    img: "/images/SteeringUrca.jpg",
+    images: ["/images/SteeringUrca.jpg"],
   },
   {
     id: "solidworks",
     title: "SOLIDWORKS Design Set",
-    subtitle: "TV mount, steering wheel, and more",
+    subtitle: "TV mount, steering wheel, truss bridge, and more",
+    summary:
+      "A CAD and FEA collection spanning structural design, ergonomic hardware, vehicle components, and experimental mobility concepts.",
     description:
-      "Collection of CAD/FEA projects including a stiffness-optimized TV mount, an ergonomic FSAE steering wheel, a Truss Bridge exposed to loading in an FEA simulation, and an experimental off-road skateboard.",
-    meta: ["UCSB", "2024–2025", "CAD"],
-    imgs: [
+      "Collection of CAD and FEA projects including a stiffness-optimized TV mount, an ergonomic FSAE steering wheel, a truss bridge exposed to loading in an FEA simulation, and an experimental off-road skateboard.",
+    details: [
+      "Modeled assemblies and components with manufacturability and structural performance in mind.",
+      "Used FEA and design iteration to explore stiffness, loading, and geometry tradeoffs.",
+    ],
+    meta: ["UCSB", "2024–2025", "CAD / FEA"],
+    images: [
       "/images/TVSketch.jpg",
       "/images/SteeringWheel.jpg",
       "/images/BridgeTrussFEA.JPG",
-       "/images/SkateboardCAD.jpg"
+      "/images/SkateboardCAD.jpg",
     ],
   },
   {
     id: "sanisure-dash",
     title: "SaniSure Power BI Dashboards",
     subtitle: "Bioprocess analytics at scale",
+    summary:
+      "R&D and quality dashboards for chemical compatibility, engagement testing, and design-pipeline visibility.",
     description:
       "Dashboards used across R&D and Quality for engagement testing, chemical compatibility, and throughput tracking across design pipelines.",
+    details: [
+      "Built views for chemical compatibility and material-engagement tracking.",
+      "Helped translate engineering and quality data into faster design-review workflows.",
+    ],
     meta: ["SaniSure", "2025–", "Data & Tools"],
-    imgs: [
+    images: [
       "/images/ChemicalFilters.jpg",
       "/images/Material Engagement Check.jpg",
     ],
   },
 ];
 
-const EXPERIENCE_DETAILS = {
-  dressaire: {
+const EXPERIENCE = [
+  {
+    id: "dressaire",
     role: "Fluid Dynamics Researcher",
     company: "Dressaire Lab · UCSB",
     period: "Oct 2025 – Present",
     location: "Santa Barbara, CA",
+    summary:
+      "Soft-matter research on capillary bridges, wetting, adhesion, and experimental gels for biomedical interfaces.",
     bullets: [
       "Study capillary bridges in soft gels relevant to biomedical interfaces.",
       "Build fixtures to measure wetting, adhesion, and force–separation curves.",
+      "Connect experimental mechanics and image analysis to soft-material behavior.",
     ],
   },
-  sanisure: {
+  {
+    id: "sanisure",
     role: "Design + R&D Intern",
     company: "SaniSure — R&D",
     period: "Jul 2025 – Present",
     location: "Camarillo, CA",
+    summary:
+      "Single-use bioprocessing hardware, pressure-decay testing, structured failure analysis, SOPs, FMEAs, and R&D dashboards.",
     bullets: [
-      "Develop single-use bioprocessing assemblies for cell therapy manufacturing.",
+      "Develop single-use bioprocessing assemblies for cell-therapy manufacturing.",
       "Run pressure-decay leak tests and structured failure analysis.",
-      "Refine SOPs and FMEAs with Fabrication and QA teams; create dashboards for chemical compatibility and department overview.",
+      "Refine SOPs and FMEAs with Fabrication and QA teams.",
+      "Create dashboards for chemical compatibility and department overview.",
     ],
   },
-  ucd: {
-    role: "Research Assistant · Calculus Tutor",
-    company: "UC Davis · College of Engineering",
-    period: "Jan 2023 – Jun 2023 (RA); Sep 2022 – Jun 2023 (Tutor)",
-    location: "Davis, CA",
-    bullets: [
-      "Simulated projectile motion in C with parameter sweeps and experimental validation.",
-      "Led one-on-one and small-group calculus tutoring (~5–10 hrs/week).",
-    ],
-  },
-  audi: {
+  {
+    id: "audi",
     role: "Requirements Engineering Intern",
     company: "AUDI AG — Technical Development",
     period: "Jan 2024 – Jun 2024",
     location: "Ingolstadt, Germany",
+    summary:
+      "Requirements engineering, KPI pipelines, and early-stage prototyping inside vehicle-development programs.",
     bullets: [
       "Built KPI dashboards for Systems Requirements, improving traceability and visibility across vehicle programs.",
-      "Collaborated with ~30 engineers across disciplines on specifications for next-generation vehicles.",
+      "Collaborated with roughly 30 engineers across disciplines on specifications for next-generation vehicles.",
+      "Supported early-stage prototyping and structured technical-development workflows.",
     ],
   },
-};
+  {
+    id: "ucd",
+    role: "Research Assistant · Calculus Tutor",
+    company: "UC Davis · College of Engineering",
+    period: "Jan 2023 – Jun 2023; Sep 2022 – Jun 2023",
+    location: "Davis, CA",
+    summary:
+      "C programming for projectile-motion simulations and one-on-one calculus support for engineering students.",
+    bullets: [
+      "Simulated projectile motion in C with parameter sweeps and experimental validation.",
+      "Led one-on-one and small-group calculus tutoring for about 5–10 hours per week.",
+    ],
+  },
+];
+
+const EDUCATION = [
+  {
+    school: "UC Santa Barbara",
+    line: "Honors BS/MS Mechanical Engineering",
+    time: "Jun 2023 – Jun 2027",
+    gpa: "3.82",
+    extras: ["Honors College", "Tau Beta Pi", "Formula SAE", "Dressaire Lab"],
+  },
+  {
+    school: "University of California, Davis",
+    line: "B.S. Mechanical Engineering",
+    time: "Sep 2021 – Jun 2023",
+    gpa: "3.82/4.00",
+    extras: ["Student Alumni Association", "CAAA Leadership Scholar"],
+  },
+  {
+    school: "Glendora High School",
+    line: "High School Diploma",
+    time: "Aug 2017 – Jun 2021",
+    gpa: "4.69/4.00 · Top 2%",
+    extras: ["National Honor Society", "Varsity Tennis", "AP Capstone Diploma"],
+  },
+];
 
 const EXTRAS = [
   {
     title: "UCSB Formula SAE",
-    text: "EV racecar design & steering system development.",
+    text: "EV racecar design and steering-system development.",
   },
   {
     title: "Fruitfully Yours — Vice President",
-    text: "Co-founded nonprofit rescuing 80k+ lbs of fruit and supporting ~70k food-insecure individuals.",
+    text: "Co-founded a nonprofit rescuing 80k+ lbs of fruit and supporting about 70k food-insecure individuals.",
   },
   {
     title: "NASA Volunteer",
@@ -543,7 +244,7 @@ const EXTRAS = [
   },
   {
     title: "Assistive Technology Club",
-    text: "Co-founded UCSB club developing VR-based early screening tools for Alzheimer's.",
+    text: "Co-founded a UCSB club developing VR-based early screening tools for Alzheimer’s.",
   },
   {
     title: "Elementary STEAM Volunteer",
@@ -552,8 +253,8 @@ const EXTRAS = [
 ];
 
 const HONORS = [
-  "6× Dean's Honors List (UCD & UCSB).",
-  "AP Capstone Diploma (2021).",
+  "6× Dean’s Honors List at UCD and UCSB.",
+  "AP Capstone Diploma.",
   "Glendora Kiwanis Community Service Award.",
   "Tartan Achievement Award.",
 ];
@@ -564,68 +265,169 @@ const CERTS = [
   "Statistics & R Specialization — HarvardX.",
 ];
 
-const LANGS = [
-  "English — Native",
-  "German — Native",
-  "French — Elementary",
-];
+const LANGS = ["English — Native", "German — Native", "French — Elementary"];
 
 /* -----------------------------------------------------
-   REUSABLE COMPONENTS
+   ANIMATION + VIEW HELPERS
 ----------------------------------------------------- */
 
-/* updated: animate instead of whileInView so everything is visible for print */
-const fadeProps = {
-  initial: { opacity: 0, y: 20 },
+const fadeIn = {
+  initial: { opacity: 0, y: 18 },
   animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.6, ease: "easeOut" },
+  exit: { opacity: 0, y: -12 },
+  transition: { duration: 0.45, ease: "easeOut" },
 };
 
-function Card({ children, className = "" }) {
+const VIEWS = NAV_ITEMS.map((item) => item.id);
+
+function normalizeHash() {
+  if (typeof window === "undefined") return "home";
+  const hash = window.location.hash.replace("#", "").trim();
+  return VIEWS.includes(hash) ? hash : "home";
+}
+
+/* -----------------------------------------------------
+   REUSABLE UI
+----------------------------------------------------- */
+
+function Background() {
   return (
-    <div className={`relative print-card ${className}`}>
-      <div className="pointer-events-none absolute inset-[-4%] -z-10 bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.55),transparent_72%)] blur-2xl opacity-60" />
-      <div className="relative">{children}</div>
+    <div className="fixed inset-0 -z-50 bg-[#F6F7F3]">
+      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.92)_0%,rgba(239,242,236,0.94)_52%,rgba(228,234,226,0.96)_100%)]" />
+      <div className="absolute left-[-12rem] top-[-10rem] h-[26rem] w-[26rem] rounded-full bg-[#0E6B54]/10 blur-3xl" />
+      <div className="absolute right-[-14rem] top-[18rem] h-[28rem] w-[28rem] rounded-full bg-[#7EA48E]/20 blur-3xl" />
+      <div className="absolute bottom-[-12rem] left-1/2 h-[24rem] w-[42rem] -translate-x-1/2 rounded-full bg-white/70 blur-3xl" />
     </div>
   );
 }
 
-function SectionShell({
-  id,
-  label,
-  theme = "default",
-  scrollDir,
-  scrollSpeed,
-  verticalGradient = false,
-  children,
-}) {
+function Pill({ children, tone = "green" }) {
+  const toneClass =
+    tone === "dark"
+      ? "bg-[#1A1F1A] text-white border-[#1A1F1A]"
+      : "bg-white/60 text-[#0E6B54] border-[#0E6B54]/20";
+
   return (
-    <section
-      id={id}
-      className="portfolio-section relative max-w-6xl mx-auto px-4 py-20 space-y-10"
+    <span
+      className={`rounded-full border px-3 py-1 text-[11px] font-medium uppercase tracking-[0.13em] ${toneClass}`}
     >
-      {verticalGradient && (
-        <div className="pointer-events-none absolute inset-0 -z-20">
-          <div className="w-full h-full bg-[linear-gradient(to_bottom,rgba(255,255,255,0.55),transparent_85%)] opacity-70" />
-        </div>
+      {children}
+    </span>
+  );
+}
+
+function SoftCard({ children, className = "" }) {
+  return (
+    <div
+      className={`rounded-[2rem] border border-white/100 bg-white/60 shadow-[0_24px_70px_rgba(22,45,33,0.08)] backdrop-blur-xl ${className}`}
+    >
+      {children}
+    </div>
+  );
+}
+
+function Button({
+  children,
+  onClick,
+  variant = "primary",
+  className = "",
+  type = "button",
+}) {
+  const styles =
+    variant === "primary"
+      ? "bg-[#0E6B54] text-white hover:bg-[#0B5A47] shadow-[0_10px_28px_rgba(14,107,84,0.22)]"
+      : variant === "ghost"
+        ? "bg-transparent text-[#0E6B54] hover:bg-[#0E6B54]/10"
+        : "bg-white/70 text-[#1A1F1A] border border-[#DDE3DA] hover:bg-white";
+
+  return (
+    <button
+      type={type}
+      onClick={onClick}
+      className={`inline-flex items-center justify-center rounded-full px-4 py-2 text-sm font-medium transition ${styles} ${className}`}
+    >
+      {children}
+    </button>
+  );
+}
+
+function SectionIntro({ eyebrow, title, text }) {
+  return (
+    <motion.div {...fadeIn} className="mx-auto max-w-3xl text-center">
+      <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#0E6B54]/70">
+        {eyebrow}
+      </p>
+      <h1 className="mt-3 text-3xl font-semibold tracking-tight text-[#151A15] md:text-5xl">
+        {title}
+      </h1>
+      {text && (
+        <p className="mt-4 text-sm leading-7 text-[#536058] md:text-base">
+          {text}
+        </p>
       )}
+    </motion.div>
+  );
+}
 
-      <ThemedFloatingIcons
-        theme={theme}
-        scrollDir={scrollDir}
-        scrollSpeed={scrollSpeed}
-      />
+function Header({ view, navigateTo }) {
+  const handlePrint = () => {
+    if (typeof window !== "undefined") window.print();
+  };
 
-      <div className="relative z-10">
-        <div className="flex items-center gap-3">
-          <span className="h-px w-10 bg-[#0E6B54]/50" />
-          <h2 className="text-xs uppercase tracking-[0.22em] text-[#0E6B54]/70">
-            {label}
-          </h2>
-        </div>
-        {children}
+  return (
+    <header className="sticky top-0 z-40 border-b border-white/70 bg-[#F6F7F3]/100 backdrop-blur-2xl">
+      <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 md:px-6">
+        <button
+          type="button"
+          onClick={() => navigateTo("home")}
+          className="flex min-w-fit items-center gap-3 text-left"
+          aria-label="Go to homepage"
+        >
+          <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#0E6B54] text-sm font-semibold text-white">
+            TC
+          </span>
+          <span className="hidden leading-tight sm:block">
+            <span className="block text-sm font-semibold text-[#0E6B54]">
+              {NAME}
+            </span>
+            <span className="block text-[11px] uppercase tracking-[0.16em] text-[#657169]">
+              Mechanics × Biology
+            </span>
+          </span>
+        </button>
+
+        <nav className="flex flex-1 justify-end overflow-x-auto">
+          <div className="flex items-center gap-1 rounded-full border border-white/100 bg-white/60 p-1 shadow-sm">
+            {NAV_ITEMS.map((item) => {
+              const active = view === item.id;
+              return (
+                <button
+                  key={item.id}
+                  type="button"
+                  onClick={() => navigateTo(item.id)}
+                  aria-current={active ? "page" : undefined}
+                  className={`whitespace-nowrap rounded-full px-3 py-1.5 text-xs font-medium transition md:px-4 ${
+                    active
+                      ? "bg-[#0E6B54] text-white shadow-sm"
+                      : "text-[#4E5B53] hover:bg-[#EEF2EB] hover:text-[#0E6B54]"
+                  }`}
+                >
+                  {item.label}
+                </button>
+              );
+            })}
+          </div>
+        </nav>
+
+        <Button
+          onClick={handlePrint}
+          variant="secondary"
+          className="hidden text-xs md:inline-flex"
+        >
+          Download PDF
+        </Button>
       </div>
-    </section>
+    </header>
   );
 }
 
@@ -634,7 +436,7 @@ function ImageModal({ selectedImage, onClose }) {
     <AnimatePresence>
       {selectedImage && (
         <motion.div
-          className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/55 p-4"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -642,16 +444,640 @@ function ImageModal({ selectedImage, onClose }) {
         >
           <motion.img
             src={selectedImage}
-            alt="Project"
-            className="max-w-[85%] max-h-[80vh] rounded-2xl shadow-xl bg-white object-contain"
-            initial={{ scale: 0.9 }}
-            animate={{ scale: 1 }}
-            exit={{ scale: 0.9 }}
-            onClick={(e) => e.stopPropagation()}
+            alt="Expanded portfolio visual"
+            className="max-h-[84vh] max-w-[92vw] rounded-[1.5rem] bg-white object-contain shadow-2xl"
+            initial={{ scale: 0.94, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0.94, opacity: 0 }}
+            transition={{ duration: 0.25 }}
+            onClick={(event) => event.stopPropagation()}
           />
         </motion.div>
       )}
     </AnimatePresence>
+  );
+}
+
+function ImageCluster({ images, title, onImageClick, largeFirst = false }) {
+  if (!images?.length) return null;
+
+  if (images.length === 1) {
+    return (
+      <button
+        type="button"
+        onClick={() => onImageClick(images[0])}
+        className="group block w-full overflow-hidden rounded-[1.75rem] bg-[#E4E9E2]"
+      >
+        <img
+          src={images[0]}
+          alt={title}
+          className="h-full max-h-[420px] w-full object-contain transition duration-500 group-hover:scale-[1.02]"
+        />
+      </button>
+    );
+  }
+
+  return (
+    <div className="grid gap-3 sm:grid-cols-2">
+      {images.map((image, index) => (
+        <button
+          key={image}
+          type="button"
+          onClick={() => onImageClick(image)}
+          className={`${
+            largeFirst && index === 0 ? "sm:col-span-2" : ""
+          } group overflow-hidden rounded-[1.5rem] bg-[#E4E9E2]`}
+        >
+          <img
+            src={image}
+            alt={`${title} ${index + 1}`}
+            className="h-56 w-full object-contain transition duration-500 group-hover:scale-[1.03]"
+          />
+        </button>
+      ))}
+    </div>
+  );
+}
+
+/* -----------------------------------------------------
+   HOME VIEW
+----------------------------------------------------- */
+
+function Hero({ navigateTo }) {
+  return (
+    <section className="mx-auto grid min-h-[calc(100vh-74px)] max-w-7xl items-center gap-10 px-4 py-16 md:grid-cols-[1.05fr,0.95fr] md:px-6">
+      <motion.div {...fadeIn} className="space-y-7">
+        <div className="flex flex-wrap gap-2">
+          <Pill>Mechanical Engineering</Pill>
+          <Pill>Bioprocess Hardware</Pill>
+          <Pill>Soft Interfaces</Pill>
+        </div>
+
+        <div>
+          <h1 className="max-w-4xl text-5xl font-semibold tracking-[-0.045em] text-[#111611] md:text-7xl lg:text-8xl">
+            Building patient-first systems where mechanics meet biology.
+          </h1>
+          <p className="mt-6 max-w-2xl text-base leading-8 text-[#526158] md:text-lg">
+            I’m a mechanical engineering BS/MS candidate at UCSB working across
+            assistive devices, soft-material interfaces, and single-use
+            bioprocessing systems for cell-therapy manufacturing.
+          </p>
+        </div>
+
+        <div className="flex flex-wrap gap-3">
+          <Button onClick={() => navigateTo("projects")}>Explore work</Button>
+          <Button onClick={() => navigateTo("contact")} variant="secondary">
+            Contact
+          </Button>
+        </div>
+      </motion.div>
+
+      <motion.div {...fadeIn} transition={{ ...fadeIn.transition, delay: 0.08 }}>
+        <SoftCard className="relative mx-auto max-w-[31rem] overflow-hidden p-4">
+          <div className="absolute inset-x-10 top-8 h-52 rounded-full bg-[#0E6B54]/10 blur-3xl" />
+          <div className="relative overflow-hidden rounded-[1.65rem] bg-[#E8ECE5]">
+            <img
+              src={PROFILE_IMAGE}
+              alt={NAME}
+              className="h-[32rem] w-full object-cover"
+            />
+          </div>
+          <div className="relative mt-4 grid gap-3 sm:grid-cols-3">
+            <div className="rounded-2xl bg-white/70 p-4">
+              <div className="text-2xl font-semibold text-[#0E6B54]">
+                BS/MS
+              </div>
+              <div className="mt-1 text-xs text-[#647067]">
+                Mechanical Engineering
+              </div>
+            </div>
+            <div className="rounded-2xl bg-white/70 p-4">
+              <div className="text-2xl font-semibold text-[#0E6B54]">R&D</div>
+              <div className="mt-1 text-xs text-[#647067]">
+                Bioprocess Systems
+              </div>
+            </div>
+            <div className="rounded-2xl bg-white/70 p-4">
+              <div className="text-2xl font-semibold text-[#0E6B54]">UCSB</div>
+              <div className="mt-1 text-xs text-[#647067]">
+                Honors College
+              </div>
+            </div>
+          </div>
+        </SoftCard>
+      </motion.div>
+    </section>
+  );
+}
+
+function ShowcasePanel({
+  label,
+  title,
+  text,
+  image,
+  actionLabel,
+  onAction,
+  reverse = false,
+  children,
+}) {
+  return (
+    <motion.article
+      {...fadeIn}
+      className="grid min-h-[34rem] overflow-hidden rounded-[2.3rem] border border-white/100 bg-white/60 shadow-[0_28px_80px_rgba(22,45,33,0.08)] backdrop-blur-xl md:grid-cols-2"
+    >
+      <div
+        className={`flex flex-col justify-center p-8 md:p-12 ${
+          reverse ? "md:order-2" : ""
+        }`}
+      >
+        <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#0E6B54]/70">
+          {label}
+        </p>
+        <h2 className="mt-4 max-w-xl text-3xl font-semibold tracking-tight text-[#151A15] md:text-5xl">
+          {title}
+        </h2>
+        <p className="mt-5 max-w-xl text-sm leading-7 text-[#536058] md:text-base">
+          {text}
+        </p>
+        {children && <div className="mt-6">{children}</div>}
+        <div className="mt-7">
+          <Button onClick={onAction}>{actionLabel}</Button>
+        </div>
+      </div>
+
+      <div
+        className={`relative min-h-[22rem] bg-[#E6EBE4] ${
+          reverse ? "md:order-1" : ""
+        }`}
+      >
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_35%,rgba(255,255,255,0.86),transparent_48%)]" />
+        {image ? (
+          <img
+            src={image}
+            alt={title}
+            className="relative h-full w-full object-contain p-6 md:p-10"
+          />
+        ) : (
+          <div className="relative flex h-full items-center justify-center p-10 text-center text-[#0E6B54]">
+            <span className="text-7xl font-semibold tracking-[-0.06em]">
+              {label.slice(0, 2)}
+            </span>
+          </div>
+        )}
+      </div>
+    </motion.article>
+  );
+}
+
+function HomeView({ navigateTo }) {
+  const featured = PROJECTS.slice(0, 3);
+
+  return (
+    <>
+      <Hero navigateTo={navigateTo} />
+
+      <section className="mx-auto max-w-7xl space-y-5 px-4 pb-20 md:px-6">
+        <motion.div {...fadeIn} className="mx-auto max-w-3xl pb-4 text-center">
+          <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#0E6B54]/70">
+            Overview
+          </p>
+          <h2 className="mt-3 text-3xl font-semibold tracking-tight text-[#151A15] md:text-5xl">
+            A cleaner homepage. Deeper pages when you want them.
+          </h2>
+          <p className="mt-4 text-sm leading-7 text-[#536058] md:text-base">
+            The homepage now gives a fast, visual scan of each portfolio
+            category. The top navigation and Learn More buttons open focused
+            detail views instead of forcing everything into one long scroll.
+          </p>
+        </motion.div>
+
+        <ShowcasePanel
+          label="Projects"
+          title="Assistive devices, soft interfaces, and bioprocess hardware."
+          text="Selected work ranges from a cause-and-effect therapeutic vehicle to capillary bridge testing on experimental gels and single-use cell-therapy manufacturing hardware."
+          image="/images/StarRiderII.jpg"
+          actionLabel="Learn more about projects"
+          onAction={() => navigateTo("projects")}
+        >
+          <div className="grid gap-2 sm:grid-cols-3">
+            {featured.map((project) => (
+              <div key={project.id} className="rounded-2xl bg-white/70 p-4">
+                <div className="text-sm font-semibold text-[#151A15]">
+                  {project.title}
+                </div>
+                <div className="mt-1 text-xs leading-5 text-[#647067]">
+                  {project.summary}
+                </div>
+              </div>
+            ))}
+          </div>
+        </ShowcasePanel>
+
+        <ShowcasePanel
+          label="Experience"
+          title="R&D experience across biotech hardware, research, and automotive systems."
+          text="A compact timeline gives the story at a glance; the full view expands each role into responsibilities, context, and technical focus areas."
+          image="/images/IMG_7857.jpg"
+          actionLabel="View experience"
+          onAction={() => navigateTo("experience")}
+          reverse
+        >
+          <div className="flex flex-wrap gap-2">
+            {EXPERIENCE.slice(0, 3).map((item) => (
+              <Pill key={item.id}>{item.company.split("—")[0].trim()}</Pill>
+            ))}
+          </div>
+        </ShowcasePanel>
+
+        <div className="grid gap-5 lg:grid-cols-3">
+          <motion.div {...fadeIn}>
+            <SoftCard className="flex h-full flex-col justify-between overflow-hidden p-7">
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#0E6B54]/70">
+                  Education
+                </p>
+                <h3 className="mt-3 text-3xl font-semibold tracking-tight text-[#151A15]">
+                  UCSB, UC Davis, and engineering fundamentals.
+                </h3>
+                <p className="mt-4 text-sm leading-7 text-[#536058]">
+                  A focused academic path in mechanical engineering, honors
+                  coursework, design teams, and research.
+                </p>
+              </div>
+              <Button
+                onClick={() => navigateTo("education")}
+                className="mt-7 w-fit"
+              >
+                Learn more
+              </Button>
+            </SoftCard>
+          </motion.div>
+
+          <motion.div
+            {...fadeIn}
+            transition={{ ...fadeIn.transition, delay: 0.06 }}
+          >
+            <SoftCard className="flex h-full flex-col justify-between overflow-hidden p-7">
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#0E6B54]/70">
+                  Background
+                </p>
+                <h3 className="mt-3 text-3xl font-semibold tracking-tight text-[#151A15]">
+                  Leadership, service, languages, and honors.
+                </h3>
+                <p className="mt-4 text-sm leading-7 text-[#536058]">
+                  A concise view of the activities and recognitions that sit
+                  outside the main technical work.
+                </p>
+              </div>
+              <Button
+                onClick={() => navigateTo("background")}
+                className="mt-7 w-fit"
+              >
+                Learn more
+              </Button>
+            </SoftCard>
+          </motion.div>
+
+          <motion.div
+            {...fadeIn}
+            transition={{ ...fadeIn.transition, delay: 0.12 }}
+          >
+            <SoftCard className="flex h-full flex-col justify-between overflow-hidden p-7">
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#0E6B54]/70">
+                  Contact
+                </p>
+                <h3 className="mt-3 text-3xl font-semibold tracking-tight text-[#151A15]">
+                  Let’s build something useful.
+                </h3>
+                <p className="mt-4 text-sm leading-7 text-[#536058]">
+                  A direct, minimal contact page for collaborations, research
+                  conversations, and portfolio follow-up.
+                </p>
+              </div>
+              <Button
+                onClick={() => navigateTo("contact")}
+                className="mt-7 w-fit"
+              >
+                Get in touch
+              </Button>
+            </SoftCard>
+          </motion.div>
+        </div>
+      </section>
+    </>
+  );
+}
+
+/* -----------------------------------------------------
+   DETAIL VIEWS
+----------------------------------------------------- */
+
+function DetailFrame({ children, backLabel = "Back to overview", navigateTo }) {
+  return (
+    <section className="mx-auto max-w-7xl px-4 py-12 md:px-6 md:py-16">
+      <Button
+        onClick={() => navigateTo("home")}
+        variant="ghost"
+        className="mb-10"
+      >
+        ← {backLabel}
+      </Button>
+      {children}
+    </section>
+  );
+}
+
+function ProjectsView({ navigateTo, onImageClick }) {
+  return (
+    <DetailFrame navigateTo={navigateTo}>
+      <SectionIntro
+        eyebrow="Projects"
+        title="Selected engineering work"
+        text="Each project keeps the deeper content available, but the detail page is structured into cards, tags, images, and concise bullets rather than one continuous block of text."
+      />
+
+      <div className="mt-12 space-y-7">
+        {PROJECTS.map((project, index) => (
+          <motion.article
+            key={project.id}
+            {...fadeIn}
+            className="overflow-hidden rounded-[2.2rem] border border-white/100 bg-white/60 shadow-[0_22px_70px_rgba(22,45,33,0.08)] backdrop-blur-xl"
+          >
+            <div
+              className={`grid gap-0 lg:grid-cols-[0.92fr,1.08fr] ${
+                index % 2 ? "lg:grid-cols-[1.08fr,0.92fr]" : ""
+              }`}
+            >
+              <div className={`p-5 ${index % 2 ? "lg:order-2" : ""}`}>
+                <ImageCluster
+                  images={project.images}
+                  title={project.title}
+                  onImageClick={onImageClick}
+                  largeFirst
+                />
+              </div>
+
+              <div
+                className={`flex flex-col justify-center p-7 md:p-10 ${
+                  index % 2 ? "lg:order-1" : ""
+                }`}
+              >
+                <div className="flex flex-wrap items-center gap-2">
+                  <Pill tone="dark">{String(index + 1).padStart(2, "0")}</Pill>
+                  {project.meta.map((tag) => (
+                    <Pill key={tag}>{tag}</Pill>
+                  ))}
+                </div>
+                <h2 className="mt-5 text-2xl font-semibold tracking-tight text-[#151A15] md:text-4xl">
+                  {project.title}
+                </h2>
+                <p className="mt-2 text-sm font-medium text-[#0E6B54] md:text-base">
+                  {project.subtitle}
+                </p>
+                <p className="mt-5 text-sm leading-7 text-[#536058] md:text-base">
+                  {project.description}
+                </p>
+                <ul className="mt-6 space-y-3 text-sm leading-6 text-[#425047]">
+                  {project.details.map((detail) => (
+                    <li key={detail} className="flex gap-3">
+                      <span className="mt-2 h-1.5 w-1.5 flex-none rounded-full bg-[#0E6B54]" />
+                      <span>{detail}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </motion.article>
+        ))}
+      </div>
+    </DetailFrame>
+  );
+}
+
+function ExperienceView({ navigateTo }) {
+  return (
+    <DetailFrame navigateTo={navigateTo}>
+      <SectionIntro
+        eyebrow="Experience"
+        title="Technical roles across research and industry"
+        text="A minimal timeline that preserves the core details from the original map-based experience section while making it easier to skim."
+      />
+
+      <div className="relative mt-14">
+        <div className="absolute left-4 top-2 hidden h-[calc(100%-1rem)] w-px bg-[#0E6B54]/20 md:block" />
+        <div className="space-y-5">
+          {EXPERIENCE.map((item, index) => (
+            <motion.article
+              key={item.id}
+              {...fadeIn}
+              className="relative grid gap-5 rounded-[2rem] border border-white/100 bg-white/60 p-6 shadow-[0_20px_60px_rgba(22,45,33,0.07)] backdrop-blur-xl md:grid-cols-[0.34fr,0.66fr] md:p-8 md:pl-12"
+            >
+              <div className="absolute left-[0.8rem] top-9 hidden h-3 w-3 rounded-full bg-[#0E6B54] ring-8 ring-[#F6F7F3] md:block" />
+              <div>
+                <div className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0E6B54]/70">
+                  {String(index + 1).padStart(2, "0")}
+                </div>
+                <h2 className="mt-2 text-xl font-semibold text-[#151A15]">
+                  {item.role}
+                </h2>
+                <p className="mt-1 text-sm text-[#536058]">{item.company}</p>
+                <p className="mt-4 text-xs uppercase tracking-[0.13em] text-[#68746C]">
+                  {item.period}
+                </p>
+                <p className="mt-1 text-sm text-[#536058]">{item.location}</p>
+              </div>
+              <div>
+                <p className="text-sm leading-7 text-[#536058] md:text-base">
+                  {item.summary}
+                </p>
+                <ul className="mt-5 space-y-3 text-sm leading-6 text-[#425047]">
+                  {item.bullets.map((bullet) => (
+                    <li key={bullet} className="flex gap-3">
+                      <span className="mt-2 h-1.5 w-1.5 flex-none rounded-full bg-[#0E6B54]" />
+                      <span>{bullet}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </motion.article>
+          ))}
+        </div>
+      </div>
+    </DetailFrame>
+  );
+}
+
+function EducationView({ navigateTo }) {
+  return (
+    <DetailFrame navigateTo={navigateTo}>
+      <SectionIntro
+        eyebrow="Education"
+        title="Academic foundation"
+        text="A cleaner academic overview with the main programs, dates, GPA context, and associated activities."
+      />
+
+      <div className="mt-12 grid gap-5 md:grid-cols-3">
+        {EDUCATION.map((edu, index) => (
+          <motion.article
+            key={edu.school}
+            {...fadeIn}
+            transition={{ ...fadeIn.transition, delay: index * 0.06 }}
+          >
+            <SoftCard className="h-full p-7">
+              <Pill tone="dark">{String(index + 1).padStart(2, "0")}</Pill>
+              <h2 className="mt-5 text-2xl font-semibold tracking-tight text-[#151A15]">
+                {edu.school}
+              </h2>
+              <p className="mt-2 text-sm font-medium text-[#0E6B54]">
+                {edu.line}
+              </p>
+              <p className="mt-5 text-sm text-[#536058]">{edu.time}</p>
+              <p className="mt-1 text-sm text-[#536058]">GPA: {edu.gpa}</p>
+              <div className="mt-6 flex flex-wrap gap-2">
+                {edu.extras.map((extra) => (
+                  <Pill key={extra}>{extra}</Pill>
+                ))}
+              </div>
+            </SoftCard>
+          </motion.article>
+        ))}
+      </div>
+    </DetailFrame>
+  );
+}
+
+function BackgroundView({ navigateTo }) {
+  return (
+    <DetailFrame navigateTo={navigateTo}>
+      <SectionIntro
+        eyebrow="Background"
+        title="Leadership, service, honors, and languages"
+        text="The supporting material now lives in one focused area instead of being another long homepage section."
+      />
+
+      <div className="mt-12 grid gap-5 lg:grid-cols-[1.2fr,0.8fr]">
+        <motion.div {...fadeIn}>
+          <SoftCard className="p-7 md:p-9">
+            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#0E6B54]/70">
+              Volunteering & Leadership
+            </p>
+            <div className="mt-7 grid gap-4 sm:grid-cols-2">
+              {EXTRAS.map((item) => (
+                <div key={item.title} className="rounded-3xl bg-white/60 p-5">
+                  <h3 className="text-base font-semibold text-[#151A15]">
+                    {item.title}
+                  </h3>
+                  <p className="mt-2 text-sm leading-6 text-[#536058]">
+                    {item.text}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </SoftCard>
+        </motion.div>
+
+        <div className="space-y-5">
+          <ListCard title="Honors & Awards" items={HONORS} />
+          <ListCard title="Licenses & Certifications" items={CERTS} />
+          <ListCard title="Languages" items={LANGS} />
+        </div>
+      </div>
+    </DetailFrame>
+  );
+}
+
+function ListCard({ title, items }) {
+  return (
+    <motion.div {...fadeIn}>
+      <SoftCard className="p-7">
+        <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#0E6B54]/70">
+          {title}
+        </p>
+        <ul className="mt-5 space-y-3 text-sm leading-6 text-[#425047]">
+          {items.map((item) => (
+            <li key={item} className="flex gap-3">
+              <span className="mt-2 h-1.5 w-1.5 flex-none rounded-full bg-[#0E6B54]" />
+              <span>{item}</span>
+            </li>
+          ))}
+        </ul>
+      </SoftCard>
+    </motion.div>
+  );
+}
+
+function ContactView({ navigateTo }) {
+  return (
+    <DetailFrame navigateTo={navigateTo}>
+      <section className="grid min-h-[calc(100vh-15rem)] items-center gap-8 lg:grid-cols-[1fr,0.9fr]">
+        <motion.div {...fadeIn}>
+          <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#0E6B54]/70">
+            Contact
+          </p>
+          <h1 className="mt-4 max-w-3xl text-4xl font-semibold tracking-[-0.035em] text-[#151A15] md:text-6xl">
+            Let’s build something useful.
+          </h1>
+          <p className="mt-6 max-w-2xl text-base leading-8 text-[#536058] md:text-lg">
+            Always excited to chat about assistive devices, bioprocess hardware,
+            and cell-therapy systems that restore autonomy.
+          </p>
+          <div className="mt-8 flex flex-wrap gap-3">
+            <a
+              href="mailto:achevillotte@ucsb.edu"
+              className="inline-flex items-center justify-center rounded-full bg-[#0E6B54] px-5 py-3 text-sm font-medium text-white shadow-[0_10px_28px_rgba(14,107,84,0.22)] transition hover:bg-[#0B5A47]"
+            >
+              Email me
+            </a>
+            <a
+              href="tel:+19146499132"
+              className="inline-flex items-center justify-center rounded-full border border-[#DDE3DA] bg-white/70 px-5 py-3 text-sm font-medium text-[#1A1F1A] transition hover:bg-white"
+            >
+              Call
+            </a>
+          </div>
+        </motion.div>
+
+        <motion.div
+          {...fadeIn}
+          transition={{ ...fadeIn.transition, delay: 0.08 }}
+        >
+          <SoftCard className="overflow-hidden p-5">
+            <div className="overflow-hidden rounded-[1.7rem] bg-[#E4E9E2]">
+              <img
+                src={PROFILE_IMAGE}
+                alt={NAME}
+                className="h-[24rem] w-full object-cover"
+              />
+            </div>
+            <div className="p-5">
+              <h2 className="text-xl font-semibold text-[#151A15]">{NAME}</h2>
+              <p className="mt-1 text-sm text-[#536058]">
+                Honors BS/MS · Mechanical Engineering, UCSB
+              </p>
+              <div className="mt-5 space-y-2 text-sm text-[#425047]">
+                <p>
+                  Email:{" "}
+                  <a
+                    href="mailto:achevillotte@ucsb.edu"
+                    className="font-medium text-[#0E6B54] underline underline-offset-4"
+                  >
+                    achevillotte@ucsb.edu
+                  </a>
+                </p>
+                <p>
+                  Phone:{" "}
+                  <span className="font-medium text-[#0E6B54]">
+                    +1 (914) 649-9132
+                  </span>
+                </p>
+              </div>
+            </div>
+          </SoftCard>
+        </motion.div>
+      </section>
+    </DetailFrame>
   );
 }
 
@@ -660,559 +1086,78 @@ function ImageModal({ selectedImage, onClose }) {
 ----------------------------------------------------- */
 
 export default function Page() {
-  const [showSplash, setShowSplash] = useState(true);
+  const [view, setView] = useState("home");
   const [selectedImage, setSelectedImage] = useState(null);
 
-  const [scrollDir, setScrollDir] = useState(1);
-  const [scrollSpeed, setScrollSpeed] = useState(0);
+  useEffect(() => {
+    const syncFromHash = () => setView(normalizeHash());
+    syncFromHash();
+    window.addEventListener("hashchange", syncFromHash);
+    return () => window.removeEventListener("hashchange", syncFromHash);
+  }, []);
 
-  const [activeExperienceId, setActiveExperienceId] = useState(null);
+  const navigateTo = (nextView) => {
+    const safeView = VIEWS.includes(nextView) ? nextView : "home";
+    setView(safeView);
 
-  const handleDownloadPdf = (e) => {
-    e.stopPropagation();
     if (typeof window !== "undefined") {
-      window.print();
+      const nextUrl =
+        safeView === "home" ? window.location.pathname : `#${safeView}`;
+      window.history.pushState(null, "", nextUrl);
+      window.scrollTo({ top: 0, behavior: "smooth" });
     }
   };
 
-  useEffect(() => {
-    if (typeof window === "undefined") return;
+  let renderedView;
 
-    let lastY = window.scrollY;
-    let ticking = false;
-
-    const handleFrame = () => {
-      const y = window.scrollY;
-      const dy = y - lastY;
-      if (dy !== 0) {
-        const dir = dy > 0 ? 1 : -1;
-        const speed = Math.min(1, Math.abs(dy) / 120);
-        setScrollDir(dir);
-        setScrollSpeed(speed);
-        lastY = y;
-      }
-      ticking = false;
-    };
-
-    const onScroll = () => {
-      if (!ticking) {
-        window.requestAnimationFrame(handleFrame);
-        ticking = true;
-      }
-    };
-
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  const handleGlobalClick = () => {
-    setActiveExperienceId(null);
-  };
-
-  const handleMarkerClick = (id) => {
-    setActiveExperienceId((prev) => (prev === id ? null : id));
-  };
-
-  const activeExperience =
-    activeExperienceId && EXPERIENCE_DETAILS[activeExperienceId];
-
-  const activeMap =
-    activeExperienceId === "audi" ? "de" : activeExperienceId ? "ca" : null;
+  switch (view) {
+    case "projects":
+      renderedView = (
+        <ProjectsView
+          navigateTo={navigateTo}
+          onImageClick={setSelectedImage}
+        />
+      );
+      break;
+    case "experience":
+      renderedView = <ExperienceView navigateTo={navigateTo} />;
+      break;
+    case "education":
+      renderedView = <EducationView navigateTo={navigateTo} />;
+      break;
+    case "background":
+      renderedView = <BackgroundView navigateTo={navigateTo} />;
+      break;
+    case "contact":
+      renderedView = <ContactView navigateTo={navigateTo} />;
+      break;
+    case "home":
+    default:
+      renderedView = <HomeView navigateTo={navigateTo} />;
+      break;
+  }
 
   return (
     <>
-      <LightBG />
-      <BiotechGlow />
-
-      <AnimatePresence>
-        {showSplash && <SplashScreen onComplete={() => setShowSplash(false)} />}
-      </AnimatePresence>
-
-      <main
-        className="relative min-h-screen text-[#1A1F1A]"
-        onClick={handleGlobalClick}
-      >
-        {/* NAVBAR */}
-        <header className="sticky top-0 z-40 bg-white/80 border-b border-[#DADCD7] backdrop-blur-xl">
-          <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
-            <div className="flex flex-col">
-              <span className="text-xs uppercase tracking-[0.15em] text-[#0E6B54]/60">
-                Mechanics × Biology
-              </span>
-              <span className="font-semibold text-[#0E6B54]">{NAME}</span>
-            </div>
-
-            <div className="flex items-center gap-3 text-sm">
-              <nav className="flex gap-3">
-                {[
-                  ["projects", "Projects"],
-                  ["experience", "Experience"],
-                  ["education", "Education"],
-                  ["background", "Background"],
-                  ["contact", "Contact"],
-                ].map(([id, label]) => (
-                  <a
-                    key={id}
-                    href={`#${id}`}
-                    onClick={(e) => e.stopPropagation()}
-                    className="px-3 py-1.5 rounded-full hover:bg-[#E7EBE7] text-[#1A1F1A]/70 hover:text-[#0E6B54] transition-colors"
-                  >
-                    {label}
-                  </a>
-                ))}
-              </nav>
-
-              <button
-                onClick={handleDownloadPdf}
-                className="hidden sm:inline-flex px-3 py-1.5 rounded-full border border-[#0E6B54]/60 text-[11px] uppercase tracking-[0.15em] text-[#0E6B54] hover:bg-[#0E6B54]/5 transition-colors"
-              >
-                Download PDF
-              </button>
-            </div>
-          </div>
-        </header>
-
-        {/* HERO / OVERVIEW */}
-        <SectionShell
-          id="top"
-          label="Overview"
-          theme="overview"
-          scrollDir={scrollDir}
-          scrollSpeed={scrollSpeed}
-          verticalGradient
-        >
-          <div id="overview-print">
-            <div className="grid md:grid-cols-[1.4fr,1fr] gap-10 items-center mt-6">
-              <motion.div {...fadeProps} className="space-y-6">
-                <h1 className="text-3xl md:text-5xl font-semibold leading-tight">
-                  Designing hardware where{" "}
-                  <span className="text-[#0E6B54]">
-                    mechanics meet biology
-                  </span>
-                  .
-                </h1>
-                <p className="text-sm md:text-base text-[#374139] leading-relaxed max-w-xl">
-                  I’m a mechanical engineering BS/MS candidate at UCSB working
-                  at the intersection of soft materials, assistive devices, and
-                  single-use bioprocessing systems.
-                </p>
-
-                <div className="flex gap-2 flex-wrap">
-                  {[
-                    "Assistive Devices",
-                    "Soft Interfaces",
-                    "Bioprocess Hardware",
-                  ].map((tag) => (
-                    <span
-                      key={tag}
-                      className="px-3 py-1 text-[11px] uppercase tracking-wide rounded-full bg-[#0E6B54]/10 text-[#0E6B54] border border-[#0E6B54]/30"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              </motion.div>
-
-              <motion.div {...fadeProps}>
-                <Card className="max-w-xs mx-auto text-center px-0 py-0">
-                  <div className="size-40 mx-auto rounded-full overflow-hidden">
-                    <img
-                      src="/images/3C290D86-57BC-42DB-94D9-237783F922FB8R1A8362.jpeg"
-                      alt="Antonius Chevillotte"
-                      className="h-full w-full object-cover"
-                    />
-                  </div>
-                  <div className="mt-4 font-medium">{NAME}</div>
-                  <div className="text-xs text-[#5F6B62]">
-                    Honors BS/MS · Mechanical Engineering, UCSB
-                  </div>
-                  <div className="text-[11px] text-[#7B847E]">
-                    Los Angeles, CA · Always building
-                  </div>
-                </Card>
-              </motion.div>
-            </div>
-          </div>
-        </SectionShell>
-
-        {/* PROJECTS */}
-        <SectionShell
-          id="projects"
-          label="Projects"
-          theme="projects"
-          scrollDir={scrollDir}
-          scrollSpeed={scrollSpeed}
-        >
-          <div className="space-y-16 mt-6">
-            {PROJECTS.map((p, i) => {
-              const isEven = i % 2 === 0;
-              return (
-                <motion.article
-                  key={p.id}
-                  {...fadeProps}
-                  className={`project-block grid items-center gap-10 md:gap-12 ${
-                    isEven
-                      ? "md:grid-cols-[1.2fr,1fr]"
-                      : "md:grid-cols-[1fr,1.2fr]"
-                  }`}
-                >
-                  <div className={isEven ? "" : "md:order-2"}>
-                    <Card className="h-full flex flex-col justify-between px-0 md:pr-8">
-                      <div>
-                        <div className="text-xs uppercase tracking-[0.18em] text-[#0E6B54]/70">
-                          {i + 1 < 10 ? `0${i + 1}` : i + 1} · Project
-                        </div>
-                        <h3 className="text-xl font-semibold mt-2 text-[#1A1F1A]">
-                          {p.title}
-                        </h3>
-                        <p className="text-sm text-[#57655B] mt-1">
-                          {p.subtitle}
-                        </p>
-                        <p className="text-sm text-[#374139] mt-4 leading-relaxed">
-                          {p.description}
-                        </p>
-                      </div>
-                      <div className="mt-4 flex flex-wrap gap-2">
-                        {p.meta.map((tag) => (
-                          <span
-                            key={tag}
-                            className="px-2.5 py-1 text-[11px] rounded-full bg-[#ECEEEB] text-[#1A1F1A]/70"
-                          >
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
-                    </Card>
-                  </div>
-
-                  <div className={isEven ? "" : "md:order-1"}>
-                    {p.img && (
-                      <motion.img
-                        src={p.img}
-                        alt={p.title}
-                        className="rounded-2xl object-contain w-full max-h-[360px] cursor-pointer bg-[#E5E8E3]"
-                        whileHover={{ scale: 1.02 }}
-                        transition={{ duration: 0.25 }}
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          setSelectedImage(p.img);
-                        }}
-                      />
-                    )}
-                    {p.imgs && (
-                      <div className="flex gap-3 overflow-x-auto pb-1">
-                        {p.imgs.map((img) => (
-                          <motion.img
-                            key={img}
-                            src={img}
-                            alt={p.title}
-                            className="rounded-2xl object-contain cursor-pointer min-w-[240px] max-h-[240px] bg-[#E5E8E3]"
-                            whileHover={{ scale: 1.02 }}
-                            transition={{ duration: 0.25 }}
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              setSelectedImage(img);
-                            }}
-                          />
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                </motion.article>
-              );
-            })}
-          </div>
-        </SectionShell>
-
-        {/* EXPERIENCE – MAP-BASED */}
-        <SectionShell
-          id="experience"
-          label="Experience"
-          theme="experience"
-          scrollDir={scrollDir}
-          scrollSpeed={scrollSpeed}
-        >
-          <motion.div {...fadeProps} className="mt-6 relative pb-32">
-            <div className="text-center mb-10">
-              <h3 className="text-sm uppercase tracking-[0.18em] text-[#0E6B54] font-semibold">
-                Where I’ve Worked
-              </h3>
-              <p className="text-[11px] text-[#5F6B62] mt-1">
-                Click a marker to see the story
-              </p>
-            </div>
-
-            <div className="grid gap-10 md:grid-cols-2 items-start">
-              <div
-                className="relative flex flex-col items-center"
-                onClick={(e) => e.stopPropagation()}
-              >
-                <h4 className="text-xs uppercase tracking-[0.18em] text-[#0E6B54]/70 mb-3">
-                  California
-                </h4>
-
-                <CaliforniaMap
-                  className="w-full max-w-sm"
-                  activeId={
-                    activeExperienceId === "audi" ? null : activeExperienceId
-                  }
-                  onMarkerClick={handleMarkerClick}
-                />
-              </div>
-
-              <div
-                className="relative flex flex-col items-center"
-                onClick={(e) => e.stopPropagation()}
-              >
-                <h4 className="text-xs uppercase tracking-[0.18em] text-[#0E6B54]/70 mb-3">
-                  Germany
-                </h4>
-
-                <GermanyMap
-                  className="w-full max-w-sm"
-                  activeId={activeExperienceId === "audi" ? "audi" : null}
-                  onMarkerClick={handleMarkerClick}
-                />
-              </div>
-            </div>
-
-            <AnimatePresence>
-              {activeExperience && (
-                <motion.div
-                  key={activeExperienceId}
-                  initial={{ opacity: 0, y: 16 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 16 }}
-                  transition={{ duration: 0.35, ease: "easeOut" }}
-                  className="pointer-events-auto absolute max-w-md"
-                  style={
-                    activeExperienceId === "audi"
-                      ? { right: "4%", bottom: "4%" }
-                      : { left: "4%", bottom: "4%" }
-                  }
-                  onClick={(e) => e.stopPropagation()}
-                >
-                  <div className="rounded-3xl bg-white/96 shadow-[0_18px_45px_rgba(0,0,0,0.12)] border border-[#D0D4CB]/80 px-5 py-4 md:px-6 md:py-5">
-                    <div className="flex justify-between items-start gap-6">
-                      <div className="space-y-1">
-                        <div className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[#0E6B54]/70">
-                          {activeMap === "ca"
-                            ? "California Experience"
-                            : "Germany Experience"}
-                        </div>
-
-                        <h4 className="text-base font-semibold text-[#1A1F1A] leading-snug whitespace-nowrap">
-                          {activeExperience.role}
-                        </h4>
-
-                        <p className="text-xs text-[#57655B] leading-tight whitespace-nowrap">
-                          {activeExperience.company}
-                        </p>
-                      </div>
-
-                      <div className="text-[11px] text-right text-[#5F6B62] leading-tight whitespace-nowrap">
-                        <div>{activeExperience.period}</div>
-                        <div>{activeExperience.location}</div>
-                      </div>
-                    </div>
-
-                    <ul className="mt-3 space-y-1.5 text-sm text-[#374139]">
-                      {activeExperience.bullets.map((b, idx) => (
-                        <li key={idx} className="flex gap-2">
-                          <span className="mt-[7px] h-[2px] w-4 bg-[#0E6B54]/70" />
-                          <span>{b}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
+      <Background />
+      <main className="min-h-screen text-[#151A15]">
+        <Header view={view} navigateTo={navigateTo} />
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={view}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25 }}
+          >
+            {renderedView}
           </motion.div>
-        </SectionShell>
-
-        {/* EDUCATION */}
-        <SectionShell
-          id="education"
-          label="Education"
-          theme="education"
-          scrollDir={scrollDir}
-          scrollSpeed={scrollSpeed}
-          verticalGradient
-        >
-          <motion.div {...fadeProps} className="mt-6">
-            <h3 className="text-sm uppercase font-semibold text-[#0E6B54] tracking-[0.18em] mb-6">
-              Educational Journey
-            </h3>
-            <div className="grid gap-6 md:grid-cols-3">
-              {[
-                {
-                  school: "UC Santa Barbara",
-                  line: "BS/MS Mechanical Engineering",
-                  time: "Jun 2023 – Jun 2027",
-                  extras: ["Honors College", "Tau Beta Pi", "Formula SAE"],
-                  gpa: "3.82",
-                },
-                {
-                  school: "University of California, Davis",
-                  line: "B.S. Mechanical Engineering",
-                  time: "Sep 2021 – Jun 2023",
-                  extras: [
-                    "Student Alumni Association",
-                    "CAAA Leadership Scholar",
-                  ],
-                  gpa: "3.82/4.00",
-                },
-                {
-                  school: "Glendora High School",
-                  line: "High School Diploma",
-                  time: "Aug 2017 – Jun 2021",
-                  extras: ["National Honor Society", "Varsity Tennis"],
-                  gpa: "4.69/4.00 (Top 2%)",
-                },
-              ].map((edu) => (
-                <div key={edu.school} className="space-y-1">
-                  <div className="flex items-center gap-2">
-                    <span className="h-2 w-2 rounded-full bg-[#0E6B54]" />
-                    <span className="text-sm font-medium text-[#1A1F1A]">
-                      {edu.school}
-                    </span>
-                  </div>
-                  <div className="text-xs text-[#374139]">{edu.line}</div>
-                  <div className="text-[11px] text-[#5F6B62]">
-                    {edu.time} {edu.gpa && `· GPA: ${edu.gpa}`}
-                  </div>
-                  <div className="text-[11px] text-[#5F6B62]">
-                    {edu.extras.join(" • ")}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </motion.div>
-        </SectionShell>
-
-        {/* BACKGROUND & IMPACT */}
-        <SectionShell
-          id="background"
-          label="Background & Impact"
-          theme="background"
-          scrollDir={scrollDir}
-          scrollSpeed={scrollSpeed}
-        >
-          <div className="grid gap-10 lg:grid-cols-[1.4fr,1fr] items-start mt-6">
-            <motion.div {...fadeProps}>
-              <Card className="px-6 py-6">
-                <h3 className="text-sm uppercase tracking-[0.18em] text-[#0E6B54] font-semibold mb-3">
-                  Volunteering & Leadership
-                </h3>
-                <div className="space-y-3 text-sm text-[#374139]">
-                  {EXTRAS.map((e) => (
-                    <div key={e.title}>
-                      <div className="font-medium text-[#1A1F1A]">{e.title}</div>
-                      <div className="text-[13px] text-[#5F6B62]">{e.text}</div>
-                    </div>
-                  ))}
-                </div>
-              </Card>
-            </motion.div>
-
-            <div className="space-y-6">
-              <motion.div {...fadeProps}>
-                <Card className="px-6 py-6">
-                  <h3 className="text-sm uppercase tracking-[0.18em] text-[#0E6B54] font-semibold mb-3">
-                    Honors & Awards
-                  </h3>
-                  <ul className="space-y-1.5 text-sm text-[#374139]">
-                    {HONORS.map((h) => (
-                      <li key={h} className="flex gap-2">
-                        <span className="mt-[6px] h-[2px] w-4 bg-[#0E6B54]/70" />
-                        {h}
-                      </li>
-                    ))}
-                  </ul>
-                </Card>
-              </motion.div>
-
-              <motion.div {...fadeProps}>
-                <Card className="px-6 py-6">
-                  <h3 className="text-sm uppercase tracking-[0.18em] text-[#0E6B54] font-semibold mb-3">
-                    Licenses & Certifications
-                  </h3>
-                  <ul className="space-y-1.5 text-sm text-[#374139]">
-                    {CERTS.map((c) => (
-                      <li key={c} className="flex gap-2">
-                        <span className="mt-[6px] h-[2px] w-4 bg-[#0E6B54]/50" />
-                        {c}
-                      </li>
-                    ))}
-                  </ul>
-                </Card>
-              </motion.div>
-
-              <motion.div {...fadeProps}>
-                <Card className="px-6 py-6">
-                  <h3 className="text-sm uppercase tracking-[0.18em] text-[#0E6B54] font-semibold mb-3">
-                    Languages
-                  </h3>
-                  <ul className="space-y-1.5 text-sm text-[#374139]">
-                    {LANGS.map((l) => (
-                      <li key={l} className="flex gap-2">
-                        <span className="mt-[6px] h-[2px] w-4 bg-[#0E6B54]/40" />
-                        {l}
-                      </li>
-                    ))}
-                  </ul>
-                </Card>
-              </motion.div>
-            </div>
-          </div>
-        </SectionShell>
-
-        {/* CONTACT */}
-        <SectionShell
-          id="contact"
-          label="Contact"
-          theme="contact"
-          scrollDir={scrollDir}
-          scrollSpeed={scrollSpeed}
-        >
-          <motion.div {...fadeProps} className="mt-6">
-            <Card className="flex flex-col md:flex-row md:items-center md:justify-between gap-6 px-6 py-6">
-              <div>
-                <h3 className="text-lg font-semibold text-[#1A1F1A]">
-                  Let’s build something useful.
-                </h3>
-                <p className="text-sm text-[#374139] mt-2 max-w-md">
-                  Always excited to chat about assistive devices
-                  or bioprocess hardware and their application in cell therapy to restore autonomy. 
-                </p>
-              </div>
-
-              <div className="text-sm space-y-1 text-[#1A1F1A]">
-                <p>
-                  Email:{" "}
-                  <a
-                    href="mailto:achevillotte@ucsb.edu"
-                    onClick={(e) => e.stopPropagation()}
-                    className="text-[#0E6B54] underline underline-offset-2"
-                  >
-                    achevillotte@ucsb.edu
-                  </a>
-                </p>
-                <p>
-                  Phone:{" "}
-                  <span className="text-[#0E6B54]">+1 (914) 649-9132</span>
-                </p>
-              </div>
-            </Card>
-          </motion.div>
-        </SectionShell>
-
-        <ImageModal
-          selectedImage={selectedImage}
-          onClose={() => setSelectedImage(null)}
-        />
+        </AnimatePresence>
       </main>
+      <ImageModal
+        selectedImage={selectedImage}
+        onClose={() => setSelectedImage(null)}
+      />
     </>
   );
 }
