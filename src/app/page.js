@@ -518,9 +518,9 @@ function Hero({ navigateTo }) {
             Building patient-first systems where mechanics meet biology.
           </h1>
           <p className="mt-6 max-w-2xl text-base leading-8 text-[#526158] md:text-lg">
-            I’m a mechanical engineering BS/MS candidate at UCSB working across
+            I’m a Masters of Bioprocess Engineering (MBPE) student at the Unversity of California, Berkeley working across
             assistive devices, soft-material interfaces, and single-use
-            bioprocessing systems for cell-therapy manufacturing.
+            bioprocessing systems for cell-therapy manufacturing. 
           </p>
         </div>
 
@@ -545,7 +545,7 @@ function Hero({ navigateTo }) {
           <div className="relative mt-4 grid gap-3 sm:grid-cols-3">
             <div className="rounded-2xl bg-white/70 p-4">
               <div className="text-2xl font-semibold text-[#0E6B54]">
-                BS/MS
+                BS
               </div>
               <div className="mt-1 text-xs text-[#647067]">
                 Mechanical Engineering
@@ -558,9 +558,9 @@ function Hero({ navigateTo }) {
               </div>
             </div>
             <div className="rounded-2xl bg-white/70 p-4">
-              <div className="text-2xl font-semibold text-[#0E6B54]">UCSB</div>
+              <div className="text-2xl font-semibold text-[#0E6B54]">UC Berkeley</div>
               <div className="mt-1 text-xs text-[#647067]">
-                Honors College
+                Master of Bioprocess Engineering
               </div>
             </div>
           </div>
