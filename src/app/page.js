@@ -548,7 +548,7 @@ function Hero({ navigateTo }) {
                 BS
               </div>
               <div className="mt-1 text-xs text-[#647067]">
-                Mechanical Engineering
+                Mechanical Engineering - University of California, Santa Barbara
               </div>
             </div>
             <div className="rounded-2xl bg-white/70 p-4">
