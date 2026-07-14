@@ -642,13 +642,8 @@ function HomeView({ navigateTo }) {
             Overview
           </p>
           <h2 className="mt-3 text-3xl font-semibold tracking-tight text-[#151A15] md:text-5xl">
-            A cleaner homepage. Deeper pages when you want them.
+            Work across assistive technology, research, and bioprocess engineering.
           </h2>
-          <p className="mt-4 text-sm leading-7 text-[#536058] md:text-base">
-            The homepage now gives a fast, visual scan of each portfolio
-            category. The top navigation and Learn More buttons open focused
-            detail views instead of forcing everything into one long scroll.
-          </p>
         </motion.div>
 
         <ShowcasePanel
@@ -676,7 +671,7 @@ function HomeView({ navigateTo }) {
         <ShowcasePanel
           label="Experience"
           title="R&D experience across biotech hardware, research, and automotive systems."
-          text="A compact timeline gives the story at a glance; the full view expands each role into responsibilities, context, and technical focus areas."
+          text="Research and industry roles spanning biotech hardware, soft-matter interfaces, and automotive systems development."
           image="/images/IMG_7857.jpg"
           actionLabel="View experience"
           onAction={() => navigateTo("experience")}
@@ -726,8 +721,8 @@ function HomeView({ navigateTo }) {
                   Leadership, service, languages, and honors.
                 </h3>
                 <p className="mt-4 text-sm leading-7 text-[#536058]">
-                  A concise view of the activities and recognitions that sit
-                  outside the main technical work.
+                  Volunteering, honors, certifications, and languages beyond
+                  core technical work.
                 </p>
               </div>
               <Button
@@ -752,8 +747,8 @@ function HomeView({ navigateTo }) {
                   Let’s build something useful.
                 </h3>
                 <p className="mt-4 text-sm leading-7 text-[#536058]">
-                  A direct, minimal contact page for collaborations, research
-                  conversations, and portfolio follow-up.
+                  Open to collaborations in assistive devices, bioprocess
+                  hardware, and cell-therapy systems.
                 </p>
               </div>
               <Button
@@ -795,7 +790,6 @@ function ProjectsView({ navigateTo, onImageClick }) {
       <SectionIntro
         eyebrow="Projects"
         title="Selected engineering work"
-        text="Each project keeps the deeper content available, but the detail page is structured into cards, tags, images, and concise bullets rather than one continuous block of text."
       />
 
       <div className="mt-12 space-y-7">
@@ -862,7 +856,6 @@ function ExperienceView({ navigateTo }) {
       <SectionIntro
         eyebrow="Experience"
         title="Technical roles across research and industry"
-        text="A minimal timeline that preserves the core details from the original map-based experience section while making it easier to skim."
       />
 
       <div className="relative mt-14">
@@ -915,7 +908,6 @@ function EducationView({ navigateTo }) {
       <SectionIntro
         eyebrow="Education"
         title="Academic foundation"
-        text="A cleaner academic overview with the main programs, dates, GPA context, and associated activities."
       />
 
       <div className="mt-12 grid gap-5 md:grid-cols-3">
@@ -954,7 +946,6 @@ function BackgroundView({ navigateTo }) {
       <SectionIntro
         eyebrow="Background"
         title="Leadership, service, honors, and languages"
-        text="The supporting material now lives in one focused area instead of being another long homepage section."
       />
 
       <div className="mt-12 grid gap-5 lg:grid-cols-[1.2fr,0.8fr]">
@@ -1161,6 +1152,8 @@ export default function Page() {
     </>
   );
 }
+
+
 
 
 
