@@ -59,7 +59,8 @@ const PROJECTS = [
   {
     id: "dressaire-lab",
     title: "Capillary Bridge Testing on Experimental Gel — Dressaire Lab",
-    subtitle: "Tensile testing of viscoelastic gels for cystic-fibrosis applications",
+    subtitle:
+      "Tensile testing of viscoelastic gels for cystic-fibrosis applications",
     summary:
       "A soft-matter research platform for measuring capillary adhesion, wetting, and force–separation behavior on experimental gels.",
     description:
@@ -207,10 +208,16 @@ const EXPERIENCE = [
 
 const EDUCATION = [
   {
+    school: "UC Berkeley",
+    line: "Master of Bioprocess Engineering",
+    time: "Aug 2026 – May 2027 (Expected)",
+    extras: ["College of Chemistry"],
+  },
+  {
     school: "UC Santa Barbara",
-    line: "Honors BS/MS Mechanical Engineering",
-    time: "Jun 2023 – Jun 2027",
-    gpa: "3.82",
+    line: "Mechanical Engineering",
+    time: "Jun 2023 – Jun 2026",
+    gpa: "3.86 - Graduated with Academic Honors",
     extras: ["Honors College", "Tau Beta Pi", "Formula SAE", "Dressaire Lab"],
   },
   {
@@ -400,6 +407,7 @@ function Header({ view, navigateTo }) {
           <div className="flex items-center gap-1 rounded-full border border-white/100 bg-white/60 p-1 shadow-sm">
             {NAV_ITEMS.map((item) => {
               const active = view === item.id;
+
               return (
                 <button
                   key={item.id}
@@ -518,9 +526,10 @@ function Hero({ navigateTo }) {
             Building patient-first systems where mechanics meet biology.
           </h1>
           <p className="mt-6 max-w-2xl text-base leading-8 text-[#526158] md:text-lg">
-            I’m a Masters of Bioprocess Engineering (MBPE) student at the Unversity of California, Berkeley working across
-            assistive devices, soft-material interfaces, and single-use
-            bioprocessing systems for cell-therapy manufacturing. 
+            I’m a Masters of Bioprocess Engineering (MBPE) student at the
+            Unversity of California, Berkeley working across assistive devices,
+            soft-material interfaces, and single-use bioprocessing systems for
+            cell-therapy manufacturing.
           </p>
         </div>
 
@@ -542,23 +551,27 @@ function Hero({ navigateTo }) {
               className="h-[32rem] w-full object-cover"
             />
           </div>
+
           <div className="relative mt-4 grid gap-3 sm:grid-cols-3">
             <div className="rounded-2xl bg-white/70 p-4">
-              <div className="text-2xl font-semibold text-[#0E6B54]">
-                BS
-              </div>
+              <div className="text-2xl font-semibold text-[#0E6B54]">BS</div>
               <div className="mt-1 text-xs text-[#647067]">
-                Mechanical Engineering - University of California, Santa Barbara
+                Mechanical Engineering - University of California, Santa
+                Barbara
               </div>
             </div>
+
             <div className="rounded-2xl bg-white/70 p-4">
               <div className="text-2xl font-semibold text-[#0E6B54]">R&D</div>
               <div className="mt-1 text-xs text-[#647067]">
                 Bioprocess Systems
               </div>
             </div>
+
             <div className="rounded-2xl bg-white/70 p-4">
-              <div className="text-2xl font-semibold text-[#0E6B54]">UC Berkeley</div>
+              <div className="text-2xl font-semibold text-[#0E6B54]">
+                UC Berkeley
+              </div>
               <div className="mt-1 text-xs text-[#647067]">
                 Master of Bioprocess Engineering
               </div>
@@ -611,6 +624,7 @@ function ShowcasePanel({
         }`}
       >
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_35%,rgba(255,255,255,0.86),transparent_48%)]" />
+
         {image ? (
           <img
             src={image}
@@ -642,7 +656,8 @@ function HomeView({ navigateTo }) {
             Overview
           </p>
           <h2 className="mt-3 text-3xl font-semibold tracking-tight text-[#151A15] md:text-5xl">
-            Work across assistive technology, research, and bioprocess engineering.
+            Work across assistive technology, research, and bioprocess
+            engineering.
           </h2>
         </motion.div>
 
@@ -692,7 +707,7 @@ function HomeView({ navigateTo }) {
                   Education
                 </p>
                 <h3 className="mt-3 text-3xl font-semibold tracking-tight text-[#151A15]">
-                  UCSB, UC Davis, and engineering fundamentals.
+                  UC Berkeley, UCSB, UC Davis, and engineering fundamentals.
                 </h3>
                 <p className="mt-4 text-sm leading-7 text-[#536058]">
                   A focused academic path in mechanical engineering, honors
@@ -769,7 +784,11 @@ function HomeView({ navigateTo }) {
    DETAIL VIEWS
 ----------------------------------------------------- */
 
-function DetailFrame({ children, backLabel = "Back to overview", navigateTo }) {
+function DetailFrame({
+  children,
+  backLabel = "Back to overview",
+  navigateTo,
+}) {
   return (
     <section className="mx-auto max-w-7xl px-4 py-12 md:px-6 md:py-16">
       <Button
@@ -787,10 +806,7 @@ function DetailFrame({ children, backLabel = "Back to overview", navigateTo }) {
 function ProjectsView({ navigateTo, onImageClick }) {
   return (
     <DetailFrame navigateTo={navigateTo}>
-      <SectionIntro
-        eyebrow="Projects"
-        title="Selected engineering work"
-      />
+      <SectionIntro eyebrow="Projects" title="Selected engineering work" />
 
       <div className="mt-12 space-y-7">
         {PROJECTS.map((project, index) => (
@@ -819,11 +835,14 @@ function ProjectsView({ navigateTo, onImageClick }) {
                 }`}
               >
                 <div className="flex flex-wrap items-center gap-2">
-                  <Pill tone="dark">{String(index + 1).padStart(2, "0")}</Pill>
+                  <Pill tone="dark">
+                    {String(index + 1).padStart(2, "0")}
+                  </Pill>
                   {project.meta.map((tag) => (
                     <Pill key={tag}>{tag}</Pill>
                   ))}
                 </div>
+
                 <h2 className="mt-5 text-2xl font-semibold tracking-tight text-[#151A15] md:text-4xl">
                   {project.title}
                 </h2>
@@ -833,6 +852,7 @@ function ProjectsView({ navigateTo, onImageClick }) {
                 <p className="mt-5 text-sm leading-7 text-[#536058] md:text-base">
                   {project.description}
                 </p>
+
                 <ul className="mt-6 space-y-3 text-sm leading-6 text-[#425047]">
                   {project.details.map((detail) => (
                     <li key={detail} className="flex gap-3">
@@ -860,6 +880,7 @@ function ExperienceView({ navigateTo }) {
 
       <div className="relative mt-14">
         <div className="absolute left-4 top-2 hidden h-[calc(100%-1rem)] w-px bg-[#0E6B54]/20 md:block" />
+
         <div className="space-y-5">
           {EXPERIENCE.map((item, index) => (
             <motion.article
@@ -868,6 +889,7 @@ function ExperienceView({ navigateTo }) {
               className="relative grid gap-5 rounded-[2rem] border border-white/100 bg-white/60 p-6 shadow-[0_20px_60px_rgba(22,45,33,0.07)] backdrop-blur-xl md:grid-cols-[0.34fr,0.66fr] md:p-8 md:pl-12"
             >
               <div className="absolute left-[0.8rem] top-9 hidden h-3 w-3 rounded-full bg-[#0E6B54] ring-8 ring-[#F6F7F3] md:block" />
+
               <div>
                 <div className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0E6B54]/70">
                   {String(index + 1).padStart(2, "0")}
@@ -881,6 +903,7 @@ function ExperienceView({ navigateTo }) {
                 </p>
                 <p className="mt-1 text-sm text-[#536058]">{item.location}</p>
               </div>
+
               <div>
                 <p className="text-sm leading-7 text-[#536058] md:text-base">
                   {item.summary}
@@ -905,12 +928,9 @@ function ExperienceView({ navigateTo }) {
 function EducationView({ navigateTo }) {
   return (
     <DetailFrame navigateTo={navigateTo}>
-      <SectionIntro
-        eyebrow="Education"
-        title="Academic foundation"
-      />
+      <SectionIntro eyebrow="Education" title="Academic foundation" />
 
-      <div className="mt-12 grid gap-5 md:grid-cols-3">
+      <div className="mt-12 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
         {EDUCATION.map((edu, index) => (
           <motion.article
             key={edu.school}
@@ -918,7 +938,10 @@ function EducationView({ navigateTo }) {
             transition={{ ...fadeIn.transition, delay: index * 0.06 }}
           >
             <SoftCard className="h-full p-7">
-              <Pill tone="dark">{String(index + 1).padStart(2, "0")}</Pill>
+              <Pill tone="dark">
+                {String(index + 1).padStart(2, "0")}
+              </Pill>
+
               <h2 className="mt-5 text-2xl font-semibold tracking-tight text-[#151A15]">
                 {edu.school}
               </h2>
@@ -926,7 +949,11 @@ function EducationView({ navigateTo }) {
                 {edu.line}
               </p>
               <p className="mt-5 text-sm text-[#536058]">{edu.time}</p>
-              <p className="mt-1 text-sm text-[#536058]">GPA: {edu.gpa}</p>
+
+              {edu.gpa && (
+                <p className="mt-1 text-sm text-[#536058]">GPA: {edu.gpa}</p>
+              )}
+
               <div className="mt-6 flex flex-wrap gap-2">
                 {edu.extras.map((extra) => (
                   <Pill key={extra}>{extra}</Pill>
@@ -954,6 +981,7 @@ function BackgroundView({ navigateTo }) {
             <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#0E6B54]/70">
               Volunteering & Leadership
             </p>
+
             <div className="mt-7 grid gap-4 sm:grid-cols-2">
               {EXTRAS.map((item) => (
                 <div key={item.title} className="rounded-3xl bg-white/60 p-5">
@@ -986,6 +1014,7 @@ function ListCard({ title, items }) {
         <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#0E6B54]/70">
           {title}
         </p>
+
         <ul className="mt-5 space-y-3 text-sm leading-6 text-[#425047]">
           {items.map((item) => (
             <li key={item} className="flex gap-3">
@@ -1014,13 +1043,15 @@ function ContactView({ navigateTo }) {
             Always excited to chat about assistive devices, bioprocess hardware,
             and cell-therapy systems that restore autonomy.
           </p>
+
           <div className="mt-8 flex flex-wrap gap-3">
             <a
-              href="mailto:achevillotte@ucsb.edu"
+              href="mailto:achevillotte@berkeley.edu"
               className="inline-flex items-center justify-center rounded-full bg-[#0E6B54] px-5 py-3 text-sm font-medium text-white shadow-[0_10px_28px_rgba(14,107,84,0.22)] transition hover:bg-[#0B5A47]"
             >
               Email me
             </a>
+
             <a
               href="tel:+19146499132"
               className="inline-flex items-center justify-center rounded-full border border-[#DDE3DA] bg-white/70 px-5 py-3 text-sm font-medium text-[#1A1F1A] transition hover:bg-white"
@@ -1042,21 +1073,24 @@ function ContactView({ navigateTo }) {
                 className="h-[24rem] w-full object-cover"
               />
             </div>
+
             <div className="p-5">
               <h2 className="text-xl font-semibold text-[#151A15]">{NAME}</h2>
               <p className="mt-1 text-sm text-[#536058]">
-                Honors BS/MS · Mechanical Engineering, UCSB
+                Mechanical Engineering, UCSB
               </p>
+
               <div className="mt-5 space-y-2 text-sm text-[#425047]">
                 <p>
                   Email:{" "}
                   <a
-                    href="mailto:achevillotte@ucsb.edu"
+                    href="mailto:achevillotte@berkeley.edu"
                     className="font-medium text-[#0E6B54] underline underline-offset-4"
                   >
-                    achevillotte@ucsb.edu
+                    achevillotte@berkeley.edu
                   </a>
                 </p>
+
                 <p>
                   Phone:{" "}
                   <span className="font-medium text-[#0E6B54]">
@@ -1082,18 +1116,22 @@ export default function Page() {
 
   useEffect(() => {
     const syncFromHash = () => setView(normalizeHash());
+
     syncFromHash();
     window.addEventListener("hashchange", syncFromHash);
+
     return () => window.removeEventListener("hashchange", syncFromHash);
   }, []);
 
   const navigateTo = (nextView) => {
     const safeView = VIEWS.includes(nextView) ? nextView : "home";
+
     setView(safeView);
 
     if (typeof window !== "undefined") {
       const nextUrl =
         safeView === "home" ? window.location.pathname : `#${safeView}`;
+
       window.history.pushState(null, "", nextUrl);
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
@@ -1110,18 +1148,23 @@ export default function Page() {
         />
       );
       break;
+
     case "experience":
       renderedView = <ExperienceView navigateTo={navigateTo} />;
       break;
+
     case "education":
       renderedView = <EducationView navigateTo={navigateTo} />;
       break;
+
     case "background":
       renderedView = <BackgroundView navigateTo={navigateTo} />;
       break;
+
     case "contact":
       renderedView = <ContactView navigateTo={navigateTo} />;
       break;
+
     case "home":
     default:
       renderedView = <HomeView navigateTo={navigateTo} />;
@@ -1131,8 +1174,10 @@ export default function Page() {
   return (
     <>
       <Background />
+
       <main className="min-h-screen text-[#151A15]">
         <Header view={view} navigateTo={navigateTo} />
+
         <AnimatePresence mode="wait">
           <motion.div
             key={view}
@@ -1145,6 +1190,7 @@ export default function Page() {
           </motion.div>
         </AnimatePresence>
       </main>
+
       <ImageModal
         selectedImage={selectedImage}
         onClose={() => setSelectedImage(null)}
@@ -1152,8 +1198,6 @@ export default function Page() {
     </>
   );
 }
-
-
 
 
 
